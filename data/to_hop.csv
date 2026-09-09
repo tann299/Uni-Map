@@ -1,0 +1,329 @@
+﻿ma_to_hop,ten_to_hop,cac_mon,nguon,so_mon
+A00,"Toán, Vật lý, Hóa học","TOAN,LI,HOA",BoGD2025,3
+A01,"Toán, Vật lý, Tiếng Anh","TOAN,LI,ANH",BoGD2025,3
+A02,"Toán, Vật lý, Sinh học","TOAN,LI,SINH",BoGD2025,3
+A03,"Toán, Vật lý, Lịch sử","TOAN,LI,SU",BoGD2025,3
+A04,"Toán, Vật lý, Địa lý","TOAN,LI,DIA",BoGD2025,3
+A05,"Toán, Hóa học, Lịch sử","TOAN,HOA,SU",BoGD2025,3
+A06,"Toán, Hóa học, Địa lý","TOAN,HOA,DIA",BoGD2025,3
+A07,"Toán, Lịch sử, Địa lý","TOAN,SU,DIA",BoGD2025,3
+A08,"Toán, Lịch sử, Giáo dục công dân","TOAN,SU,GDCD",BoGD2025,3
+A09,"Toán, Địa lý, Giáo dục công dân","TOAN,DIA,GDCD",BoGD2025,3
+A10,"Toán, Vật lý, Giáo dục công dân","TOAN,LI,GDCD",BoGD2025,3
+A11,"Toán, Hoá học, Giáo dục công dân","TOAN,HOA,GDCD",BoGD2025,3
+A12,"Toán, Khoa học tự nhiên, Khoa học xã hội","TOAN,KHTN,KHXH",BoGD2025,3
+A13,"Toán, Khoa học tự nhiên, Lịch sử","TOAN,KHTN,SU",BoGD2025,3
+A14,"Toán, Khoa học tự nhiên, Địa lý","TOAN,KHTN,DIA",BoGD2025,3
+A15,"Toán, Khoa học tự nhiên, Giáo dục công dân","TOAN,KHTN,GDCD",BoGD2025,3
+A16,"Toán, Khoa học tự nhiên, Ngữ văn","TOAN,KHTN,VAN",BoGD2025,3
+A17,"Toán, Vật lý, Khoa học xã hội","TOAN,LI,KHXH",BoGD2025,3
+A18,"Toán, Hoá học, Khoa học xã hội","TOAN,HOA,KHXH",BoGD2025,3
+A19,,,,0
+A21,,,,0
+B00,"Toán, Hóa học, Sinh học","TOAN,HOA,SINH",BoGD2025,3
+B01,"Toán, Sinh học, Lịch sử","TOAN,SINH,SU",BoGD2025,3
+B02,"Toán, Sinh học, Địa lý","TOAN,SINH,DIA",BoGD2025,3
+B03,"Toán, Sinh học, Ngữ văn","TOAN,SINH,VAN",BoGD2025,3
+B04,"Toán, Sinh học, Giáo dục công dân","TOAN,SINH,GDCD",BoGD2025,3
+B05,"Toán, Sinh học, Khoa học xã hội","TOAN,SINH,KHXH",BoGD2025,3
+B08,"Toán, Sinh học, Tiếng Anh","TOAN,SINH,ANH",BoGD2025,3
+C00,"Ngữ văn, Lịch sử, Địa lý","VAN,SU,DIA",BoGD2025,3
+C01,"Ngữ văn, Toán, Vật lý","VAN,TOAN,LI",BoGD2025,3
+C02,"Ngữ văn, Toán, Hóa học","VAN,TOAN,HOA",BoGD2025,3
+C03,"Ngữ văn, Toán, Lịch sử","VAN,TOAN,SU",BoGD2025,3
+C04,"Ngữ văn, Toán, Địa lý","VAN,TOAN,DIA",BoGD2025,3
+C05,"Ngữ văn, Vật lý, Hóa học","VAN,LI,HOA",BoGD2025,3
+C06,"Ngữ văn, Vật lý, Sinh học","VAN,LI,SINH",BoGD2025,3
+C07,"Ngữ văn, Vật lý, Lịch sử","VAN,LI,SU",BoGD2025,3
+C08,"Ngữ văn, Hóa học, Sinh học","VAN,HOA,SINH",BoGD2025,3
+C09,"Ngữ văn, Vật lý, Địa lý","VAN,LI,DIA",BoGD2025,3
+C10,"Ngữ văn, Hóa học, Lịch sử","VAN,HOA,SU",BoGD2025,3
+C11,"Ngữ văn, Hóa học, Địa lý","VAN,HOA,DIA",BoGD2025,3
+C12,"Ngữ văn, Sinh học, Lịch sử","VAN,SINH,SU",BoGD2025,3
+C13,"Ngữ văn, Sinh học, Địa lý","VAN,SINH,DIA",BoGD2025,3
+C14,"Ngữ văn, Toán, Giáo dục công dân","VAN,TOAN,GDCD",BoGD2025,3
+C15,"Ngữ văn, Toán, Khoa học xã hội","VAN,TOAN,KHXH",BoGD2025,3
+C16,"Ngữ văn, Vật lý, Giáo dục công dân","VAN,LI,GDCD",BoGD2025,3
+C17,"Ngữ văn, Hóa học, Giáo dục công dân","VAN,HOA,GDCD",BoGD2025,3
+C18,"Ngữ văn, Sinh học, Giáo dục công dân","VAN,SINH,GDCD",BoGD2025,3
+C19,"Ngữ văn, Lịch sử, Giáo dục công dân","VAN,SU,GDCD",BoGD2025,3
+C20,"Ngữ văn, Địa lý, Giáo dục công dân","VAN,DIA,GDCD",BoGD2025,3
+C21,"Ngữ văn, Khoa học tự nhiên, Khoa học xã hôi","VAN,KHTN,KHXH",BoGD2025,3
+C22,"Ngữ văn, Địa lý, Khoa học tự nhiên","VAN,DIA,KHTN",BoGD2025,3
+C23,"Ngữ văn, Giáo dục công dân, Khoa học tự nhiên","VAN,GDCD,KHTN",BoGD2025,3
+C24,"Ngữ văn, Khoa học xã hội, Vật lý","VAN,KHXH,LI",BoGD2025,3
+C25,"Ngữ văn, Khoa học xã hội, Hoá học","VAN,KHXH,HOA",BoGD2025,3
+C26,"Ngữ văn, Khoa học xã hội, Sinh học","VAN,KHXH,SINH",BoGD2025,3
+D00,,,,0
+D01,"Ngữ văn, Toán, Tiếng Anh","VAN,TOAN,ANH",BoGD2025,3
+D02,"Ngữ văn, Toán, Tiếng Nga","VAN,TOAN,NGA",BoGD2025,3
+D03,"Ngữ văn, Toán, Tiếng Pháp","VAN,TOAN,PHAP",BoGD2025,3
+D04,"Ngữ văn, Toán, Tiếng Trung","VAN,TOAN,TRUNG",BoGD2025,3
+D05,"Ngữ văn, Toán, Tiếng Đức","VAN,TOAN,DUC",BoGD2025,3
+D06,"Ngữ văn, Toán, Tiếng Nhật","VAN,TOAN,NHAT",BoGD2025,3
+D07,"Toán, Hóa học, Tiếng Anh","TOAN,HOA,ANH",BoGD2025,3
+D08,"Toán, Sinh học, Tiếng Anh","TOAN,SINH,ANH",BoGD2025,3
+D09,"Toán, Lịch sử, Tiếng Anh","TOAN,SU,ANH",BoGD2025,3
+D10,"Toán, Địa lý, Tiếng Anh","TOAN,DIA,ANH",BoGD2025,3
+D11,"Ngữ văn, Vật lý, Tiếng Anh","VAN,LI,ANH",BoGD2025,3
+D12,"Ngữ văn, Hóa học, Tiếng Anh","VAN,HOA,ANH",BoGD2025,3
+D13,"Ngữ văn, Sinh học, Tiếng Anh","VAN,SINH,ANH",BoGD2025,3
+D14,"Ngữ văn, Lịch sử, Tiếng Anh","VAN,SU,ANH",BoGD2025,3
+D15,"Ngữ văn, Địa lý, Tiếng Anh","VAN,DIA,ANH",BoGD2025,3
+D16,"Toán, Địa lý, Tiếng Đức","TOAN,DIA,DUC",BoGD2025,3
+D17,"Toán, Địa lý, Tiếng Nga","TOAN,DIA,NGA",BoGD2025,3
+D18,"Toán, Địa lý, Tiếng Nhật","TOAN,DIA,NHAT",BoGD2025,3
+D19,"Toán, Địa lý, Tiếng Pháp","TOAN,DIA,PHAP",BoGD2025,3
+D20,"Toán, Địa lý, Tiếng Trung","TOAN,DIA,TRUNG",BoGD2025,3
+D21,"Toán, Hóa học, Tiếng Đức","TOAN,HOA,DUC",BoGD2025,3
+D22,"Toán, Hóa học, Tiếng Nga","TOAN,HOA,NGA",BoGD2025,3
+D23,"Toán, Hóa học, Tiếng Nhật","TOAN,HOA,NHAT",BoGD2025,3
+D24,"Toán, Hóa học, Tiếng Pháp","TOAN,HOA,PHAP",BoGD2025,3
+D25,"Toán, Hóa học, Tiếng Trung","TOAN,HOA,TRUNG",BoGD2025,3
+D26,"Toán, Vật lý, Tiếng Đức","TOAN,LI,DUC",BoGD2025,3
+D27,"Toán, Vật lý, Tiếng Nga","TOAN,LI,NGA",BoGD2025,3
+D28,"Toán, Vật lý, Tiếng Nhật","TOAN,LI,NHAT",BoGD2025,3
+D29,"Toán, Vật lý, Tiếng Pháp","TOAN,LI,PHAP",BoGD2025,3
+D30,"Toán, Vật lý, Tiếng Trung","TOAN,LI,TRUNG",BoGD2025,3
+D31,"Toán, Sinh học, Tiếng Đức","TOAN,SINH,DUC",BoGD2025,3
+D32,"Toán, Sinh học, Tiếng Nga","TOAN,SINH,NGA",BoGD2025,3
+D33,"Toán, Sinh học, Tiếng Nhật","TOAN,SINH,NHAT",BoGD2025,3
+D34,"Toán, Sinh học, Tiếng Pháp","TOAN,SINH,PHAP",BoGD2025,3
+D35,"Toán, Sinh học, Tiếng Trung","TOAN,SINH,TRUNG",BoGD2025,3
+D36,"Toán, Lịch sử, Tiếng Đức","TOAN,SU,DUC",BoGD2025,3
+D37,"Toán, Lịch sử, Tiếng Nga","TOAN,SU,NGA",BoGD2025,3
+D38,"Toán, Lịch sử, Tiếng Nhật","TOAN,SU,NHAT",BoGD2025,3
+D39,"Toán, Lịch sử, Tiếng Pháp","TOAN,SU,PHAP",BoGD2025,3
+D40,"Toán, Lịch sử, Tiếng Trung","TOAN,SU,TRUNG",BoGD2025,3
+D41,"Ngữ văn, Địa lý, Tiếng Đức","VAN,DIA,DUC",BoGD2025,3
+D42,"Ngữ văn, Địa lý, Tiếng Nga","VAN,DIA,NGA",BoGD2025,3
+D43,"Ngữ văn, Địa lý, Tiếng Nhật","VAN,DIA,NHAT",BoGD2025,3
+D44,"Ngữ văn, Địa lý, Tiếng Pháp","VAN,DIA,PHAP",BoGD2025,3
+D45,"Ngữ văn, Địa lý, Tiếng Trung","VAN,DIA,TRUNG",BoGD2025,3
+D48,"Ngữ văn, Hóa học, Tiếng Nhật","VAN,HOA,NHAT",BoGD2025,3
+D50,"Ngữ văn, Hóa học, Tiếng Trung","VAN,HOA,TRUNG",BoGD2025,3
+D51,"Ngữ văn, Vật lý, Tiếng Đức","VAN,LI,DUC",BoGD2025,3
+D52,"Ngữ văn, Vật lý, Tiếng Nga","VAN,LI,NGA",BoGD2025,3
+D53,"Ngữ văn, Vật lý, Tiếng Nhật","VAN,LI,NHAT",BoGD2025,3
+D54,"Ngữ văn, Vật lý, Tiếng Pháp","VAN,LI,PHAP",BoGD2025,3
+D55,"Ngữ văn, Vật lý, Tiếng Trung","VAN,LI,TRUNG",BoGD2025,3
+D58,"Ngữ văn, Sinh học, Tiếng Nhật","VAN,SINH,NHAT",BoGD2025,3
+D60,"Ngữ văn, Sinh học, Tiếng Trung","VAN,SINH,TRUNG",BoGD2025,3
+D61,"Ngữ văn, Lịch sử, Tiếng Đức","VAN,SU,DUC",BoGD2025,3
+D62,"Ngữ văn, Lịch sử, Tiếng Nga","VAN,SU,NGA",BoGD2025,3
+D63,"Ngữ văn, Lịch sử, Tiếng Nhật","VAN,SU,NHAT",BoGD2025,3
+D64,"Ngữ văn, Lịch sử, Tiếng Pháp","VAN,SU,PHAP",BoGD2025,3
+D65,"Ngữ văn, Lịch sử, Tiếng Trung","VAN,SU,TRUNG",BoGD2025,3
+D66,"Ngữ văn, Giáo dục công dân, Tiếng Anh","VAN,GDCD,ANH",BoGD2025,3
+D67,"Ngữ văn, Giáo dục công dân, Tiếng Đức","VAN,GDCD,DUC",BoGD2025,3
+D68,"Ngữ văn, Giáo dục công dân, Tiếng Nga","VAN,GDCD,NGA",BoGD2025,3
+D69,"Ngữ văn, Giáo dục công dân, Tiếng Nhật","VAN,GDCD,NHAT",BoGD2025,3
+D70,"Ngữ văn, Giáo dục công dân, Tiếng Pháp","VAN,GDCD,PHAP",BoGD2025,3
+D71,"Ngữ văn, Giáo dục công dân, Tiếng Trung","VAN,GDCD,TRUNG",BoGD2025,3
+D72,"Ngữ văn, Khoa học tự nhiên, Tiếng Anh","VAN,KHTN,ANH",BoGD2025,3
+D73,"Ngữ văn, Khoa học tự nhiên, Tiếng Đức","VAN,KHTN,DUC",BoGD2025,3
+D74,"Ngữ văn, Khoa học tự nhiên, Tiếng Nga","VAN,KHTN,NGA",BoGD2025,3
+D75,"Ngữ văn, Khoa học tự nhiên, Tiếng Nhật","VAN,KHTN,NHAT",BoGD2025,3
+D76,"Ngữ văn, Khoa học tự nhiên, Tiếng Pháp","VAN,KHTN,PHAP",BoGD2025,3
+D77,"Ngữ văn, Khoa học tự nhiên, Tiếng Trung","VAN,KHTN,TRUNG",BoGD2025,3
+D78,"Ngữ văn, Khoa học xã hội, Tiếng Anh","VAN,KHXH,ANH",BoGD2025,3
+D79,"Ngữ văn, Khoa học xã hội, Tiếng Đức","VAN,KHXH,DUC",BoGD2025,3
+D80,"Ngữ văn, Khoa học xã hội, Tiếng Nga","VAN,KHXH,NGA",BoGD2025,3
+D81,"Ngữ văn, Khoa học xã hội, Tiếng Nhật","VAN,KHXH,NHAT",BoGD2025,3
+D82,"Ngữ văn, Khoa học xã hội, Tiếng Pháp","VAN,KHXH,PHAP",BoGD2025,3
+D83,"Ngữ văn, Khoa học xã hội, Tiếng Trung","VAN,KHXH,TRUNG",BoGD2025,3
+D84,"Toán, Giáo dục công dân, Tiếng Anh","TOAN,GDCD,ANH",BoGD2025,3
+D86,"Toán, Giáo dục công dân, Tiếng Nga","TOAN,GDCD,NGA",BoGD2025,3
+D87,"Toán, Giáo dục công dân, Tiếng Pháp","TOAN,GDCD,PHAP",BoGD2025,3
+D88,"Toán, Giáo dục công dân, Tiếng Nhật","TOAN,GDCD,NHAT",BoGD2025,3
+D89,"Toán, Giáo dục công dân, Tiếng Trung","TOAN,GDCD,TRUNG",BoGD2025,3
+D90,"Toán, Khoa học tự nhiên, Tiếng Anh","TOAN,KHTN,ANH",BoGD2025,3
+D91,"Toán, Khoa học tự nhiên, Tiếng Pháp","TOAN,KHTN,PHAP",BoGD2025,3
+D92,"Toán, Khoa học tự nhiên, Tiếng Đức","TOAN,KHTN,DUC",BoGD2025,3
+D93,"Toán, Khoa học tự nhiên, Tiếng Nga","TOAN,KHTN,NGA",BoGD2025,3
+D94,"Toán, Khoa học tự nhiên, Tiếng Nhật","TOAN,KHTN,NHAT",BoGD2025,3
+D95,"Toán, Khoa học tự nhiên, Tiếng Trung","TOAN,KHTN,TRUNG",BoGD2025,3
+D96,"Toán, Khoa học xã hội, Tiếng Anh","TOAN,KHXH,ANH",BoGD2025,3
+D97,"Toán, Khoa học xã hội, Tiếng Pháp","TOAN,KHXH,PHAP",BoGD2025,3
+D98,"Toán, Khoa học xã hội, Tiếng Đức","TOAN,KHXH,DUC",BoGD2025,3
+E01,,,,0
+E02,,,,0
+E03,,,,0
+E04,,,,0
+E05,,,,0
+E06,,,,0
+G00,,,,0
+H00,"Ngữ văn, Năng khiếu vẽ NT 1, Năng khiếu vẽ NT 2","VAN,NK,NK",BoGD2025,3
+H01,"Toán, Ngữ văn, Vẽ MT","TOAN,VAN,NK",BoGD2025,3
+H02,"Toán, Tiếng Anh, Vẽ MT","TOAN,ANH,NK",BoGD2025,3
+H03,"Toán, Khoa học tự nhiên, Vẽ MT","TOAN,KHTN,NK",BoGD2025,3
+H04,"Toán, Tiếng Anh, Vẽ MT","TOAN,ANH,NK",BoGD2025,3
+H05,"Ngữ Văn, Khoa học Xã hội, Vẽ MT","VAN,KHXH,NK",BoGD2025,3
+H06,"Ngữ văn, Tiếng Anh, Vẽ MT","VAN,ANH,NK",BoGD2025,3
+H07,"Toán, Năng khiếu vẽ NT 1, Năng khiếu vẽ NT 2","TOAN,NK,NK",BoGD2025,3
+H08,"Ngữ văn, Lịch sử, Vẽ MT","VAN,SU,NK",BoGD2025,3
+H09,"Ngữ Văn, Địa, Năng khiếu","VAN,DIA,NK",tuyensinh247,3
+H10,,,,0
+H11,,,,0
+K00,"Toán, Vật lý, Kĩ thuật nghề","TOAN,LI,KT_NGHE",BoGD2025,3
+K01,"Toán, Tiếng Anh, Tin học","TOAN,ANH,TIN",BoGD2025,3
+M00,"Ngữ văn, Toán, Năng khiếu","VAN,TOAN,NK",BoGD2025,3
+M01,"Ngữ văn, Sử, Năng khiếu","VAN,SU,NK",BoGD2025,3
+M02,"Toán, KHXH, Năng khiếu","TOAN,KHXH,NK",BoGD2025,3
+M03,"Ngữ văn, KHXH, Năng khiếu","VAN,KHXH,NK",BoGD2025,3
+M04,"Toán, KHTN, Năng khiếu","TOAN,KHTN,NK",BoGD2025,3
+M05,"Ngữ văn, Lịch sử, Năng khiếu","VAN,SU,NK",BoGD2025,3
+M06,"Ngữ văn, Toán, Năng khiếu","VAN,TOAN,NK",BoGD2025,3
+M07,"Ngữ văn, Địa lý, Năng khiếu","VAN,DIA,NK",BoGD2025,3
+M08,"Tiếng Anh, NK1, NK2","ANH,NK,NK",BoGD2025,3
+M09,"Toán, NK1, NK2","TOAN,NK,NK",BoGD2025,3
+M10,"Toán, Tiếng Anh, NK","TOAN,ANH,NK",BoGD2025,3
+M11,"Ngữ văn, Tiếng Anh, NK","VAN,ANH,NK",BoGD2025,3
+M13,"Toán, Sinh, Năng khiếu Mầm non","TOAN,SINH,NK",BoGD2025,3
+M14,"Toán, Địa lý, Năng khiếu Mầm non","TOAN,DIA,NK",BoGD2025,3
+M19,,,,0
+M20,,,,0
+M21,,,,0
+M26,"Ngữ văn, Địa, Năng khiếu","VAN,DIA,NK",BoGD2025,3
+M27,"Ngữ văn, Anh, Năng khiếu","VAN,ANH,NK",BoGD2025,3
+M28,"Ngữ văn, Công nghệ công nghiệp, Năng khiếu","VAN,CN_CN,NK",BoGD2025,3
+M29,"Ngữ văn, Công nghệ nông nghiệp, Năng khiếu","VAN,CN_NN,NK",BoGD2025,3
+M30,"Ngữ văn, Giáo dục Kinh tế và pháp luật, Năng khiếu","VAN,GDKTPL,NK",BoGD2025,3
+N00,"Ngữ văn, Năng khiếu Âm nhạc 1, Năng khiếu Âm nhạc 2","VAN,NK,NK",BoGD2025,3
+N01,"Toán, Năng khiếu Âm nhạc 1, Năng khiếu Âm nhạc 2","TOAN,NK,NK",BoGD2025,3
+N02,"Ngữ văn, Ký xướng âm, Hát hoặc biểu diễn nhạc cụ","VAN,NK,NK",tuyensinh247,3
+N03,"Ngữ văn, Tiếng Anh, NK âm nhạc","VAN,ANH,NK",BoGD2025,3
+N04,"Ngữ văn, Năng khiếu thuyết trình, năng khiếu","VAN,NK,NK",BoGD2025,3
+N05,"Ngữ văn, Xây dựng kịch bản sự kiện, Năng khiếu","VAN,NK,NK",BoGD2025,3
+N06,,,,0
+N07,,,,0
+Q00,"Tư duy định lượng, Tư duy định tính, Khoa học/ Tiếng Anh","DGTD_DL,DGTD_DT,KHOAHOC_ANH",tuyensinh247,3
+Q01,,,,0
+Q02,,,,0
+R00,"Ngữ văn, Lịch sử, Năng khiếu báo chí","VAN,SU,NK",BoGD2025,3
+R01,"Ngữ văn, Địa lý, Năng khiếu nghệ thuật","VAN,DIA,NK",BoGD2025,3
+R02,"Ngữ văn, Toán, Năng khiếu nghệ thuật","VAN,TOAN,NK",BoGD2025,3
+R03,"Ngữ văn, tiếng Anh, Năng khiếu nghệ thuật","VAN,ANH,NK",BoGD2025,3
+R04,"Ngữ văn, Năng khiếu nghệ thuật 1, Năng khiếu nghệ thuật 2","VAN,NK,NK",BoGD2025,3
+R05,,,,0
+R06,,,,0
+R07,,,,0
+R08,,,,0
+R09,,,,0
+R11,,,,0
+R12,,,,0
+R13,,,,0
+R15,,,,0
+R16,,,,0
+R17,,,,0
+R18,,,,0
+R19,,,,0
+R20,,,,0
+R21,,,,0
+R22,,,,0
+R23,,,,0
+R24,,,,0
+R25,,,,0
+R26,,,,0
+R27,,,,0
+S00,"Ngữ văn, NK SKĐA 1, NK SKĐA 2","VAN,NK,NK",BoGD2025,3
+T00,"Toán, Sinh học, Năng khiếu TDTT","TOAN,SINH,NK",BoGD2025,3
+T01,"Toán, NK TDTT1, NK TDTT 2","TOAN,NK,NK",BoGD2025,3
+T02,"Toán, Ngữ văn, Năng khiếu TDTT","TOAN,VAN,NK",BoGD2025,3
+T03,"Ngữ văn, Sinh học, Năng khiếu TDTT","VAN,SINH,NK",BoGD2025,3
+T04,"Toán, Vật lý, NKTDTT","TOAN,LI,NK",BoGD2025,3
+T05,"Ngữ văn, Giáo dục công dân, NK TDTT","VAN,GDCD,NK",BoGD2025,3
+T06,"Toán, Địa lý, NK TDTT","TOAN,DIA,NK",BoGD2025,3
+T07,"Ngữ Văn, Địa lý, TK TDTT","VAN,DIA,NK",BoGD2025,3
+T08,"Toán, GDKTPL, Năng khiếu Thể dục thể thao","TOAN,GDKTPL,NK",tuyensinh247,3
+T09,"Ngữ văn, Lịch sử, năng khiếu thể dục thể thao","VAN,SU,NK",tuyensinh247,3
+T10,"Toán, Vật lý, Năng khiếu Thể dục Thể thao","TOAN,LI,NK",tuyensinh247,3
+T11,,,,0
+T12,,,,0
+T15,,,,0
+T20,,,,0
+V00,"Toán, Vật lý, Vẽ Mỹ thuật","TOAN,LI,NK",BoGD2025,3
+V01,"Toán, Ngữ văn, Vẽ Mỹ thuật","TOAN,VAN,NK",BoGD2025,3
+V02,"Toán, Tiếng Anh, Vẽ Mỹ thuật","TOAN,ANH,NK",BoGD2025,3
+V03,"Toán, Hoá, Vẽ Mỹ thuật","TOAN,HOA,NK",BoGD2025,3
+V04,"Toán, Ngữ văn, Bố Cục màu","TOAN,VAN,NK",BoGD2025,3
+V05,"Ngữ Văn, Vật Lý, Vẽ Mỹ thuật","VAN,LI,NK",BoGD2025,3
+V06,"Toán, Địa Lý, Vẽ Mỹ thuật","TOAN,DIA,NK",BoGD2025,3
+V07,"Toán, Tiếng Đức, Vẽ Mỹ thuật","TOAN,DUC,NK",BoGD2025,3
+V08,"Toán, Tiếng Nga, Vẽ Mỹ thuật","TOAN,NGA,NK",BoGD2025,3
+V09,"Toán, Tiếng Nhật Vẽ Mỹ thuật","TOAN,NK",BoGD2025,2
+V10,"Toán, Tiếng Pháp, Vẽ Mỹ thuật","TOAN,PHAP,NK",BoGD2025,3
+V11,"Toán, Tiếng Trung Quốc, Vẽ Mỹ thuật","TOAN,TRUNG,NK",BoGD2025,3
+V12,,,,0
+X01,"Toán, Ngữ văn, Giáo dục Kinh tế và pháp luật","TOAN,VAN,GDKTPL",BoGD2025,3
+X02,"Toán, Ngữ văn, Tin học","TOAN,VAN,TIN",BoGD2025,3
+X03,"Toán, Ngữ văn, Công nghệ công nghiệp","TOAN,VAN,CN_CN",BoGD2025,3
+X04,"Toán, Ngữ văn, Công nghệ nông nghiệp","TOAN,VAN,CN_NN",BoGD2025,3
+X05,"Toán, Vật lý, Giáo dục Kinh tế và pháp luật","TOAN,LI,GDKTPL",BoGD2025,3
+X06,"Toán, Vật lý, Tin học","TOAN,LI,TIN",BoGD2025,3
+X07,"Toán, Vật lý, Công nghệ công nghiệp","TOAN,LI,CN_CN",BoGD2025,3
+X08,"Toán, Vật lý, Công nghệ nông nghiệp","TOAN,LI,CN_NN",BoGD2025,3
+X09,"Toán, Hóa học, Giáo dục Kinh tế và pháp luật","TOAN,HOA,GDKTPL",BoGD2025,3
+X10,"Toán, Hóa học, Tin học","TOAN,HOA,TIN",BoGD2025,3
+X11,"Toán, Hóa học, Công nghệ công nghiệp","TOAN,HOA,CN_CN",BoGD2025,3
+X12,"Toán, Hóa học, Công nghệ nông nghiệp","TOAN,HOA,CN_NN",BoGD2025,3
+X13,"Toán, Sinh học, Giáo dục Kinh tế và pháp luật","TOAN,SINH,GDKTPL",BoGD2025,3
+X14,"Toán, Sinh học, Tin học","TOAN,SINH,TIN",BoGD2025,3
+X15,"Toán, Sinh học, Công nghệ công nghiệp","TOAN,SINH,CN_CN",BoGD2025,3
+X16,"Toán, Sinh học, Công nghệ nông nghiệp","TOAN,SINH,CN_NN",BoGD2025,3
+X17,"Toán, Lịch sử, Giáo dục Kinh tế và pháp luật","TOAN,SU,GDKTPL",BoGD2025,3
+X18,"Toán, Lịch sử, Tin học","TOAN,SU,TIN",BoGD2025,3
+X19,"Toán, Lịch sử, Công nghệ công nghiệp","TOAN,SU,CN_CN",BoGD2025,3
+X20,"Toán, Lịch sử, Công nghệ nông nghiệp","TOAN,SU,CN_NN",BoGD2025,3
+X21,"Toán, Địa lý, Giáo dục Kinh tế và pháp luật","TOAN,DIA,GDKTPL",BoGD2025,3
+X22,"Toán, Địa lý, Tin học","TOAN,DIA,TIN",BoGD2025,3
+X23,"Toán, Địa lý, Công nghệ công nghiệp","TOAN,DIA,CN_CN",BoGD2025,3
+X24,"Toán, Địa lý, Công nghệ nông nghiệp","TOAN,DIA,CN_NN",BoGD2025,3
+X25,"Toán, Giáo dục Kinh tế và pháp luật, Tiếng Anh","TOAN,GDKTPL,ANH",BoGD2025,3
+X26,"Toán, Tin học, Tiếng Anh","TOAN,TIN,ANH",BoGD2025,3
+X27,"Toán, Công nghệ công nghiệp, Tiếng Anh","TOAN,CN_CN,ANH",BoGD2025,3
+X28,"Toán, Công nghệ nông nghiệp, Tiếng Anh","TOAN,CN_NN,ANH",BoGD2025,3
+X29,"Toán, Giáo dục Kinh tế và pháp luật, Tiếng Nga","TOAN,GDKTPL,NGA",BoGD2025,3
+X33,"Toán, Giáo dục Kinh tế và pháp luật, Tiếng Pháp","TOAN,GDKTPL,PHAP",BoGD2025,3
+X37,"Toán, Giáo dục Kinh tế và pháp luật, Tiếng Trung","TOAN,GDKTPL,TRUNG",BoGD2025,3
+X45,"Toán, Giáo dục Kinh tế và pháp luật, Tiếng Nhật","TOAN,GDKTPL,NHAT",BoGD2025,3
+X46,"Toán, Tin học, Tiếng Nhật","TOAN,TIN,NHAT",BoGD2025,3
+X53,"Toán, Giáo dục Kinh tế và pháp luật, Tin học","TOAN,GDKTPL,TIN",BoGD2025,3
+X54,"Toán, Giáo dục Kinh tế và pháp luật, Công nghệ công nghiệp","TOAN,GDKTPL,CN_CN",BoGD2025,3
+X55,"Toán, Giáo dục Kinh tế và pháp luật, Công nghệ nông nghiệp","TOAN,GDKTPL,CN_NN",BoGD2025,3
+X56,"Toán, Tin học, Công nghệ công nghiệp","TOAN,TIN,CN_CN",BoGD2025,3
+X57,"Toán, Tin học, Công nghệ nông nghiệp","TOAN,TIN,CN_NN",BoGD2025,3
+X58,"Ngữ văn, Vật lý, Giáo dục Kinh tế và pháp luật","VAN,LI,GDKTPL",BoGD2025,3
+X59,"Ngữ văn, Vật lý, Tin học","VAN,LI,TIN",BoGD2025,3
+X60,"Ngữ văn, Vật lý, Công nghệ công nghiệp","VAN,LI,CN_CN",BoGD2025,3
+X61,"Ngữ văn, Vật lý, Công nghệ nông nghiệp","VAN,LI,CN_NN",BoGD2025,3
+X62,"Ngữ văn, Hóa học, Giáo dục Kinh tế và pháp luật","VAN,HOA,GDKTPL",BoGD2025,3
+X63,"Ngữ văn, Hóa học, Tin học","VAN,HOA,TIN",BoGD2025,3
+X64,"Ngữ văn, Hóa học, Công nghệ công nghiệp","VAN,HOA,CN_CN",BoGD2025,3
+X65,"Ngữ văn, Hóa học, Công nghệ nông nghiệp","VAN,HOA,CN_NN",BoGD2025,3
+X66,"Ngữ văn, Sinh học, Giáo dục Kinh tế và pháp luật","VAN,SINH,GDKTPL",BoGD2025,3
+X67,"Ngữ văn, Sinh học, Tin học","VAN,SINH,TIN",BoGD2025,3
+X68,"Ngữ văn, Sinh học, Công nghệ công nghiệp","VAN,SINH,CN_CN",BoGD2025,3
+X69,"Ngữ văn, Sinh học, Công nghệ nông nghiệp","VAN,SINH,CN_NN",BoGD2025,3
+X70,"Ngữ văn, Lịch sử, Giáo dục Kinh tế và pháp luật","VAN,SU,GDKTPL",BoGD2025,3
+X71,"Ngữ văn, Lịch sử, Tin học","VAN,SU,TIN",BoGD2025,3
+X72,"Ngữ văn, Lịch sử, Công nghệ công nghiệp","VAN,SU,CN_CN",BoGD2025,3
+X73,"Ngữ văn, Lịch sử, Công nghệ nông nghiệp","VAN,SU,CN_NN",BoGD2025,3
+X74,"Ngữ văn, Địa lý, Giáo dục Kinh tế và pháp luật","VAN,DIA,GDKTPL",BoGD2025,3
+X75,"Ngữ văn, Địa lý, Tin học","VAN,DIA,TIN",BoGD2025,3
+X76,"Ngữ văn, Địa lý, Công nghệ công nghiệp","VAN,DIA,CN_CN",BoGD2025,3
+X77,"Ngữ văn, Địa lý, Công nghệ nông nghiệp","VAN,DIA,CN_NN",BoGD2025,3
+X78,"Ngữ văn, Giáo dục Kinh tế và pháp luật, Tiếng Anh","VAN,GDKTPL,ANH",BoGD2025,3
+X79,"Ngữ văn, Tin học, Tiếng Anh","VAN,TIN,ANH",BoGD2025,3
+X80,"Ngữ văn, Công nghệ công nghiệp, Tiếng Anh","VAN,CN_CN,ANH",BoGD2025,3
+X81,"Ngữ văn, Công nghệ nông nghiệp, Tiếng Anh","VAN,CN_NN,ANH",BoGD2025,3
+X82,"Ngữ văn, Giáo dục Kinh tế và pháp luật, Tiếng Nga","VAN,GDKTPL,NGA",BoGD2025,3
+X86,"Ngữ văn, Giáo dục Kinh tế và pháp luật, Tiếng Pháp","VAN,GDKTPL,PHAP",BoGD2025,3
+X90,"Ngữ văn, Giáo dục Kinh tế và pháp luật, Tiếng Trung","VAN,GDKTPL,TRUNG",BoGD2025,3
+X91,"Ngữ văn, Tin học, Tiếng Trung","VAN,TIN,TRUNG",BoGD2025,3
+X94,"Ngữ văn, Giáo dục Kinh tế và pháp luật, Tiếng Đức","VAN,GDKTPL,DUC",BoGD2025,3
+X98,"Ngữ văn, Giáo dục Kinh tế và pháp luật, Tiếng Nhật","VAN,GDKTPL,NHAT",BoGD2025,3
+Y03,"Ngữ văn, Giáo dục Kinh tế và pháp luật, Tiếng Hàn","VAN,GDKTPL,HAN",BoGD2025,3
+Y07,"Ngữ văn, Giáo dục Kinh tế và pháp luật, Tin học","VAN,GDKTPL,TIN",BoGD2025,3
+Y08,"Ngữ văn, Giáo dục Kinh tế và pháp luật, Công nghệ công nghiệp","VAN,GDKTPL,CN_CN",BoGD2025,3
+Y09,"Ngữ văn, Giáo dục Kinh tế và pháp luật, Công nghệ nông nghiệp","VAN,GDKTPL,CN_NN",BoGD2025,3

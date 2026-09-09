@@ -1,0 +1,289 @@
+﻿ma_truong,ten_truong,viet_tat,tinh_thanh,vung_mien
+ANH,Học Viện An Ninh Nhân Dân,PSA,Hà Nội,Miền Bắc
+BPH,Học Viện Biên Phòng,HVBP,Hà Nội,Miền Bắc
+HCP,Học Viện Chính Sách và Phát Triển,APD,Hà Nội,Miền Bắc
+HCA,Học Viện Chính Trị Công An Nhân Dân,PPPA,Hà Nội,Miền Bắc
+BVH,Học Viện Công Nghệ Bưu Chính Viễn Thông,PTIT,Hà Nội,Miền Bắc
+BVS,Học Viện Công Nghệ Bưu Chính Viễn Thông (Cơ sở TP.HCM),,TP Hồ Chí Minh,Miền Nam
+CSH,Học Viện Cảnh Sát Nhân Dân,PPA,Hà Nội,Miền Bắc
+HVD,Học Viện Dân Tộc,VAEM,Hà Nội,Miền Bắc
+HHK,Học Viện Hàng không Việt Nam,VAA,TP Hồ Chí Minh,Miền Nam
+HCS,Học Viện Hành Chính Và Quản Trị Công (phía Nam),NAPA,TP Hồ Chí Minh,Miền Nam
+HCH,Học Viện Hành Chính và Quản trị công,APAG,Hà Nội,Miền Bắc
+HQH,Học Viện Hải Quân,,Khánh Hòa,Miền Trung
+HFH,Học Viện Hậu Cần - Hệ Dân sự,,Hà Nội,Miền Bắc
+HEH,Học Viện Hậu Cần - Hệ Quân sự,MAL,Hà Nội,Miền Bắc
+DNH,Học Viện Khoa Học Quân Sự - Hệ Dân sự,,Hà Nội,Miền Bắc
+NQH,Học Viện Khoa Học Quân Sự - Hệ Quân sự,MSA,Hà Nội,Miền Bắc
+KMA,Học Viện Kỹ Thuật Mật Mã,KMA,Hà Nội,Miền Bắc
+DQH,Học Viện Kỹ Thuật Quân Sự - Hệ Dân sự,,Hà Nội,Miền Bắc
+KQH,Học Viện Kỹ Thuật Quân Sự - Hệ Quân sự,MTA,Hà Nội,Miền Bắc
+HQT,Học Viện Ngoại Giao,DAV,Hà Nội,Miền Bắc
+NHH,Học Viện Ngân Hàng,BAV,Hà Nội,Miền Bắc
+NHB,Học Viện Ngân Hàng (Phân Viện Bắc Ninh),,Bắc Ninh,Miền Bắc
+NHP,Học Viện Ngân Hàng (Phân Viện Phú Yên),,Đắk Lắk,Miền Trung
+HVN,Học Viện Nông Nghiệp Việt Nam,VNUA,Hà Nội,Miền Bắc
+PKH,Học Viện Phòng Không – Không Quân,,Hà Nội,Miền Bắc
+HPN,Học Viện Phụ Nữ Việt Nam,VWA,Hà Nội,Miền Bắc
+DYH,Học Viện Quân Y - Hệ Dân sự,,Hà Nội,Miền Bắc
+YQH,Học Viện Quân Y - Hệ Quân sự,VMMU,Hà Nội,Miền Bắc
+HVQ,Học Viện Quản Lý Giáo Dục,NAEM,Hà Nội,Miền Bắc
+HTN,Học Viện Thanh Thiếu Niên Việt Nam,VYA,Hà Nội,Miền Bắc
+HTC,Học Viện Tài chính,AOF,Hà Nội,Miền Bắc
+HYD,Học Viện Y Dược Học Cổ Truyền Việt Nam,VUTM,Hà Nội,Miền Bắc
+HBT,Học viện Báo chí và Tuyên truyền,AJC,Hà Nội,Miền Bắc
+HCB,Học viện Kỹ thuật và Công nghệ an ninh (Phía Bắc),T36,Nghệ An,Miền Trung
+HCN,Học viện Kỹ thuật và Công nghệ an ninh (Phía Nam),,Nghệ An,Miền Trung
+PCH,Học viện Phòng cháy chữa cháy và Cứu nạn cứu hộ,UFPF,Hà Nội,Miền Bắc
+HTA,Học viện Tòa án,VCA,Hà Nội,Miền Bắc
+HVC,Học viện cán bộ TPHCM,HCA,TP Hồ Chí Minh,Miền Nam
+DHC,Khoa Giáo Dục Thể Chất Huế,,Huế,Miền Trung
+DHE,Khoa Kỹ thuật và Công nghệ - Đại học Huế,HUET,Huế,Miền Trung
+DTQ,Khoa Quốc Tế - Đại Học Thái Nguyên,ISTNU,Thái Nguyên,Miền Bắc
+DHI,Khoa Quốc tế - Đại học Huế,HUIS,Huế,Miền Trung
+DHQ,Phân Hiệu Đại Học Huế tại Quảng Trị,,Quảng Trị,Miền Trung
+DTP,Phân Hiệu Đại Học Thái Nguyên Tại Lào Cai,,Thái Nguyên,Miền Bắc
+DDP,Phân Hiệu Đại Học Đà Nẵng tại Kon Tum,UDCK,Đà Nẵng,Miền Trung
+LNS,Phân hiệu Đại Học Lâm nghiệp tại Đồng Nai,VNUF2,Đồng Nai,Miền Nam
+LNA,Phân hiệu Đại học Lâm nghiệp tỉnh Gia Lai,VNUF3,Gia Lai,Miền Trung
+NLG,Phân hiệu Đại học Nông Lâm TPHCM tại Gia Lai,,Gia Lai,Miền Trung
+NLN,Phân hiệu Đại học Nông Lâm TPHCM tại Ninh Thuận,,Khánh Hòa,Miền Trung
+QSP,Phân hiệu Đại học Quốc gia TPHCM tại Bến Tre,SPAS,Vĩnh Long,Miền Nam
+DTG,Phân hiệu Đại học Thái Nguyên tại Hà Giang,,Thái Nguyên,Miền Bắc
+XDN,Phân hiệu Đại học Xây dựng miền Trung tại Đà Nẵng,MUCE,Đắk Lắk,Miền Trung
+DHD,Trường Du Lịch - Đại Học Huế,HUHT,Huế,Miền Trung
+QHK,Trường Khoa học liên ngành và Nghệ thuật Hà Nội,VNU-SIS,Hà Nội,Miền Bắc
+DTF,Trường Ngoại Ngữ Thái Nguyên,SFL,Thái Nguyên,Miền Bắc
+QHD,Trường Quản Trị và Kinh Doanh - ĐHQG Hà Nội,HSB,Hà Nội,Miền Bắc
+QHQ,Trường Quốc Tế - ĐHQG Hà Nội,VNUIS,Hà Nội,Miền Bắc
+LCH,Trường Sĩ Quan Chính Trị - Đại Học Chính Trị,POC,Bắc Ninh,Miền Bắc
+SNH,Trường Sĩ Quan Công Binh - Hệ Quân sự - Đại học Ngô Quyền,NQU,TP Hồ Chí Minh,Miền Nam
+KGH,Trường Sĩ Quan Không Quân - Hệ Đại học,,Khánh Hòa,Miền Trung
+LAH,Trường Sĩ Quan Lục Quân 1 - Đại học Trần Quốc Tuấn,TQT Uni,Hà Nội,Miền Bắc
+LBH,Trường Sĩ Quan Lục Quân 2 - Đại học Nguyễn Huệ,,Huế,Miền Trung
+PBH,Trường Sĩ Quan Pháo Binh,,Hà Nội,Miền Bắc
+HGH,Trường Sĩ Quan Phòng Hóa,CCE,Hà Nội,Miền Bắc
+TCU,Trường Sĩ Quan Thông Tin - Hệ Dân Sự - Đại Học Thông Tin Liên Lạc,,Khánh Hòa,Miền Trung
+TTH,Trường Sĩ Quan Thông Tin - Hệ Quân sự - Đại Học Thông Tin Liên Lạc,,Khánh Hòa,Miền Trung
+TGH,Trường Sĩ Quan Tăng - Thiết Giáp,MCTAO,Phú Thọ,Miền Bắc
+DCH,Trường Sĩ Quan Đặc Công,OVSF,Hà Nội,Miền Bắc
+DDY,Trường Y Dược Đà Nẵng,SMP,Đà Nẵng,Miền Trung
+QSA,Trường Đại Học An Giang,AGU,An Giang,Miền Nam
+ANS,Trường Đại Học An Ninh Nhân Dân,VPSU,TP Hồ Chí Minh,Miền Nam
+BVU,Trường Đại Học Bà Rịa – Vũng Tàu,BVU,TP Hồ Chí Minh,Miền Nam
+QSB,Trường Đại Học Bách Khoa HCM,HCMUT,TP Hồ Chí Minh,Miền Nam
+DDK,Trường Đại Học Bách Khoa Đà Nẵng,DUT,Đà Nẵng,Miền Trung
+DBD,Trường Đại Học Bình Dương,BDU,TP Hồ Chí Minh,Miền Nam
+DBL,Trường Đại Học Bạc Liêu,BLU,Cà Mau,Miền Nam
+CMC,Trường Đại Học CMC,CMC,Hà Nội,Miền Bắc
+DDM,Trường Đại Học Công Nghiệp Quảng Ninh,QUI,Quảng Ninh,Miền Bắc
+IUH,Trường Đại Học Công Nghiệp TPHCM,IUH,TP Hồ Chí Minh,Miền Nam
+VHD,Trường Đại Học Công Nghiệp Việt - Hung,VIU,Hà Nội,Miền Bắc
+VUI,Trường Đại Học Công Nghiệp Việt Trì,VUI,Phú Thọ,Miền Bắc
+DSG,Trường Đại Học Công Nghệ Sài Gòn,STU,TP Hồ Chí Minh,Miền Nam
+QSC,Trường Đại Học Công Nghệ Thông Tin - ĐHQG TPHCM,UIT,TP Hồ Chí Minh,Miền Nam
+DVX,Trường Đại Học Công Nghệ Vạn Xuân,VXUT,Nghệ An,Miền Trung
+DCQ,Trường Đại Học Công Nghệ và Quản Lý Hữu Nghị,UTM,Hà Nội,Miền Bắc
+DDA,Trường Đại Học Công Nghệ Đông Á,EAUT,Bắc Ninh,Miền Bắc
+DCD,Trường Đại Học Công Nghệ Đồng Nai,DNTU,Đồng Nai,Miền Nam
+QHI,Trường Đại Học Công Nghệ – Đại Học Quốc Gia Hà Nội,UET,Hà Nội,Miền Bắc
+DCT,Trường Đại Học Công Thương TPHCM,HUIT,TP Hồ Chí Minh,Miền Nam
+SPK,Trường Đại Học Công nghệ Kỹ thuật TP HCM,HCMUTE,TP Hồ Chí Minh,Miền Nam
+LDA,Trường Đại Học Công Đoàn,TUU,Hà Nội,Miền Bắc
+CSS,Trường Đại Học Cảnh Sát Nhân Dân,PPU,TP Hồ Chí Minh,Miền Nam
+DCL,Trường Đại Học Cửu Long,MKU,Vĩnh Long,Miền Nam
+DKH,Trường Đại Học Dược Hà Nội,HUP,Hà Nội,Miền Bắc
+PVU,Trường Đại Học Dầu Khí Việt Nam,PVU,TP Hồ Chí Minh,Miền Nam
+FPT,Trường Đại Học FPT,FPT,Hà Nội,Miền Bắc
+GDU,Trường Đại Học Gia Định,GDU,TP Hồ Chí Minh,Miền Nam
+GHA,Trường Đại Học Giao Thông Vận Tải,UTC,Hà Nội,Miền Bắc
+GSA,Trường Đại Học Giao Thông Vận Tải (Cơ sở 2),UTC2,TP Hồ Chí Minh,Miền Nam
+UTH,Trường Đại Học Giao Thông Vận Tải TPHCM,UTH,TP Hồ Chí Minh,Miền Nam
+QHS,Trường Đại Học Giáo Dục - ĐHQG Hà Nội,UED,Hà Nội,Miền Bắc
+DNB,Trường Đại Học Hoa Lư,HLUV,Ninh Bình,Miền Bắc
+HSU,Trường Đại Học Hoa Sen,HSU,TP Hồ Chí Minh,Miền Nam
+NHF,Trường Đại Học Hà Nội,HANU,Hà Nội,Miền Bắc
+HHT,Trường Đại Học Hà Tĩnh,HTU,Hà Tĩnh,Miền Trung
+HHA,Trường Đại Học Hàng Hải Việt Nam,VMU,Hải Phòng,Miền Bắc
+ETU,Trường Đại Học Hòa Bình,ETU,Hà Nội,Miền Bắc
+THV,Trường Đại Học Hùng Vương,HVU,Phú Thọ,Miền Bắc
+HLU,Trường Đại Học Hạ Long,UHL,Quảng Ninh,Miền Bắc
+DKT,Trường Đại Học Hải Dương,UHD,Hải Phòng,Miền Bắc
+THP,Trường Đại Học Hải Phòng,HPUni,Hải Phòng,Miền Bắc
+HDT,Trường Đại Học Hồng Đức,HDU,Thanh Hóa,Miền Trung
+DHT,Trường Đại Học Khoa Học Huế,HUSC,Huế,Miền Trung
+DTZ,Trường Đại Học Khoa Học Thái Nguyên,TNUS,Thái Nguyên,Miền Bắc
+QHT,Trường Đại Học Khoa Học Tự Nhiên Hà Nội,HUS,Hà Nội,Miền Bắc
+QST,Trường Đại Học Khoa Học Tự Nhiên TPHCM,HCMUS,TP Hồ Chí Minh,Miền Nam
+KCN,Trường Đại Học Khoa Học Và Công Nghệ Hà Nội,USTH,Hà Nội,Miền Bắc
+QHX,Trường Đại Học Khoa Học Xã Hội và Nhân Văn Hà Nội,USSH,Hà Nội,Miền Bắc
+QSX,Trường Đại Học Khoa Học Xã Hội và Nhân Văn TPHCM,USSH,TP Hồ Chí Minh,Miền Nam
+UKB,Trường Đại Học Kinh Bắc,UKB,Bắc Ninh,Miền Bắc
+DQK,Trường Đại Học Kinh Doanh và Công Nghệ Hà Nội,HUBT,Hà Nội,Miền Bắc
+QHE,Trường Đại Học Kinh Tế - ĐHQG Hà Nội,UEB,Hà Nội,Miền Bắc
+DHK,Trường Đại Học Kinh Tế - Đại Học Huế,HCE,Huế,Miền Trung
+DLA,Trường Đại Học Kinh Tế Công Nghiệp Long An,,Tây Ninh,Miền Nam
+DKB,Trường Đại Học Kinh Tế Kỹ Thuật Bình Dương,BETU,TP Hồ Chí Minh,Miền Nam
+DKK,Trường Đại Học Kinh Tế Kỹ Thuật Công Nghiệp,UNETI,Hà Nội,Miền Bắc
+UEF,Trường Đại Học Kinh Tế Tài Chính TPHCM,UEF,TP Hồ Chí Minh,Miền Nam
+DDQ,Trường Đại Học Kinh Tế – Đại Học Đà Nẵng,DUE,Đà Nẵng,Miền Trung
+DVB,Trường Đại Học Kinh tế công nghệ Thái Nguyên,TUETECH,Thái Nguyên,Miền Bắc
+KTA,Trường Đại Học Kiến Trúc Hà Nội,HAU,Hà Nội,Miền Bắc
+KTS,Trường Đại Học Kiến Trúc TPHCM,UAH,TP Hồ Chí Minh,Miền Nam
+KTD,Trường Đại Học Kiến Trúc Đà Nẵng,DAU,Đà Nẵng,Miền Trung
+DTK,Trường Đại Học Kỹ Thuật Công Nghiệp Thái Nguyên,TNUT,Thái Nguyên,Miền Bắc
+DKY,Trường Đại Học Kỹ Thuật Y Tế Hải Dương,HMTU,Hải Phòng,Miền Bắc
+DLX,Trường Đại Học Lao Động – Xã Hội,ULSA,Hà Nội,Miền Bắc
+DLS,Trường Đại Học Lao Động – Xã Hội (Cơ sở II),ULSA2,TP Hồ Chí Minh,Miền Nam
+LPH,Trường Đại Học Luật Hà Nội,HLU,Hà Nội,Miền Bắc
+LPS,Trường Đại Học Luật TPHCM,ULAW,TP Hồ Chí Minh,Miền Nam
+LNH,Trường Đại Học Lâm nghiệp,VNUF,Hà Nội,Miền Bắc
+DTV,Trường Đại Học Lương Thế Vinh,LTVU,Ninh Bình,Miền Bắc
+DLH,Trường Đại Học Lạc Hồng,LHU,Đồng Nai,Miền Nam
+MDA,Trường Đại Học Mỏ Địa Chất,HUMG,Hà Nội,Miền Bắc
+MHN,Trường Đại Học Mở Hà Nội,HOU,Hà Nội,Miền Bắc
+MBS,Trường Đại Học Mở TPHCM,OU,TP Hồ Chí Minh,Miền Nam
+MTC,Trường Đại Học Mỹ Thuật Công Nghiệp,UAD,Hà Nội,Miền Bắc
+MTH,Trường Đại Học Mỹ Thuật Việt Nam,VNUFA,Hà Nội,Miền Bắc
+DHN,Trường Đại Học Nghệ Thuật Huế,HUA,Huế,Miền Trung
+QHF,Trường Đại Học Ngoại Ngữ - ĐH Quốc gia Hà Nội,ULIS,Hà Nội,Miền Bắc
+DHF,Trường Đại Học Ngoại Ngữ Huế,HUFLIS,Huế,Miền Trung
+DNT,Trường Đại Học Ngoại Ngữ Tin Học TPHCM,HUFLIT,TP Hồ Chí Minh,Miền Nam
+DDF,Trường Đại Học Ngoại Ngữ Đà Nẵng,UFL,Đà Nẵng,Miền Trung
+NTU,Trường Đại Học Nguyễn Trãi,NTU,Hà Nội,Miền Bắc
+NTT,Trường Đại Học Nguyễn Tất Thành,NTTU,TP Hồ Chí Minh,Miền Nam
+NHS,Trường Đại Học Ngân Hàng TPHCM,HUB,TP Hồ Chí Minh,Miền Nam
+TSN,Trường Đại Học Nha Trang,NTU,Khánh Hòa,Miền Trung
+DHL,Trường Đại Học Nông Lâm Huế,HUAF,Huế,Miền Trung
+NLS,Trường Đại Học Nông Lâm TPHCM,NLU,TP Hồ Chí Minh,Miền Nam
+DTN,Trường Đại Học Nông Lâm Thái Nguyên,TUAF,Thái Nguyên,Miền Bắc
+DPC,Trường Đại Học Phan Châu Trinh,PCTU,Đà Nẵng,Miền Trung
+DPT,Trường Đại Học Phan Thiết,UPT,Lâm Đồng,Miền Trung
+PCS,Trường Đại Học Phòng Cháy Chữa Cháy (phía Nam),,TP Hồ Chí Minh,Miền Nam
+DPX,Trường Đại Học Phú Xuân,PXU,Huế,Miền Trung
+DPY,Trường Đại Học Phú Yên,PYU,Đắk Lắk,Miền Trung
+DPD,Trường Đại Học Phương Đông,PDU,Hà Nội,Miền Bắc
+DPQ,Trường Đại Học Phạm Văn Đồng,PDU,Quảng Ngãi,Miền Trung
+DQT,Trường Đại Học Quang Trung,QTU,Gia Lai,Miền Trung
+DQN,Trường Đại Học Quy Nhơn,QNU,Gia Lai,Miền Trung
+DQB,Trường Đại Học Quảng Bình,QBU,Quảng Trị,Miền Trung
+DQU,Trường Đại Học Quảng Nam,QNU,Đà Nẵng,Miền Trung
+QSQ,Trường Đại Học Quốc Tế - ĐHQG TPHCM,HCMIU,TP Hồ Chí Minh,Miền Nam
+DBH,Trường Đại Học Quốc Tế Bắc Hà,IUBH,Bắc Ninh,Miền Bắc
+HIU,Trường Đại Học Quốc Tế Hồng Bàng,HIU,TP Hồ Chí Minh,Miền Nam
+EIU,Trường Đại Học Quốc Tế Miền Đông,EIU,TP Hồ Chí Minh,Miền Nam
+SGD,Trường Đại Học Sài Gòn,SGU,TP Hồ Chí Minh,Miền Nam
+DDS,Trường Đại Học Sư Phạm - Đại Học Đà Nẵng,UED,Đà Nẵng,Miền Trung
+DHS,Trường Đại Học Sư Phạm Huế,HUE,Huế,Miền Trung
+SPH,Trường Đại Học Sư Phạm Hà Nội,HNUE,Hà Nội,Miền Bắc
+SP2,Trường Đại Học Sư Phạm Hà Nội 2,HPU2,Hà Nội,Miền Bắc
+SKH,Trường Đại Học Sư Phạm Kỹ Thuật Hưng Yên,UTEHY,Hưng Yên,Miền Bắc
+SKN,Trường Đại Học Sư Phạm Kỹ Thuật Nam Định,NUTE,Ninh Bình,Miền Bắc
+SKV,Trường Đại Học Sư Phạm Kỹ Thuật Vinh,,Nghệ An,Miền Trung
+VLU,Trường Đại Học Sư Phạm Kỹ Thuật Vĩnh Long,VLUTE,Vĩnh Long,Miền Nam
+GNT,Trường Đại Học Sư Phạm Nghệ Thuật Trung Ương,NUAE,Hà Nội,Miền Bắc
+SPS,Trường Đại Học Sư Phạm TPHCM,HCMUE,TP Hồ Chí Minh,Miền Nam
+TDH,Trường Đại Học Sư Phạm Thể Dục Thể Thao Hà Nội,UPES,Hà Nội,Miền Bắc
+STS,Trường Đại Học Sư Phạm Thể Dục Thể Thao TPHCM,USH,TP Hồ Chí Minh,Miền Nam
+DDB,Trường Đại Học Thành Đông,TDU,Hải Phòng,Miền Bắc
+DTB,Trường Đại Học Thái Bình,TBU,Hưng Yên,Miền Bắc
+TBD,Trường Đại Học Thái Bình Dương,TBD,Khánh Hòa,Miền Trung
+DTL,Trường Đại Học Thăng Long,TLU,Hà Nội,Miền Bắc
+TMU,Trường Đại Học Thương Mại,TMU,Hà Nội,Miền Bắc
+TDB,Trường Đại Học Thể Dục Thể Thao Bắc Ninh,UPES1,Bắc Ninh,Miền Bắc
+TDS,Trường Đại Học Thể Dục Thể Thao TPHCM,,TP Hồ Chí Minh,Miền Nam
+TTD,Trường Đại Học Thể Dục Thể Thao Đà Nẵng,DSU,Đà Nẵng,Miền Trung
+TLA,Trường Đại Học Thủy Lợi,TLU,Hà Nội,Miền Bắc
+TLS,Trường Đại Học Thủy Lợi (Cơ sở 2),TLUS,TP Hồ Chí Minh,Miền Nam
+TTG,Trường Đại Học Tiền Giang,TGU,Đồng Tháp,Miền Nam
+DVP,Trường Đại Học Trưng Vương,TVUni,Phú Thọ,Miền Bắc
+DMS,Trường Đại Học Tài Chính Marketing,UFM,TP Hồ Chí Minh,Miền Nam
+FBU,Trường Đại Học Tài Chính Ngân Hàng Hà Nội,FBU,Hà Nội,Miền Bắc
+TTB,Trường Đại Học Tây Bắc,UTB,Sơn La,Miền Bắc
+TTN,Trường Đại Học Tây Nguyên,TNU,Đắk Lắk,Miền Trung
+DTD,Trường Đại Học Tây Đô,TDU,Cần Thơ,Miền Nam
+DTT,Trường Đại Học Tôn Đức Thắng,TDTU,TP Hồ Chí Minh,Miền Nam
+TDV,Trường Đại Học Vinh,VinhUni,Nghệ An,Miền Trung
+VGU,Trường Đại Học Việt Đức,VGU,TP Hồ Chí Minh,Miền Nam
+VTT,Trường Đại Học Võ Trường Toản,VTTU,Cần Thơ,Miền Nam
+DVH,Trường Đại Học Văn Hiến,VHU,TP Hồ Chí Minh,Miền Nam
+VHH,Trường Đại Học Văn Hóa Hà Nội,HUC,Hà Nội,Miền Bắc
+VHS,Trường Đại Học Văn Hóa TPHCM,HCMUC,TP Hồ Chí Minh,Miền Nam
+DVD,"Trường Đại Học Văn Hóa, Thể Thao Và Du Lịch Thanh Hóa",TUCST,Thanh Hóa,Miền Trung
+DVL,Trường Đại Học Văn Lang,VLU,TP Hồ Chí Minh,Miền Nam
+XDA,Trường Đại Học Xây Dựng Hà Nội,HUCE,Hà Nội,Miền Bắc
+XDT,Trường Đại Học Xây Dựng Miền Trung,MUCE,Đắk Lắk,Miền Trung
+MTU,Trường Đại Học Xây Dựng Miền Tây,MTU,Vĩnh Long,Miền Nam
+YCT,Trường Đại Học Y Dược Cần Thơ,CTUMP,Cần Thơ,Miền Nam
+DHY,Trường Đại Học Y Dược Huế,Hue-UMP,Huế,Miền Trung
+YPB,Trường Đại Học Y Dược Hải Phòng,HPMU,Hải Phòng,Miền Bắc
+YTB,Trường Đại Học Y Dược Thái Bình,TBUMP,Hưng Yên,Miền Bắc
+DTY,Trường Đại Học Y Dược Thái Nguyên,TUMP,Thái Nguyên,Miền Bắc
+YHB,Trường Đại Học Y Hà Nội,HMU,Hà Nội,Miền Bắc
+TYS,Trường Đại Học Y Khoa Phạm Ngọc Thạch,PNTU,TP Hồ Chí Minh,Miền Nam
+YKV,Trường Đại Học Y Khoa Vinh,VMU,Nghệ An,Miền Trung
+YTC,Trường Đại Học Y Tế Công Cộng,HUPH,Hà Nội,Miền Bắc
+DYD,Trường Đại Học Yersin Đà Lạt,YersinUni,Lâm Đồng,Miền Trung
+YDD,Trường Đại Học Điều Dưỡng Nam Định,NDUN,Ninh Bình,Miền Bắc
+DDL,Trường Đại Học Điện Lực,EPU,Hà Nội,Miền Bắc
+TDL,Trường Đại Học Đà Lạt,DLU,Lâm Đồng,Miền Trung
+DAD,Trường Đại Học Đông Á,UDA,Đà Nẵng,Miền Trung
+DDU,Trường Đại Học Đông Đô,DDU,Hà Nội,Miền Bắc
+DDN,Trường Đại Học Đại Nam,DNU,Hà Nội,Miền Bắc
+DNU,Trường Đại Học Đồng Nai,DNU,Đồng Nai,Miền Nam
+SPD,Trường Đại Học Đồng Tháp,DThU,Đồng Tháp,Miền Nam
+DKC,Trường Đại học Công Nghệ TPHCM,HUTECH,TP Hồ Chí Minh,Miền Nam
+DTC,Trường Đại học Công Nghệ Thông Tin và Truyền Thông Thái Nguyên,ICTU,Thái Nguyên,Miền Bắc
+DCV,Trường Đại học Công nghiệp Vinh,IUV,Nghệ An,Miền Trung
+CCM,Trường Đại học Công nghiệp và Thương mại Hà Nội,HTU,Hà Nội,Miền Bắc
+GTA,Trường Đại học Công nghệ Giao thông vận tải,UTT,Hà Nội,Miền Bắc
+MIT,Trường Đại học Công nghệ Miền Đông,MITUni,Đồng Nai,Miền Nam
+VKU,Trường Đại học Công nghệ Thông tin và Truyền thông Việt Hàn - Đại học Đà Nẵng,VKU,Đà Nẵng,Miền Trung
+DHV,Trường Đại học Hùng Vương TPHCM,HVUH,TP Hồ Chí Minh,Miền Nam
+DCA,Trường Đại học Intracom,ECOUNI,Hà Nội,Miền Bắc
+QSY,Trường Đại học Khoa học sức khỏe TPHCM,UHS,TP Hồ Chí Minh,Miền Nam
+UKH,Trường Đại học Khánh Hòa,UKH,Khánh Hòa,Miền Trung
+QSK,Trường Đại học Kinh Tế Luật TPHCM,UEL,TP Hồ Chí Minh,Miền Nam
+DTE,Trường Đại học Kinh tế và Quản trị kinh doanh Thái Nguyên,TUEBA,Thái Nguyên,Miền Bắc
+TKG,Trường Đại học Kiên Giang,KGU,An Giang,Miền Nam
+DKS,Trường Đại học Kiểm Sát,HPU,Hà Nội,Miền Bắc
+KCC,Trường Đại học Kỹ Thuật Công Nghệ Cần Thơ,CTUT,Cần Thơ,Miền Nam
+YDN,Trường Đại học Kỹ thuật Y Dược Đà Nẵng,DUMTP,Đà Nẵng,Miền Trung
+DHA,Trường Đại học Luật Huế,HUL,Huế,Miền Trung
+QHL,Trường Đại học Luật – ĐHQG Hà Nội,VNU-UL,Hà Nội,Miền Bắc
+DNC,Trường Đại học Nam Cần Thơ,NCTU,Cần Thơ,Miền Nam
+CEA,Trường Đại học Nghệ An,NAUE,Nghệ An,Miền Trung
+NTH,Trường Đại học Ngoại thương,FTU,Hà Nội,Miền Bắc
+NTS,Trường Đại học Ngoại thương (Cơ sở II),FTU2,TP Hồ Chí Minh,Miền Nam
+DBG,Trường Đại học Nông Lâm Bắc Giang,BAFU,Bắc Ninh,Miền Bắc
+DNV,Trường Đại học Nội vụ Hà Nội,,Hà Nội,Miền Bắc
+HPU,Trường Đại học Quản lý và Công nghệ Hải Phòng,HPU,Hải Phòng,Miền Bắc
+UMT,Trường Đại học Quản lý và công nghệ TPHCM,UMT,TP Hồ Chí Minh,Miền Nam
+SIU,Trường Đại học Quốc Tế Sài Gòn,SIU,TP Hồ Chí Minh,Miền Nam
+SDU,Trường Đại học Sao Đỏ,SDU,Hải Phòng,Miền Bắc
+DSK,Trường Đại học Sư phạm Kỹ thuật - Đại học Đà Nẵng,UTE,Đà Nẵng,Miền Trung
+TDD,Trường Đại học Thành Đô,TDU,Hà Nội,Miền Bắc
+TDM,Trường Đại học Thủ Dầu Một,TDMU,TP Hồ Chí Minh,Miền Nam
+HNM,Trường Đại học Thủ Đô Hà Nội,HNMU,Hà Nội,Miền Bắc
+UFA,Trường Đại học Tài Chính Kế Toán,UFA,Quảng Ngãi,Miền Trung
+DMT,Trường Đại học Tài Nguyên và Môi Trường Hà Nội,,Hà Nội,Miền Bắc
+DTM,Trường Đại học Tài Nguyên và Môi Trường TPHCM,HCMUNRE,TP Hồ Chí Minh,Miền Nam
+DFA,Trường Đại học Tài chính Quản trị kinh doanh,UFBA,Hưng Yên,Miền Bắc
+TQU,Trường Đại học Tân Trào,TTU,Tuyên Quang,Miền Bắc
+TTU,Trường Đại học Tân Tạo,TTU,Tây Ninh,Miền Nam
+VJU,Trường Đại học Việt Nhật - ĐHQG Hà Nội,VJU,Hà Nội,Miền Bắc
+QHY,Trường Đại học Y Dược - ĐHQG Hà Nội,UMP,Hà Nội,Miền Bắc
+BMU,Trường Đại học Y Dược Buôn Ma Thuột,BMTU,Đắk Lắk,Miền Trung
+THU,Trường Đại học Y khoa Tokyo Việt Nam,THUV,Hưng Yên,Miền Bắc
+DDV,Viện nghiên cứu và đào tạo Việt Anh - Đại học Đà Nẵng,VNUK,Đà Nẵng,Miền Trung
+BKA,Đại Học Bách Khoa Hà Nội,HUST,Hà Nội,Miền Bắc
+DCN,Đại Học Công Nghiệp Hà Nội,HAUI,Hà Nội,Miền Bắc
+TCT,Đại Học Cần Thơ,CTU,Cần Thơ,Miền Nam
+DDT,Đại Học Duy Tân,DTU,Đà Nẵng,Miền Trung
+KHA,Đại Học Kinh Tế Quốc Dân,NEU,Hà Nội,Miền Bắc
+KSA,Đại Học Kinh Tế TPHCM,UEH,TP Hồ Chí Minh,Miền Nam
+PKA,Đại Học Phenikaa,PhenikaaUni,Hà Nội,Miền Bắc
+DTS,Đại Học Sư Phạm Thái Nguyên,TNUE,Thái Nguyên,Miền Bắc
+DVT,Đại Học Trà Vinh,TVU,Vĩnh Long,Miền Nam
+YDS,Đại Học Y Dược TPHCM,UMP,TP Hồ Chí Minh,Miền Nam
+KSV,Đại học Kinh Tế TPHCM - Phân hiệu Vĩnh Long,,Vĩnh Long,Miền Nam

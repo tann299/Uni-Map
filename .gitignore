@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Django
+db.sqlite3
+*.log
+/staticfiles/
+/media/
+
+# Bí mật: settings.py đọc DB_PASSWORD, DJANGO_SECRET_KEY từ biến môi trường
+.env
+*.local
+
+# Dữ liệu tạm của crawler (tải lại được, không cần commit)
+ref/_tohop_bogd.pdf
+
+# IDE / OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
