@@ -24,3 +24,9 @@ ref/_tohop_bogd.pdf
 .idea/
 Thumbs.db
 desktop.ini
+
+
+cache/
+data/
+db/
+ref/

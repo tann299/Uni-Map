@@ -25,9 +25,44 @@ Uni-Map/
 └── docs/                SRS, mô hình dữ liệu, kế hoạch
 ```
 
-Dữ liệu (`data/`, `ref/`, `cache/`) và `db/` nằm ở gốc vì **dùng chung** giữa
-crawler và backend, không thuộc riêng bên nào. Mọi script neo đường dẫn theo
-`__file__` nên chạy được từ bất kỳ thư mục nào.
+## API tra cứu MVP
+
+Backend dùng Django thuần + ORM, không thêm REST framework. Chạy từ gốc dự án:
+
+```bash
+cd source/backend
+PYTHONIOENCODING=utf-8 python manage.py runserver
+```
+
+Endpoint `GET /api/tra-cuu/` hỗ trợ `q`, `nganh`, `truong`, `tinh_thanh`,
+`vung_mien`, `ma_to_hop`, `phuong_thuc`, `nam`, `limit`, `offset`.
+Ví dụ:
+
+```bash
+curl "http://127.0.0.1:8000/api/tra-cuu/?q=công nghệ&nam=2025&limit=20"
+```
+
+Response gồm `data`, `pagination`, `years`, `source`, `updated_at`. Cần dựng
+MySQL và import dữ liệu trước khi gọi API. Kiểm parser không cần DB:
+
+```bash
+cd source/backend
+PYTHONIOENCODING=utf-8 python -m tracuu.check_api
+```
+
+Cây code backend hiện tại:
+
+```
+source/backend/
+├── config/                 cấu hình Django + route gốc
+├── manage.py
+└── tracuu/
+    ├── models.py           ORM ánh xạ schema.sql
+    ├── views.py            API tra cứu điểm chuẩn
+    ├── urls.py             route /api/tra-cuu/
+    ├── check_api.py        assert parser query
+    └── management/commands/kiemtra.py
+```
 
 ## Cài đặt
 
