@@ -1,0 +1,9 @@
+﻿id,ma_truong,nganh_slug,ma_to_hop,phuong_thuc,nam,diem_chuan,ten_nganh_goc
+1,ANH,an-ninh-mang-va-phong-chong-toi-pham-cong-nghe-cao,A00,Điểm thi THPT,2024,20.71,Ngành An ninh mạng và phòng chống tội phạm công nghệ cao
+2,ANH,an-ninh-mang-va-phong-chong-toi-pham-cong-nghe-cao,A01,Điểm thi THPT,2024,20.71,Ngành An ninh mạng và phòng chống tội phạm công nghệ cao
+﻿ma_truong,nganh_slug,ma_to_hop,phuong_thuc,diem_2021,diem_2022,diem_2023,diem_2024,diem_2025,diem_tb,diem_min,diem_max,diem_moi_nhat,bien_dong,so_nam_co_dl,xu_huong
+ANH,an-ninh-mang-va-phong-chong-toi-pham-cong-nghe-cao,A00,Điểm thi THPT,,,,20.71,24.48,22.6,20.71,24.48,24.48,3.77,2,3.77
+﻿nganh_slug,ten_nganh,nhom_nganh
+bien-tap-xuat-ban,Biên tập xuất bản,Báo chí - Truyền thông
+﻿ma_truong,ten_truong,viet_tat,tinh_thanh,vung_mien
+ANH,Học Viện An Ninh Nhân Dân,PSA,Hà Nội,Miền Bắc
