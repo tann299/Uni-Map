@@ -1,0 +1,327 @@
+{% extends "base.html" %}
+{% load l10n %}
+{% block title %}Uni Map — Tra cứu Điểm chuẩn &amp; Định hướng Nguyện vọng Đại học{% endblock %}
+
+{% block content %}
+
+<!-- HERO + BỘ LỌC TRA CỨU NHANH -->
+<section class="w-full bg-surface py-space-xl border-b border-surface-container-high">
+  <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin flex flex-col gap-space-lg">
+
+    <div class="flex flex-col gap-space-sm">
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm rounded font-semibold self-start">
+        <span class="material-symbols-outlined text-[16px] text-secondary">verified</span>Cổng Thông Tin Dành Cho Thí Sinh &amp; Phụ Huynh
+      </span>
+      <h1 class="font-headline-lg text-headline-lg text-on-background font-bold tracking-tight text-balance">
+        Tra cứu Điểm chuẩn 5 năm &amp;<div>Định hướng Nguyện vọng Đại học bằng AI</div>
+      </h1>
+    </div>
+
+    <!-- Quick Lookup -->
+    <div class="bg-surface-container-lowest border-2 border-primary p-space-lg rounded-xl flex flex-col gap-space-md">
+      <div class="flex items-center gap-space-sm pb-space-sm border-b border-surface-container-high">
+        <span class="material-symbols-outlined text-[22px] text-primary">manage_search</span>
+        <span class="font-title-md text-title-md text-primary font-bold">Bộ lọc tra cứu nhanh toàn quốc (Dữ liệu 2021–2025)</span>
+      </div>
+
+      <form class="grid grid-cols-1 md:grid-cols-12 gap-space-md" method="get" action="{% url 'web:tra_cuu' %}">
+        <div class="md:col-span-4 flex flex-col gap-1">
+          <label class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1" for="search-keyword">
+            <span class="material-symbols-outlined text-[16px]">school</span>Tên trường hoặc Tên ngành
+          </label>
+          <input id="search-keyword" name="q" type="text"
+                 class="w-full h-11 px-3.5 bg-surface-container-lowest border border-outline-variant rounded font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-2 focus:border-primary"
+                 placeholder="Ví dụ: Khoa học máy tính, Bách Khoa, NEU...">
+        </div>
+
+        <div class="md:col-span-2 flex flex-col gap-1">
+          <label class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1" for="select-method">
+            <span class="material-symbols-outlined text-[16px]">fact_check</span>Phương thức
+          </label>
+          <select id="select-method" name="phuong_thuc"
+                  class="w-full h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded font-body-md text-body-md text-on-surface focus:outline-none focus:border-2 focus:border-primary">
+            <option value="">Tất cả phương thức</option>
+            {% for ma, ten in bo_loc.phuong_thuc %}
+              <option value="{{ ma }}">{{ ten }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="md:col-span-2 flex flex-col gap-1">
+          <label class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1" for="select-region">
+            <span class="material-symbols-outlined text-[16px]">pin_drop</span>Khu vực
+          </label>
+          <select id="select-region" name="vung_mien"
+                  class="w-full h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded font-body-md text-body-md text-on-surface focus:outline-none focus:border-2 focus:border-primary">
+            <option value="">Tất cả miền ({{ kpi.so_truong }})</option>
+            {% for ma, ten, so in bo_loc.vung_mien %}
+              <option value="{{ ma }}">{{ ten }} ({{ so }} trường)</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="md:col-span-2 flex flex-col gap-1">
+          <label class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1" for="select-combo">
+            <span class="material-symbols-outlined text-[16px]">calculate</span>Tổ hợp môn
+          </label>
+          <select id="select-combo" name="ma_to_hop"
+                  class="w-full h-11 px-3 bg-surface-container-lowest border border-outline-variant rounded font-body-md text-body-md text-on-surface focus:outline-none focus:border-2 focus:border-primary">
+            <option value="">Tất cả tổ hợp ({{ kpi.so_to_hop }})</option>
+            {% for ma, ten in bo_loc.to_hop %}
+              <option value="{{ ma }}">{{ ma }} — {{ ten }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="md:col-span-2 flex flex-col justify-end">
+          <button type="submit"
+                  class="w-full h-11 px-4 bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded flex items-center justify-center gap-2 transition-colors">
+            <span class="material-symbols-outlined text-[20px]">search</span>Tra cứu ngay
+          </button>
+        </div>
+      </form>
+
+      <div class="flex flex-wrap items-center gap-2 pt-space-xs border-t border-surface-container">
+        <span class="font-label-sm text-label-sm text-on-surface-variant">Tìm nhanh:</span>
+        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'web:tra_cuu' %}?q=Công nghệ thông tin">Công nghệ thông tin</a>
+        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'web:tra_cuu' %}?q=Kinh tế quốc tế">Kinh tế quốc tế</a>
+        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'web:tra_cuu' %}?q=Y đa khoa">Y đa khoa</a>
+        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'web:tra_cuu' %}?q=Trí tuệ nhân tạo">Trí tuệ nhân tạo (AI)</a>
+        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'web:tra_cuu' %}?q=Luật kinh tế">Luật kinh tế</a>
+        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'web:tra_cuu' %}?q=Logistics">Logistics</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KPI -->
+<section class="w-full bg-surface-container-low py-space-lg border-b border-surface-container-high">
+  <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+
+      <div class="bg-surface-container-lowest p-space-md rounded-xl border border-surface-container-high flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Quy mô trường</span>
+          <span class="p-1.5 rounded bg-primary-fixed text-primary"><span class="material-symbols-outlined text-[20px]">account_balance</span></span>
+        </div>
+        <div class="my-space-xs">
+          <div class="font-data-metric text-data-metric font-bold text-on-surface">{{ kpi.so_truong }}</div>
+          <div class="font-headline-sm text-headline-sm font-semibold text-on-surface">Trường Đại học</div>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Phủ toàn quốc sau sáp nhập hành chính 2025.</p>
+      </div>
+
+      <div class="bg-surface-container-lowest p-space-md rounded-xl border border-surface-container-high flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Hệ thống đào tạo</span>
+          <span class="p-1.5 rounded bg-secondary-fixed text-secondary"><span class="material-symbols-outlined text-[20px]">category</span></span>
+        </div>
+        <div class="my-space-xs">
+          <div class="font-data-metric text-data-metric font-bold text-secondary">{{ kpi.so_nganh }}</div>
+          <div class="font-headline-sm text-headline-sm font-semibold text-on-surface">Ngành đào tạo</div>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Chuẩn hóa mã danh mục ngành đào tạo liên tục 5 năm.</p>
+      </div>
+
+      <div class="bg-surface-container-lowest p-space-md rounded-xl border border-surface-container-high flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Bộ dữ liệu điểm</span>
+          <span class="p-1.5 rounded bg-tertiary-fixed text-tertiary"><span class="material-symbols-outlined text-[20px]">analytics</span></span>
+        </div>
+        <div class="my-space-xs">
+          <div class="font-data-metric text-data-metric font-bold text-on-surface">{{ kpi.so_dong_diem }}</div>
+          <div class="font-headline-sm text-headline-sm font-semibold text-on-surface">Dòng điểm chuẩn</div>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Dữ liệu đối soát từ cổng Bộ GD&amp;ĐT và công bố của trường.</p>
+      </div>
+
+      <div class="bg-surface-container-lowest p-space-md rounded-xl border border-surface-container-high flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Thuật toán Uni Map</span>
+          <span class="p-1.5 rounded bg-surface-container text-primary"><span class="material-symbols-outlined text-[20px]">psychology</span></span>
+        </div>
+        <div class="my-space-xs">
+          <div class="font-data-metric text-data-metric font-bold text-primary-container">3 Tầng</div>
+          <div class="font-headline-sm text-headline-sm font-semibold text-on-surface">Phân loại AI</div>
+        </div>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">An toàn (P ≥ 0.8) • Vừa sức (0.4–0.8) • Thử sức (P &lt; 0.4).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BẢNG ĐIỂM CHUẨN TIÊU BIỂU -->
+<section class="w-full bg-surface py-space-xl">
+  <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin flex flex-col gap-space-md">
+
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm pb-space-sm border-b border-surface-container-high">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 bg-primary rounded-full"></span>
+        <h2 class="font-headline-md text-headline-md text-on-background font-bold">Điểm chuẩn các ngành tiêu biểu{% with c=cua_so|last %} {{ c.nam }}{% endwith %}</h2>
+      </div>
+      <a class="font-label-md text-label-md text-primary font-semibold hover:underline flex items-center gap-1" href="{% url 'web:tra_cuu' %}">
+        Xem toàn bộ {{ kpi.so_nganh }} ngành <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+      </a>
+    </div>
+
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead class="bg-surface-container-low border-b border-outline-variant font-label-md text-label-md text-on-surface">
+            <tr>
+              <th class="py-3 px-4 font-semibold">Trường ĐH</th>
+              <th class="py-3 px-4 font-semibold">Ngành đào tạo &amp; Mã ngành</th>
+              <th class="py-3 px-4 font-semibold text-center">Tổ hợp</th>
+              {% for c in cua_so|slice:"-3:-1" %}
+                <th class="py-3 px-3 font-semibold text-right">{{ c.nam }}</th>
+              {% endfor %}
+              {% with c=cua_so|last %}
+                <th class="py-3 px-3 font-semibold text-right bg-primary-fixed/30 text-on-primary-fixed">{{ c.nam }} (Chuẩn)</th>
+              {% endwith %}
+              <th class="py-3 px-4 font-semibold text-center">Biến động</th>
+              <th class="py-3 px-4 font-semibold text-center">Dữ liệu</th>
+              <th class="py-3 px-4 font-semibold text-right">Hành động</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-surface-container-high font-body-sm text-body-sm">
+            {% localize off %}
+{% for r in tieu_bieu %}
+              <tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+                <td class="py-3.5 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded {% cycle 'bg-primary-fixed text-on-primary-fixed' 'bg-secondary-fixed text-on-secondary-fixed' 'bg-tertiary-fixed text-on-tertiary-fixed' 'bg-secondary-fixed-dim text-on-secondary-fixed' 'bg-error-container text-on-error-container' %} font-headline-sm text-headline-sm font-bold flex items-center justify-center shrink-0">{{ r.viet_tat|slice:":2" }}</div>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{{ r.truong }}</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant">Mã: {{ r.ma_truong }} • {{ r.tinh_thanh }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <div class="flex flex-col">
+                    <span class="font-label-md text-label-md text-on-surface font-medium">{{ r.nganh }}</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">{{ r.nganh_slug }}</span>
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 text-center font-mono font-medium">{{ r.ma_to_hop }}</td>
+                {% for c in r.theo_nam|slice:"-3:-1" %}
+                  <td class="py-3.5 px-3 text-right font-mono text-on-surface-variant">{{ c.diem|default:"—" }}</td>
+                {% endfor %}
+                {% with c=r.theo_nam|last %}
+                  <td class="py-3.5 px-3 text-right font-mono font-bold text-primary bg-primary-fixed/20">{{ c.diem|default:"—" }}</td>
+                {% endwith %}
+                <td class="py-3.5 px-4 text-center">
+                  <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded font-label-sm text-label-sm font-bold border {{ r.chip.cls }}">
+                    <span class="material-symbols-outlined text-[14px]">{{ r.chip.icon }}</span>{{ r.bien_dong }}
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-center">
+                  <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded font-mono">{{ r.so_nam_co_dl }}/5 năm</span>
+                </td>
+                <td class="py-3.5 px-4 text-right">
+                  <div class="flex items-center justify-end gap-1.5">
+                    <a class="px-2.5 py-1 text-primary hover:bg-primary-fixed/30 font-label-sm text-label-sm rounded transition-colors font-semibold" href="{% url 'web:tra_cuu' %}?truong={{ r.ma_truong }}&amp;nganh={{ r.nganh_slug }}">Xem chi tiết</a>
+                    <button class="px-2.5 py-1 bg-primary-container hover:bg-primary text-on-primary font-label-sm text-label-sm rounded transition-colors font-semibold" type="button" data-khop-diem>Khớp điểm</button>
+                  </div>
+                </td>
+              </tr>
+            {% empty %}
+              <tr><td class="py-6 px-4 text-center text-on-surface-variant" colspan="9">Chưa có dữ liệu điểm chuẩn đủ 5 năm.</td></tr>
+            {% endfor %}
+            {% endlocalize %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-space-md bg-surface-container-low border-t border-outline-variant flex items-center justify-end">
+        <a class="px-3 py-1.5 bg-surface-container-lowest border border-outline text-on-surface font-label-md text-label-md rounded hover:bg-surface-container transition-colors" href="{% url 'web:tra_cuu' %}">
+          Xem thêm {{ kpi.so_nganh }} ngành khác →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KHÁM PHÁ THEO NHÓM NGÀNH -->
+<section class="w-full bg-surface py-space-xl">
+  <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin flex flex-col gap-space-lg">
+    <h2 class="font-headline-md text-headline-md text-on-background font-bold">Khám phá theo Nhóm ngành Đại học</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md">
+      {% for n in nhom_nganh %}
+        <a class="bg-surface-container-lowest p-space-md rounded-xl border border-surface-container-high hover:border-primary transition-colors flex items-center gap-space-md group"
+           href="{% url 'web:tra_cuu' %}?nhom_nganh={{ n.nhom_nganh|urlencode }}">
+          <div class="w-12 h-12 rounded flex items-center justify-center shrink-0 {% cycle 'bg-primary-fixed text-primary' 'bg-secondary-fixed text-secondary' 'bg-tertiary-fixed text-tertiary' 'bg-error-container text-error' 'bg-surface-container text-on-surface' 'bg-secondary-fixed-dim text-on-secondary-fixed' %}">
+            <span class="material-symbols-outlined text-[26px]">{% cycle 'terminal' 'monitoring' 'precision_manufacturing' 'medical_services' 'gavel' 'translate' %}</span>
+          </div>
+          <div class="flex flex-col min-w-0 flex-1">
+            <span class="font-title-md text-title-md font-bold text-on-surface group-hover:text-primary transition-colors truncate">{{ n.nhom_nganh }}</span>
+            <span class="font-body-sm text-body-sm text-on-surface-variant">{{ n.so_nganh }} ngành toàn quốc</span>
+          </div>
+          <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- MODAL THỬ TÍNH ĐIỂM NHANH (khách) -->
+<dialog id="guest-calc-modal" class="p-0 rounded-lg bg-surface-container-lowest border-2 border-on-background backdrop:bg-on-background/40 max-w-lg w-full m-auto">
+  <div class="p-space-lg flex flex-col gap-space-md">
+    <div class="flex items-center justify-between pb-space-xs border-b border-surface-container-high">
+      <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Thử tính điểm nhanh</h3>
+      <button class="p-1 hover:bg-surface-container rounded transition-colors" data-dong-modal type="button" aria-label="Đóng">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <p class="font-body-sm text-body-sm text-on-surface-variant">Nhập điểm thi thử để hệ thống gợi ý tạm thời xác suất trúng tuyển theo thang điểm 2025.</p>
+
+    <div class="grid grid-cols-3 gap-space-sm">
+      <div class="flex flex-col gap-1">
+        <label class="font-label-sm text-label-sm font-semibold" for="diem-mon-1">Toán</label>
+        <input id="diem-mon-1" data-diem-mon class="h-10 px-2.5 border border-outline rounded text-center font-mono" max="10" min="0" placeholder="8.5" step="0.25" type="number">
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="font-label-sm text-label-sm font-semibold" for="diem-mon-2">Vật lý / Văn</label>
+        <input id="diem-mon-2" data-diem-mon class="h-10 px-2.5 border border-outline rounded text-center font-mono" max="10" min="0" placeholder="8.0" step="0.25" type="number">
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="font-label-sm text-label-sm font-semibold" for="diem-mon-3">Hóa / Anh</label>
+        <input id="diem-mon-3" data-diem-mon class="h-10 px-2.5 border border-outline rounded text-center font-mono" max="10" min="0" placeholder="8.75" step="0.25" type="number">
+      </div>
+    </div>
+
+    <div class="p-space-sm bg-surface-container rounded border border-outline-variant flex items-center justify-between">
+      <span class="font-label-md text-label-md text-on-surface">Tổng điểm dự kiến:</span>
+      <span id="tong-diem-du-kien" class="font-headline-sm text-headline-sm font-bold text-primary font-mono">0.00</span>
+    </div>
+
+    <div class="flex items-center justify-end gap-space-xs pt-space-xs">
+      <button class="px-4 py-2 bg-surface-container text-on-surface font-label-md text-label-md rounded transition-colors" data-dong-modal type="button">Đóng</button>
+      <a class="px-4 py-2 bg-primary-container text-on-primary font-label-md text-label-md rounded font-semibold transition-colors" href="{% url 'accounts:dang_ky' %}">Đăng ký để lưu kết quả</a>
+    </div>
+  </div>
+</dialog>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  // Modal chi mo khi bam "Khop diem" — khong bind ca trang nhu mockup.
+  const modal = document.getElementById('guest-calc-modal');
+  const oDiem = [...document.querySelectorAll('[data-diem-mon]')];
+  const oTong = document.getElementById('tong-diem-du-kien');
+
+  function capNhatTong() {
+    const tong = oDiem.reduce((s, el) => s + (parseFloat(el.value) || 0), 0);
+    oTong.textContent = tong.toFixed(2);
+  }
+
+  oDiem.forEach(el => el.addEventListener('input', capNhatTong));
+
+  document.querySelectorAll('[data-khop-diem]').forEach(btn =>
+    btn.addEventListener('click', () => modal?.showModal?.()));
+
+  document.querySelectorAll('[data-dong-modal]').forEach(btn =>
+    btn.addEventListener('click', () => modal?.close()));
+</script>
+{% endblock %}

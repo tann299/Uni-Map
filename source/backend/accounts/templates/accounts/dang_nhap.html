@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block title %}Đăng nhập — Uni Map{% endblock %}
+
+{% block content %}
+<div class="w-full py-4 flex flex-col items-center justify-center">
+
+  <!-- Top bar: Back to home + badge -->
+  <div class="w-full max-w-5xl mb-4 flex items-center justify-between px-1">
+    <a href="{% url 'web:trang_chu' %}" class="inline-flex items-center gap-1.5 text-on-surface-variant hover:text-primary-container transition-colors text-xs sm:text-sm font-medium">
+      <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+      <span>Quay lại Trang chủ</span>
+    </a>
+    <div class="flex items-center gap-2 bg-surface-container-low px-3 py-1 rounded-full border border-surface-container-highest text-xs font-medium text-on-surface-variant">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+      <span>Tuyển sinh 2025</span>
+    </div>
+  </div>
+
+  <!-- Main Split Card -->
+  <div class="w-full max-w-5xl bg-surface-container-lowest rounded-[28px] shadow-2xl shadow-blue-900/10 border border-surface-container-highest overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+
+    <!-- Left Column: Blue gradient hero panel -->
+    <div class="lg:col-span-5 relative bg-gradient-to-b from-[#d9ebff] via-[#d0e5fb] to-[#1e58c8] p-8 flex flex-col justify-between overflow-hidden min-h-[540px]">
+      <div class="relative z-10">
+        <p class="text-sm text-[#1e3a8a] font-semibold leading-tight mb-7">Định hướng hôm nay, Kiến tạo tương lai.</p>
+        <div class="flex flex-col gap-4 max-w-[320px]">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-white/80 border border-blue-200 flex items-center justify-center text-primary-container shrink-0 shadow-sm">
+              <span class="material-symbols-outlined text-[18px]">explore</span>
+            </div>
+            <span class="text-[13px] leading-snug text-[#1e293b]">Gợi ý trường <strong class="font-bold text-[#0f172a]">phù hợp</strong> với năng lực và <strong class="font-bold text-[#0f172a]">sở thích</strong></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-white/80 border border-blue-200 flex items-center justify-center text-primary-container shrink-0 shadow-sm">
+              <span class="material-symbols-outlined text-[18px]">bar_chart</span>
+            </div>
+            <span class="text-[13px] leading-snug text-[#1e293b]">Dữ liệu <strong class="font-bold text-[#0f172a]">điểm chuẩn</strong> cập nhật <strong class="font-bold text-[#0f172a]">liên tục</strong></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-white/80 border border-blue-200 flex items-center justify-center text-primary-container shrink-0 shadow-sm">
+              <span class="material-symbols-outlined text-[18px]">psychology</span>
+            </div>
+            <span class="text-[13px] leading-snug text-[#1e293b]">Tư vấn lộ trình học tập thông minh <strong class="font-bold text-[#0f172a]">bằng AI</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative z-10 mt-auto pt-6">
+        <div class="flex items-center justify-between text-white/95">
+          <div class="flex flex-col font-serif italic text-lg leading-tight drop-shadow">
+            <span class="font-semibold">Chọn đúng trường</span>
+            <span class="font-bold text-xl ml-4">Vững bước tương lai</span>
+          </div>
+          <span class="material-symbols-outlined text-[28px] text-white/80 -rotate-12">send</span>
+        </div>
+      </div>
+
+      <!-- Subtle background decorations -->
+      <div class="absolute inset-0 pointer-events-none opacity-40 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+      <div class="absolute -right-12 -bottom-10 w-72 h-72 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+    </div>
+
+    <!-- Right Column: Login form -->
+    <div class="lg:col-span-7 p-8 sm:p-10 lg:p-12 flex flex-col justify-center bg-white">
+      <!-- Tabs -->
+      <div class="flex items-center justify-end gap-2 mb-6">
+        <div class="inline-flex p-1 bg-surface-container-low rounded-xl border border-surface-container-highest">
+          <a href="{% url 'accounts:dang_nhap' %}" class="px-4 py-1.5 rounded-lg text-sm font-bold bg-white text-primary-container shadow-sm">Đăng nhập</a>
+          <a href="{% url 'accounts:dang_ky' %}" class="px-4 py-1.5 rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface transition-all">Tạo tài khoản</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <div class="mb-6">
+          <h2 class="text-2xl sm:text-3xl font-bold text-on-surface tracking-tight mb-1.5">Chào mừng trở lại!</h2>
+          <p class="text-sm text-on-surface-variant">Đăng nhập để tiếp tục hành trình khám phá ngôi trường phù hợp với bạn.</p>
+        </div>
+
+        <form method="post" action="{% url 'accounts:dang_nhap' %}" class="flex flex-col gap-4">
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="p-3 rounded-xl bg-error-container text-on-error-container border border-error/30 text-xs">
+              {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+
+          <!-- Username / Email field with person icon -->
+          <div>
+            <div class="relative flex items-center">
+              <span class="material-symbols-outlined absolute left-3.5 text-[20px] text-outline pointer-events-none">person</span>
+              <input type="text"
+                     name="{{ form.username.name }}"
+                     id="{{ form.username.id_for_label }}"
+                     required
+                     autofocus
+                     placeholder="Tên đăng nhập hoặc Email"
+                     value="{{ form.username.value|default:'' }}"
+                     class="w-full pl-11 pr-4 py-3 rounded-xl bg-surface-container-lowest border border-outline-variant text-on-surface text-sm placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-transparent transition-all">
+            </div>
+            {% if form.username.errors %}
+              <p class="text-error text-xs mt-1 ml-1">{{ form.username.errors.0 }}</p>
+            {% endif %}
+          </div>
+
+          <!-- Password field with lock icon & toggle eye -->
+          <div>
+            <div class="relative flex items-center">
+              <span class="material-symbols-outlined absolute left-3.5 text-[20px] text-outline pointer-events-none">lock</span>
+              <input type="password"
+                     name="{{ form.password.name }}"
+                     id="input-auth-login-pwd"
+                     required
+                     placeholder="Mật khẩu"
+                     class="w-full pl-11 pr-11 py-3 rounded-xl bg-surface-container-lowest border border-outline-variant text-on-surface text-sm placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-transparent transition-all">
+              <button type="button" onclick="togglePwdVisibility('input-auth-login-pwd', 'icon-pwd-login')" class="absolute right-3.5 text-outline hover:text-on-surface transition-colors">
+                <span id="icon-pwd-login" class="material-symbols-outlined text-[20px]">visibility</span>
+              </button>
+            </div>
+            {% if form.password.errors %}
+              <p class="text-error text-xs mt-1 ml-1">{{ form.password.errors.0 }}</p>
+            {% endif %}
+          </div>
+
+          <!-- Remember me & Forgot password -->
+          <div class="flex items-center justify-between text-sm pt-0.5">
+            <label class="flex items-center gap-2 cursor-pointer select-none text-on-surface-variant">
+              <input type="checkbox" name="remember_me" class="w-4 h-4 rounded text-primary-container focus:ring-primary-container border-outline-variant">
+              <span class="text-xs sm:text-sm text-on-surface">Nhớ tôi</span>
+            </label>
+            <a href="#" class="text-primary-container hover:underline font-semibold text-xs sm:text-sm">Quên mật khẩu?</a>
+          </div>
+
+          <!-- Submit CTA Button -->
+          <button type="submit" class="w-full py-3.5 px-6 rounded-full bg-primary-container hover:bg-primary text-on-primary font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 mt-2">
+            <span>Đăng nhập →</span>
+          </button>
+
+          <!-- Social login divider -->
+          <div class="relative flex items-center justify-center my-4">
+            <div class="border-t border-surface-container-highest w-full"></div>
+            <span class="bg-white px-3 text-xs text-on-surface-variant font-medium relative">Hoặc đăng nhập bằng</span>
+          </div>
+
+          <!-- Social login buttons (Google, Facebook, Apple) -->
+          <div class="flex items-center justify-center gap-4">
+            <button type="button" class="w-12 h-12 rounded-full border border-surface-container-highest hover:border-outline hover:bg-surface-container-low transition-all flex items-center justify-center shadow-sm" title="Google">
+              <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"></path><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.6h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.9z"></path><path fill="#FBBC05" d="M5.6 14.8c-.3-.8-.4-1.8-.4-2.8s.2-2 .4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"></path><path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2-6.4-4.8L1.9 16.4C3.7 20.1 7.5 23 12 23z"></path></svg>
+            </button>
+            <button type="button" class="w-12 h-12 rounded-full border border-surface-container-highest hover:border-outline hover:bg-surface-container-low transition-all flex items-center justify-center shadow-sm text-[#1877F2]" title="Facebook">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
+            </button>
+            <button type="button" class="w-12 h-12 rounded-full border border-surface-container-highest hover:border-outline hover:bg-surface-container-low transition-all flex items-center justify-center shadow-sm text-black" title="Apple">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.88c.64-.78 1.08-1.86.96-2.95-.93.04-2.07.62-2.74 1.4-.59.68-1.11 1.77-.97 2.83 1.04.08 2.11-.53 2.75-1.28z"></path></svg>
+            </button>
+          </div>
+
+          <!-- Bottom toggle link -->
+          <div class="text-center text-xs sm:text-sm text-on-surface-variant mt-5">
+            <span>Chưa có tài khoản? </span>
+            <a href="{% url 'accounts:dang_ky' %}" class="text-primary-container font-bold hover:underline">Đăng ký ngay</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function togglePwdVisibility(inputId, iconId) {
+  const input = document.getElementById(inputId);
+  const icon = document.getElementById(iconId);
+  if (!input || !icon) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.textContent = 'visibility_off';
+  } else {
+    input.type = 'password';
+    icon.textContent = 'visibility';
+  }
+}
+</script>
+{% endblock %}

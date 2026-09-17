@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Uni Map — Con đường đến đại học{% endblock %}</title>
+
+  <!-- Google Fonts & Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN + UI_unimap Design Tokens -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#0037b0",
+          "primary-container": "#1d4ed8",
+          "on-primary": "#ffffff",
+          "on-primary-container": "#cad3ff",
+          "primary-fixed": "#dce1ff",
+          "primary-fixed-dim": "#b7c4ff",
+          "on-primary-fixed": "#001551",
+          "on-primary-fixed-variant": "#0039b5",
+          "inverse-primary": "#b7c4ff",
+          "surface-tint": "#2151da",
+          "secondary": "#006398",
+          "secondary-container": "#5bb8fe",
+          "secondary-fixed": "#cce5ff",
+          "secondary-fixed-dim": "#93ccff",
+          "on-secondary": "#ffffff",
+          "on-secondary-container": "#00476e",
+          "on-secondary-fixed": "#001d31",
+          "on-secondary-fixed-variant": "#004b73",
+          "tertiary": "#3d445a",
+          "tertiary-container": "#545c72",
+          "tertiary-fixed": "#dae2fd",
+          "tertiary-fixed-dim": "#bec6e0",
+          "on-tertiary": "#ffffff",
+          "on-tertiary-container": "#cdd5ef",
+          "on-tertiary-fixed": "#131b2e",
+          "on-tertiary-fixed-variant": "#3f465c",
+          "surface": "#f7f9fb",
+          "surface-bright": "#f7f9fb",
+          "surface-dim": "#d8dadc",
+          "surface-variant": "#e0e3e5",
+          "surface-container": "#eceef0",
+          "surface-container-low": "#f2f4f6",
+          "surface-container-lowest": "#ffffff",
+          "surface-container-high": "#e6e8ea",
+          "surface-container-highest": "#e0e3e5",
+          "on-surface": "#191c1e",
+          "on-surface-variant": "#434655",
+          "inverse-surface": "#2d3133",
+          "inverse-on-surface": "#eff1f3",
+          "background": "#f7f9fb",
+          "on-background": "#191c1e",
+          "outline": "#747686",
+          "outline-variant": "#c4c5d7",
+          "error": "#ba1a1a",
+          "error-container": "#ffdad6",
+          "on-error": "#ffffff",
+          "on-error-container": "#93000a"
+        },
+        borderRadius: {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        // Thang spacing cua mockup UI_unimap (dung lam ten lop truc tiep:
+        // p-space-lg, gap-space-md, px-margin...).
+        spacing: {
+          "space-xs": "0.25rem",
+          "space-sm": "0.5rem",
+          "space-md": "1rem",
+          "space-lg": "1.5rem",
+          "space-xl": "2.5rem",
+          "gutter": "1.5rem",
+          "gutter-mobile": "1rem",
+          "margin": "2rem",
+          "margin-mobile": "1rem"
+        },
+        // Mockup dung cap `font-<ten>` + `text-<ten>` cho cung mot bac chu,
+        // nen fontFamily va fontSize phai khai cung bo khoa.
+        fontFamily: {
+          sans: ["Be Vietnam Pro", "sans-serif"],
+          body: ["Be Vietnam Pro", "sans-serif"],
+          "data-metric": ["Be Vietnam Pro", "sans-serif"],
+          "title-md": ["Be Vietnam Pro", "sans-serif"],
+          "display": ["Be Vietnam Pro", "sans-serif"],
+          "label-sm": ["Be Vietnam Pro", "sans-serif"],
+          "headline-lg-mobile": ["Be Vietnam Pro", "sans-serif"],
+          "body-lg": ["Be Vietnam Pro", "sans-serif"],
+          "headline-md": ["Be Vietnam Pro", "sans-serif"],
+          "body-sm": ["Be Vietnam Pro", "sans-serif"],
+          "display-mobile": ["Be Vietnam Pro", "sans-serif"],
+          "headline-lg": ["Be Vietnam Pro", "sans-serif"],
+          "label-md": ["Be Vietnam Pro", "sans-serif"],
+          "headline-sm": ["Be Vietnam Pro", "sans-serif"],
+          "body-md": ["Be Vietnam Pro", "sans-serif"]
+        },
+        fontSize: {
+          "data-metric": ["1.5rem", { lineHeight: "1.75rem", letterSpacing: "-0.02em", fontWeight: "700" }],
+          "title-md": ["1.125rem", { lineHeight: "1.625rem", letterSpacing: "0", fontWeight: "600" }],
+          "display": ["3rem", { lineHeight: "3.5rem", letterSpacing: "-0.02em", fontWeight: "700" }],
+          "label-sm": ["0.75rem", { lineHeight: "1rem", letterSpacing: "0.02em", fontWeight: "600" }],
+          "headline-lg-mobile": ["1.5rem", { lineHeight: "2rem", letterSpacing: "-0.01em", fontWeight: "700" }],
+          "body-lg": ["1.125rem", { lineHeight: "1.75rem", letterSpacing: "0", fontWeight: "400" }],
+          "headline-md": ["1.5rem", { lineHeight: "2rem", letterSpacing: "-0.01em", fontWeight: "600" }],
+          "body-sm": ["0.875rem", { lineHeight: "1.25rem", letterSpacing: "0", fontWeight: "400" }],
+          "display-mobile": ["2rem", { lineHeight: "2.5rem", letterSpacing: "-0.01em", fontWeight: "700" }],
+          "headline-lg": ["2rem", { lineHeight: "2.5rem", letterSpacing: "-0.015em", fontWeight: "700" }],
+          "label-md": ["0.875rem", { lineHeight: "1.25rem", letterSpacing: "0.01em", fontWeight: "600" }],
+          "headline-sm": ["1.25rem", { lineHeight: "1.75rem", letterSpacing: "0", fontWeight: "600" }],
+          "body-md": ["1rem", { lineHeight: "1.5rem", letterSpacing: "0", fontWeight: "400" }]
+        }
+      }
+    }
+  };
+  </script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-surface text-on-surface font-body min-h-screen flex flex-col pt-16 antialiased">
+
+  <!-- HEADER (Cover 100% UI mockup: logo SVG, badge 2021-2025, nav items, guest / user auth state) -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest border-b border-surface-container-highest">
+    <div class="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+
+      <!-- Left: Logo + Brand name -->
+      <div class="flex items-center gap-4 shrink-0">
+        <a class="flex items-center gap-2" href="{% url 'web:trang_chu' %}">
+          {% include "partials/logo.html" with class="h-9 w-9 shrink-0" %}
+          <div class="flex flex-col">
+            <span class="font-headline-sm text-headline-sm text-primary leading-none">Uni Map</span>
+            <span class="text-[11px] text-on-surface-variant leading-tight mt-0.5">Con đường đến đại học</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Center: Navigation links (mockup: active = chu mau primary-container, khong phai pill nen) -->
+      <nav class="hidden lg:flex items-center gap-1 flex-nowrap whitespace-nowrap">
+        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors {% if nav_active == 'trang_chu' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'web:trang_chu' %}">Trang chủ</a>
+        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors {% if nav_active == 'tra_cuu' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'web:tra_cuu' %}">Tra cứu Điểm chuẩn</a>
+        <span class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant/60 cursor-not-allowed" title="Sắp ra mắt">Danh sách trường</span>
+        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors inline-flex items-center gap-1.5" href="{% url 'accounts:dang_nhap' %}" title="Yêu cầu đăng nhập và hoàn thiện Hồ sơ năng lực (UC-05)">
+          <span class="material-symbols-outlined text-[18px] text-primary">auto_awesome</span>
+          Gợi ý AI
+          <span class="text-[10px] px-1.5 py-0.5 rounded bg-primary-fixed text-primary font-bold">Cần Đăng nhập</span>
+        </a>
+        <span class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant/60 cursor-not-allowed" title="Sắp ra mắt">So sánh Nguyện vọng</span>
+      </nav>
+
+      <!-- Right: Badge + Auth State -->
+      <div class="flex items-center gap-3 shrink-0">
+        <!-- Verified Data Badge (from mockup) -->
+        <div class="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-low border border-surface-container-highest">
+          <span class="material-symbols-outlined text-[16px] text-primary-container">verified</span>
+          <span class="text-xs text-on-surface-variant font-medium">Dữ liệu 2021–2025</span>
+        </div>
+
+        {% if user.is_authenticated %}
+          <!-- Student profile state (matches mockup) -->
+          <div class="flex items-center gap-2 pl-2 border-l border-surface-container-highest">
+            <div class="hidden sm:flex flex-col text-right">
+              <span class="text-xs font-semibold text-on-surface leading-tight">{{ user.get_full_name|default:user.username }}</span>
+              <span class="text-[10px] text-on-surface-variant leading-tight">Học sinh</span>
+            </div>
+            <div class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-xs shadow-sm">
+              <span class="material-symbols-outlined text-[18px]">school</span>
+            </div>
+            <form method="post" action="{% url 'accounts:dang_xuat' %}" class="inline">
+              {% csrf_token %}
+              <button type="submit" title="Đăng xuất" class="p-1 text-on-surface-variant hover:text-red-600 rounded transition-colors">
+                <span class="material-symbols-outlined text-[18px]">logout</span>
+              </button>
+            </form>
+          </div>
+        {% else %}
+          <!-- Guest state (mockup: stack doc 2 nut) -->
+          <div class="flex flex-col justify-center items-stretch gap-1 shrink-0">
+            <a href="{% url 'accounts:dang_nhap' %}" class="px-3 py-1 font-label-sm text-label-sm leading-none text-center text-primary-container hover:bg-surface-container-low rounded transition-colors">Đăng nhập</a>
+            <a href="{% url 'accounts:dang_ky' %}" class="px-3 py-1 font-label-sm text-label-sm leading-none text-center bg-primary-container text-on-primary hover:bg-primary rounded transition-colors">Đăng ký</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT (khong boc max-width: moi trang tu dat hero/filter full-bleed nhu mockup) -->
+  <main class="flex-1 w-full">
+    {% if messages %}
+      <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin pt-space-md space-y-2">
+        {% for message in messages %}
+          <div class="p-4 rounded-xl text-sm {% if message.tags == 'error' %}bg-error-container text-on-error-container border border-error/30{% else %}bg-emerald-50 text-emerald-800 border border-emerald-200{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- FOOTER (mockup: 12 cot 4/3/3/2, bottom bar la dai rieng) -->
+  <footer class="w-full bg-surface-container-lowest border-t border-surface-container-highest mt-auto">
+    <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin py-space-xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-space-xl">
+
+        <!-- Col 1 (4/12): Brand info -->
+        <div class="lg:col-span-4 flex flex-col gap-space-md">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[22px]">school</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="font-bold text-lg text-primary-container leading-none">Uni Map</span>
+              <span class="text-[11px] text-on-surface-variant leading-tight">Con đường đến đại học</span>
+            </div>
+          </div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Nền tảng cố vấn học thuật và định hướng tuyển sinh đại học thông minh dựa trên phân tích dữ liệu đa chiều và thuật toán máy học tin cậy.</p>
+          <div>
+            <span class="inline-flex items-center gap-2 px-2.5 py-1 bg-surface-container text-primary font-label-sm text-label-sm rounded-full border border-outline-variant">
+              <span class="w-2 h-2 rounded-full bg-[#16A34A]"></span>Dữ liệu chuẩn hóa 2021–2025
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-on-surface-variant pt-1">
+            <a aria-label="Diễn đàn thí sinh" class="w-8 h-8 rounded-full bg-surface-container border border-outline-variant flex items-center justify-center hover:text-primary-container hover:border-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">forum</span></a>
+            <a aria-label="Cộng đồng học sinh" class="w-8 h-8 rounded-full bg-surface-container border border-outline-variant flex items-center justify-center hover:text-primary-container hover:border-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">groups</span></a>
+            <a aria-label="Hộp thư hỗ trợ" class="w-8 h-8 rounded-full bg-surface-container border border-outline-variant flex items-center justify-center hover:text-primary-container hover:border-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">chat_bubble</span></a>
+          </div>
+        </div>
+
+        <!-- Col 2 (3/12): Features -->
+        <div class="lg:col-span-3 flex flex-col gap-3">
+          <span class="font-label-md text-label-md uppercase tracking-wider text-on-surface font-bold">Tính năng</span>
+          <ul class="flex flex-col gap-2 font-body-sm text-body-sm text-on-surface-variant">
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'web:tra_cuu' %}">Tra cứu điểm chuẩn 5 năm</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'accounts:dang_nhap' %}">Gợi ý Nguyện vọng AI</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'accounts:dang_nhap' %}">So sánh nguyện vọng</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'web:tra_cuu' %}">Danh sách 288 trường ĐH</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3 (3/12): Resources -->
+        <div class="lg:col-span-3 flex flex-col gap-3">
+          <span class="font-label-md text-label-md uppercase tracking-wider text-on-surface font-bold">Tài nguyên</span>
+          <ul class="flex flex-col gap-2 font-body-sm text-body-sm text-on-surface-variant">
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="#">Thuật toán Random Forest</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="#">Quy chế tuyển sinh 2025</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="#">Phân tích phổ điểm thi</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="#">Hướng dẫn đặt thứ tự NV</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4 (2/12): Legal -->
+        <div class="lg:col-span-2 flex flex-col gap-3">
+          <span class="font-label-md text-label-md uppercase tracking-wider text-on-surface font-bold">Pháp lý &amp; Hỗ trợ</span>
+          <ul class="flex flex-col gap-2 font-body-sm text-body-sm text-on-surface-variant">
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="#">Điều khoản dịch vụ</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="#">Chính sách bảo mật</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="#">Cam kết dữ liệu độc lập</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="#">Báo cáo lỗi / Góp ý</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar: dai rieng, chi dong copyright -->
+    <div class="border-t border-surface-container-high">
+      <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin py-space-md">
+        <p class="font-label-sm text-label-sm text-on-surface-variant">© 2025 Uni Map Platform. Đồng hành cùng thí sinh và phụ huynh trên con đường đại học.</p>
+      </div>
+    </div>
+  </footer>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}Tạo tài khoản — Uni Map{% endblock %}
+
+{% block content %}
+<div class="w-full py-4 flex flex-col items-center justify-center">
+
+  <!-- Top bar -->
+  <div class="w-full max-w-5xl mb-4 flex items-center justify-between px-1">
+    <a href="{% url 'web:trang_chu' %}" class="inline-flex items-center gap-1.5 text-on-surface-variant hover:text-primary-container transition-colors text-xs sm:text-sm font-medium">
+      <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+      <span>Quay lại Trang chủ</span>
+    </a>
+    <div class="flex items-center gap-2 bg-surface-container-low px-3 py-1 rounded-full border border-surface-container-highest text-xs font-medium text-on-surface-variant">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+      <span>Tuyển sinh 2025</span>
+    </div>
+  </div>
+
+  <!-- Main Split Card -->
+  <div class="w-full max-w-5xl bg-surface-container-lowest rounded-[28px] shadow-2xl shadow-blue-900/10 border border-surface-container-highest overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+
+    <!-- Left Column: Blue gradient hero panel -->
+    <div class="lg:col-span-5 relative bg-gradient-to-b from-[#d9ebff] via-[#d0e5fb] to-[#1e58c8] p-8 flex flex-col justify-between overflow-hidden min-h-[540px]">
+      <div class="relative z-10">
+        <p class="text-sm text-[#1e3a8a] font-semibold leading-tight mb-7">Định hướng hôm nay, Kiến tạo tương lai.</p>
+        <div class="flex flex-col gap-4 max-w-[320px]">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-white/80 border border-blue-200 flex items-center justify-center text-primary-container shrink-0 shadow-sm">
+              <span class="material-symbols-outlined text-[18px]">explore</span>
+            </div>
+            <span class="text-[13px] leading-snug text-[#1e293b]">Gợi ý trường <strong class="font-bold text-[#0f172a]">phù hợp</strong> với năng lực và <strong class="font-bold text-[#0f172a]">sở thích</strong></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-white/80 border border-blue-200 flex items-center justify-center text-primary-container shrink-0 shadow-sm">
+              <span class="material-symbols-outlined text-[18px]">bar_chart</span>
+            </div>
+            <span class="text-[13px] leading-snug text-[#1e293b]">Dữ liệu <strong class="font-bold text-[#0f172a]">điểm chuẩn</strong> cập nhật <strong class="font-bold text-[#0f172a]">liên tục</strong></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-white/80 border border-blue-200 flex items-center justify-center text-primary-container shrink-0 shadow-sm">
+              <span class="material-symbols-outlined text-[18px]">psychology</span>
+            </div>
+            <span class="text-[13px] leading-snug text-[#1e293b]">Tư vấn lộ trình học tập thông minh <strong class="font-bold text-[#0f172a]">bằng AI</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative z-10 mt-auto pt-6">
+        <div class="flex items-center justify-between text-white/95">
+          <div class="flex flex-col font-serif italic text-lg leading-tight drop-shadow">
+            <span class="font-semibold">Chọn đúng trường</span>
+            <span class="font-bold text-xl ml-4">Vững bước tương lai</span>
+          </div>
+          <span class="material-symbols-outlined text-[28px] text-white/80 -rotate-12">send</span>
+        </div>
+      </div>
+
+      <div class="absolute inset-0 pointer-events-none opacity-40 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+      <div class="absolute -right-12 -bottom-10 w-72 h-72 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+    </div>
+
+    <!-- Right Column: Register form -->
+    <div class="lg:col-span-7 p-8 sm:p-10 lg:p-12 flex flex-col justify-center bg-white">
+      <!-- Tabs -->
+      <div class="flex items-center justify-end gap-2 mb-6">
+        <div class="inline-flex p-1 bg-surface-container-low rounded-xl border border-surface-container-highest">
+          <a href="{% url 'accounts:dang_nhap' %}" class="px-4 py-1.5 rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface transition-all">Đăng nhập</a>
+          <a href="{% url 'accounts:dang_ky' %}" class="px-4 py-1.5 rounded-lg text-sm font-bold bg-white text-primary-container shadow-sm">Tạo tài khoản</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <div class="mb-5">
+          <h2 class="text-2xl sm:text-3xl font-bold text-on-surface tracking-tight mb-1.5">Tạo tài khoản mới</h2>
+          <p class="text-sm text-on-surface-variant">Tham gia Uni Map để nhận những gợi ý trường phù hợp nhất với bạn!</p>
+        </div>
+
+        <form method="post" action="{% url 'accounts:dang_ky' %}" class="flex flex-col gap-3.5">
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="p-3 rounded-xl bg-error-container text-on-error-container border border-error/30 text-xs">
+              {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+
+          <!-- Username field -->
+          <div>
+            <div class="relative flex items-center">
+              <span class="material-symbols-outlined absolute left-3.5 text-[20px] text-outline pointer-events-none">person</span>
+              <input type="text"
+                     name="{{ form.username.name }}"
+                     id="{{ form.username.id_for_label }}"
+                     required
+                     autofocus
+                     placeholder="Tên đăng nhập"
+                     value="{{ form.username.value|default:'' }}"
+                     class="w-full pl-11 pr-4 py-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant text-on-surface text-sm placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-transparent transition-all">
+            </div>
+            {% if form.username.errors %}
+              <p class="text-error text-xs mt-1 ml-1">{{ form.username.errors.0 }}</p>
+            {% endif %}
+          </div>
+
+          <!-- Password field -->
+          <div>
+            <div class="relative flex items-center">
+              <span class="material-symbols-outlined absolute left-3.5 text-[20px] text-outline pointer-events-none">lock</span>
+              <input type="password"
+                     name="{{ form.password1.name }}"
+                     id="input-reg-pwd"
+                     required
+                     placeholder="Mật khẩu"
+                     class="w-full pl-11 pr-11 py-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant text-on-surface text-sm placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-transparent transition-all">
+              <button type="button" onclick="togglePwdVisibility('input-reg-pwd', 'icon-pwd-reg1')" class="absolute right-3.5 text-outline hover:text-on-surface transition-colors" title="Hiện/ẩn mật khẩu" aria-label="Hiện/ẩn mật khẩu">
+                <span id="icon-pwd-reg1" class="material-symbols-outlined text-[20px]">visibility</span>
+              </button>
+            </div>
+            {% if form.password1.errors %}
+              <p class="text-error text-xs mt-1 ml-1">{{ form.password1.errors.0 }}</p>
+            {% endif %}
+          </div>
+
+          <!-- Confirm password field -->
+          <div>
+            <div class="relative flex items-center">
+              <span class="material-symbols-outlined absolute left-3.5 text-[20px] text-outline pointer-events-none">lock_reset</span>
+              <input type="password"
+                     name="{{ form.password2.name }}"
+                     id="input-reg-pwd-confirm"
+                     required
+                     placeholder="Nhập lại mật khẩu"
+                     class="w-full pl-11 pr-11 py-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant text-on-surface text-sm placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-transparent transition-all">
+              <button type="button" onclick="togglePwdVisibility('input-reg-pwd-confirm', 'icon-pwd-reg2')" class="absolute right-3.5 text-outline hover:text-on-surface transition-colors" title="Hiện/ẩn mật khẩu" aria-label="Hiện/ẩn mật khẩu">
+                <span id="icon-pwd-reg2" class="material-symbols-outlined text-[20px]">visibility</span>
+              </button>
+            </div>
+            {% if form.password2.errors %}
+              <p class="text-error text-xs mt-1 ml-1">{{ form.password2.errors.0 }}</p>
+            {% endif %}
+          </div>
+
+          <!-- Quy tắc mật khẩu (chìm, nhỏ) -->
+          {% if form.password1.help_text %}
+          <div class="flex items-start gap-1.5 -mt-1 text-[11px] leading-snug text-on-surface-variant/80">
+            <span class="material-symbols-outlined text-[15px] leading-none mt-px">info</span>
+            <span>{{ form.password1.help_text|safe }}</span>
+          </div>
+          {% endif %}
+
+          <!-- Submit CTA -->
+          <button type="submit" class="w-full py-3.5 px-6 rounded-full bg-primary-container hover:bg-primary text-on-primary font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 mt-1">
+            <span>Đăng ký →</span>
+          </button>
+
+          <!-- Bottom toggle link -->
+          <div class="text-center text-xs sm:text-sm text-on-surface-variant mt-2">
+            <span>Đã có tài khoản? </span>
+            <a href="{% url 'accounts:dang_nhap' %}" class="text-primary-container font-bold hover:underline">Đăng nhập ngay</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function togglePwdVisibility(inputId, iconId) {
+  const input = document.getElementById(inputId);
+  const icon = document.getElementById(iconId);
+  if (!input || !icon) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.textContent = 'visibility_off';
+  } else {
+    input.type = 'password';
+    icon.textContent = 'visibility';
+  }
+}
+</script>
+{% endblock %}

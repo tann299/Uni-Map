@@ -13,7 +13,7 @@ auth_user KHÔNG khai lại ở đây — dùng `django.contrib.auth.models.User
 """
 
 from django.conf import settings
-from django.db import modelsx
+from django.db import models
 
 
 PHUONG_THUC = [
