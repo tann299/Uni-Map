@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load l10n %}
+
+{% block title %}Lịch sử gợi ý — {{ ho_so.ten_ho_so }} — Uni Map{% endblock %}
+
+{% block content %}
+{% localize off %}
+<div class="max-w-5xl mx-auto px-margin-mobile lg:px-margin py-space-lg">
+
+  <a href="{% url 'admissions:chi_tiet_ho_so' ho_so.pk %}" class="inline-flex items-center gap-1.5 text-on-surface-variant hover:text-primary-container transition-colors font-label-md text-label-md mb-space-md">
+    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+    <span>Về hồ sơ</span>
+  </a>
+
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-sm mb-space-lg pb-space-sm border-b border-surface-container-high">
+    <div>
+      <h1 class="font-headline-md text-headline-md text-on-surface font-bold flex items-center gap-2">
+        <span class="material-symbols-outlined text-[26px] text-primary-container">history</span>
+        Lịch sử gợi ý
+      </h1>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+        Hồ sơ <strong class="text-on-surface">{{ ho_so.ten_ho_so }}</strong> · {{ danh_sach|length }} lần gợi ý
+      </p>
+    </div>
+    <div class="flex items-center gap-space-xs shrink-0">
+      <a href="{% url 'admissions:xem_goi_y' ho_so.pk %}" class="px-space-md py-space-sm bg-primary-container hover:bg-primary text-on-primary rounded-lg font-label-md text-label-md inline-flex items-center gap-1.5 transition-colors shadow-sm">
+        <span class="material-symbols-outlined text-[18px]">auto_awesome</span><span>Gợi ý mới</span>
+      </a>
+      {% if danh_sach %}
+      <form method="post" action="{% url 'admissions:xoa_lich_su' ho_so.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="px-space-md py-space-sm bg-error-container text-on-error-container rounded-lg font-label-md text-label-md hover:bg-error/20 transition-colors inline-flex items-center gap-1.5" title="Xóa toàn bộ lịch sử">
+          <span class="material-symbols-outlined text-[18px]">delete_sweep</span><span class="hidden sm:inline">Xóa lịch sử</span>
+        </button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if danh_sach %}
+    <p class="font-label-sm text-label-sm text-outline mb-space-md">
+      Con số trong lịch sử là <strong>ảnh chụp tại thời điểm gợi ý</strong> — không tính lại khi xem, vì điểm chuẩn trong hệ thống có thể đã cập nhật.
+    </p>
+
+    <div class="flex flex-col gap-space-md">
+      {% for lan in danh_sach %}
+        <section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+          <div class="flex flex-wrap items-center justify-between gap-space-sm p-space-md bg-surface-container-low">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[20px] text-primary-container">schedule</span>
+              <span class="font-title-md text-title-md font-semibold text-on-surface">{{ lan.thoi_diem|date:"d/m/Y H:i" }}</span>
+              <span class="px-space-sm py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface-variant">{{ lan.so_ket_qua }} nguyện vọng</span>
+              {% if not lan.dung_ai %}
+                <span class="px-space-sm py-0.5 rounded bg-[#FEF3C7] text-[#92400E] font-label-sm text-label-sm">dự phòng margin</span>
+              {% else %}
+                <span class="px-space-sm py-0.5 rounded bg-[#DCFCE7] text-[#16A34A] font-label-sm text-label-sm">mô hình AI</span>
+              {% endif %}
+            </div>
+            <span class="font-label-sm text-label-sm text-outline">Ảnh chụp lúc gợi ý</span>
+          </div>
+
+          {% if lan.ketquagoiy_set.all %}
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead class="bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm">
+                  <tr>
+                    <th class="py-space-sm px-space-md font-semibold">#</th>
+                    <th class="py-space-sm px-space-md font-semibold">Ngành</th>
+                    <th class="py-space-sm px-space-md font-semibold">Trường</th>
+                    <th class="py-space-sm px-space-md font-semibold">Tổ hợp</th>
+                    <th class="py-space-sm px-space-md font-semibold text-right">Điểm bạn</th>
+                    <th class="py-space-sm px-space-md font-semibold text-right">Margin</th>
+                    <th class="py-space-sm px-space-md font-semibold">Tầng</th>
+                    <th class="py-space-sm px-space-md"></th>
+                  </tr>
+                </thead>
+                <tbody class="font-body-sm text-body-sm text-on-surface">
+                  {% for kq in lan.ketquagoiy_set.all|slice:":30" %}
+                    <tr class="border-t border-surface-container-high hover:bg-surface-container-low transition-colors">
+                      <td class="py-space-sm px-space-md text-outline font-mono">{{ kq.thu_hang }}</td>
+                      <td class="py-space-sm px-space-md">{{ kq.nganh.ten_nganh }}</td>
+                      <td class="py-space-sm px-space-md text-on-surface-variant">{{ kq.ma_truong.viet_tat }}</td>
+                      <td class="py-space-sm px-space-md font-mono text-primary-container">{{ kq.ma_to_hop_id }}</td>
+                      <td class="py-space-sm px-space-md text-right font-mono">{{ kq.diem_hoc_sinh }}</td>
+                      <td class="py-space-sm px-space-md text-right font-mono {% if kq.margin >= 0 %}text-[#16A34A]{% else %}text-[#DC2626]{% endif %}">{% if kq.margin >= 0 %}+{% endif %}{{ kq.margin }}</td>
+                      <td class="py-space-sm px-space-md">
+                        <span class="px-2 py-0.5 rounded font-label-sm text-label-sm border
+                          {% if kq.tang == 'An toàn' %}bg-[#DCFCE7] text-[#16A34A] border-[#16A34A]/30
+                          {% elif kq.tang == 'Vừa sức' %}bg-[#FEF3C7] text-[#D97706] border-[#D97706]/30
+                          {% else %}bg-[#FEE2E2] text-[#DC2626] border-[#DC2626]/30{% endif %}">{{ kq.tang }}</span>
+                      </td>
+                      <td class="py-space-sm px-space-md text-right">
+                        <a href="{% url 'admissions:chi_tiet_goi_y' kq.pk %}" class="text-primary-container hover:underline font-label-sm text-label-sm inline-flex items-center gap-1">
+                          <span class="material-symbols-outlined text-[16px]">insights</span> Chi tiết
+                        </a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <p class="p-space-md font-body-sm text-body-sm text-on-surface-variant">Lần gợi ý này không có kết quả nào.</p>
+          {% endif %}
+        </section>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-xl text-center">
+      <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">history_toggle_off</span>
+      <p class="font-body-md text-body-md text-on-surface-variant mb-space-md">Chưa có lần gợi ý nào cho hồ sơ này.</p>
+      <a href="{% url 'admissions:xem_goi_y' ho_so.pk %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors">
+        <span class="material-symbols-outlined text-[18px]">auto_awesome</span><span>Xem gợi ý ngay</span>
+      </a>
+    </div>
+  {% endif %}
+
+</div>
+{% endlocalize %}
+{% endblock %}

@@ -8,8 +8,8 @@ Trang HTML cần pivot 5 năm theo `dac_trung_diemchuan` (đã có sẵn cột
 """
 
 from django.core.paginator import Paginator
-from django.db.models import Count, Q
-from django.shortcuts import render
+from django.db.models import Avg, Count, Q
+from django.shortcuts import get_object_or_404, render
 
 from tracuu.models import (
     PHUONG_THUC,
@@ -23,6 +23,7 @@ from tracuu.models import (
 )
 
 PAGE_SIZE = 20
+TRUONG_PAGE_SIZE = 12
 
 # Chỉ cho phép sắp xếp theo danh sách trắng — không nhận thẳng tên cột từ query.
 SAP_XEP = {
@@ -146,7 +147,7 @@ def _bo_loc():
         "tinh_thanh": (Truong.objects.values("tinh_thanh")
                        .annotate(so_truong=Count("ma_truong"))
                        .order_by("-so_truong", "tinh_thanh")),
-        "vung_mien": [(ma, ten, Truong.objects.filter(vung_mien=ma).count())
+        "vung_mien": [(ma, ten, Truong.objects.filter(vung_mien=ten).count())
                       for ma, ten in VUNG_MIEN],
         "phuong_thuc": PHUONG_THUC,
         "to_hop": ToHop.objects.order_by("ma_to_hop").values_list("ma_to_hop", "ten_to_hop"),
@@ -203,4 +204,144 @@ def tra_cuu(request):
         "page_range": paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=1),
         "tong": paginator.count,
         "ds": [_thanh_dong(r, cua_so) for r in page.object_list],
+    })
+
+
+# ===========================================================================
+# Danh sách trường + chi tiết trường (UC-02). Chỉ đọc, dữ liệu thật.
+# ===========================================================================
+
+def _truong_thanh_dong(t: Truong, so_nganh: int, diem_tb) -> dict:
+    """1 thẻ trường: số ngành, điểm chuẩn TB, vùng miền."""
+    return {
+        "ma_truong": t.ma_truong,
+        "ten_truong": t.ten_truong,
+        "viet_tat": t.viet_tat,
+        "tinh_thanh": t.tinh_thanh,
+        "vung_mien": t.vung_mien,
+        "so_nganh": so_nganh,
+        "diem_tb": round(float(diem_tb), 2) if diem_tb is not None else None,
+    }
+
+
+def danh_sach_truong(request):
+    """Lưới thẻ 288 trường + lọc theo vùng/tỉnh/nhóm ngành/tên."""
+    g = request.GET
+    q = (g.get("q") or "").strip()
+    vung_mien = (g.get("vung_mien") or "").strip()
+    tinh_thanh = (g.get("tinh_thanh") or "").strip()
+    nhom_nganh = (g.get("nhom_nganh") or "").strip()
+    sap_xep = (g.get("sap_xep") or "ten").strip()
+
+    if vung_mien not in dict(VUNG_MIEN):
+        vung_mien = ""
+    if sap_xep not in {"ten", "nganh_desc", "diem_desc"}:
+        sap_xep = "ten"
+
+    qs = Truong.objects.all()
+    if q:
+        qs = qs.filter(Q(ten_truong__icontains=q) | Q(viet_tat__icontains=q)
+                       | Q(ma_truong__icontains=q))
+    if vung_mien:
+        qs = qs.filter(vung_mien=vung_mien)
+    if tinh_thanh:
+        qs = qs.filter(tinh_thanh=tinh_thanh)
+    if nhom_nganh:
+        qs = qs.filter(nganh__nhom_nganh=nhom_nganh).distinct()
+
+    # Số ngành + điểm chuẩn TB của mỗi trường, tính bằng 1 truy vấn gộp.
+    thong_ke = {
+        r["ma_truong_id"]: r
+        for r in DacTrungDiemChuan.objects.values("ma_truong_id")
+        .annotate(so_nganh=Count("nganh_id", distinct=True),
+                  diem_tb=Avg("diem_moi_nhat"))
+    }
+    ds = [_truong_thanh_dong(t, thong_ke.get(t.ma_truong, {}).get("so_nganh", 0),
+                             thong_ke.get(t.ma_truong, {}).get("diem_tb"))
+          for t in qs]
+    if sap_xep == "nganh_desc":
+        ds.sort(key=lambda x: (-x["so_nganh"], x["ten_truong"]))
+    elif sap_xep == "diem_desc":
+        ds.sort(key=lambda x: (-(x["diem_tb"] or 0), x["ten_truong"]))
+    else:
+        ds.sort(key=lambda x: x["ten_truong"])
+
+    paginator = Paginator(ds, TRUONG_PAGE_SIZE)
+    page = paginator.get_page(g.get("trang") or 1)
+
+    return render(request, "web/danh_sach_truong.html", {
+        "nav_active": "truong",
+        "params": {"q": q, "vung_mien": vung_mien, "tinh_thanh": tinh_thanh,
+                   "nhom_nganh": nhom_nganh, "sap_xep": sap_xep},
+        "bo_loc": {
+            "tinh_thanh": (Truong.objects.values("tinh_thanh")
+                           .annotate(so_truong=Count("ma_truong"))
+                           .order_by("-so_truong", "tinh_thanh")),
+            "vung_mien": [(ma, ten, Truong.objects.filter(vung_mien=ten).count())
+                          for ma, ten in VUNG_MIEN],
+            "nhom_nganh": (Nganh.objects.values("nhom_nganh")
+                           .annotate(so_nganh=Count("nganh_id"))
+                           .order_by("-so_nganh")),
+        },
+        "page": page,
+        "page_range": paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=1),
+        "tong": paginator.count,
+        "ds": page.object_list,
+        "tong_truong": Truong.objects.count(),
+    })
+
+
+def chi_tiet_truong(request, ma_truong):
+    """UC-02 — chi tiết 1 trường: KPI + bảng điểm chuẩn 5 năm theo ngành."""
+    t = get_object_or_404(Truong, pk=ma_truong)
+    cua_so = cua_so_nam()
+
+    g = request.GET
+    ma_to_hop = (g.get("ma_to_hop") or "").strip()
+    phuong_thuc = (g.get("phuong_thuc") or "").strip()
+    nhom_nganh = (g.get("nhom_nganh") or "").strip()
+    sap_xep = (g.get("sap_xep") or "diem_desc").strip()
+    if phuong_thuc not in dict(PHUONG_THUC):
+        phuong_thuc = ""
+    if sap_xep not in SAP_XEP:
+        sap_xep = "diem_desc"
+
+    qs = (DacTrungDiemChuan.objects
+          .select_related("nganh", "ma_to_hop")
+          .filter(ma_truong=t))
+    if ma_to_hop:
+        qs = qs.filter(ma_to_hop_id=ma_to_hop)
+    if phuong_thuc:
+        qs = qs.filter(phuong_thuc=phuong_thuc)
+    if nhom_nganh:
+        qs = qs.filter(nganh__nhom_nganh=nhom_nganh)
+    qs = qs.order_by(SAP_XEP[sap_xep], "nganh__ten_nganh")
+
+    ds = [_thanh_dong(r, cua_so) for r in qs]
+    diem_tb = (sum(float(r["diem_moi_nhat"]) for r in ds) / len(ds)) if ds else None
+
+    # KPI: số ngành, số nhóm ngành, số tổ hợp, điểm TB.
+    return render(request, "web/chi_tiet_truong.html", {
+        "nav_active": "truong",
+        "truong": t,
+        "cua_so": cua_so,
+        "params": {"ma_to_hop": ma_to_hop, "phuong_thuc": phuong_thuc,
+                   "nhom_nganh": nhom_nganh, "sap_xep": sap_xep},
+        "bo_loc": {
+            "to_hop": (ToHop.objects.filter(dactrungdiemchuan__ma_truong=t)
+                       .distinct().order_by("ma_to_hop")
+                       .values_list("ma_to_hop", "ten_to_hop")),
+            "phuong_thuc": PHUONG_THUC,
+            "nhom_nganh": (Nganh.objects.filter(dactrungdiemchuan__ma_truong=t)
+                           .values("nhom_nganh")
+                           .annotate(so_nganh=Count("nganh_id"))
+                           .order_by("-so_nganh")),
+        },
+        "ds": ds,
+        "kpi": {
+            "so_nganh": len({r["nganh_slug"] for r in ds}),
+            "so_nhom_nganh": len({r["nhom_nganh"] for r in ds}),
+            "so_to_hop": len({r["ma_to_hop"] for r in ds}),
+            "diem_tb": round(diem_tb, 2) if diem_tb is not None else None,
+        },
     })

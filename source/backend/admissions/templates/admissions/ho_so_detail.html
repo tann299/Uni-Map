@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load l10n %}
+
+{% block title %}{{ ho_so.ten_ho_so }} — Uni Map{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-margin-mobile lg:px-margin py-space-lg">
+
+  <a href="{% url 'admissions:danh_sach_ho_so' %}" class="inline-flex items-center gap-1.5 text-on-surface-variant hover:text-primary-container transition-colors font-label-md text-label-md mb-space-md">
+    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+    <span>Danh sách hồ sơ</span>
+  </a>
+
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-sm mb-space-lg pb-space-sm border-b border-surface-container-high">
+    <div>
+      <h1 class="font-headline-md text-headline-md text-on-surface font-bold">{{ ho_so.ten_ho_so }}</h1>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+        {{ ho_so.phuong_thuc }}{% if ho_so.diem_uu_tien %} • Điểm ưu tiên +{{ ho_so.diem_uu_tien }}{% endif %}{% if ho_so.vung_mien_uu_tien %} • {{ ho_so.vung_mien_uu_tien }}{% endif %}
+      </p>
+    </div>
+    <div class="flex items-center gap-space-xs shrink-0">
+      <a href="{% url 'admissions:xem_goi_y' ho_so.pk %}" class="px-space-md py-space-sm bg-primary-container text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary transition-colors inline-flex items-center gap-1.5 shadow-sm">
+        <span class="material-symbols-outlined text-[18px]">auto_awesome</span><span>Xem gợi ý</span>
+      </a>
+      {% if so_lan_goi_y %}
+      <a href="{% url 'admissions:lich_su_goi_y' ho_so.pk %}" class="px-space-md py-space-sm bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors inline-flex items-center gap-1.5" title="Lịch sử gợi ý">
+        <span class="material-symbols-outlined text-[18px]">history</span><span class="hidden sm:inline">Lịch sử</span>
+      </a>
+      {% endif %}
+      <a href="{% url 'admissions:sua_ho_so' ho_so.pk %}" class="px-space-md py-space-sm bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors inline-flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[18px]">edit</span><span>Sửa</span>
+      </a>
+      <a href="{% url 'admissions:xoa_ho_so' ho_so.pk %}" class="px-space-md py-space-sm bg-error-container text-on-error-container rounded-lg font-label-md text-label-md hover:bg-error/20 transition-colors inline-flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[18px]">delete</span><span>Xóa</span>
+      </a>
+    </div>
+  </div>
+
+  {% localize off %}
+  <!-- Điểm từng môn -->
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-lg">
+    <h2 class="font-title-md text-title-md font-bold text-on-surface mb-space-md flex items-center gap-2">
+      <span class="material-symbols-outlined text-[20px] text-primary-container">calculate</span>
+      Điểm từng môn đã nhập
+    </h2>
+    {% if diem_mon %}
+      <div class="flex flex-wrap gap-space-xs">
+        {% for ma, diem in diem_mon.items %}
+          <span class="px-space-sm py-1 rounded-lg bg-surface-container font-label-md text-label-md text-on-surface">
+            <span class="font-mono text-on-surface-variant">{{ ma }}</span>
+            <strong class="text-primary-container ml-1">{{ diem }}</strong>
+          </span>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Chưa nhập điểm môn nào.
+        <a class="text-primary-container hover:underline font-semibold" href="{% url 'admissions:sua_ho_so' ho_so.pk %}">Nhập ngay</a>
+      </p>
+    {% endif %}
+  </section>
+
+  <!-- CN-01: tổ hợp tự tính -->
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+    <div class="p-space-lg pb-space-sm">
+      <h2 class="font-title-md text-title-md font-bold text-on-surface flex items-center gap-2">
+        <span class="material-symbols-outlined text-[20px] text-primary-container">auto_awesome</span>
+        Tổ hợp bạn đủ điều kiện (CN-01)
+      </h2>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">
+        Tìm thấy <strong class="text-primary-container">{{ to_hop|length }}</strong> tổ hợp khớp điểm các môn đã nhập.
+      </p>
+    </div>
+
+    {% if to_hop %}
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead class="bg-surface-container-low text-on-surface-variant font-label-md text-label-md">
+            <tr>
+              <th class="py-space-sm px-space-md font-semibold">Mã tổ hợp</th>
+              <th class="py-space-sm px-space-md font-semibold">Môn</th>
+              <th class="py-space-sm px-space-md font-semibold text-right">Tổng điểm</th>
+              <th class="py-space-sm px-space-md font-semibold"></th>
+            </tr>
+          </thead>
+          <tbody class="font-body-sm text-body-sm text-on-surface">
+            {% for t in to_hop %}
+              <tr class="border-b border-surface-container-high hover:bg-surface-container-low transition-colors">
+                <td class="py-space-sm px-space-md font-mono font-semibold text-primary-container">{{ t.ma }}</td>
+                <td class="py-space-sm px-space-md text-on-surface-variant">{{ t.mon|join:", " }}</td>
+                <td class="py-space-sm px-space-md text-right font-mono font-bold">{{ t.tong }}</td>
+                <td class="py-space-sm px-space-md text-right">
+                  {% if t.can_nang_khieu %}
+                    <span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">cần thi năng khiếu</span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="p-space-lg pt-0">
+        <p class="font-body-sm text-body-sm text-on-surface-variant">
+          Chưa tính được tổ hợp nào. Hãy nhập điểm các môn ở
+          <a class="text-primary-container hover:underline font-semibold" href="{% url 'admissions:sua_ho_so' ho_so.pk %}">trang sửa hồ sơ</a>.
+        </p>
+      </div>
+    {% endif %}
+  </section>
+  {% endlocalize %}
+
+  <p class="font-label-sm text-label-sm text-outline mt-space-md">
+    Kết quả dựa trên {{ diem_mon|length }} môn đã nhập. Tổ hợp thiếu môn bị bỏ qua im lặng, không báo lỗi.
+  </p>
+
+</div>
+{% endblock %}

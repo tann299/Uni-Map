@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Xóa hồ sơ — Uni Map{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto px-margin-mobile lg:px-margin py-space-xl">
+
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg text-center">
+    <span class="material-symbols-outlined text-[48px] text-error block mb-space-xs">delete_forever</span>
+    <h1 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-space-xs">Xóa hồ sơ này?</h1>
+    <p class="font-body-md text-body-md text-on-surface-variant mb-space-lg">
+      Hồ sơ <strong class="text-on-surface">{{ ho_so.ten_ho_so }}</strong> và toàn bộ điểm môn bên trong sẽ bị xóa vĩnh viễn. Không khôi phục được.
+    </p>
+
+    <form method="post" class="flex items-center justify-center gap-space-sm">
+      {% csrf_token %}
+      <a href="{% url 'admissions:chi_tiet_ho_so' ho_so.pk %}" class="px-space-lg py-space-sm bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors">Hủy</a>
+      <button type="submit" class="px-space-lg py-space-sm bg-error text-on-error rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">Xóa vĩnh viễn</button>
+    </form>
+  </div>
+
+</div>
+{% endblock %}

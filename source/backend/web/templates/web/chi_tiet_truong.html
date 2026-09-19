@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% load l10n %}
+
+{% block title %}{{ truong.ten_truong }} — Uni Map{% endblock %}
+
+{% block content %}
+{% localize off %}
+<div class="max-w-[1700px] mx-auto px-margin-mobile lg:px-margin py-space-lg">
+
+  <!-- Breadcrumb -->
+  <nav class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant mb-space-md">
+    <a class="hover:text-primary-container transition-colors" href="{% url 'web:trang_chu' %}">Trang chủ</a>
+    <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+    <a class="hover:text-primary-container transition-colors" href="{% url 'web:danh_sach_truong' %}">Danh sách trường</a>
+    <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+    <span class="text-on-surface font-semibold">{{ truong.ten_truong }}</span>
+  </nav>
+
+  <!-- Header trường -->
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-md">
+    <div class="flex items-start gap-space-md min-w-0">
+      <div class="w-16 h-16 rounded-xl bg-primary-container text-on-primary flex items-center justify-center font-bold font-headline-md text-headline-md shrink-0">{{ truong.viet_tat|slice:":3" }}</div>
+      <div class="min-w-0">
+        <h1 class="font-headline-md text-headline-md text-on-surface font-bold">{{ truong.ten_truong }}</h1>
+        <div class="flex flex-wrap items-center gap-space-xs mt-space-xs font-label-sm text-label-sm">
+          <span class="inline-flex items-center gap-1 text-on-surface-variant">
+            <span class="material-symbols-outlined text-[16px]">location_on</span>{{ truong.tinh_thanh }} · {{ truong.vung_mien }}
+          </span>
+          <span class="px-space-sm py-0.5 rounded bg-surface-container text-on-surface-variant font-mono">Mã: {{ truong.ma_truong }}</span>
+          <span class="px-space-sm py-0.5 rounded bg-surface-container text-on-surface-variant">{{ truong.viet_tat }}</span>
+          <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-[#DCFCE7] text-[#16A34A] border border-[#16A34A]/30">
+            <span class="material-symbols-outlined text-[15px]">verified</span> Dữ liệu 2021–2025
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-space-md mt-space-lg pt-space-md border-t border-surface-container-high">
+      <div>
+        <div class="font-data-metric text-data-metric font-mono text-primary-container">{{ kpi.so_nganh }}</div>
+        <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Ngành đào tạo</div>
+      </div>
+      <div>
+        <div class="font-data-metric text-data-metric font-mono text-on-surface">{{ kpi.so_nhom_nganh }}</div>
+        <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Nhóm ngành</div>
+      </div>
+      <div>
+        <div class="font-data-metric text-data-metric font-mono text-on-surface">{{ kpi.so_to_hop }}</div>
+        <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Tổ hợp xét tuyển</div>
+      </div>
+      <div>
+        <div class="font-data-metric text-data-metric font-mono text-primary-container">{{ kpi.diem_tb|default:"—" }}</div>
+        <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Điểm chuẩn TB / 30</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bộ lọc -->
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md mb-space-md">
+    <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md" method="get" action="{% url 'web:chi_tiet_truong' truong.ma_truong %}">
+      <div class="space-y-1">
+        <label class="font-label-sm text-label-sm text-on-surface-variant block" for="fTH">Tổ hợp môn</label>
+        <div class="relative">
+          <select class="w-full py-space-sm px-space-md bg-surface-container-low text-on-surface rounded-lg font-body-sm text-body-sm focus:outline-none appearance-none cursor-pointer" id="fTH" name="ma_to_hop">
+            <option value="">Tất cả tổ hợp</option>
+            {% for ma, ten in bo_loc.to_hop %}
+              <option value="{{ ma }}" {% if params.ma_to_hop == ma %}selected{% endif %}>{{ ma }} ({{ ten }})</option>
+            {% endfor %}
+          </select>
+          <span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label-sm text-label-sm text-on-surface-variant block" for="fPT">Phương thức</label>
+        <div class="relative">
+          <select class="w-full py-space-sm px-space-md bg-surface-container-low text-on-surface rounded-lg font-body-sm text-body-sm focus:outline-none appearance-none cursor-pointer" id="fPT" name="phuong_thuc">
+            <option value="">Tất cả phương thức</option>
+            {% for ma, ten in bo_loc.phuong_thuc %}
+              <option value="{{ ma }}" {% if params.phuong_thuc == ma %}selected{% endif %}>{{ ten }}</option>
+            {% endfor %}
+          </select>
+          <span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label-sm text-label-sm text-on-surface-variant block" for="fNN">Nhóm ngành</label>
+        <div class="relative">
+          <select class="w-full py-space-sm px-space-md bg-surface-container-low text-on-surface rounded-lg font-body-sm text-body-sm focus:outline-none appearance-none cursor-pointer" id="fNN" name="nhom_nganh">
+            <option value="">Tất cả nhóm ngành</option>
+            {% for n in bo_loc.nhom_nganh %}
+              <option value="{{ n.nhom_nganh }}" {% if params.nhom_nganh == n.nhom_nganh %}selected{% endif %}>{{ n.nhom_nganh }} ({{ n.so_nganh }})</option>
+            {% endfor %}
+          </select>
+          <span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label-sm text-label-sm text-on-surface-variant block" for="fSX">Sắp xếp</label>
+        <div class="relative">
+          <select class="w-full py-space-sm px-space-md bg-surface-container-low text-on-surface rounded-lg font-body-sm text-body-sm focus:outline-none appearance-none cursor-pointer" id="fSX" name="sap_xep">
+            <option value="diem_desc" {% if params.sap_xep == "diem_desc" %}selected{% endif %}>Điểm 2025: Cao → Thấp</option>
+            <option value="diem_asc" {% if params.sap_xep == "diem_asc" %}selected{% endif %}>Điểm 2025: Thấp → Cao</option>
+            <option value="bien_dong_desc" {% if params.sap_xep == "bien_dong_desc" %}selected{% endif %}>Biến động tăng nhiều nhất</option>
+            <option value="ten" {% if params.sap_xep == "ten" %}selected{% endif %}>Tên ngành: A → Z</option>
+          </select>
+          <span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+        </div>
+      </div>
+
+      <div class="sm:col-span-2 lg:col-span-4 flex items-center justify-end gap-space-sm">
+        <a class="px-space-md py-space-sm bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors inline-flex items-center gap-1.5" href="{% url 'web:chi_tiet_truong' truong.ma_truong %}">
+          <span class="material-symbols-outlined text-[18px]">restart_alt</span><span>Đặt lại</span>
+        </a>
+        <button class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors shadow-sm" type="submit">
+          <span class="material-symbols-outlined text-[18px]">filter_alt</span><span>Áp dụng</span>
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Bảng điểm chuẩn -->
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+    <div class="p-space-md flex items-center justify-between gap-space-sm border-b border-surface-container-high">
+      <h2 class="font-title-md text-title-md font-bold text-on-surface flex items-center gap-2">
+        <span class="material-symbols-outlined text-[20px] text-primary-container">analytics</span>
+        Bảng điểm chuẩn &amp; Xu hướng 5 năm (2021 – 2025)
+      </h2>
+      <span class="px-space-sm py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap">
+        Đang hiển thị <strong class="text-primary-container">{{ ds|length }}</strong> ngành
+      </span>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-surface-container-low text-on-surface-variant font-label-md text-label-md">
+            <th class="py-space-md px-space-md font-semibold whitespace-nowrap">Mã &amp; Tên ngành đào tạo</th>
+            <th class="py-space-md px-space-sm font-semibold whitespace-nowrap text-center">Tổ hợp</th>
+            {% for c in cua_so %}
+              <th class="py-space-md px-space-sm font-semibold whitespace-nowrap text-center">{{ c.nam }}</th>
+            {% endfor %}
+            <th class="py-space-md px-space-md font-semibold whitespace-nowrap text-center">Biến động</th>
+            <th class="py-space-md px-space-md font-semibold whitespace-nowrap text-right">Hành động</th>
+          </tr>
+        </thead>
+        <tbody class="font-body-sm text-body-sm text-on-surface">
+          {% for r in ds %}
+            <tr class="border-b border-surface-container-high hover:bg-surface-container-low transition-colors">
+              <td class="py-space-md px-space-md min-w-[340px]">
+                <div class="font-label-md text-label-md font-semibold text-on-surface whitespace-nowrap">{{ r.nganh }}</div>
+                <span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">
+                  Mã: <span class="font-mono">{{ r.nganh_slug }}</span> · {{ r.nhom_nganh }} · {{ r.phuong_thuc }}
+                </span>
+              </td>
+              <td class="py-space-md px-space-sm text-center whitespace-nowrap">
+                <span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold">{{ r.ma_to_hop }}</span>
+              </td>
+              {% for c in r.theo_nam %}
+                <td class="py-space-md px-space-sm text-center font-mono text-[14px] {% if forloop.last %}bg-primary-fixed/20 text-primary-container font-bold{% else %}text-on-surface-variant{% endif %}">{{ c.diem|default:"—" }}</td>
+              {% endfor %}
+              <td class="py-space-md px-space-md text-center whitespace-nowrap">
+                <div class="inline-flex flex-col items-center">
+                  <span class="inline-flex items-center gap-0.5 px-space-xs py-0.5 rounded border font-label-sm text-label-sm font-medium {{ r.chip.cls }}">
+                    <span class="material-symbols-outlined text-[15px]">{{ r.chip.icon }}</span> {{ r.bien_dong }}
+                  </span>
+                  <span class="font-label-sm text-[11px] text-outline mt-0.5">{{ r.so_nam_co_dl }}/5 năm</span>
+                </div>
+              </td>
+              <td class="py-space-md px-space-md text-right whitespace-nowrap">
+                <a class="px-space-sm py-1 rounded bg-surface-container text-on-surface-variant hover:text-primary-container hover:bg-surface-container-high font-label-sm text-label-sm inline-flex items-center gap-1 transition-colors"
+                   href="{% url 'web:tra_cuu' %}?truong={{ truong.ma_truong }}&amp;nganh={{ r.nganh_slug }}&amp;ma_to_hop={{ r.ma_to_hop }}">
+                  <span class="material-symbols-outlined text-[16px]">insights</span> Chi tiết
+                </a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td class="py-space-xl px-space-md text-center text-on-surface-variant" colspan="9">
+                <span class="material-symbols-outlined text-[40px] text-outline block mb-space-xs">search_off</span>
+                Không có ngành nào khớp bộ lọc.
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <p class="font-label-sm text-label-sm text-outline mt-space-md">
+    Nguồn: dữ liệu tuyển sinh Bộ GD&amp;ĐT, cửa sổ 2021–2025. Điểm hiển thị theo thang 30, đã bao gồm điểm ưu tiên công bố của trường.
+  </p>
+
+</div>
+{% endlocalize %}
+{% endblock %}

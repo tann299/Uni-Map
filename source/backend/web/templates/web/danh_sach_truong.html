@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load l10n %}
+
+{% block title %}Danh sách trường Đại học — Uni Map{% endblock %}
+
+{% block content %}
+{% localize off %}
+<div class="max-w-[1700px] mx-auto px-margin-mobile lg:px-margin py-space-lg">
+
+  <!-- ===== TÌM KIẾM ===== -->
+  <section class="w-full bg-surface-container-lowest rounded-xl p-space-lg mb-space-lg shadow-sm">
+    <div class="space-y-space-xs mb-space-lg">
+      <div class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container text-primary-container font-label-sm text-label-sm">
+        <span class="material-symbols-outlined text-[16px]">verified</span>
+        <span>{{ tong_truong }} trường ĐH · Dữ liệu tuyển sinh 2021–2025</span>
+      </div>
+      <h1 class="font-headline-lg text-headline-lg text-on-surface">Danh sách Trường Đại học</h1>
+    </div>
+
+    <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md" method="get" action="{% url 'web:danh_sach_truong' %}">
+      <div class="sm:col-span-2 space-y-1">
+        <label class="font-label-sm text-label-sm text-on-surface-variant block" for="qTruong">Tìm trường</label>
+        <div class="relative flex items-center bg-surface-container-low rounded-lg">
+          <span class="material-symbols-outlined absolute left-space-sm text-on-surface-variant text-[20px]">search</span>
+          <input class="w-full py-space-sm pl-10 pr-space-sm bg-transparent text-body-sm font-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none rounded-lg"
+                 id="qTruong" name="q" type="text" value="{{ params.q }}"
+                 placeholder="Tên trường, viết tắt hoặc mã trường (HUST, BKA, NEU...)">
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label-sm text-label-sm text-on-surface-variant block" for="fVung">Vùng miền</label>
+        <div class="relative">
+          <select class="w-full py-space-sm px-space-md bg-surface-container-low text-on-surface rounded-lg font-body-sm text-body-sm focus:outline-none appearance-none cursor-pointer" id="fVung" name="vung_mien">
+            <option value="">Tất cả vùng miền ({{ tong_truong }} trường)</option>
+            {% for ma, ten, so in bo_loc.vung_mien %}
+              <option value="{{ ma }}" {% if params.vung_mien == ma %}selected{% endif %}>{{ ten }} ({{ so }} trường)</option>
+            {% endfor %}
+          </select>
+          <span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label-sm text-label-sm text-on-surface-variant block" for="fTinh">Tỉnh thành</label>
+        <div class="relative">
+          <select class="w-full py-space-sm px-space-md bg-surface-container-low text-on-surface rounded-lg font-body-sm text-body-sm focus:outline-none appearance-none cursor-pointer" id="fTinh" name="tinh_thanh">
+            <option value="">Tất cả tỉnh thành</option>
+            {% for t in bo_loc.tinh_thanh %}
+              <option value="{{ t.tinh_thanh }}" {% if params.tinh_thanh == t.tinh_thanh %}selected{% endif %}>{{ t.tinh_thanh }} ({{ t.so_truong }})</option>
+            {% endfor %}
+          </select>
+          <span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label-sm text-label-sm text-on-surface-variant block" for="fNhom">Nhóm ngành đào tạo</label>
+        <div class="relative">
+          <select class="w-full py-space-sm px-space-md bg-surface-container-low text-on-surface rounded-lg font-body-sm text-body-sm focus:outline-none appearance-none cursor-pointer" id="fNhom" name="nhom_nganh">
+            <option value="">Tất cả nhóm ngành</option>
+            {% for n in bo_loc.nhom_nganh %}
+              <option value="{{ n.nhom_nganh }}" {% if params.nhom_nganh == n.nhom_nganh %}selected{% endif %}>{{ n.nhom_nganh }} ({{ n.so_nganh }} ngành)</option>
+            {% endfor %}
+          </select>
+          <span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <label class="font-label-sm text-label-sm text-on-surface-variant block" for="fSapXep">Sắp xếp</label>
+        <div class="relative">
+          <select class="w-full py-space-sm px-space-md bg-surface-container-low text-on-surface rounded-lg font-body-sm text-body-sm focus:outline-none appearance-none cursor-pointer" id="fSapXep" name="sap_xep">
+            <option value="ten" {% if params.sap_xep == "ten" %}selected{% endif %}>Tên trường A → Z</option>
+            <option value="nganh_desc" {% if params.sap_xep == "nganh_desc" %}selected{% endif %}>Nhiều ngành nhất</option>
+            <option value="diem_desc" {% if params.sap_xep == "diem_desc" %}selected{% endif %}>Điểm chuẩn TB cao nhất</option>
+          </select>
+          <span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+        </div>
+      </div>
+
+      <div class="flex items-end gap-space-sm">
+        <button class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg flex items-center gap-1.5 transition-colors shadow-sm" type="submit">
+          <span class="material-symbols-outlined text-[18px]">filter_alt</span><span>Áp dụng</span>
+        </button>
+        <a class="px-space-md py-space-sm bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors flex items-center gap-1.5" href="{% url 'web:danh_sach_truong' %}">
+          <span class="material-symbols-outlined text-[18px]">restart_alt</span><span>Đặt lại</span>
+        </a>
+      </div>
+    </form>
+  </section>
+
+  <!-- ===== KET QUA ===== -->
+  <section class="w-full mb-space-md flex items-center gap-space-sm">
+    <span class="font-headline-sm text-headline-sm text-on-surface">Kết quả</span>
+    <span class="px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+      Tìm thấy <strong class="text-primary-container font-semibold">{{ tong }}</strong> trường
+    </span>
+  </section>
+
+  {% if ds %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-space-md mb-space-lg">
+      {% for t in ds %}
+        <a class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md flex flex-col gap-space-sm hover:border-primary-container hover:shadow-sm transition-all"
+           href="{% url 'web:chi_tiet_truong' t.ma_truong %}">
+          <div class="flex items-start gap-space-sm">
+            <div class="w-11 h-11 rounded {% cycle 'bg-primary-container text-on-primary' 'bg-secondary text-on-secondary' 'bg-tertiary text-on-tertiary' 'bg-on-secondary-container text-on-secondary' %} flex items-center justify-center font-bold font-label-md text-label-md shrink-0">{{ t.viet_tat|slice:":3" }}</div>
+            <div class="min-w-0">
+              <div class="font-title-md text-title-md font-bold text-on-surface leading-snug">{{ t.ten_truong }}</div>
+              <div class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">Mã: <span class="font-mono">{{ t.ma_truong }}</span> · {{ t.viet_tat }}</div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-space-xs font-label-sm text-label-sm">
+            <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container text-on-surface-variant">
+              <span class="material-symbols-outlined text-[15px]">location_on</span>{{ t.tinh_thanh }}
+            </span>
+            <span class="px-space-sm py-0.5 rounded bg-surface-container text-on-surface-variant">{{ t.vung_mien }}</span>
+          </div>
+
+          <div class="flex items-center justify-between gap-space-xs pt-space-sm border-t border-surface-container-high mt-auto">
+            <span class="font-label-sm text-label-sm text-on-surface-variant">{{ t.so_nganh }} ngành</span>
+            {% if t.diem_tb %}
+              <span class="font-label-sm text-label-sm text-on-surface-variant">
+                TB <strong class="font-mono text-primary-container">{{ t.diem_tb }}</strong> điểm
+              </span>
+            {% else %}
+              <span class="font-label-sm text-label-sm text-outline">Chưa có điểm chuẩn</span>
+            {% endif %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+
+    <!-- Phân trang -->
+    <div class="p-space-md bg-surface-container-low rounded-xl flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+      <div class="font-body-sm text-body-sm text-on-surface-variant">
+        Hiển thị <strong class="text-on-surface">{{ page|length }}</strong> / {{ tong }} trường
+        (Trang {{ page.number }} / {{ page.paginator.num_pages }})
+      </div>
+      <div class="flex items-center gap-space-xs">
+        {% if page.has_previous %}
+          <a class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high flex items-center justify-center transition-colors" href="{% querystring trang=page.previous_page_number %}" title="Trang trước">
+            <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+          </a>
+        {% else %}
+          <span class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface-variant flex items-center justify-center opacity-40 cursor-not-allowed">
+            <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+          </span>
+        {% endif %}
+
+        {% for so in page_range %}
+          {% if so == page.paginator.ELLIPSIS %}
+            <span class="px-1 text-outline font-label-sm text-label-sm">...</span>
+          {% elif so == page.number %}
+            <span class="w-8 h-8 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold flex items-center justify-center">{{ so }}</span>
+          {% else %}
+            <a class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container-high font-label-sm text-label-sm flex items-center justify-center transition-colors" href="{% querystring trang=so %}">{{ so }}</a>
+          {% endif %}
+        {% endfor %}
+
+        {% if page.has_next %}
+          <a class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high flex items-center justify-center transition-colors" href="{% querystring trang=page.next_page_number %}" title="Trang sau">
+            <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+          </a>
+        {% else %}
+          <span class="w-8 h-8 rounded bg-surface-container-lowest text-on-surface-variant flex items-center justify-center opacity-40 cursor-not-allowed">
+            <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-xl text-center">
+      <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">search_off</span>
+      <p class="font-body-md text-body-md text-on-surface-variant mb-space-md">Không tìm thấy trường nào khớp bộ lọc.</p>
+      <a class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors" href="{% url 'web:danh_sach_truong' %}">
+        <span class="material-symbols-outlined text-[18px]">restart_alt</span><span>Đặt lại bộ lọc</span>
+      </a>
+    </div>
+  {% endif %}
+
+  <p class="font-label-sm text-label-sm text-outline mt-space-md">
+    Nguồn: dữ liệu tuyển sinh Bộ GD&amp;ĐT, cửa sổ 2021–2025. Điểm TB là trung bình điểm chuẩn mới nhất các ngành của trường.
+  </p>
+
+</div>
+{% endlocalize %}
+{% endblock %}

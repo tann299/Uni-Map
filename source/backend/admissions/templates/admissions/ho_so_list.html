@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Hồ sơ năng lực — Uni Map{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin py-space-lg">
+
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-sm mb-space-lg pb-space-sm border-b border-surface-container-high">
+    <div>
+      <h1 class="font-headline-lg text-headline-lg text-on-surface font-bold">Hồ sơ năng lực</h1>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Nhập điểm từng môn một lần — hệ thống tự suy ra mọi tổ hợp bạn đủ điều kiện (CN-01).</p>
+    </div>
+    <a href="{% url 'admissions:tao_ho_so' %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors shadow-sm shrink-0">
+      <span class="material-symbols-outlined text-[18px]">add</span>
+      <span>Tạo hồ sơ mới</span>
+    </a>
+  </div>
+
+  {% if danh_sach %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md">
+      {% for hs in danh_sach %}
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md flex flex-col gap-space-sm">
+          <div class="flex items-start justify-between gap-2">
+            <div class="min-w-0">
+              <div class="font-title-md text-title-md font-bold text-on-surface truncate">{{ hs.ten_ho_so }}</div>
+              <div class="font-label-sm text-label-sm text-on-surface-variant">{{ hs.phuong_thuc }}</div>
+            </div>
+            <span class="material-symbols-outlined text-[22px] text-primary-container shrink-0">description</span>
+          </div>
+
+          <div class="flex flex-wrap gap-space-xs font-label-sm text-label-sm">
+            <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">{{ hs.diemmon_set.count }} môn</span>
+            {% if hs.diem_uu_tien %}<span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed">u tiên +{{ hs.diem_uu_tien }}</span>{% endif %}
+            {% if hs.vung_mien_uu_tien %}<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">{{ hs.vung_mien_uu_tien }}</span>{% endif %}
+          </div>
+
+          <div class="font-label-sm text-label-sm text-outline">Cập nhật {{ hs.ngay_sua|date:"d/m/Y H:i" }}</div>
+
+          <div class="flex items-center gap-space-xs pt-space-sm border-t border-surface-container-high">
+            <a href="{% url 'admissions:chi_tiet_ho_so' hs.pk %}" class="flex-1 px-space-sm py-1.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-sm text-label-sm text-center transition-colors">Xem tổ hợp</a>
+            <a href="{% url 'admissions:sua_ho_so' hs.pk %}" class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-primary-container hover:bg-surface-container-high transition-colors" title="Sửa">
+              <span class="material-symbols-outlined text-[18px]">edit</span>
+            </a>
+            <a href="{% url 'admissions:xoa_ho_so' hs.pk %}" class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-error hover:bg-error-container transition-colors" title="Xóa">
+              <span class="material-symbols-outlined text-[18px]">delete</span>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-xl text-center">
+      <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">school</span>
+      <p class="font-body-md text-body-md text-on-surface-variant mb-space-md">Bạn chưa có hồ sơ năng lực nào.</p>
+      <a href="{% url 'admissions:tao_ho_so' %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors">
+        <span class="material-symbols-outlined text-[18px]">add</span>
+        <span>Tạo hồ sơ đầu tiên</span>
+      </a>
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

@@ -7,7 +7,7 @@
 {# Mockup in diem bang dau cham thap phan (28.85). LANGUAGE_CODE='vi' mac dinh
    doi thanh dau phay -> tat localize cho ca bang. #}
 {% localize off %}
-<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin py-space-lg">
+<div class="max-w-[1700px] mx-auto px-margin-mobile lg:px-margin py-space-lg">
   <div class="flex flex-col w-full">
 
     <!-- ===== TÌM KIẾM NHANH ===== -->
@@ -43,7 +43,7 @@
         {% if params.sap_xep %}<input type="hidden" name="sap_xep" value="{{ params.sap_xep }}">{% endif %}
 
         <div class="flex items-center gap-space-xs mt-space-sm overflow-x-auto whitespace-nowrap">
-          <span class="font-label-sm text-label-sm text-on-surface-variant">Gợi  nhanh:</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant">Gợi ý nhanh:</span>
           <a class="px-space-sm py-0.5 rounded bg-surface-container text-on-surface hover:bg-primary-container hover:text-on-primary font-label-sm text-label-sm transition-colors" href="{% querystring q='Bách Khoa' %}">ĐH Bách Khoa Hà Nội</a>
           <a class="px-space-sm py-0.5 rounded bg-surface-container text-on-surface hover:bg-primary-container hover:text-on-primary font-label-sm text-label-sm transition-colors" href="{% querystring q='Công nghệ' %}">ĐH Công Nghệ - ĐHQGHN</a>
           <a class="px-space-sm py-0.5 rounded bg-surface-container text-on-surface hover:bg-primary-container hover:text-on-primary font-label-sm text-label-sm transition-colors" href="{% querystring q='Kinh tế Quốc dân' %}">ĐH Kinh tế Quốc dân</a>
@@ -75,7 +75,7 @@
           <label class="font-label-sm text-label-sm text-on-surface-variant block" for="filterRegion">Tỉnh thành</label>
           <div class="relative">
             <select class="w-full py-space-sm px-space-md bg-surface-container-low text-on-surface rounded-lg font-body-sm text-body-sm focus:bg-surface-container-lowest focus:outline-none appearance-none cursor-pointer" id="filterRegion" name="tinh_thanh">
-              <option value="">Tất cả tnh thành</option>
+              <option value="">Tất cả tỉnh thành</option>
               {% for t in bo_loc.tinh_thanh %}
                 <option value="{{ t.tinh_thanh }}" {% if params.tinh_thanh == t.tinh_thanh %}selected{% endif %}>{{ t.tinh_thanh }} ({{ t.so_truong }} trường)</option>
               {% endfor %}
@@ -213,22 +213,22 @@
           <tbody class="text-on-surface">
             {% for r in ds %}
               <tr class="hover:bg-surface-container-low transition-colors border-b border-surface-container-high {% if forloop.counter|divisibleby:2 %}bg-surface-container-low/40{% endif %}">
-                <td class="py-space-md px-space-md">
+                <td class="py-space-md px-space-md min-w-[300px]">
                   <div class="flex items-center gap-space-sm">
                     <div class="w-9 h-9 rounded {% cycle 'bg-primary-container text-on-primary' 'bg-secondary text-on-secondary' 'bg-tertiary text-on-tertiary' 'bg-on-secondary-container text-on-secondary' 'bg-error text-on-error' %} flex items-center justify-center font-bold font-label-md text-label-md shrink-0">{{ r.viet_tat|slice:":3" }}</div>
-                    <div>
-                      <div class="font-label-md text-label-md font-semibold text-on-surface">
+                    <div class="min-w-0">
+                      <div class="font-label-md text-label-md font-semibold text-on-surface whitespace-nowrap">
                         <a class="hover:text-primary-container hover:underline transition-colors" href="{% querystring truong=r.ma_truong trang=None %}">{{ r.truong }}</a>
                       </div>
-                      <span class="font-label-sm text-label-sm text-on-surface-variant">Mã: {{ r.ma_truong }} • {{ r.tinh_thanh }} • {{ r.vung_mien }}</span>
+                      <span class="block whitespace-nowrap font-label-sm text-label-sm text-on-surface-variant">Mã: {{ r.ma_truong }} • {{ r.tinh_thanh }} • {{ r.vung_mien }}</span>
                     </div>
                   </div>
                 </td>
-                <td class="py-space-md px-space-md">
-                  <div class="font-label-md text-label-md font-semibold text-on-surface">{{ r.nganh }}</div>
-                  <span class="font-label-sm text-label-sm text-on-surface-variant">Mã ngành: <span class="font-mono">{{ r.nganh_slug }}</span></span>
+                <td class="py-space-md px-space-md min-w-[300px]">
+                  <div class="font-label-md text-label-md font-semibold text-on-surface whitespace-nowrap">{{ r.nganh }}</div>
+                  <span class="whitespace-nowrap font-label-sm text-label-sm text-on-surface-variant">Mã ngành: <span class="font-mono">{{ r.nganh_slug }}</span></span>
                 </td>
-                <td class="py-space-md px-space-sm text-center">
+                <td class="py-space-md px-space-sm text-center whitespace-nowrap">
                   <span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold">{{ r.ma_to_hop }}</span>
                 </td>
                 {% for c in r.theo_nam|slice:":-1" %}

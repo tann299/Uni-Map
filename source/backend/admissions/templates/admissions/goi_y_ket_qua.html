@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load l10n %}
+
+{% block title %}Gợi ý nguyện vọng — {{ ho_so.ten_ho_so }} — Uni Map{% endblock %}
+
+{% block content %}
+{% localize off %}
+<div class="max-w-6xl mx-auto px-margin-mobile lg:px-margin py-space-lg">
+
+  <a href="{% url 'admissions:chi_tiet_ho_so' ho_so.pk %}" class="inline-flex items-center gap-1.5 text-on-surface-variant hover:text-primary-container transition-colors font-label-md text-label-md mb-space-md">
+    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+    <span>Về hồ sơ</span>
+  </a>
+
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-sm mb-space-md">
+    <div>
+      <h1 class="font-headline-md text-headline-md text-on-surface font-bold flex items-center gap-2">
+        <span class="material-symbols-outlined text-[26px] text-primary-container">auto_awesome</span>
+        Đề xuất nguyện vọng
+      </h1>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+        Hồ sơ <strong class="text-on-surface">{{ ho_so.ten_ho_so }}</strong> · {{ ho_so.phuong_thuc }}{% if ho_so.diem_uu_tien %} · ưu tiên +{{ ho_so.diem_uu_tien }}{% endif %} · Cửa sổ 2021–2025
+      </p>
+    </div>
+    <div class="flex items-center gap-space-xs shrink-0">
+      <span class="px-space-sm py-1 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface-variant">
+        <strong class="text-primary-container">{{ ds|length }}</strong> nguyện vọng
+      </span>
+      <a href="{% url 'admissions:lich_su_goi_y' ho_so.pk %}" class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-primary-container hover:bg-surface-container-high transition-colors" title="Lịch sử gợi ý">
+        <span class="material-symbols-outlined text-[18px]">history</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Chế độ dự phòng (SRS UC-05/5b) -->
+  {% if not dung_ai %}
+  <div class="flex items-start gap-2 p-3 rounded-xl bg-[#FEF3C7] text-[#92400E] border border-[#D97706]/30 font-body-sm text-body-sm mb-space-md">
+    <span class="material-symbols-outlined text-[20px] shrink-0">info</span>
+    <span>Đang xếp hạng bằng <strong>khoảng cách điểm (margin)</strong> — <strong>chưa dùng mô hình AI</strong>. Kết quả sắp theo mức bạn vượt điểm chuẩn năm gần nhất.</span>
+  </div>
+  {% endif %}
+
+  <!-- Tổ hợp cao điểm nhất (từ CN-01) -->
+  {% if to_hop %}
+  <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md mb-space-md">
+    <div class="font-label-sm text-label-sm text-on-surface-variant mb-space-xs">Tổ hợp cao điểm nhất của bạn (điểm đã cộng ưu tiên khi xét)</div>
+    <div class="flex flex-wrap gap-space-xs">
+      {% for t in to_hop|slice:":6" %}
+        <span class="px-space-sm py-1 rounded-lg bg-surface-container font-label-md text-label-md">
+          <span class="font-mono font-semibold text-primary-container">{{ t.ma }}</span>
+          <strong class="ml-1">{{ t.tong }}</strong>
+        </span>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Cảnh báo nới điều kiện (UC-05/5a, 5c) -->
+  {% if da_noi %}
+  <div class="flex items-start gap-2 p-3 rounded-xl bg-secondary-fixed text-on-secondary-fixed border border-secondary/30 font-body-sm text-body-sm mb-space-md">
+    <span class="material-symbols-outlined text-[20px] shrink-0">tune</span>
+    <span>Ít kết quả khớp giới hạn của bạn nên hệ thống đã <strong>tạm bỏ giới hạn {{ da_noi }}</strong> để có đủ gợi ý. Vào <a class="underline font-semibold" href="{% url 'admissions:sua_ho_so' ho_so.pk %}">sửa hồ sơ</a> để điều chỉnh.</span>
+  </div>
+  {% endif %}
+
+  {% if ds %}
+    <!-- 3 tầng: chú thích (PC-08: màu + icon + chữ) -->
+    <div class="flex flex-wrap gap-space-sm mb-space-md font-label-sm text-label-sm">
+      <span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-lg border bg-[#DCFCE7] text-[#16A34A] border-[#16A34A]/30"><span class="material-symbols-outlined text-[16px]">verified</span> An toàn (hơn ≥ 2đ)</span>
+      <span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-lg border bg-[#FEF3C7] text-[#D97706] border-[#D97706]/30"><span class="material-symbols-outlined text-[16px]">trending_flat</span> Vừa sức (0–2đ)</span>
+      <span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-lg border bg-[#FEE2E2] text-[#DC2626] border-[#DC2626]/30"><span class="material-symbols-outlined text-[16px]">local_fire_department</span> Thử sức (thấp hơn)</span>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
+      {% for r in ds %}
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md flex flex-col gap-space-sm">
+          <div class="flex items-start justify-between gap-2">
+            <div class="min-w-0">
+              <div class="font-title-md text-title-md font-bold text-on-surface leading-tight">{{ r.kq.nganh.ten_nganh }}</div>
+              <div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">
+                {{ r.kq.ma_truong.ten_truong }} <span class="text-outline">· {{ r.kq.ma_truong.viet_tat }} · {{ r.kq.ma_truong.tinh_thanh }}</span>
+              </div>
+            </div>
+            <span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg border font-label-sm text-label-sm shrink-0 {{ r.style.cls }}">
+              <span class="material-symbols-outlined text-[16px]">{{ r.style.icon }}</span>{{ r.tang }}
+            </span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-space-sm font-label-sm text-label-sm">
+            <span class="px-2 py-0.5 rounded bg-surface-container"><span class="font-mono font-semibold text-primary-container">{{ r.kq.ma_to_hop_id }}</span></span>
+            <span class="text-on-surface-variant">Điểm bạn <strong class="text-on-surface font-mono">{{ r.diem_hoc_sinh }}</strong></span>
+            <span class="text-on-surface-variant">Chuẩn {{ r.kq.chuoi_diem|last|default:"—" }} <strong class="text-on-surface font-mono">{{ r.kq.diem_moi_nhat }}</strong></span>
+            <span class="text-on-surface-variant">·
+              {% if r.margin >= 0 %}<strong class="text-[#16A34A]">hơn {{ r.margin }}đ</strong>{% else %}<strong class="text-[#DC2626]">thiếu {{ r.margin|cut:"-" }}đ</strong>{% endif %}
+            </span>
+          </div>
+
+          <!-- mini biểu đồ 5 năm -->
+          <div class="flex items-end gap-1 h-8">
+            {% for c in r.kq.chuoi_diem %}
+              <div class="flex-1 rounded-t bg-primary-container/30" style="height: {% if c %}{% widthratio c 30 100 %}{% else %}4{% endif %}%" title="{{ c|default:'không tuyển' }}"></div>
+            {% endfor %}
+          </div>
+
+          <div class="flex items-center justify-between gap-space-xs pt-space-sm border-t border-surface-container-high">
+            <span class="font-label-sm text-label-sm text-outline">Dựa trên {{ r.kq.so_nam_co_dl }}/5 năm dữ liệu</span>
+            <a href="{% url 'admissions:chi_tiet_goi_y' r.kq_id %}" class="px-space-sm py-1.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-sm text-label-sm inline-flex items-center gap-1 transition-colors">
+              <span class="material-symbols-outlined text-[16px]">insights</span> Xem chi tiết
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <!-- UC-05/5a: không có nguyện vọng nào qua lọc cứng -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-xl text-center">
+      <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">search_off</span>
+      <p class="font-body-md text-body-md text-on-surface-variant mb-space-md">Chưa tìm được nguyện vọng nào khớp hồ sơ. Hãy thử nhập thêm điểm môn, bỏ bớt giới hạn nhóm ngành hoặc khu vực.</p>
+      <a href="{% url 'admissions:sua_ho_so' ho_so.pk %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors">
+        <span class="material-symbols-outlined text-[18px]">edit</span><span>Sửa hồ sơ</span>
+      </a>
+    </div>
+  {% endif %}
+
+  <!-- Miễn trừ bắt buộc (PC-12) -->
+  <p class="font-label-sm text-label-sm text-outline mt-space-lg border-t border-surface-container-high pt-space-sm">
+    Kết quả chỉ mang tính <strong>tham khảo</strong> dựa trên lịch sử điểm chuẩn, <strong>không đảm bảo đỗ</strong>. Điểm chuẩn thực tế phụ thuộc số thí sinh, đề thi và chỉ tiêu từng năm.
+  </p>
+
+</div>
+{% endlocalize %}
+{% endblock %}

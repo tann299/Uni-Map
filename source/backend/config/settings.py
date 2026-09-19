@@ -47,9 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tracuu',
     'accounts',
+    'admissions',
     'web',
-
-
 ]
 
 MIDDLEWARE = [

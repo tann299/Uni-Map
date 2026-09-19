@@ -191,18 +191,18 @@
                   <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded {% cycle 'bg-primary-fixed text-on-primary-fixed' 'bg-secondary-fixed text-on-secondary-fixed' 'bg-tertiary-fixed text-on-tertiary-fixed' 'bg-secondary-fixed-dim text-on-secondary-fixed' 'bg-error-container text-on-error-container' %} font-headline-sm text-headline-sm font-bold flex items-center justify-center shrink-0">{{ r.viet_tat|slice:":2" }}</div>
                     <div class="flex flex-col min-w-0">
-                      <span class="font-label-md text-label-md text-on-surface font-semibold truncate">{{ r.truong }}</span>
-                      <span class="font-label-sm text-label-sm text-on-surface-variant">Mã: {{ r.ma_truong }} • {{ r.tinh_thanh }}</span>
+                      <span class="font-label-md text-label-md text-on-surface font-semibold whitespace-nowrap">{{ r.truong }}</span>
+                      <span class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">Mã: {{ r.ma_truong }} • {{ r.tinh_thanh }}</span>
                     </div>
                   </div>
                 </td>
                 <td class="py-3.5 px-4">
                   <div class="flex flex-col">
-                    <span class="font-label-md text-label-md text-on-surface font-medium">{{ r.nganh }}</span>
-                    <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">{{ r.nganh_slug }}</span>
+                    <span class="font-label-md text-label-md text-on-surface font-medium whitespace-nowrap">{{ r.nganh }}</span>
+                    <span class="font-label-sm text-label-sm text-on-surface-variant font-mono whitespace-nowrap">{{ r.nganh_slug }}</span>
                   </div>
                 </td>
-                <td class="py-3.5 px-4 text-center font-mono font-medium">{{ r.ma_to_hop }}</td>
+                <td class="py-3.5 px-4 text-center font-mono font-medium whitespace-nowrap">{{ r.ma_to_hop }}</td>
                 {% for c in r.theo_nam|slice:"-3:-1" %}
                   <td class="py-3.5 px-3 text-right font-mono text-on-surface-variant">{{ c.diem|default:"—" }}</td>
                 {% endfor %}
