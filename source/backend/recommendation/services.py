@@ -1,55 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-CN-01 — tự tính điểm mọi tổ hợp từ điểm từng môn (SRS mục CN-01, US-08).
+Chức năng đặc thù của app `recommendation` — CN-03 (phân tầng) và CN-04 (giải thích).
 
-Hàm `tinh_to_hop` thuần Python, KHÔNG chạm ORM: nhận điểm từng môn + danh mục
-tổ hợp (mã -> danh sách mã môn), trả về những tổ hợp học sinh đủ môn kèm tổng
-điểm. Tách thuần để test được mà không cần DB (xem tests.py). Wrapper
-`tinh_to_hop_tu_db` bơm dữ liệu từ bảng `to_hop` vào hàm thuần.
+CN-01 (ghép tổ hợp từ điểm môn) nằm ở `university.services` vì đó là dữ liệu tham
+chiếu tổ hợp; ở đây chỉ dùng lại.
+
+Mọi hàm đều THUẦN Python, không chạm ORM — test được mà không cần DB (xem tests.py).
 """
 from __future__ import annotations
-
-
-def tinh_to_hop(diem_mon: dict[str, float],
-                to_hop_mon: dict[str, list[str]],
-                mon_nang_khieu: set[str] | None = None) -> list[dict]:
-    """Trả list tổ hợp đủ môn, mỗi phần tử {ma, tong, mon, can_nang_khieu}.
-
-    - `diem_mon`:   {'TOAN': 8.5, 'LI': 7.75, ...}
-    - `to_hop_mon`: {'A00': ['TOAN','LI','HOA'], ...}
-    - Thiếu 1 môn -> bỏ qua IM LẶNG (không báo lỗi), theo tiêu chí US-08.
-    - Tổ hợp rỗng (chưa map được môn) -> bỏ qua.
-    Kết quả sắp theo tổng điểm giảm dần rồi mã tổ hợp.
-    """
-    nang_khieu = mon_nang_khieu or set()
-    ket_qua = []
-    for ma, mon in to_hop_mon.items():
-        if not mon:
-            continue
-        if all(m in diem_mon for m in mon):
-            ket_qua.append({
-                "ma": ma,
-                "mon": mon,
-                "tong": round(sum(diem_mon[m] for m in mon), 2),
-                "can_nang_khieu": any(m in nang_khieu for m in mon),
-            })
-    ket_qua.sort(key=lambda x: (-x["tong"], x["ma"]))
-    return ket_qua
-
-
-def tinh_to_hop_tu_db(diem_mon: dict[str, float]) -> list[dict]:
-    """Bơm danh mục tổ hợp thật từ bảng `to_hop` vào hàm thuần ở trên."""
-    from tracuu.models import Mon, ToHop
-
-    to_hop_mon = {
-        th.ma_to_hop: th.danh_sach_mon()
-        for th in ToHop.objects.exclude(cac_mon="")
-    }
-    nang_khieu = set(
-        Mon.objects.filter(la_nang_khieu=True).values_list("ma_mon", flat=True)
-    )
-    return tinh_to_hop(diem_mon, to_hop_mon, nang_khieu)
-
 
 # ---------------------------------------------------------------------------
 # CN-03 — phân tầng nguyện vọng An toàn / Vừa sức / Thử sức (SRS mục CN-03)
@@ -89,15 +47,6 @@ def style_tang(tang: str) -> dict:
     return TANG_STYLE[tang]
 
 
-# ---------------------------------------------------------------------------
-# CN-04 — giải thích gợi ý bằng ngôn ngữ tự nhiên (SRS mục CN-04)
-# ---------------------------------------------------------------------------
-
-def _so_vn(x: float, don_vi: str = "") -> str:
-    """1.3 -> '1,3' — dấu phẩy thập phân tiếng Việt, kèm đơn vị."""
-    return f"{x:,.2f}".rstrip("0").rstrip(".").replace(".", ",") + don_vi
-
-
 def chon_can_ban(theo_tang: dict[str, list], gioi_han: int) -> list:
     """CN-03 — chia quota đều cho 3 tầng, tầng thiếu nhường suất cho tầng khác.
 
@@ -122,6 +71,15 @@ def chon_can_ban(theo_tang: dict[str, list], gioi_han: int) -> list:
                 break
     chon.sort(key=lambda x: thu_tu.index(x["tang"]))
     return chon
+
+
+# ---------------------------------------------------------------------------
+# CN-04 — giải thích gợi ý bằng ngôn ngữ tự nhiên (SRS mục CN-04)
+# ---------------------------------------------------------------------------
+
+def _so_vn(x: float, don_vi: str = "") -> str:
+    """1.3 -> '1,3' — dấu phẩy thập phân tiếng Việt, kèm đơn vị."""
+    return f"{x:,.2f}".rstrip("0").rstrip(".").replace(".", ",") + don_vi
 
 
 def giai_thich(dac_trung: dict) -> list[dict]:
@@ -166,9 +124,12 @@ def giai_thich(dac_trung: dict) -> list[dict]:
                     "chu": f"Dao động 5 năm: {_so_vn(bien_dong)} điểm — tương đối ổn định"})
 
     # 4. Độ tin cậy dữ liệu — cảnh báo khi mỏng (UC-05/7a).
-    cau.append({"loai": "do_tin_cay", "canh_bao": so_nam < 3,
-                "chu": f"Dựa trên {so_nam}/5 năm dữ liệu"
-                       + (" — độ tin cậy thấp" if so_nam < 3 else " — độ tin cậy cao"
-                          if so_nam == 5 else "")})
+    if so_nam < 3:
+        chu = f"Dựa trên {so_nam}/5 năm dữ liệu — độ tin cậy thấp"
+    elif so_nam == 5:
+        chu = "Dựa trên 5/5 năm dữ liệu — độ tin cậy cao"
+    else:
+        chu = f"Dựa trên {so_nam}/5 năm dữ liệu"
+    cau.append({"loai": "do_tin_cay", "canh_bao": so_nam < 3, "chu": chu})
 
     return cau

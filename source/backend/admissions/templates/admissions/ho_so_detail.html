@@ -19,11 +19,11 @@
       </p>
     </div>
     <div class="flex items-center gap-space-xs shrink-0">
-      <a href="{% url 'admissions:xem_goi_y' ho_so.pk %}" class="px-space-md py-space-sm bg-primary-container text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary transition-colors inline-flex items-center gap-1.5 shadow-sm">
+      <a href="{% url 'recommendation:xem_goi_y' ho_so.pk %}" class="px-space-md py-space-sm bg-primary-container text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary transition-colors inline-flex items-center gap-1.5 shadow-sm">
         <span class="material-symbols-outlined text-[18px]">auto_awesome</span><span>Xem gợi ý</span>
       </a>
       {% if so_lan_goi_y %}
-      <a href="{% url 'admissions:lich_su_goi_y' ho_so.pk %}" class="px-space-md py-space-sm bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors inline-flex items-center gap-1.5" title="Lịch sử gợi ý">
+      <a href="{% url 'recommendation:lich_su_goi_y' ho_so.pk %}" class="px-space-md py-space-sm bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors inline-flex items-center gap-1.5" title="Lịch sử gợi ý">
         <span class="material-symbols-outlined text-[18px]">history</span><span class="hidden sm:inline">Lịch sử</span>
       </a>
       {% endif %}

@@ -17,7 +17,7 @@
       <h1 class="font-headline-lg text-headline-lg text-on-surface">Danh sách Trường Đại học</h1>
     </div>
 
-    <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md" method="get" action="{% url 'web:danh_sach_truong' %}">
+    <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md" method="get" action="{% url 'university:danh_sach_truong' %}">
       <div class="sm:col-span-2 space-y-1">
         <label class="font-label-sm text-label-sm text-on-surface-variant block" for="qTruong">Tìm trường</label>
         <div class="relative flex items-center bg-surface-container-low rounded-lg">
@@ -83,7 +83,7 @@
         <button class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg flex items-center gap-1.5 transition-colors shadow-sm" type="submit">
           <span class="material-symbols-outlined text-[18px]">filter_alt</span><span>Áp dụng</span>
         </button>
-        <a class="px-space-md py-space-sm bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors flex items-center gap-1.5" href="{% url 'web:danh_sach_truong' %}">
+        <a class="px-space-md py-space-sm bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors flex items-center gap-1.5" href="{% url 'university:danh_sach_truong' %}">
           <span class="material-symbols-outlined text-[18px]">restart_alt</span><span>Đặt lại</span>
         </a>
       </div>
@@ -102,7 +102,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-space-md mb-space-lg">
       {% for t in ds %}
         <a class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md flex flex-col gap-space-sm hover:border-primary-container hover:shadow-sm transition-all"
-           href="{% url 'web:chi_tiet_truong' t.ma_truong %}">
+           href="{% url 'university:chi_tiet_truong' t.ma_truong %}">
           <div class="flex items-start gap-space-sm">
             <div class="w-11 h-11 rounded {% cycle 'bg-primary-container text-on-primary' 'bg-secondary text-on-secondary' 'bg-tertiary text-on-tertiary' 'bg-on-secondary-container text-on-secondary' %} flex items-center justify-center font-bold font-label-md text-label-md shrink-0">{{ t.viet_tat|slice:":3" }}</div>
             <div class="min-w-0">
@@ -174,7 +174,7 @@
     <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-xl text-center">
       <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">search_off</span>
       <p class="font-body-md text-body-md text-on-surface-variant mb-space-md">Không tìm thấy trường nào khớp bộ lọc.</p>
-      <a class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors" href="{% url 'web:danh_sach_truong' %}">
+      <a class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors" href="{% url 'university:danh_sach_truong' %}">
         <span class="material-symbols-outlined text-[18px]">restart_alt</span><span>Đặt lại bộ lọc</span>
       </a>
     </div>

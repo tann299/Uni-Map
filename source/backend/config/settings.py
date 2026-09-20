@@ -45,10 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tracuu',
+    'university',
     'accounts',
     'admissions',
-    'web',
+    'recommendation',
 ]
 
 MIDDLEWARE = [
@@ -144,7 +144,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = "accounts:dang_nhap"
-LOGIN_REDIRECT_URL = "web:trang_chu"
-LOGOUT_REDIRECT_URL = "web:trang_chu"
+LOGIN_REDIRECT_URL = "university:trang_chu"
+LOGOUT_REDIRECT_URL = "university:trang_chu"
 
 

@@ -23,11 +23,11 @@
       </p>
     </div>
     <div class="flex items-center gap-space-xs shrink-0">
-      <a href="{% url 'admissions:xem_goi_y' ho_so.pk %}" class="px-space-md py-space-sm bg-primary-container hover:bg-primary text-on-primary rounded-lg font-label-md text-label-md inline-flex items-center gap-1.5 transition-colors shadow-sm">
+      <a href="{% url 'recommendation:xem_goi_y' ho_so.pk %}" class="px-space-md py-space-sm bg-primary-container hover:bg-primary text-on-primary rounded-lg font-label-md text-label-md inline-flex items-center gap-1.5 transition-colors shadow-sm">
         <span class="material-symbols-outlined text-[18px]">auto_awesome</span><span>Gợi ý mới</span>
       </a>
       {% if danh_sach %}
-      <form method="post" action="{% url 'admissions:xoa_lich_su' ho_so.pk %}">
+      <form method="post" action="{% url 'recommendation:xoa_lich_su' ho_so.pk %}">
         {% csrf_token %}
         <button type="submit" class="px-space-md py-space-sm bg-error-container text-on-error-container rounded-lg font-label-md text-label-md hover:bg-error/20 transition-colors inline-flex items-center gap-1.5" title="Xóa toàn bộ lịch sử">
           <span class="material-symbols-outlined text-[18px]">delete_sweep</span><span class="hidden sm:inline">Xóa lịch sử</span>
@@ -90,7 +90,7 @@
                           {% else %}bg-[#FEE2E2] text-[#DC2626] border-[#DC2626]/30{% endif %}">{{ kq.tang }}</span>
                       </td>
                       <td class="py-space-sm px-space-md text-right">
-                        <a href="{% url 'admissions:chi_tiet_goi_y' kq.pk %}" class="text-primary-container hover:underline font-label-sm text-label-sm inline-flex items-center gap-1">
+                        <a href="{% url 'recommendation:chi_tiet_goi_y' kq.pk %}" class="text-primary-container hover:underline font-label-sm text-label-sm inline-flex items-center gap-1">
                           <span class="material-symbols-outlined text-[16px]">insights</span> Chi tiết
                         </a>
                       </td>
@@ -109,7 +109,7 @@
     <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-xl text-center">
       <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">history_toggle_off</span>
       <p class="font-body-md text-body-md text-on-surface-variant mb-space-md">Chưa có lần gợi ý nào cho hồ sơ này.</p>
-      <a href="{% url 'admissions:xem_goi_y' ho_so.pk %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors">
+      <a href="{% url 'recommendation:xem_goi_y' ho_so.pk %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors">
         <span class="material-symbols-outlined text-[18px]">auto_awesome</span><span>Xem gợi ý ngay</span>
       </a>
     </div>

@@ -2,9 +2,10 @@ from django.urls import path
 
 from . import views
 
-app_name = "web"
+app_name = "university"
 
 urlpatterns = [
+    # Trang HTML
     path("", views.trang_chu, name="trang_chu"),
     path("tra-cuu/", views.tra_cuu, name="tra_cuu"),
     path("truong/", views.danh_sach_truong, name="danh_sach_truong"),

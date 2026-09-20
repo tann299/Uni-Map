@@ -7,7 +7,8 @@ dựng được bảng). Chạy thẳng:
 
     python -m admissions.tests
 """
-from admissions.services import chon_can_ban, giai_thich, phan_tang, tinh_to_hop
+from recommendation.services import chon_can_ban, giai_thich, phan_tang
+from university.services import tinh_to_hop
 
 TO_HOP = {
     "A00": ["TOAN", "LI", "HOA"],

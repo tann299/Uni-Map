@@ -24,7 +24,7 @@
         <span class="font-title-md text-title-md text-primary font-bold">Bộ lọc tra cứu nhanh toàn quốc (Dữ liệu 2021–2025)</span>
       </div>
 
-      <form class="grid grid-cols-1 md:grid-cols-12 gap-space-md" method="get" action="{% url 'web:tra_cuu' %}">
+      <form class="grid grid-cols-1 md:grid-cols-12 gap-space-md" method="get" action="{% url 'university:tra_cuu' %}">
         <div class="md:col-span-4 flex flex-col gap-1">
           <label class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1" for="search-keyword">
             <span class="material-symbols-outlined text-[16px]">school</span>Tên trường hoặc Tên ngành
@@ -83,12 +83,12 @@
 
       <div class="flex flex-wrap items-center gap-2 pt-space-xs border-t border-surface-container">
         <span class="font-label-sm text-label-sm text-on-surface-variant">Tìm nhanh:</span>
-        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'web:tra_cuu' %}?q=Công nghệ thông tin">Công nghệ thông tin</a>
-        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'web:tra_cuu' %}?q=Kinh tế quốc tế">Kinh tế quốc tế</a>
-        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'web:tra_cuu' %}?q=Y đa khoa">Y đa khoa</a>
-        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'web:tra_cuu' %}?q=Trí tuệ nhân tạo">Trí tuệ nhân tạo (AI)</a>
-        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'web:tra_cuu' %}?q=Luật kinh tế">Luật kinh tế</a>
-        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'web:tra_cuu' %}?q=Logistics">Logistics</a>
+        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'university:tra_cuu' %}?q=Công nghệ thông tin">Công nghệ thông tin</a>
+        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'university:tra_cuu' %}?q=Kinh tế quốc tế">Kinh tế quốc tế</a>
+        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'university:tra_cuu' %}?q=Y đa khoa">Y đa khoa</a>
+        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'university:tra_cuu' %}?q=Trí tuệ nhân tạo">Trí tuệ nhân tạo (AI)</a>
+        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'university:tra_cuu' %}?q=Luật kinh tế">Luật kinh tế</a>
+        <a class="px-2.5 py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm rounded border border-outline-variant transition-colors" href="{% url 'university:tra_cuu' %}?q=Logistics">Logistics</a>
       </div>
     </div>
   </div>
@@ -159,7 +159,7 @@
         <span class="w-2.5 h-2.5 bg-primary rounded-full"></span>
         <h2 class="font-headline-md text-headline-md text-on-background font-bold">Điểm chuẩn các ngành tiêu biểu{% with c=cua_so|last %} {{ c.nam }}{% endwith %}</h2>
       </div>
-      <a class="font-label-md text-label-md text-primary font-semibold hover:underline flex items-center gap-1" href="{% url 'web:tra_cuu' %}">
+      <a class="font-label-md text-label-md text-primary font-semibold hover:underline flex items-center gap-1" href="{% url 'university:tra_cuu' %}">
         Xem toàn bộ {{ kpi.so_nganh }} ngành <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
       </a>
     </div>
@@ -219,7 +219,7 @@
                 </td>
                 <td class="py-3.5 px-4 text-right">
                   <div class="flex items-center justify-end gap-1.5">
-                    <a class="px-2.5 py-1 text-primary hover:bg-primary-fixed/30 font-label-sm text-label-sm rounded transition-colors font-semibold" href="{% url 'web:tra_cuu' %}?truong={{ r.ma_truong }}&amp;nganh={{ r.nganh_slug }}">Xem chi tiết</a>
+                    <a class="px-2.5 py-1 text-primary hover:bg-primary-fixed/30 font-label-sm text-label-sm rounded transition-colors font-semibold" href="{% url 'university:tra_cuu' %}?truong={{ r.ma_truong }}&amp;nganh={{ r.nganh_slug }}">Xem chi tiết</a>
                     <button class="px-2.5 py-1 bg-primary-container hover:bg-primary text-on-primary font-label-sm text-label-sm rounded transition-colors font-semibold" type="button" data-khop-diem>Khớp điểm</button>
                   </div>
                 </td>
@@ -233,7 +233,7 @@
       </div>
 
       <div class="p-space-md bg-surface-container-low border-t border-outline-variant flex items-center justify-end">
-        <a class="px-3 py-1.5 bg-surface-container-lowest border border-outline text-on-surface font-label-md text-label-md rounded hover:bg-surface-container transition-colors" href="{% url 'web:tra_cuu' %}">
+        <a class="px-3 py-1.5 bg-surface-container-lowest border border-outline text-on-surface font-label-md text-label-md rounded hover:bg-surface-container transition-colors" href="{% url 'university:tra_cuu' %}">
           Xem thêm {{ kpi.so_nganh }} ngành khác →
         </a>
       </div>
@@ -249,7 +249,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md">
       {% for n in nhom_nganh %}
         <a class="bg-surface-container-lowest p-space-md rounded-xl border border-surface-container-high hover:border-primary transition-colors flex items-center gap-space-md group"
-           href="{% url 'web:tra_cuu' %}?nhom_nganh={{ n.nhom_nganh|urlencode }}">
+           href="{% url 'university:tra_cuu' %}?nhom_nganh={{ n.nhom_nganh|urlencode }}">
           <div class="w-12 h-12 rounded flex items-center justify-center shrink-0 {% cycle 'bg-primary-fixed text-primary' 'bg-secondary-fixed text-secondary' 'bg-tertiary-fixed text-tertiary' 'bg-error-container text-error' 'bg-surface-container text-on-surface' 'bg-secondary-fixed-dim text-on-secondary-fixed' %}">
             <span class="material-symbols-outlined text-[26px]">{% cycle 'terminal' 'monitoring' 'precision_manufacturing' 'medical_services' 'gavel' 'translate' %}</span>
           </div>

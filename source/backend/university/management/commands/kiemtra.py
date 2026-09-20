@@ -13,8 +13,8 @@ import csv
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
-from tracuu.models import (CuaSoNam, DacTrungDiemChuan, DiemChuan, Mon, Nganh,
-                           ToHop, Truong)
+from university.models import (CuaSoNam, DacTrungDiemChuan, DiemChuan, Mon, Nganh,
+                               ToHop, Truong)
 
 VUNG_MIEN_HOP_LE = {"Miền Bắc", "Miền Trung", "Miền Nam"}
 DATA_DIR = settings.DATA_DIR      # gốc dự án/data, dùng chung với crawler

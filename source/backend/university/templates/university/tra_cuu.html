@@ -20,7 +20,7 @@
         <h1 class="font-headline-lg text-headline-lg text-on-surface">Tra cứu Điểm chuẩn &amp; Danh sách Trường Đại học</h1>
       </div>
 
-      <form class="relative w-full" method="get" action="{% url 'web:tra_cuu' %}">
+      <form class="relative w-full" method="get" action="{% url 'university:tra_cuu' %}">
         <div class="flex items-stretch gap-space-sm">
           <div class="relative flex-1 flex items-center bg-surface-container-low rounded-lg focus-within:bg-surface-container-lowest transition-colors">
             <span class="material-symbols-outlined absolute left-space-md text-on-surface-variant text-[22px]">search</span>
@@ -60,13 +60,13 @@
           <span class="material-symbols-outlined text-primary-container text-[20px]">tune</span>
           <h2 class="font-title-md text-title-md text-on-surface">Bộ lọc thông minh đa chiều</h2>
         </div>
-        <a class="font-label-sm text-label-sm text-primary-container hover:underline flex items-center gap-0.5" href="{% url 'web:tra_cuu' %}">
+        <a class="font-label-sm text-label-sm text-primary-container hover:underline flex items-center gap-0.5" href="{% url 'university:tra_cuu' %}">
           <span class="material-symbols-outlined text-[16px]">restart_alt</span>
           <span>Đặt lại bộ lọc</span>
         </a>
       </div>
 
-      <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md" method="get" action="{% url 'web:tra_cuu' %}">
+      <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md" method="get" action="{% url 'university:tra_cuu' %}">
         {% if params.q %}<input type="hidden" name="q" value="{{ params.q }}">{% endif %}
         {% if params.truong %}<input type="hidden" name="truong" value="{{ params.truong }}">{% endif %}
         {% if params.nganh %}<input type="hidden" name="nganh" value="{{ params.nganh }}">{% endif %}
@@ -269,7 +269,7 @@
                 <td class="py-space-xl px-space-md text-center text-on-surface-variant" colspan="10">
                   <span class="material-symbols-outlined text-[40px] text-outline block mb-space-xs">search_off</span>
                   Không tìm thấy ngành nào khớp bộ lọc.
-                  <a class="text-primary-container hover:underline font-semibold" href="{% url 'web:tra_cuu' %}">Đặt lại bộ lọc</a>
+                  <a class="text-primary-container hover:underline font-semibold" href="{% url 'university:tra_cuu' %}">Đặt lại bộ lọc</a>
                 </td>
               </tr>
             {% endfor %}

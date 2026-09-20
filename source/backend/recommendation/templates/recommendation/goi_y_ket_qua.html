@@ -27,7 +27,7 @@
       <span class="px-space-sm py-1 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface-variant">
         <strong class="text-primary-container">{{ ds|length }}</strong> nguyện vọng
       </span>
-      <a href="{% url 'admissions:lich_su_goi_y' ho_so.pk %}" class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-primary-container hover:bg-surface-container-high transition-colors" title="Lịch sử gợi ý">
+      <a href="{% url 'recommendation:lich_su_goi_y' ho_so.pk %}" class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-primary-container hover:bg-surface-container-high transition-colors" title="Lịch sử gợi ý">
         <span class="material-symbols-outlined text-[18px]">history</span>
       </a>
     </div>
@@ -105,7 +105,7 @@
 
           <div class="flex items-center justify-between gap-space-xs pt-space-sm border-t border-surface-container-high">
             <span class="font-label-sm text-label-sm text-outline">Dựa trên {{ r.kq.so_nam_co_dl }}/5 năm dữ liệu</span>
-            <a href="{% url 'admissions:chi_tiet_goi_y' r.kq_id %}" class="px-space-sm py-1.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-sm text-label-sm inline-flex items-center gap-1 transition-colors">
+            <a href="{% url 'recommendation:chi_tiet_goi_y' r.kq_id %}" class="px-space-sm py-1.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-sm text-label-sm inline-flex items-center gap-1 transition-colors">
               <span class="material-symbols-outlined text-[16px]">insights</span> Xem chi tiết
             </a>
           </div>

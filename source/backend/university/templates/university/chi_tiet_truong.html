@@ -9,9 +9,9 @@
 
   <!-- Breadcrumb -->
   <nav class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant mb-space-md">
-    <a class="hover:text-primary-container transition-colors" href="{% url 'web:trang_chu' %}">Trang chủ</a>
+    <a class="hover:text-primary-container transition-colors" href="{% url 'university:trang_chu' %}">Trang chủ</a>
     <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-    <a class="hover:text-primary-container transition-colors" href="{% url 'web:danh_sach_truong' %}">Danh sách trường</a>
+    <a class="hover:text-primary-container transition-colors" href="{% url 'university:danh_sach_truong' %}">Danh sách trường</a>
     <span class="material-symbols-outlined text-[16px]">chevron_right</span>
     <span class="text-on-surface font-semibold">{{ truong.ten_truong }}</span>
   </nav>
@@ -58,7 +58,7 @@
 
   <!-- Bộ lọc -->
   <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md mb-space-md">
-    <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md" method="get" action="{% url 'web:chi_tiet_truong' truong.ma_truong %}">
+    <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md" method="get" action="{% url 'university:chi_tiet_truong' truong.ma_truong %}">
       <div class="space-y-1">
         <label class="font-label-sm text-label-sm text-on-surface-variant block" for="fTH">Tổ hợp môn</label>
         <div class="relative">
@@ -112,7 +112,7 @@
       </div>
 
       <div class="sm:col-span-2 lg:col-span-4 flex items-center justify-end gap-space-sm">
-        <a class="px-space-md py-space-sm bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors inline-flex items-center gap-1.5" href="{% url 'web:chi_tiet_truong' truong.ma_truong %}">
+        <a class="px-space-md py-space-sm bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors inline-flex items-center gap-1.5" href="{% url 'university:chi_tiet_truong' truong.ma_truong %}">
           <span class="material-symbols-outlined text-[18px]">restart_alt</span><span>Đặt lại</span>
         </a>
         <button class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors shadow-sm" type="submit">
@@ -172,7 +172,7 @@
               </td>
               <td class="py-space-md px-space-md text-right whitespace-nowrap">
                 <a class="px-space-sm py-1 rounded bg-surface-container text-on-surface-variant hover:text-primary-container hover:bg-surface-container-high font-label-sm text-label-sm inline-flex items-center gap-1 transition-colors"
-                   href="{% url 'web:tra_cuu' %}?truong={{ truong.ma_truong }}&amp;nganh={{ r.nganh_slug }}&amp;ma_to_hop={{ r.ma_to_hop }}">
+                   href="{% url 'university:tra_cuu' %}?truong={{ truong.ma_truong }}&amp;nganh={{ r.nganh_slug }}&amp;ma_to_hop={{ r.ma_to_hop }}">
                   <span class="material-symbols-outlined text-[16px]">insights</span> Chi tiết
                 </a>
               </td>

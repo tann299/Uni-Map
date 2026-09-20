@@ -134,7 +134,7 @@
 
       <!-- Left: Logo + Brand name -->
       <div class="flex items-center gap-4 shrink-0">
-        <a class="flex items-center gap-2" href="{% url 'web:trang_chu' %}">
+        <a class="flex items-center gap-2" href="{% url 'university:trang_chu' %}">
           {% include "partials/logo.html" with class="h-9 w-9 shrink-0" %}
           <div class="flex flex-col">
             <span class="font-headline-sm text-headline-sm text-primary leading-none">Uni Map</span>
@@ -145,9 +145,9 @@
 
       <!-- Center: Navigation links (mockup: active = chu mau primary-container, khong phai pill nen) -->
       <nav class="hidden lg:flex items-center gap-1 flex-nowrap whitespace-nowrap">
-        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors {% if nav_active == 'trang_chu' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'web:trang_chu' %}">Trang chủ</a>
-        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors {% if nav_active == 'tra_cuu' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'web:tra_cuu' %}">Tra cứu Điểm chuẩn</a>
-        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors {% if nav_active == 'truong' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'web:danh_sach_truong' %}">Danh sách trường</a>
+        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors {% if nav_active == 'trang_chu' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'university:trang_chu' %}">Trang chủ</a>
+        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors {% if nav_active == 'tra_cuu' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'university:tra_cuu' %}">Tra cứu Điểm chuẩn</a>
+        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors {% if nav_active == 'truong' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'university:danh_sach_truong' %}">Danh sách trường</a>
         {% if user.is_authenticated %}
         <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 {% if nav_active == 'goi_y' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'admissions:danh_sach_ho_so' %}" title="Nhận gợi ý nguyện vọng từ hồ sơ năng lực (UC-05)">
           <span class="material-symbols-outlined text-[18px] text-primary">auto_awesome</span>
@@ -252,10 +252,10 @@
         <div class="lg:col-span-3 flex flex-col gap-3">
           <span class="font-label-md text-label-md uppercase tracking-wider text-on-surface font-bold">Tính năng</span>
           <ul class="flex flex-col gap-2 font-body-sm text-body-sm text-on-surface-variant">
-            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'web:tra_cuu' %}">Tra cứu điểm chuẩn 5 năm</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'university:tra_cuu' %}">Tra cứu điểm chuẩn 5 năm</a></li>
             <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'accounts:dang_nhap' %}">Gợi ý Nguyện vọng AI</a></li>
             <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'accounts:dang_nhap' %}">So sánh nguyện vọng</a></li>
-            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'web:danh_sach_truong' %}">Danh sách 288 trường ĐH</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'university:danh_sach_truong' %}">Danh sách 288 trường ĐH</a></li>
           </ul>
         </div>
 
