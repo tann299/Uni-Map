@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load l10n %}
+{% load truong_logo %}
 
-{% block title %}Tra cứu Điểm chuẩn &amp; Danh sách Trường Đại học — Uni Map{% endblock %}
+{% block title %}Tra cứu Điểm chuẩn — Uni Map{% endblock %}
 
 {% block content %}
-{# Mockup in diem bang dau cham thap phan (28.85). LANGUAGE_CODE='vi' mac dinh
-   doi thanh dau phay -> tat localize cho ca bang. #}
+{% comment %}Mockup in diem bang dau cham thap phan (28.85). LANGUAGE_CODE='vi' mac dinh doi thanh dau phay -> tat localize cho ca bang.{% endcomment %}
 {% localize off %}
-<div class="max-w-[1700px] mx-auto px-margin-mobile lg:px-margin py-space-lg">
+<div class="max-w-[1500px] mx-auto px-margin-mobile lg:px-margin py-space-lg">
   <div class="flex flex-col w-full">
 
     <!-- ===== TÌM KIẾM NHANH ===== -->
@@ -17,7 +17,7 @@
           <span class="material-symbols-outlined text-[16px]">verified</span>
           <span>Dữ liệu Tuyển sinh Chính quy 2021–2025</span>
         </div>
-        <h1 class="font-headline-lg text-headline-lg text-on-surface">Tra cứu Điểm chuẩn &amp; Danh sách Trường Đại học</h1>
+        <h1 class="font-headline-lg text-headline-lg text-on-surface">Tra cứu Điểm chuẩn</h1>
       </div>
 
       <form class="relative w-full" method="get" action="{% url 'university:tra_cuu' %}">
@@ -172,11 +172,11 @@
         <div class="flex items-center gap-space-xs px-space-sm py-1 bg-surface-container-lowest rounded-lg shadow-sm">
           <span class="material-symbols-outlined text-[18px] text-primary-container">balance</span>
           <span class="font-label-sm text-label-sm text-on-surface">Đã chọn so sánh:</span>
-          <span class="font-label-sm text-label-sm text-on-primary bg-primary-container px-1.5 py-0.5 rounded-full" id="compareCount">0/5</span>
+          <span class="font-label-sm text-label-sm text-on-primary bg-primary-container px-1.5 py-0.5 rounded-full" id="compareCount">0/3</span>
           {% if user.is_authenticated %}
-            <a class="font-label-sm text-label-sm text-primary-container hover:underline ml-space-xs" href="#">So sánh ngay →</a>
+            <button id="compareGo" class="font-label-sm text-label-sm text-primary-container hover:underline ml-space-xs disabled:opacity-40 disabled:hover:no-underline" type="button" disabled>So sánh ngay →</button>
           {% else %}
-            <a class="font-label-sm text-label-sm text-primary-container hover:underline ml-space-xs" href="{% url 'accounts:dang_nhap' %}" title="Cần đăng nhập để lưu danh sách so sánh">Đăng nhập để lưu →</a>
+            <a class="font-label-sm text-label-sm text-primary-container hover:underline ml-space-xs" href="{% url 'accounts:dang_nhap' %}?next={% url 'university:tra_cuu' %}" title="Cần đăng nhập để so sánh nguyện vọng">Đăng nhập để so sánh →</a>
           {% endif %}
         </div>
       </div>
@@ -215,7 +215,12 @@
               <tr class="hover:bg-surface-container-low transition-colors border-b border-surface-container-high {% if forloop.counter|divisibleby:2 %}bg-surface-container-low/40{% endif %}">
                 <td class="py-space-md px-space-md min-w-[300px]">
                   <div class="flex items-center gap-space-sm">
-                    <div class="w-9 h-9 rounded {% cycle 'bg-primary-container text-on-primary' 'bg-secondary text-on-secondary' 'bg-tertiary text-on-tertiary' 'bg-on-secondary-container text-on-secondary' 'bg-error text-on-error' %} flex items-center justify-center font-bold font-label-md text-label-md shrink-0">{{ r.viet_tat|slice:":3" }}</div>
+                    {% logo_truong r.ma_truong as logo %}
+                    {% if logo %}
+                      <div class="w-9 h-9 rounded bg-surface-container-lowest border border-surface-container-high flex items-center justify-center shrink-0 overflow-hidden"><img class="w-full h-full object-contain" src="{{ logo }}" alt="Logo {{ r.truong }}" loading="lazy"></div>
+                    {% else %}
+                      <div class="w-9 h-9 rounded {% cycle 'bg-primary-container text-on-primary' 'bg-secondary text-on-secondary' 'bg-tertiary text-on-tertiary' 'bg-on-secondary-container text-on-secondary' 'bg-error text-on-error' %} flex items-center justify-center font-bold font-label-md text-label-md shrink-0">{{ r.viet_tat|slice:":3" }}</div>
+                    {% endif %}
                     <div class="min-w-0">
                       <div class="font-label-md text-label-md font-semibold text-on-surface whitespace-nowrap">
                         <a class="hover:text-primary-container hover:underline transition-colors" href="{% querystring truong=r.ma_truong trang=None %}">{{ r.truong }}</a>
@@ -248,12 +253,12 @@
                 <td class="py-space-md px-space-md text-right whitespace-nowrap">
                   <div class="flex items-center justify-end gap-space-xs">
                     {% if user.is_authenticated %}
-                      <button class="px-space-sm py-1 rounded border-0 bg-primary-container text-on-primary hover:bg-primary font-label-sm text-label-sm flex items-center gap-1 transition-colors" data-chon-so-sanh type="button" title="Thêm vào danh sách so sánh nguyện vọng">
+                      <button class="px-space-sm py-1 rounded border-0 bg-primary-container text-on-primary hover:bg-primary font-label-sm text-label-sm flex items-center gap-1 transition-colors" data-chon-so-sanh type="button" title="Thêm vào danh sách so sánh nguyện vọng" data-ss="{{ r.ma_truong }}|{{ r.nganh_id }}|{{ r.ma_to_hop }}|{{ r.phuong_thuc }}">
                         <span class="material-symbols-outlined text-[16px]">add_circle</span>
                         <span class="nhan">So sánh</span>
                       </button>
                     {% else %}
-                      <a class="px-space-sm py-1 rounded border-0 bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm flex items-center gap-1 transition-colors" href="{% url 'accounts:dang_nhap' %}" title="Cần đăng nhập để so sánh nguyện vọng">
+                      <a class="px-space-sm py-1 rounded border-0 bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm flex items-center gap-1 transition-colors" href="{% url 'accounts:dang_nhap' %}?next={{ request.get_full_path|urlencode }}" title="Cần đăng nhập để so sánh nguyện vọng">
                         <span class="material-symbols-outlined text-[16px]">add_circle</span>
                         <span>So sánh</span>
                       </a>
@@ -325,31 +330,48 @@
 {% endblock %}
 
 {% block extra_scripts %}
+{% if user.is_authenticated %}
 <script>
-  // ponytail: chi la bo dem hien thi, chua co bang luu o CSDL.
-  // Nang cap bang model SoSanhNguyenVong + API khi lam UC-06.
+  // UC-07: gom tối đa {{ MAX_SO_SANH|default:3 }} nguyện vọng -> /goi-y/so-sanh/.
+  // ss = 'MA_TRUONG|nganh_id|ma_to_hop|phuong_thuc' (xem _doc_danh_sach_so_sanh).
   (function () {
-    var nut = document.querySelectorAll('[data-chon-so-sanh]');
+    var TOI_DA = 3;
+    var nut = Array.prototype.slice.call(document.querySelectorAll('[data-chon-so-sanh]'));
     var dem = document.getElementById('compareCount');
-    if (!nut.length || !dem) return;
+    var di = document.getElementById('compareGo');
+    if (!nut.length || !dem || !di) return;
 
     var daChon = [];
+    function veLai() {
+      dem.textContent = daChon.length + '/' + TOI_DA;
+      di.disabled = daChon.length === 0;
+    }
     nut.forEach(function (b) {
       b.addEventListener('click', function () {
-        var ten = b.closest('tr').querySelector('td:nth-child(2)').innerText.trim();
-        var i = daChon.indexOf(ten);
+        var ma = b.getAttribute('data-ss');
+        var i = daChon.indexOf(ma);
         if (i >= 0) {
           daChon.splice(i, 1);
           b.classList.remove('bg-primary-fixed', 'text-on-primary-fixed');
           b.querySelector('.nhan').textContent = 'So sánh';
-        } else if (daChon.length < 5) {
-          daChon.push(ten);
+        } else if (daChon.length < TOI_DA) {
+          daChon.push(ma);
           b.classList.add('bg-primary-fixed', 'text-on-primary-fixed');
           b.querySelector('.nhan').textContent = 'Đã chọn';
+        } else {
+          alert('Chỉ so sánh tối đa ' + TOI_DA + ' nguyện vọng.');
         }
-        dem.textContent = daChon.length + '/5';
+        veLai();
       });
     });
+    di.addEventListener('click', function () {
+      if (!daChon.length) return;
+      var url = "{% url 'recommendation:so_sanh_moi' %}" + '?' +
+        daChon.map(function (s) { return 'ss=' + encodeURIComponent(s); }).join('&');
+      window.location.href = url;
+    });
+    veLai();
   })();
 </script>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,113 @@
+SO TRUONG THIEU: 112
+BMU   | Trường Đại học Y Dược Buôn Ma Thuột | Đắk Lắk
+BPH   | Học Viện Biên Phòng | Hà Nội
+CEA   | Trường Đại học Nghệ An | Nghệ An
+CMC   | Trường Đại Học CMC | Hà Nội
+DBG   | Trường Đại học Nông Lâm Bắc Giang | Bắc Ninh
+DCA   | Trường Đại học Intracom | Hà Nội
+DCH   | Trường Sĩ Quan Đặc Công | Hà Nội
+DCQ   | Trường Đại Học Công Nghệ và Quản Lý Hữu Nghị | Hà Nội
+DCT   | Trường Đại Học Công Thương TPHCM | TP Hồ Chí Minh
+DCV   | Trường Đại học Công nghiệp Vinh | Nghệ An
+DDA   | Trường Đại Học Công Nghệ Đông Á | Bắc Ninh
+DDB   | Trường Đại Học Thành Đông | Hải Phòng
+DDF   | Trường Đại Học Ngoại Ngữ Đà Nẵng | Đà Nẵng
+DDV   | Viện nghiên cứu và đào tạo Việt Anh - Đại học Đà Nẵng | Đà Nẵng
+DHC   | Khoa Giáo Dục Thể Chất Huế | Huế
+DHE   | Khoa Kỹ thuật và Công nghệ - Đại học Huế | Huế
+DHQ   | Phân Hiệu Đại Học Huế tại Quảng Trị | Quảng Trị
+DKB   | Trường Đại Học Kinh Tế Kỹ Thuật Bình Dương | TP Hồ Chí Minh
+DKT   | Trường Đại Học Hải Dương | Hải Phòng
+DNC   | Trường Đại học Nam Cần Thơ | Cần Thơ
+DNH   | Học Viện Khoa Học Quân Sự - Hệ Dân sự | Hà Nội
+DPD   | Trường Đại Học Phương Đông | Hà Nội
+DPQ   | Trường Đại Học Phạm Văn Đồng | Quảng Ngãi
+DPT   | Trường Đại Học Phan Thiết | Lâm Đồng
+DSK   | Trường Đại học Sư phạm Kỹ thuật - Đại học Đà Nẵng | Đà Nẵng
+DTC   | Trường Đại học Công Nghệ Thông Tin và Truyền Thông Thái Nguyên | Thái Nguyên
+DTF   | Trường Ngoại Ngữ Thái Nguyên | Thái Nguyên
+DTG   | Phân hiệu Đại học Thái Nguyên tại Hà Giang | Thái Nguyên
+DTP   | Phân Hiệu Đại Học Thái Nguyên Tại Lào Cai | Thái Nguyên
+DTQ   | Khoa Quốc Tế - Đại Học Thái Nguyên | Thái Nguyên
+DVB   | Trường Đại Học Kinh tế công nghệ Thái Nguyên | Thái Nguyên
+DVD   | Trường Đại Học Văn Hóa, Thể Thao Và Du Lịch Thanh Hóa | Thanh Hóa
+DVP   | Trường Đại Học Trưng Vương | Phú Thọ
+DYH   | Học Viện Quân Y - Hệ Dân sự | Hà Nội
+EIU   | Trường Đại Học Quốc Tế Miền Đông | TP Hồ Chí Minh
+FBU   | Trường Đại Học Tài Chính Ngân Hàng Hà Nội | Hà Nội
+HCB   | Học viện Kỹ thuật và Công nghệ an ninh (Phía Bắc) | Nghệ An
+HCN   | Học viện Kỹ thuật và Công nghệ an ninh (Phía Nam) | Nghệ An
+HCP   | Học Viện Chính Sách và Phát Triển | Hà Nội
+HCS   | Học Viện Hành Chính Và Quản Trị Công (phía Nam) | TP Hồ Chí Minh
+HEH   | Học Viện Hậu Cần - Hệ Quân sự | Hà Nội
+HFH   | Học Viện Hậu Cần - Hệ Dân sự | Hà Nội
+HGH   | Trường Sĩ Quan Phòng Hóa | Hà Nội
+HLU   | Trường Đại Học Hạ Long | Quảng Ninh
+HQT   | Học Viện Ngoại Giao | Hà Nội
+HYD   | Học Viện Y Dược Học Cổ Truyền Việt Nam | Hà Nội
+IUH   | Trường Đại Học Công Nghiệp TPHCM | TP Hồ Chí Minh
+KSV   | Đại học Kinh Tế TPHCM - Phân hiệu Vĩnh Long | Vĩnh Long
+LAH   | Trường Sĩ Quan Lục Quân 1 - Đại học Trần Quốc Tuấn | Hà Nội
+LBH   | Trường Sĩ Quan Lục Quân 2 - Đại học Nguyễn Huệ | Huế
+LDA   | Trường Đại Học Công Đoàn | Hà Nội
+LNA   | Phân hiệu Đại học Lâm nghiệp tỉnh Gia Lai | Gia Lai
+LNS   | Phân hiệu Đại Học Lâm nghiệp tại Đồng Nai | Đồng Nai
+LPS   | Trường Đại Học Luật TPHCM | TP Hồ Chí Minh
+MBS   | Trường Đại Học Mở TPHCM | TP Hồ Chí Minh
+MIT   | Trường Đại học Công nghệ Miền Đông | Đồng Nai
+MTH   | Trường Đại Học Mỹ Thuật Việt Nam | Hà Nội
+NHB   | Học Viện Ngân Hàng (Phân Viện Bắc Ninh) | Bắc Ninh
+NHH   | Học Viện Ngân Hàng | Hà Nội
+NHP   | Học Viện Ngân Hàng (Phân Viện Phú Yên) | Đắk Lắk
+NHS   | Trường Đại Học Ngân Hàng TPHCM | TP Hồ Chí Minh
+NLG   | Phân hiệu Đại học Nông Lâm TPHCM tại Gia Lai | Gia Lai
+NLN   | Phân hiệu Đại học Nông Lâm TPHCM tại Ninh Thuận | Khánh Hòa
+NQH   | Học Viện Khoa Học Quân Sự - Hệ Quân sự | Hà Nội
+PBH   | Trường Sĩ Quan Pháo Binh | Hà Nội
+PKA   | Đại Học Phenikaa | Hà Nội
+PKH   | Học Viện Phòng Không – Không Quân | Hà Nội
+QHD   | Trường Quản Trị và Kinh Doanh - ĐHQG Hà Nội | Hà Nội
+QHE   | Trường Đại Học Kinh Tế - ĐHQG Hà Nội | Hà Nội
+QHI   | Trường Đại Học Công Nghệ – Đại Học Quốc Gia Hà Nội | Hà Nội
+QHK   | Trường Khoa học liên ngành và Nghệ thuật Hà Nội | Hà Nội
+QHL   | Trường Đại học Luật – ĐHQG Hà Nội | Hà Nội
+QHQ   | Trường Quốc Tế - ĐHQG Hà Nội | Hà Nội
+QHS   | Trường Đại Học Giáo Dục - ĐHQG Hà Nội | Hà Nội
+QHX   | Trường Đại Học Khoa Học Xã Hội và Nhân Văn Hà Nội | Hà Nội
+QHY   | Trường Đại học Y Dược - ĐHQG Hà Nội | Hà Nội
+QSA   | Trường Đại Học An Giang | An Giang
+QSB   | Trường Đại Học Bách Khoa HCM | TP Hồ Chí Minh
+QSC   | Trường Đại Học Công Nghệ Thông Tin - ĐHQG TPHCM | TP Hồ Chí Minh
+QSK   | Trường Đại học Kinh Tế Luật TPHCM | TP Hồ Chí Minh
+QSP   | Phân hiệu Đại học Quốc gia TPHCM tại Bến Tre | Vĩnh Long
+QSQ   | Trường Đại Học Quốc Tế - ĐHQG TPHCM | TP Hồ Chí Minh
+QST   | Trường Đại Học Khoa Học Tự Nhiên TPHCM | TP Hồ Chí Minh
+QSX   | Trường Đại Học Khoa Học Xã Hội và Nhân Văn TPHCM | TP Hồ Chí Minh
+QSY   | Trường Đại học Khoa học sức khỏe TPHCM | TP Hồ Chí Minh
+SNH   | Trường Sĩ Quan Công Binh - Hệ Quân sự - Đại học Ngô Quyền | TP Hồ Chí Minh
+STS   | Trường Đại Học Sư Phạm Thể Dục Thể Thao TPHCM | TP Hồ Chí Minh
+TBD   | Trường Đại Học Thái Bình Dương | Khánh Hòa
+TDD   | Trường Đại học Thành Đô | Hà Nội
+TDS   | Trường Đại Học Thể Dục Thể Thao TPHCM | TP Hồ Chí Minh
+THP   | Trường Đại Học Hải Phòng | Hải Phòng
+THU   | Trường Đại học Y khoa Tokyo Việt Nam | Hưng Yên
+THV   | Trường Đại Học Hùng Vương | Phú Thọ
+TQU   | Trường Đại học Tân Trào | Tuyên Quang
+TTU   | Trường Đại học Tân Tạo | Tây Ninh
+UEF   | Trường Đại Học Kinh Tế Tài Chính TPHCM | TP Hồ Chí Minh
+UFA   | Trường Đại học Tài Chính Kế Toán | Quảng Ngãi
+UKH   | Trường Đại học Khánh Hòa | Khánh Hòa
+UMT   | Trường Đại học Quản lý và công nghệ TPHCM | TP Hồ Chí Minh
+VHH   | Trường Đại Học Văn Hóa Hà Nội | Hà Nội
+VJU   | Trường Đại học Việt Nhật - ĐHQG Hà Nội | Hà Nội
+VKU   | Trường Đại học Công nghệ Thông tin và Truyền thông Việt Hàn - Đại học Đà Nẵng | Đà Nẵng
+VTT   | Trường Đại Học Võ Trường Toản | Cần Thơ
+XDN   | Phân hiệu Đại học Xây dựng miền Trung tại Đà Nẵng | Đắk Lắk
+XDT   | Trường Đại Học Xây Dựng Miền Trung | Đắk Lắk
+YCT   | Trường Đại Học Y Dược Cần Thơ | Cần Thơ
+YDS   | Đại Học Y Dược TPHCM | TP Hồ Chí Minh
+YHB   | Trường Đại Học Y Hà Nội | Hà Nội
+YKV   | Trường Đại Học Y Khoa Vinh | Nghệ An
+YPB   | Trường Đại Học Y Dược Hải Phòng | Hải Phòng
+YQH   | Học Viện Quân Y - Hệ Quân sự | Hà Nội
+YTC   | Trường Đại Học Y Tế Công Cộng | Hà Nội

@@ -70,6 +70,7 @@ def _thanh_dong(row, cua_so) -> dict:
         "tinh_thanh": row.ma_truong.tinh_thanh,
         "vung_mien": row.ma_truong.vung_mien,
         "nganh": row.nganh.ten_nganh,
+        "nganh_id": row.nganh_id,
         "nganh_slug": row.nganh.nganh_slug,
         "nhom_nganh": row.nganh.nhom_nganh,
         "ma_to_hop": row.ma_to_hop_id,

@@ -10,6 +10,8 @@ urlpatterns = [
     # UC-06 — xem lời giải thích (kq_id = 1 dòng ket_qua_goi_y)
     path("chi-tiet/<int:kq_id>/", views.chi_tiet_goi_y, name="chi_tiet_goi_y"),
     # UC-07 — so sánh nguyện vọng
+    # `so-sanh/` không pk: vào từ trang tra cứu, tự chọn hồ sơ mới nhất.
+    path("so-sanh/", views.so_sanh_moi, name="so_sanh_moi"),
     path("so-sanh/<int:pk>/", views.so_sanh, name="so_sanh"),
     # UC-08 — lịch sử gợi ý
     path("lich-su/<int:pk>/", views.lich_su_goi_y, name="lich_su_goi_y"),

@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load l10n %}
+{% load truong_logo %}
 
 {% block title %}{{ truong.ten_truong }} — Uni Map{% endblock %}
 
 {% block content %}
 {% localize off %}
-<div class="max-w-[1700px] mx-auto px-margin-mobile lg:px-margin py-space-lg">
+<div class="max-w-[1500px] mx-auto px-margin-mobile lg:px-margin py-space-lg">
 
   <!-- Breadcrumb -->
   <nav class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant mb-space-md">
@@ -19,7 +20,12 @@
   <!-- Header trường -->
   <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-md">
     <div class="flex items-start gap-space-md min-w-0">
-      <div class="w-16 h-16 rounded-xl bg-primary-container text-on-primary flex items-center justify-center font-bold font-headline-md text-headline-md shrink-0">{{ truong.viet_tat|slice:":3" }}</div>
+      {% logo_truong truong.ma_truong as logo %}
+      {% if logo %}
+        <div class="w-16 h-16 rounded-xl bg-surface-container-lowest border border-surface-container-high flex items-center justify-center shrink-0 overflow-hidden"><img class="w-full h-full object-contain" src="{{ logo }}" alt="Logo {{ truong.ten_truong }}"></div>
+      {% else %}
+        <div class="w-16 h-16 rounded-xl bg-primary-container text-on-primary flex items-center justify-center font-bold font-headline-md text-headline-md shrink-0">{{ truong.viet_tat|slice:":3" }}</div>
+      {% endif %}
       <div class="min-w-0">
         <h1 class="font-headline-md text-headline-md text-on-surface font-bold">{{ truong.ten_truong }}</h1>
         <div class="flex flex-wrap items-center gap-space-xs mt-space-xs font-label-sm text-label-sm">

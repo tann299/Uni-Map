@@ -19,6 +19,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+from urllib.parse import quote
 
 from admissions.models import HoSoNangLuc
 from university.services import tinh_to_hop_tu_db
@@ -225,6 +227,25 @@ def _doc_danh_sach_so_sanh(request):
         if dt is not None:
             ra.append(dt)
     return ra
+
+
+@login_required
+def so_sanh_moi(request):
+    """UC-07 — vào từ trang tra cứu: chọn hồ sơ đầu của user rồi so sánh.
+
+    Trang tra cứu là công khai nên không biết hồ sơ nào; dùng hồ sơ mới nhất
+    của user làm đích. Nếu chưa có hồ sơ, đẩy sang tạo hồ sơ trước.
+    """
+    hs = (HoSoNangLuc.objects.filter(user=request.user)
+          .order_by("-ngay_sua").first())
+    if not hs:
+        messages.info(request, "Tạo hồ sơ năng lực để so sánh nguyện vọng.")
+        return redirect("admissions:danh_sach_ho_so")
+    # Chỉ chuyển tiếp `ss`, bỏ query của trang tra cứu (q, trang, ...).
+    query = "&".join(f"ss={quote(s, safe='|')}"
+                     for s in request.GET.getlist("ss")[:MAX_SO_SANH])
+    url = reverse("recommendation:so_sanh", args=[hs.pk])
+    return redirect(f"{url}?{query}" if query else url)
 
 
 @login_required

@@ -5,6 +5,12 @@
       "name": "unimap",
       "runtimeExecutable": "python",
       "runtimeArgs": ["manage.py", "runserver", "8000"],
+      "port": 8000,
+      "autoPort": true
+    },
+    {
+      "name": "unimap-attach",
+      "url": "http://localhost:8000",
       "port": 8000
     }
   ]
