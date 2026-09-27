@@ -12,7 +12,7 @@ Toàn bộ dữ liệu ở đây do crawler + import_mysql.py nạp vào; view c
 
 from dataclasses import dataclass
 from datetime import date, datetime
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal
 from typing import Any
 
 from django.core.paginator import Paginator
@@ -252,7 +252,9 @@ def danh_sach_truong(request):
     if tinh_thanh:
         qs = qs.filter(tinh_thanh=tinh_thanh)
     if nhom_nganh:
-        qs = qs.filter(nganh__nhom_nganh=nhom_nganh).distinct()
+        # `Truong` không có FK `nganh` — đi qua bảng đặc trưng.
+        qs = qs.filter(
+            dactrungdiemchuan__nganh__nhom_nganh=nhom_nganh).distinct()
 
     # Số ngành + điểm chuẩn TB của mỗi trường, tính bằng 1 truy vấn gộp.
     thong_ke = {

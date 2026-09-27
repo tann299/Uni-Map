@@ -34,7 +34,7 @@
   </div>
 
   <!-- Tổng quan -->
-  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-md grid grid-cols-2 sm:grid-cols-4 gap-space-md text-center">
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-md grid grid-cols-2 sm:grid-cols-5 gap-space-md text-center">
     <div>
       <div class="font-data-metric text-data-metric font-mono text-primary-container">{{ kq.diem_hoc_sinh }}</div>
       <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Điểm của bạn</div>
@@ -46,6 +46,15 @@
     <div>
       <div class="font-data-metric text-data-metric font-mono {% if kq.margin >= 0 %}text-[#16A34A]{% else %}text-[#DC2626]{% endif %}">{% if kq.margin >= 0 %}+{% endif %}{{ kq.margin }}</div>
       <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Khoảng cách (margin)</div>
+    </div>
+    <div>
+      {% if dung_ai %}
+      <div class="font-data-metric text-data-metric font-mono {% if kq.tang == 'An toàn' %}text-[#16A34A]{% elif kq.tang == 'Vừa sức' %}text-[#D97706]{% else %}text-[#DC2626]{% endif %}">{{ xac_suat_phan_tram }}%</div>
+      <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Khả năng đỗ (AI)</div>
+      {% else %}
+      <div class="font-data-metric text-data-metric font-mono text-outline">—</div>
+      <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Chưa dùng AI</div>
+      {% endif %}
     </div>
     <div>
       <div class="font-data-metric text-data-metric font-mono text-on-surface">{{ kq.dt.so_nam_co_dl|default:"—" }}/5</div>

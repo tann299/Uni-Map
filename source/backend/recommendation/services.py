@@ -9,6 +9,8 @@ Mọi hàm đều THUẦN Python, không chạm ORM — test được mà không
 """
 from __future__ import annotations
 
+from .ml.predict import cham_xac_suat, nap_mo_hinh, phien_ban
+
 # ---------------------------------------------------------------------------
 # CN-03 — phân tầng nguyện vọng An toàn / Vừa sức / Thử sức (SRS mục CN-03)
 # ---------------------------------------------------------------------------
@@ -21,6 +23,10 @@ from __future__ import annotations
 # dòng đặc trưng đã cùng thang với `diem_hoc_sinh` của hồ sơ.
 MARGIN_AN_TOAN = 2.0
 MARGIN_VUA_SUC = 0.0
+
+# SRS CN-03 — ngưỡng xác suất khi CÓ mô hình.
+P_AN_TOAN = 0.8
+P_VUA_SUC = 0.4
 
 # Tailwind class theo base.html. KHÔNG dùng màu làm dấu hiệu duy nhất (PC-08):
 # mỗi tầng luôn kèm icon + nhãn chữ ở template.
@@ -35,10 +41,19 @@ TANG_STYLE = {
 
 
 def phan_tang(margin: float) -> str:
-    """margin (điểm học sinh − điểm chuẩn mới nhất) -> tên tầng."""
+    """margin (điểm học sinh − điểm chuẩn mới nhất) -> tên tầng. Dự phòng 5b."""
     if margin >= MARGIN_AN_TOAN:
         return "An toàn"
     if margin >= MARGIN_VUA_SUC:
+        return "Vừa sức"
+    return "Thử sức"
+
+
+def phan_tang_theo_xac_suat(p: float) -> str:
+    """CN-03 nhánh CHÍNH — xác suất đỗ của mô hình -> tên tầng."""
+    if p >= P_AN_TOAN:
+        return "An toàn"
+    if p >= P_VUA_SUC:
         return "Vừa sức"
     return "Thử sức"
 

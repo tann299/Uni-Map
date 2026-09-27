@@ -7,7 +7,8 @@ dựng được bảng). Chạy thẳng:
 
     python -m admissions.tests
 """
-from recommendation.services import chon_can_ban, giai_thich, phan_tang
+from recommendation.services import (chon_can_ban, giai_thich, phan_tang,
+                                     phan_tang_theo_xac_suat)
 from university.services import tinh_to_hop
 
 TO_HOP = {
@@ -61,6 +62,14 @@ def test_phan_tang():
     assert phan_tang(1.5) == "Vừa sức", "margin +1.5 phải Vừa sức"
     assert phan_tang(0.0) == "Vừa sức"
     assert phan_tang(-0.5) == "Thử sức", "margin âm phải Thử sức"
+
+def test_phan_tang_theo_xac_suat():
+    """CN-03 nhánh chính (AI): p ≥ 0.8 An toàn · 0.4–0.8 Vừa sức · < 0.4 Thử sức."""
+    assert phan_tang_theo_xac_suat(0.8) == "An toàn", "p=0.8 phải An toàn"
+    assert phan_tang_theo_xac_suat(0.95) == "An toàn"
+    assert phan_tang_theo_xac_suat(0.4) == "Vừa sức", "p=0.4 phải Vừa sức"
+    assert phan_tang_theo_xac_suat(0.65) == "Vừa sức"
+    assert phan_tang_theo_xac_suat(0.39) == "Thử sức", "p<0.4 phải Thử sức"
 
 def test_giai_thich_co_cau():
     """CN-04: đúng 4 câu, margin âm -> câu đầu là cảnh báo."""
