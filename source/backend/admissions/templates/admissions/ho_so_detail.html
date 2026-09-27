@@ -59,6 +59,25 @@
     {% endif %}
   </section>
 
+  <!-- US-09: nhóm ngành quan tâm — lọc cứng ở UC-05 bước 3 -->
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-lg">
+    <h2 class="font-title-md text-title-md font-bold text-on-surface mb-space-md flex items-center gap-2">
+      <span class="material-symbols-outlined text-[20px] text-primary-container">category</span>
+      Nhóm ngành quan tâm
+    </h2>
+    {% if nhom_nganh %}
+      <div class="flex flex-wrap gap-space-xs">
+        {% for n in nhom_nganh %}
+          <span class="px-space-sm py-1 rounded-lg bg-primary-container/10 text-primary-container border border-primary-container/20 font-label-md text-label-md">{{ n }}</span>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Chưa chọn nhóm ngành nào — gợi ý sẽ trải trên mọi nhóm.
+        <a class="text-primary-container hover:underline font-semibold" href="{% url 'admissions:sua_ho_so' ho_so.pk %}">Chọn ngay</a>
+      </p>
+    {% endif %}
+  </section>
+
   <!-- CN-01: tổ hợp tự tính -->
   <section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
     <div class="p-space-lg pb-space-sm">

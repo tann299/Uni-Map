@@ -53,28 +53,123 @@ class DiemMonForm(ModelForm):
 class NhomNganhForm(ModelForm):
     """US-09 — nhóm ngành quan tâm, dùng để lọc cứng ở UC-05 bước 3."""
 
+    # `nhom_nganh` của model là CharField nên Django render <input type="text">.
+    # Gán `widget.choices` KHÔNG đổi được kiểu widget — phải khai báo hẳn
+    # ChoiceField thì mới ra <select>. Đây là lý do form trước đây hiện ô gõ tay
+    # thay vì danh sách chọn.
+    nhom_nganh = forms.ChoiceField(
+        required=False, label="Nhóm ngành",
+        widget=forms.Select(attrs={"class": "w-full px-3 py-2 rounded-lg border "
+                                          "border-outline-variant bg-surface-container-lowest"}),
+    )
+
     class Meta:
         model = NhomNganhQuanTam
         fields = ["nhom_nganh"]
-        labels = {"nhom_nganh": "Nhóm ngành"}
 
     def __init__(self, *a, **k):
         super().__init__(*a, **k)
         # Lấy từ dữ liệu thật (15 nhóm), không hardcode theo mockup.
         nhom = (Nganh.objects.values_list("nhom_nganh", flat=True)
                 .distinct().order_by("nhom_nganh"))
-        self.fields["nhom_nganh"].widget.choices = [("", "— Không chọn —")] + [
+        self.fields["nhom_nganh"].choices = [("", "— Không chọn —")] + [
             (n, n) for n in nhom]
 
 
-DiemMonFormSet = inlineformset_factory(
-    HoSoNangLuc, DiemMon, form=DiemMonForm,
-    fields=["ma_mon", "diem"], extra=6, can_delete=True,
-)
-NhomNganhFormSet = inlineformset_factory(
-    HoSoNangLuc, NhomNganhQuanTam, form=NhomNganhForm,
-    fields=["nhom_nganh"], extra=3, can_delete=True,
-)
+# `DiemMon`/`NhomNganhQuanTam` dùng CompositePrimaryKey. Django render hidden `pk`
+# thành tuple Python `(19, 'TOAN')` trong khi `CompositePrimaryKey.to_python`
+# chỉ đọc được JSON -> mọi lần bấm Lưu ở trang SỬA đều nổ JSONDecodeError (500).
+# Vá điểm render về đúng dạng JSON `["19", "TOAN"]` để bound form hoạt động.
+import json as _json
+
+from django.forms.widgets import HiddenInput as _HiddenInput
+
+
+class _PkJson(_HiddenInput):
+    def format_value(self, value):
+        if isinstance(value, (tuple, list)):
+            return _json.dumps([str(v) for v in value], ensure_ascii=False)
+        return super().format_value(value)
+
+    def value_from_datadict(self, data, files, name):
+        # Ô ẩn của form rỗng (extra) gửi lên "[\"None\", \"None\"]" — coi như
+        # không có khóa, nếu không formset tưởng đây là bản ghi cũ.
+        raw = data.get(name)
+        if raw and "None" in raw:
+            return ""
+        return raw
+
+
+class _KhongCoPk:
+    """Vá ô khóa composite của formset con (Django 5.2 + CompositePrimaryKey).
+
+    Hai lỗi liên tiếp khi formset con có `CompositePrimaryKey`:
+      1. Django render ô ẩn `pk` dạng tuple Python `(19, 'TOAN')` trong khi
+         `CompositePrimaryKey.to_python` chỉ đọc JSON -> trang SỬA nổ
+         `JSONDecodeError` (500).
+      2. Sau khi đổi sang JSON, `_existing_object` lại tra `_object_dict` bằng
+         `list` -> `TypeError: unhashable type: 'list'`. Khóa của `_object_dict`
+         là tuple.
+
+    Xử lý cả hai: ghi ra JSON (đúng thứ `to_python` đọc) và khi đọc vào thì
+    chuyển list -> tuple trước lúc tra cứu.
+
+    Lỗi thứ ba: `pk` là `ModelChoiceField` với choices sinh từ `to_python`, nên
+    giá trị JSON không khớp choices -> "Hãy chọn một lựa chọn hợp lệ" và cả
+    formset invalid. Thay field `pk` bằng `CharField` (không validate gì) —
+    `_construct_form` đã tự gán `instance` đúng theo pk rồi.
+    """
+
+    def add_fields(self, form, index):
+        super().add_fields(form, index)
+        for ten in list(form.fields):
+            if ten == "pk" or ten.endswith("-pk"):
+                form.fields[ten] = forms.CharField(required=False, widget=_PkJson())
+        # Django không đưa pk composite vào `initial` -> ô ẩn rỗng, lần lưu sau
+        # mất luôn khóa. Tự nạp từ instance (form extra có pk None -> bỏ qua).
+        try:
+            khoa = form.instance.pk
+        except (AttributeError, ValueError):
+            khoa = None
+        if khoa and not any(v is None for v in khoa):
+            form.initial["pk"] = khoa
+
+    def _construct_form(self, i, **kwargs):
+        # Trước khi cha tra `_object_dict`: đổi value JSON thành tuple.
+        if self.is_bound and i < self.initial_form_count():
+            key = "%s-%s" % (self.add_prefix(i), self.model._meta.pk.name)
+            raw = self.data.get(key)
+            if raw:
+                data = self.data.copy()
+                try:
+                    data[key] = tuple(_json.loads(raw))
+                except (ValueError, TypeError):
+                    pass
+                self.data = data
+        form = super()._construct_form(i, **kwargs)
+        # Cha ép `pk` required=True cho form cũ; giá trị đã JSON hoá nên không
+        # cần validate lại — để required sẽ chặn cả form thêm mới.
+        if "pk" in form.fields:
+            form.fields["pk"].required = False
+        return form
+
+    def _existing_object(self, pk):
+        # `_object_dict` khoá bằng tuple; Django truyền vào list -> unhashable.
+        if isinstance(pk, list):
+            pk = tuple(pk)
+        return super()._existing_object(pk)
+
+
+class DiemMonFormSet(_KhongCoPk, inlineformset_factory(
+        HoSoNangLuc, DiemMon, form=DiemMonForm,
+        fields=["ma_mon", "diem"], extra=6, can_delete=True)):
+    pass
+
+
+class NhomNganhFormSet(_KhongCoPk, inlineformset_factory(
+        HoSoNangLuc, NhomNganhQuanTam, form=NhomNganhForm,
+        fields=["nhom_nganh"], extra=3, can_delete=True)):
+    pass
 
 
 def _chi_cua_user(user, pk):
