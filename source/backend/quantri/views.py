@@ -9,14 +9,20 @@ Views cho Custom Admin Console (Uni Map Management Portal).
   - ng_i_d_ng_nh_t_k_ki_m_to_n_uni_map_admin
 """
 from functools import partial
+import json
+import os
+import threading
 
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Avg, Count
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from admissions.models import HoSoNangLuc
+from recommendation.ml import gen_dataset, train
+from recommendation.ml.predict import ML_DIR, nap_lai, phien_ban
 from recommendation.models import KetQuaGoiY, LanGoiY
 from university.models import (CuaSoNam, DiemChuan, LanCapNhat, Nganh, ToHop,
                                Truong)
@@ -24,6 +30,51 @@ from university.models import (CuaSoNam, DiemChuan, LanCapNhat, Nganh, ToHop,
 # staff_member_required mặc định hardcode login_url='admin:login' (trang admin
 # Django). Ép về form đăng nhập chung accounts:dang_nhap.
 staff_required = partial(staff_member_required, login_url="accounts:dang_nhap")
+
+# UC-10 — huấn luyện chạy nền: 720k dòng mất ~30–90s, không giữ request.
+_trang_thai = {
+    "dang_chay": False, "buoc": "", "loi": "", "ket_qua": None,
+    "bat_dau": None, "ket_thuc": None,
+}
+_khoa_hl = threading.Lock()
+
+
+def _doc_bao_cao() -> dict | None:
+    """Đọc `bao_cao_danh_gia.json` của mô hình đang có trên đĩa."""
+    duong = os.path.join(ML_DIR, train.NONG_BAO_CAO)
+    try:
+        with open(duong, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return None
+
+
+def _doc_meta() -> dict | None:
+    """Đọc `dataset_meta.json` — phiên bản dữ liệu đã dùng (UC-10 bước 6)."""
+    try:
+        with open(os.path.join(ML_DIR, "dataset_meta.json"), encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return None
+
+
+def _chay_huan_luyen(sample: int, acc_cu: float | None) -> None:
+    """Chạy nền: sinh dataset -> train -> ghi trạng thái (UC-10 bước 2–6)."""
+    try:
+        _trang_thai.update(buoc="Đang dựng bảng đặc trưng và sinh mẫu…")
+        gen_dataset.main(ML_DIR, sample)
+        _trang_thai.update(buoc="Đang huấn luyện RandomForest…")
+        bao = train.huan_luyen(ML_DIR, acc_cu)
+        # Từ chối thay thế KHÔNG phải lỗi — template đã hiện trạng thái thay_the
+        # riêng, nên `loi` giữ rỗng khi train chạy xong dù thay hay không.
+        _trang_thai.update(buoc="", ket_qua=bao, loi="")
+    except Exception as e:  # noqa: BLE001 — báo lên UI thay vì chết im
+        _trang_thai.update(buoc="", loi=f"{type(e).__name__}: {e}"[:300])
+    finally:
+        import time
+        _trang_thai.update(dang_chay=False, ket_thuc=time.strftime("%H:%M:%S"))
+        # Model vừa đổi trên đĩa -> nạp lại ở request sau.
+        nap_lai()
 
 
 @staff_required
@@ -150,7 +201,7 @@ def cap_nhat(request):
 
 @staff_required
 def ai_view(request):
-    """Quản lý mô hình AI, Fallback Margin, Circuit Breaker."""
+    """Quản lý mô hình AI, Fallback Margin, Circuit Breaker (SRS UC-10)."""
     tong_kq = KetQuaGoiY.objects.count()
     an_toan = KetQuaGoiY.objects.filter(tang="An toàn").count()
     vua_suc = KetQuaGoiY.objects.filter(tang="Vừa sức").count()
@@ -172,8 +223,43 @@ def ai_view(request):
         "avg_xs": round(avg_xs * 100, 1),
         "so_lan": so_lan,
         "so_dung_ai": so_dung_ai,
+        # UC-10 — trạng thái mô hình đang chạy + báo cáo mô hình trên đĩa.
+        "phien_ban": phien_ban(),
+        "bao_cao": _doc_bao_cao(),
+        "meta": _doc_meta(),
+        "trang_thai": _trang_thai,
     }
     return render(request, "quantri/ai.html", ctx)
+
+
+@staff_required
+def ai_huan_luyen(request):
+    """UC-10 bước 1–6 — nút "Huấn luyện lại". Chỉ nhận POST (không train bằng
+    GET — bấm nhầm link cũng không chạy). Trả về ngay, trạng thái xem ở `ai_view`.
+    """
+    if request.method != "POST":
+        return redirect("quantri:ai")
+    with _khoa_hl:
+        if _trang_thai["dang_chay"]:
+            messages.info(request, "Đang huấn luyện — đợi lần chạy hiện tại xong.")
+            return redirect("quantri:ai")
+        # UC-10 bước 5 — accuracy bản đang chạy làm ngưỡng thay thế.
+        bao = _doc_bao_cao()
+        acc_cu = None
+        if bao and bao.get("ket_qua"):
+            acc_cu = max(k["accuracy"] for k in bao["ket_qua"]
+                         if k.get("ten", "").startswith("RandomForest"))
+        sample = int(request.POST.get("sample") or 0)
+        import time
+
+        _trang_thai.update(dang_chay=True, buoc="Đang bắt đầu…", loi="",
+                           ket_qua=None, bat_dau=time.strftime("%H:%M:%S"),
+                           ket_thuc=None)
+        t = threading.Thread(target=_chay_huan_luyen, args=(sample, acc_cu),
+                             daemon=True)
+        t.start()
+    messages.success(request, "Đã bắt đầu huấn luyện. Trang này tự tải lại sau 10 giây.")
+    return redirect("quantri:ai")
 
 
 @staff_required

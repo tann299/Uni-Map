@@ -25,18 +25,31 @@
       <div class="flex flex-col gap-space-md">
         <div class="flex items-start justify-between pb-space-md border-b border-outline-variant">
           <div class="flex items-start gap-space-md">
-            <div class="w-12 h-12 rounded-xl bg-amber-100 border border-amber-400/60 flex items-center justify-center text-amber-700 shrink-0">
-              <span class="material-symbols-outlined text-[28px]">pending_actions</span>
+            <div class="w-12 h-12 rounded-xl {% if bao_cao %}bg-emerald-100 border border-emerald-400/60 text-emerald-700{% else %}bg-amber-100 border border-amber-400/60 text-amber-700{% endif %} flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[28px]">{% if bao_cao %}model_training{% else %}pending_actions{% endif %}</span>
             </div>
             <div>
               <div class="flex items-center gap-space-xs flex-wrap">
-                <span class="font-headline-sm text-headline-sm text-on-surface">Chế độ Fallback Margin (UC-05/5b)</span>
-                <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-400 text-label-sm font-semibold">Chờ train ML</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface">
+                  {% if bao_cao %}RandomForestClassifier (UC-10){% else %}Chế độ Fallback Margin (UC-05/5b){% endif %}
+                </span>
+                {% if bao_cao %}
+                <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-400 text-label-sm font-semibold">Đang hoạt động</span>
+                {% else %}
+                <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-400 text-label-sm font-semibold">Chưa có mô hình</span>
+                {% endif %}
               </div>
+              {% if bao_cao %}
               <div class="mt-1 inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 text-label-sm font-semibold">
                 <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
-                Rule-based Margin Ranker đang hoạt động ổn định
+                Phiên bản <span class="font-mono">{{ phien_ban }}</span>
               </div>
+              {% else %}
+              <div class="mt-1 inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-300 text-label-sm font-semibold">
+                <span class="material-symbols-outlined text-[16px] text-amber-600">warning</span>
+                Xếp hạng bằng margin thuần — chưa dùng AI
+              </div>
+              {% endif %}
             </div>
           </div>
           <div class="text-right">
@@ -45,11 +58,93 @@
           </div>
         </div>
 
+        {% if bao_cao %}
+        <!-- Chỉ số đánh giá mô hình (UC-10 bước 4) -->
+        <div>
+          <div class="text-label-sm uppercase tracking-wider text-outline font-semibold mb-space-xs">Kết quả đánh giá trên tập test (năm 2025)</div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-space-md">
+            {% for k in bao_cao.ket_qua %}
+            <div class="bg-surface-container-high/60 p-space-md rounded-lg border border-outline-variant/60">
+              <span class="text-label-sm text-on-surface-variant">{{ k.ten }}</span>
+              <div class="text-data-metric text-on-surface font-mono mt-1">{{ k.accuracy }}</div>
+              <div class="text-label-sm text-on-surface-variant mt-0.5">AUC {{ k.roc_auc }}</div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="mt-space-xs text-label-sm text-on-surface-variant font-mono">
+            Train {{ meta.train_rows|intcomma|default:"—" }} dòng · Test {{ meta.test_rows|intcomma|default:"—" }} dòng
+            · {{ bao_cao.so_dac_trung }} đặc trưng · Train lúc {{ bao_cao.thoi_diem }}
+          </div>
+        </div>
+
+        <!-- Feature importance (dùng cho UC-06) -->
+        <div>
+          <div class="text-label-sm uppercase tracking-wider text-outline font-semibold mb-space-xs">Mức đóng góp đặc trưng (feature importance)</div>
+          <div class="space-y-1">
+            {% for f in bao_cao.feature_importance|slice:":8" %}
+            <div class="flex items-center gap-space-sm text-label-sm">
+              <span class="font-mono text-on-surface-variant w-56 shrink-0">{{ f.dac_trung }}</span>
+              <div class="flex-1 h-2 bg-surface-container-high rounded-full overflow-hidden">
+                <div class="h-full bg-primary" style="width: {% widthratio f.muc_dong_gop 0.5 100 %}%"></div>
+              </div>
+              <span class="font-mono text-on-surface w-14 text-right">{{ f.muc_dong_gop }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% else %}
         <div class="p-space-md rounded-lg bg-surface-container-low border border-outline-variant/60 flex items-start gap-space-sm">
           <span class="material-symbols-outlined text-secondary text-[22px] shrink-0 mt-0.5">info</span>
           <p class="text-body-sm text-on-surface-variant leading-relaxed">
-            Hệ thống xếp hạng theo độ lệch Margin thuần: <code class="font-mono font-bold text-on-surface">Margin = Điểm học sinh - Điểm chuẩn mới nhất</code>. Độ tin cậy tuyệt đối, phản hồi dưới 20ms, an toàn khi mô hình ML chưa được nạp.
+            Chưa có <code class="font-mono font-bold text-on-surface">model.pkl</code>. Hệ thống xếp hạng theo độ lệch Margin thuần:
+            <code class="font-mono font-bold text-on-surface">Margin = Điểm học sinh − Điểm chuẩn mới nhất</code>.
+            Bấm <strong>Huấn luyện lại</strong> để dựng mô hình AI.
           </p>
+        </div>
+        {% endif %}
+
+        <!-- UC-10 — huấn luyện lại -->
+        <div class="p-space-md rounded-lg border border-outline-variant/60 bg-surface-container-low">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+            <div>
+              <div class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[18px] text-primary">model_training</span>
+                Huấn luyện lại mô hình (UC-10)
+              </div>
+              <p class="text-label-sm text-on-surface-variant mt-0.5">
+                Sinh lại bảng đặc trưng từ dữ liệu điểm chuẩn hiện có rồi huấn luyện RandomForest. Mất khoảng 1–2 phút.
+                Hệ thống chỉ thay <code class="font-mono">model.pkl</code> nếu độ chính xác <strong>không giảm</strong>.
+              </p>
+            </div>
+            <form method="post" action="{% url 'quantri:ai_huan_luyen' %}" class="shrink-0">
+              {% csrf_token %}
+              <button type="submit" {% if trang_thai.dang_chay %}disabled{% endif %}
+                      class="px-space-md py-space-sm rounded-lg bg-primary text-on-primary font-label-md text-label-md inline-flex items-center gap-1.5 transition-colors {% if trang_thai.dang_chay %}opacity-50 cursor-not-allowed{% else %}hover:bg-primary/90{% endif %}">
+                <span class="material-symbols-outlined text-[18px]">{% if trang_thai.dang_chay %}hourglass_top{% else %}play_arrow{% endif %}</span>
+                {% if trang_thai.dang_chay %}Đang huấn luyện…{% else %}Huấn luyện lại{% endif %}
+              </button>
+            </form>
+          </div>
+
+          {% if trang_thai.dang_chay %}
+          <div class="mt-space-sm p-space-sm rounded-lg bg-secondary-fixed text-on-secondary-fixed text-label-sm flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span>
+            <span>{{ trang_thai.buoc|default:"Đang chạy…" }} (bắt đầu {{ trang_thai.bat_dau }})</span>
+          </div>
+          <script>setTimeout(function(){ window.location.reload(); }, 10000);</script>
+          {% endif %}
+
+          {% if trang_thai.loi %}
+          <div class="mt-space-sm p-space-sm rounded-lg bg-error-container text-on-error-container text-label-sm flex items-start gap-2">
+            <span class="material-symbols-outlined text-[18px] shrink-0">error</span>
+            <span>{{ trang_thai.loi }}</span>
+          </div>
+          {% elif trang_thai.ket_thuc %}
+          <div class="mt-space-sm p-space-sm rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-300 text-label-sm flex items-start gap-2">
+            <span class="material-symbols-outlined text-[18px] shrink-0">check_circle</span>
+            <span>Xong lúc {{ trang_thai.ket_thuc }}. Accuracy {{ trang_thai.ket_qua.ket_qua.1.accuracy }} — {% if trang_thai.ket_qua.thay_the %}đã thay thế model.pkl{% else %}giữ nguyên mô hình cũ{% endif %}.</span>
+          </div>
+          {% endif %}
         </div>
 
         <!-- Metrics thống kê thực từ DB -->
@@ -69,8 +164,8 @@
               <div class="text-data-metric text-secondary font-mono mt-1">{{ avg_xs }}%</div>
             </div>
             <div class="bg-surface-container-high/60 p-space-md rounded-lg border border-outline-variant/60">
-              <span class="text-label-sm text-on-surface-variant">Độ trễ p95</span>
-              <div class="text-data-metric text-emerald-700 font-mono mt-1">&lt; 20ms</div>
+              <span class="text-label-sm text-on-surface-variant">Lần dùng AI</span>
+              <div class="text-data-metric text-emerald-700 font-mono mt-1">{{ so_dung_ai|intcomma }}/{{ so_lan|intcomma }}</div>
             </div>
           </div>
         </div>
@@ -90,17 +185,17 @@
         <div class="space-y-space-xs">
           <span class="text-label-md text-on-surface font-semibold">Chế độ xếp hạng Margin thuần (UC-05/5b)</span>
           <p class="text-body-sm text-on-surface-variant">
-            Nếu mô hình ML lỗi hoặc trễ &gt; 250ms, hệ thống lập tức ngắt mạch (Circuit Breaker) và dùng Rule-based.
+            Mọi lỗi khi nạp mô hình hoặc chấm xác suất đều bị bắt và trả về chế độ dự phòng — người dùng vẫn nhận gợi ý xếp theo Margin, kèm ghi chú "chưa dùng AI".
           </p>
         </div>
         <div class="p-space-md rounded-lg bg-surface-container-low border border-outline-variant space-y-2 text-label-sm">
-          <div class="flex justify-between"><span class="text-on-surface-variant">Trạng thái Circuit:</span><span class="font-mono text-emerald-700 font-semibold">CLOSED (Bình thường)</span></div>
-          <div class="flex justify-between"><span class="text-on-surface-variant">Ngưỡng chịu lỗi:</span><span class="font-mono text-on-surface">3 timeout liên tiếp</span></div>
+          <div class="flex justify-between"><span class="text-on-surface-variant">Bắt lỗi:</span><span class="font-mono text-emerald-700 font-semibold">try/except toàn cục</span></div>
+          <div class="flex justify-between"><span class="text-on-surface-variant">Thiếu model.pkl:</span><span class="font-mono text-emerald-700 font-semibold">→ Margin ranker</span></div>
           <div class="flex justify-between"><span class="text-on-surface-variant">Lỗi runtime:</span><span class="font-mono text-outline">0 lỗi</span></div>
         </div>
       </div>
       <div class="mt-space-md pt-space-sm border-t border-outline-variant text-[11px] text-outline">
-        Phân tầng: An toàn (&ge; +2.0) · Vừa sức (0.0 đến +2.0) · Thử sức (&lt; 0.0)
+        Phân tầng khi có AI: An toàn (p ≥ 80%) · Vừa sức (40–80%) · Thử sức (&lt; 40%)
       </div>
     </div>
   </div>
