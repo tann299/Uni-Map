@@ -19,6 +19,13 @@ db.sqlite3
 # Dữ liệu tạm của crawler (tải lại được, không cần commit)
 ref/_tohop_bogd.pdf
 
+# ML: CSV sinh bởi recommendation/ml/gen_dataset.py, dựng lại được bất cứ lúc nào
+# (train.py cần chúng khi huấn luyện lại UC-10 -> vẫn giữ trên đĩa, chỉ không commit).
+source/backend/recommendation/ml/train_dataset.csv
+source/backend/recommendation/ml/test_dataset.csv
+# Báo cáo của lần train bị TỪ CHỐI ghi đè — sinh lại mỗi lần bấm huấn luyện.
+source/backend/recommendation/ml/bao_cao_danh_gia_moi.json
+
 # IDE / OS
 .vscode/
 .idea/
@@ -30,3 +37,6 @@ cache/
 data/
 db/
 ref/
+
+# Tài liệu kế hoạch, không phải mã nguồn
+plan.AI.docx

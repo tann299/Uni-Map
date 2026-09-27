@@ -1,0 +1,182 @@
+{
+  "thoi_diem": "2026-09-27 13:32:34",
+  "siêu_tham_so": {
+    "RandomForest": {
+      "n_estimators": 100,
+      "min_samples_leaf": 5,
+      "max_depth": 14,
+      "n_jobs": -1,
+      "random_state": 42
+    },
+    "DecisionTree": {
+      "min_samples_leaf": 5,
+      "random_state": 42
+    }
+  },
+  "so_dac_trung": 27,
+  "cot_dac_trung": [
+    "diem_thi",
+    "margin",
+    "diem_moi_nhat",
+    "diem_tb",
+    "xu_huong",
+    "bien_dong",
+    "so_nam_co_dl",
+    "nn_Báo chí - Truyền thông",
+    "nn_Công nghệ thông tin",
+    "nn_Du lịch - Khách sạn - Nhà hàng",
+    "nn_Khác",
+    "nn_Khoa học XH & Nhân văn",
+    "nn_Kiến trúc - Xây dựng",
+    "nn_Kinh tế - Kinh doanh - Tài chính",
+    "nn_Kỹ thuật - Công nghệ",
+    "nn_Luật",
+    "nn_Nghệ thuật - Thiết kế - TDTT",
+    "nn_Ngôn ngữ - Quốc tế học",
+    "nn_Nông - Lâm - Ngư - Thú y",
+    "nn_Quân đội - Công an",
+    "nn_Sư phạm - Giáo dục",
+    "nn_Y - Dược - Sức khỏe",
+    "vm_Miền Bắc",
+    "vm_Miền Trung",
+    "vm_Miền Nam",
+    "pt_Điểm thi THPT",
+    "pt_Điểm học bạ"
+  ],
+  "ket_qua": [
+    {
+      "ten": "DecisionTree (baseline)",
+      "accuracy": 0.7218,
+      "roc_auc": 0.7507,
+      "brier": 0.2577,
+      "precision_do": 0.8047,
+      "recall_do": 0.6472,
+      "f1_do": 0.7174,
+      "precision_truot": 0.6571,
+      "recall_truot": 0.8115
+    },
+    {
+      "ten": "RandomForest (chính)",
+      "accuracy": 0.7457,
+      "roc_auc": 0.8331,
+      "brier": 0.1805,
+      "precision_do": 0.816,
+      "recall_do": 0.6892,
+      "f1_do": 0.7473,
+      "precision_truot": 0.6857,
+      "recall_truot": 0.8135
+    }
+  ],
+  "feature_importance": [
+    {
+      "dac_trung": "margin",
+      "muc_dong_gop": 0.60646
+    },
+    {
+      "dac_trung": "diem_thi",
+      "muc_dong_gop": 0.21327
+    },
+    {
+      "dac_trung": "diem_moi_nhat",
+      "muc_dong_gop": 0.05091
+    },
+    {
+      "dac_trung": "diem_tb",
+      "muc_dong_gop": 0.04429
+    },
+    {
+      "dac_trung": "xu_huong",
+      "muc_dong_gop": 0.016
+    },
+    {
+      "dac_trung": "bien_dong",
+      "muc_dong_gop": 0.01343
+    },
+    {
+      "dac_trung": "pt_Điểm thi THPT",
+      "muc_dong_gop": 0.00907
+    },
+    {
+      "dac_trung": "nn_Sư phạm - Giáo dục",
+      "muc_dong_gop": 0.00748
+    },
+    {
+      "dac_trung": "pt_Điểm học bạ",
+      "muc_dong_gop": 0.00716
+    },
+    {
+      "dac_trung": "so_nam_co_dl",
+      "muc_dong_gop": 0.00702
+    },
+    {
+      "dac_trung": "vm_Miền Nam",
+      "muc_dong_gop": 0.00515
+    },
+    {
+      "dac_trung": "vm_Miền Bắc",
+      "muc_dong_gop": 0.00402
+    },
+    {
+      "dac_trung": "nn_Y - Dược - Sức khỏe",
+      "muc_dong_gop": 0.00313
+    },
+    {
+      "dac_trung": "vm_Miền Trung",
+      "muc_dong_gop": 0.00246
+    },
+    {
+      "dac_trung": "nn_Kinh tế - Kinh doanh - Tài chính",
+      "muc_dong_gop": 0.00155
+    },
+    {
+      "dac_trung": "nn_Kỹ thuật - Công nghệ",
+      "muc_dong_gop": 0.00151
+    },
+    {
+      "dac_trung": "nn_Khoa học XH & Nhân văn",
+      "muc_dong_gop": 0.00104
+    },
+    {
+      "dac_trung": "nn_Công nghệ thông tin",
+      "muc_dong_gop": 0.00093
+    },
+    {
+      "dac_trung": "nn_Ngôn ngữ - Quốc tế học",
+      "muc_dong_gop": 0.00079
+    },
+    {
+      "dac_trung": "nn_Kiến trúc - Xây dựng",
+      "muc_dong_gop": 0.00072
+    },
+    {
+      "dac_trung": "nn_Nông - Lâm - Ngư - Thú y",
+      "muc_dong_gop": 0.00068
+    },
+    {
+      "dac_trung": "nn_Du lịch - Khách sạn - Nhà hàng",
+      "muc_dong_gop": 0.00066
+    },
+    {
+      "dac_trung": "nn_Báo chí - Truyền thông",
+      "muc_dong_gop": 0.00058
+    },
+    {
+      "dac_trung": "nn_Nghệ thuật - Thiết kế - TDTT",
+      "muc_dong_gop": 0.00055
+    },
+    {
+      "dac_trung": "nn_Luật",
+      "muc_dong_gop": 0.00053
+    },
+    {
+      "dac_trung": "nn_Khác",
+      "muc_dong_gop": 0.00049
+    },
+    {
+      "dac_trung": "nn_Quân đội - Công an",
+      "muc_dong_gop": 0.00011
+    }
+  ],
+  "acc_cu": 0.7457,
+  "thay_the": true
+}
