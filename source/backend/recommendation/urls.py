@@ -6,7 +6,7 @@ app_name = "recommendation"
 
 urlpatterns = [
     # UC-05 — nhận gợi ý (pk = hồ sơ năng lực)
-    path("goi-y/<int:pk>/", views.xem_goi_y, name="xem_goi_y"),
+    path("<int:pk>/", views.xem_goi_y, name="xem_goi_y"),
     # UC-06 — xem lời giải thích (kq_id = 1 dòng ket_qua_goi_y)
     path("chi-tiet/<int:kq_id>/", views.chi_tiet_goi_y, name="chi_tiet_goi_y"),
     # UC-07 — so sánh nguyện vọng

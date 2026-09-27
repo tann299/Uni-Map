@@ -1,0 +1,182 @@
+{% extends "quantri/base.html" %}
+{% load humanize %}
+{% block title %}AI & Gợi ý — Admin Console{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full gap-space-lg pb-space-xl">
+
+  <!-- Header -->
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-xl border border-outline-variant/40 shadow-sm">
+    <div class="flex flex-col gap-space-xs">
+      <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">AI &amp; Gợi ý</h1>
+      <span class="text-body-sm text-on-surface-variant">Giám sát engine gợi ý &amp; phân tầng nguyện vọng tuyển sinh (UC-05 đến UC-10)</span>
+    </div>
+    <div class="flex items-center gap-space-sm">
+      <span class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-300 text-label-md font-semibold flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-600"></span>Circuit Breaker: CLOSED
+      </span>
+    </div>
+  </div>
+
+  <!-- Trạng thái mô hình & Cơ chế dự phòng -->
+  <div class="grid grid-cols-1 xl:grid-cols-3 gap-space-lg">
+    <!-- Active Model Card -->
+    <div class="xl:col-span-2 bg-surface-container-lowest p-space-lg rounded-xl border border-outline-variant/40 flex flex-col justify-between shadow-sm">
+      <div class="flex flex-col gap-space-md">
+        <div class="flex items-start justify-between pb-space-md border-b border-outline-variant">
+          <div class="flex items-start gap-space-md">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 border border-amber-400/60 flex items-center justify-center text-amber-700 shrink-0">
+              <span class="material-symbols-outlined text-[28px]">pending_actions</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-space-xs flex-wrap">
+                <span class="font-headline-sm text-headline-sm text-on-surface">Chế độ Fallback Margin (UC-05/5b)</span>
+                <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-400 text-label-sm font-semibold">Chờ train ML</span>
+              </div>
+              <div class="mt-1 inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 text-label-sm font-semibold">
+                <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+                Rule-based Margin Ranker đang hoạt động ổn định
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-label-sm text-outline">Lần gợi ý đã ghi</span>
+            <div class="text-headline-sm text-primary font-mono font-bold">{{ so_lan|intcomma }}</div>
+          </div>
+        </div>
+
+        <div class="p-space-md rounded-lg bg-surface-container-low border border-outline-variant/60 flex items-start gap-space-sm">
+          <span class="material-symbols-outlined text-secondary text-[22px] shrink-0 mt-0.5">info</span>
+          <p class="text-body-sm text-on-surface-variant leading-relaxed">
+            Hệ thống xếp hạng theo độ lệch Margin thuần: <code class="font-mono font-bold text-on-surface">Margin = Điểm học sinh - Điểm chuẩn mới nhất</code>. Độ tin cậy tuyệt đối, phản hồi dưới 20ms, an toàn khi mô hình ML chưa được nạp.
+          </p>
+        </div>
+
+        <!-- Metrics thống kê thực từ DB -->
+        <div>
+          <div class="text-label-sm uppercase tracking-wider text-outline font-semibold mb-space-xs">Thống kê dữ liệu gợi ý thực tế từ DB</div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-space-md">
+            <div class="bg-surface-container-high/60 p-space-md rounded-lg border border-outline-variant/60">
+              <span class="text-label-sm text-on-surface-variant">Tổng nguyện vọng</span>
+              <div class="text-data-metric text-on-surface font-mono mt-1">{{ tong_kq|intcomma }}</div>
+            </div>
+            <div class="bg-surface-container-high/60 p-space-md rounded-lg border border-outline-variant/60">
+              <span class="text-label-sm text-on-surface-variant">Margin trung bình</span>
+              <div class="text-data-metric text-primary font-mono mt-1">{{ avg_margin }} đ</div>
+            </div>
+            <div class="bg-surface-container-high/60 p-space-md rounded-lg border border-outline-variant/60">
+              <span class="text-label-sm text-on-surface-variant">Xác suất TB</span>
+              <div class="text-data-metric text-secondary font-mono mt-1">{{ avg_xs }}%</div>
+            </div>
+            <div class="bg-surface-container-high/60 p-space-md rounded-lg border border-outline-variant/60">
+              <span class="text-label-sm text-on-surface-variant">Độ trễ p95</span>
+              <div class="text-data-metric text-emerald-700 font-mono mt-1">&lt; 20ms</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Circuit Breaker Guard -->
+    <div class="bg-surface-container-lowest p-space-lg rounded-xl border border-outline-variant/40 flex flex-col justify-between shadow-sm">
+      <div class="space-y-space-md">
+        <div class="flex items-center justify-between pb-space-sm border-b border-outline-variant">
+          <div class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-secondary text-[22px]">shield_with_heart</span>
+            <h2 class="font-headline-sm text-headline-sm text-on-surface">Cơ chế Dự phòng</h2>
+          </div>
+          <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-300 text-label-sm font-semibold">Sẵn sàng</span>
+        </div>
+        <div class="space-y-space-xs">
+          <span class="text-label-md text-on-surface font-semibold">Chế độ xếp hạng Margin thuần (UC-05/5b)</span>
+          <p class="text-body-sm text-on-surface-variant">
+            Nếu mô hình ML lỗi hoặc trễ &gt; 250ms, hệ thống lập tức ngắt mạch (Circuit Breaker) và dùng Rule-based.
+          </p>
+        </div>
+        <div class="p-space-md rounded-lg bg-surface-container-low border border-outline-variant space-y-2 text-label-sm">
+          <div class="flex justify-between"><span class="text-on-surface-variant">Trạng thái Circuit:</span><span class="font-mono text-emerald-700 font-semibold">CLOSED (Bình thường)</span></div>
+          <div class="flex justify-between"><span class="text-on-surface-variant">Ngưỡng chịu lỗi:</span><span class="font-mono text-on-surface">3 timeout liên tiếp</span></div>
+          <div class="flex justify-between"><span class="text-on-surface-variant">Lỗi runtime:</span><span class="font-mono text-outline">0 lỗi</span></div>
+        </div>
+      </div>
+      <div class="mt-space-md pt-space-sm border-t border-outline-variant text-[11px] text-outline">
+        Phân tầng: An toàn (&ge; +2.0) · Vừa sức (0.0 đến +2.0) · Thử sức (&lt; 0.0)
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 Semantic Tiers Cards -->
+  <div class="bg-surface-container-lowest p-space-lg rounded-xl border border-outline-variant/40 shadow-sm flex flex-col gap-space-md">
+    <div>
+      <div class="flex items-center gap-space-xs">
+        <span class="material-symbols-outlined text-primary text-[22px]">tune</span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Cài đặt Ngưỡng Phân tầng Nguyện vọng (US-13)</h2>
+      </div>
+      <p class="text-body-sm text-on-surface-variant mt-0.5">3 danh mục nguyện vọng định hướng học sinh chuẩn bị xét tuyển</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+      <!-- Safe Tier -->
+      <div class="bg-surface-container-lowest p-space-md rounded-lg border-2 border-emerald-500/40 flex flex-col justify-between shadow-xs">
+        <div class="space-y-space-sm">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-400 text-label-md font-bold flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">verified</span>TẦNG AN TOÀN
+            </span>
+            <span class="font-mono text-headline-sm font-bold text-emerald-700">p &ge; 0.80</span>
+          </div>
+          <p class="text-body-sm text-on-surface-variant">Khả năng trúng tuyển cao. Nhóm phòng thủ vững chắc, rủi ro biến động điểm tối thiểu.</p>
+          <div class="bg-surface-container-low p-space-sm rounded font-mono text-label-sm">
+            <div class="text-on-surface-variant">Margin kỳ vọng: <span class="text-emerald-700 font-bold">&ge; +2.0 điểm</span></div>
+            <div class="text-on-surface-variant">Đã ghi nhận: <span class="font-bold text-on-surface">{{ an_toan|intcomma }} NV</span></div>
+          </div>
+        </div>
+        <div class="mt-space-md pt-space-xs border-t border-outline-variant flex justify-between text-label-sm text-outline">
+          <span>Khuyến nghị:</span><span class="font-bold text-on-surface">2 – 3 nguyện vọng</span>
+        </div>
+      </div>
+
+      <!-- Target Tier -->
+      <div class="bg-surface-container-lowest p-space-md rounded-lg border-2 border-amber-500/40 flex flex-col justify-between shadow-xs">
+        <div class="space-y-space-sm">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-400 text-label-md font-bold flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">track_changes</span>TẦNG VỪA SỨC
+            </span>
+            <span class="font-mono text-headline-sm font-bold text-amber-700">0.40 &le; p &lt; 0.80</span>
+          </div>
+          <p class="text-body-sm text-on-surface-variant">Xác suất từ 40% đến 79%. Nhóm mục tiêu sát thực tế năng lực học tập của thí sinh.</p>
+          <div class="bg-surface-container-low p-space-sm rounded font-mono text-label-sm">
+            <div class="text-on-surface-variant">Margin kỳ vọng: <span class="text-amber-700 font-bold">0.0 &le; Margin &lt; +2.0</span></div>
+            <div class="text-on-surface-variant">Đã ghi nhận: <span class="font-bold text-on-surface">{{ vua_suc|intcomma }} NV</span></div>
+          </div>
+        </div>
+        <div class="mt-space-md pt-space-xs border-t border-outline-variant flex justify-between text-label-sm text-outline">
+          <span>Khuyến nghị:</span><span class="font-bold text-on-surface">3 – 4 nguyện vọng</span>
+        </div>
+      </div>
+
+      <!-- Reach Tier -->
+      <div class="bg-surface-container-lowest p-space-md rounded-lg border-2 border-rose-500/40 flex flex-col justify-between shadow-xs">
+        <div class="space-y-space-sm">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 rounded bg-rose-100 text-rose-900 border border-rose-400 text-label-md font-bold flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">flight_takeoff</span>TẦNG THỬ SỨC
+            </span>
+            <span class="font-mono text-headline-sm font-bold text-rose-700">p &lt; 0.40</span>
+          </div>
+          <p class="text-body-sm text-on-surface-variant">Ngành có điểm chuẩn cao hơn mức đạt được, khuyên dùng cho nguyện vọng 1 hoặc 2.</p>
+          <div class="bg-surface-container-low p-space-sm rounded font-mono text-label-sm">
+            <div class="text-on-surface-variant">Margin kỳ vọng: <span class="text-rose-700 font-bold">Margin &lt; 0.0</span></div>
+            <div class="text-on-surface-variant">Đã ghi nhận: <span class="font-bold text-on-surface">{{ thu_suc|intcomma }} NV</span></div>
+          </div>
+        </div>
+        <div class="mt-space-md pt-space-xs border-t border-outline-variant flex justify-between text-label-sm text-outline">
+          <span>Khuyến nghị:</span><span class="font-bold text-on-surface">1 – 2 nguyện vọng</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

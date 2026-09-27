@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '1') == '1'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
 
 
 # Application definition
@@ -45,10 +45,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'university',
     'accounts',
     'admissions',
     'recommendation',
+    'quantri',
 ]
 
 MIDDLEWARE = [
@@ -128,6 +130,12 @@ TIME_ZONE = 'Asia/Ho_Chi_Minh'
 USE_I18N = True
 
 USE_TZ = True
+
+# Locale vi dùng "." làm dấu phân cách nghìn — khớp mockup UI_unimap (178.825).
+USE_THOUSAND_SEPARATOR = True
+# Django 5.x locale vi có THOUSAND_SEPARATOR='.' nhưng NUMBER_GROUPING=0
+# (grouping tắt) nên intcomma trả về không dấu. ép group theo nhóm 3 chữ số.
+NUMBER_GROUPING = 3
 
 
 # Static files (CSS, JavaScript, Images)

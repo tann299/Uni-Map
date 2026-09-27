@@ -23,6 +23,8 @@ def dang_ky(request):
 
 def dang_nhap(request):
     if request.user.is_authenticated:
+        if request.user.is_staff:
+            return redirect("quantri:dashboard")
         return redirect("university:trang_chu")
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
@@ -35,6 +37,9 @@ def dang_nhap(request):
                 next_url, allowed_hosts={request.get_host()}, require_https=request.is_secure()
             ):
                 return redirect(next_url)
+            # Nhân viên quản trị vào thẳng console /quan-tri/, không qua trang chủ.
+            if form.get_user().is_staff:
+                return redirect("quantri:dashboard")
             return redirect("university:trang_chu")
     else:
         form = AuthenticationForm()

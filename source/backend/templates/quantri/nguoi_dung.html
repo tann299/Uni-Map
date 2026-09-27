@@ -1,0 +1,119 @@
+{% extends "quantri/base.html" %}
+{% load humanize %}
+{% block title %}Người dùng & Kiểm toán — Admin Console{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full gap-space-lg pb-space-xl">
+
+  <!-- Header -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-xl border border-outline-variant/40 shadow-sm">
+    <div class="flex flex-col gap-space-xs">
+      <h1 class="font-headline-md text-headline-md text-on-surface tracking-tight">Tài khoản &amp; Người dùng</h1>
+      <p class="text-body-sm text-on-surface-variant">Quản lý tài khoản người dùng, phân quyền quản trị và theo dõi hồ sơ năng lực</p>
+    </div>
+    <div class="flex items-center gap-space-sm text-label-md">
+      <div class="px-space-md py-space-sm rounded-lg bg-surface-container-low border border-outline-variant/40">
+        Tổng: <strong class="text-primary font-mono">{{ tong_user }}</strong> tài khoản
+      </div>
+      <div class="px-space-md py-space-sm rounded-lg bg-surface-container-low border border-outline-variant/40">
+        Admin: <strong class="text-secondary font-mono">{{ tong_staff }}</strong>
+      </div>
+      <div class="px-space-md py-space-sm rounded-lg bg-surface-container-low border border-outline-variant/40">
+        Hồ sơ: <strong class="text-emerald-700 font-mono">{{ tong_hoso }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter -->
+  <form method="get" class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/40 flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md">
+    <div class="relative flex-1">
+      <span class="material-symbols-outlined text-outline absolute left-3 top-2.5 text-[20px]">search</span>
+      <input name="q" value="{{ q }}" class="w-full pl-9 pr-4 py-space-xs rounded-lg bg-surface-container-low text-on-surface text-body-sm focus:outline-none focus:bg-surface-container-lowest transition-colors placeholder:text-outline"
+        placeholder="Tìm theo username hoặc email..." type="text">
+    </div>
+    <div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-lg shrink-0">
+      <a href="?{% if q %}q={{ q }}&{% endif %}" class="px-2.5 py-1 rounded text-label-sm {% if not role %}bg-surface-container-lowest text-on-surface shadow{% else %}text-on-surface-variant hover:bg-surface-container-highest{% endif %}">Tất cả</a>
+      <a href="?role=staff{% if q %}&q={{ q }}{% endif %}" class="px-2.5 py-1 rounded text-label-sm {% if role == 'staff' %}bg-surface-container-lowest text-on-surface shadow{% else %}text-on-surface-variant hover:bg-surface-container-highest{% endif %}">Quản trị viên</a>
+      <a href="?role=student{% if q %}&q={{ q }}{% endif %}" class="px-2.5 py-1 rounded text-label-sm {% if role == 'student' %}bg-surface-container-lowest text-on-surface shadow{% else %}text-on-surface-variant hover:bg-surface-container-highest{% endif %}">Học sinh</a>
+    </div>
+    <button type="submit" class="px-space-md py-space-xs rounded-lg bg-primary text-on-primary text-label-md hover:bg-primary-container transition-colors flex items-center gap-space-xs shrink-0">
+      <span class="material-symbols-outlined text-[18px]">search</span><span>Tìm</span>
+    </button>
+  </form>
+
+  <!-- Table -->
+  <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/40 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-body-sm">
+        <thead>
+          <tr class="bg-surface-container-low text-outline text-label-sm uppercase tracking-wider">
+            <th class="py-space-md px-space-md">Tên đăng nhập</th>
+            <th class="py-space-md px-space-md">Họ và tên</th>
+            <th class="py-space-md px-space-md">Email</th>
+            <th class="py-space-md px-space-md">Vai trò</th>
+            <th class="py-space-md px-space-md text-center">Hồ sơ điểm</th>
+            <th class="py-space-md px-space-md">Ngày tham gia</th>
+            <th class="py-space-md px-space-md text-right">Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-surface-container">
+          {% for u in page_obj %}
+          <tr class="hover:bg-surface-container-low transition-colors">
+            <td class="py-space-md px-space-md">
+              <div class="flex items-center gap-space-xs font-semibold text-on-surface">
+                {% if u.is_superuser %}
+                  <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+                {% elif u.is_staff %}
+                  <span class="material-symbols-outlined text-secondary text-[18px]">shield_person</span>
+                {% else %}
+                  <span class="material-symbols-outlined text-outline text-[18px]">person</span>
+                {% endif %}
+                <span>{{ u.username }}</span>
+              </div>
+            </td>
+            <td class="py-space-md px-space-md font-medium text-on-surface">{{ u.get_full_name|default:"—" }}</td>
+            <td class="py-space-md px-space-md text-on-surface-variant font-mono text-label-sm">{{ u.email|default:"—" }}</td>
+            <td class="py-space-md px-space-md">
+              {% if u.is_superuser %}
+                <span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed text-[11px] font-bold">Superadmin</span>
+              {% elif u.is_staff %}
+                <span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed text-[11px] font-bold">Staff</span>
+              {% else %}
+                <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant text-[11px] font-medium">Học sinh</span>
+              {% endif %}
+            </td>
+            <td class="py-space-md px-space-md text-center font-bold text-on-surface">{{ u.so_ho_so }}</td>
+            <td class="py-space-md px-space-md text-on-surface-variant text-label-sm">{{ u.date_joined|date:"d/m/Y H:i" }}</td>
+            <td class="py-space-md px-space-md text-right">
+              {% if u.is_active %}
+                <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[11px] font-bold">Hoạt động</span>
+              {% else %}
+                <span class="px-2 py-0.5 rounded bg-error-container text-on-error-container text-[11px] font-bold">Bị khóa</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="7" class="py-8 text-center text-on-surface-variant">Không tìm thấy người dùng nào.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if page_obj.paginator.num_pages > 1 %}
+    <div class="flex items-center justify-between px-space-md py-space-sm border-t border-surface-container text-label-sm text-on-surface-variant">
+      <span>Trang {{ page_obj.number }} / {{ page_obj.paginator.num_pages }} · {{ page_obj.paginator.count }} tài khoản</span>
+      <div class="flex items-center gap-1">
+        {% if page_obj.has_previous %}
+        <a href="?{% if q %}q={{ q }}&{% endif %}{% if role %}role={{ role }}&{% endif %}page={{ page_obj.previous_page_number }}" class="px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface">Trước</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+        <a href="?{% if q %}q={{ q }}&{% endif %}{% if role %}role={{ role }}&{% endif %}page={{ page_obj.next_page_number }}" class="px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface">Sau</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

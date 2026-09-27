@@ -164,6 +164,9 @@
         {% if user.is_authenticated %}
           <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 {% if nav_active == 'ho_so' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'admissions:danh_sach_ho_so' %}"><span class="material-symbols-outlined text-[18px]">folder_shared</span>Hồ sơ năng lực</a>
         {% endif %}
+        {% if user.is_staff %}
+          <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 text-secondary hover:bg-surface-container-low" href="{% url 'quantri:dashboard' %}" title="Trang Quản trị hệ thống"><span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>Quản trị</a>
+        {% endif %}
       </nav>
 
       <!-- Right: Badge + Auth State -->

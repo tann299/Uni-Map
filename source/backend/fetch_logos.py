@@ -11,6 +11,8 @@ Trường không có bài / không có logo -> giữ monogram fallback trong tem
 """
 
 import argparse
+import html
+import io
 import json
 import os
 import re
@@ -20,6 +22,8 @@ import unicodedata
 import urllib.parse
 import urllib.request
 from html.parser import HTMLParser
+
+from PIL import Image
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 import django  # noqa: E402
@@ -243,6 +247,46 @@ def co_logo(ma: str) -> bool:
     return any(os.path.exists(os.path.join(OUT, f"{ma}{d}")) for d in DUOI)
 
 
+# ---------------- Bing Images (dự phòng chống thiếu logo) ----------------
+# Search ảnh Bing theo prompt "logo trường {tên} {viết tắt}", lọc domain rác,
+# chấm điểm nguồn uy tín (.edu.vn / Wikipedia / nền tảng tuyển sinh) rồi kiểm
+# định ảnh thật (magic bytes + kích thước + tỉ lệ) trước khi nhận. Vét được
+# trường tư thục không có bài Wikipedia.
+BING = "https://www.bing.com/images/search?"
+RAC_DOMAINS = {
+    "vecteezy.com", "freepik.com", "pinterest.com", "facebook.com",
+    "youtube.com", "twitter.com", "tiktok.com", "shutterstock.com",
+    "istockphoto.com", "alamy.com", "123rf.com", "dreamstime.com",
+    "canva.com", "seoclerk.com", "buttercup.in", "wallpaperaccess.com",
+    "graphicsfamily.com", "datwebdigital.com", "pngtree.com", "cleanpng.com",
+    "pngwing.com", "pikbest.com", "lovepik.com",
+}
+RAC_TU = {
+    "vector", "template", "background", "wallpaper", "abstract", "sample",
+    "clipart", "collection", "stock", "mockup", "banner", "infographic",
+    "standee", "poster", "hoi-thao", "le-ky-niem", "desk", "freepik",
+}
+
+
+def _diem_bing(url: str, thuoc_tinh: str, truong) -> int:
+    """Chấm điểm ứng viên ảnh Bing: nguồn uy tín + viết tắt + token tên."""
+    low = f"{url} {thuoc_tinh}".lower()
+    d = 15 if ("logo" in low or "bieu-trung" in low or "emblem" in low) else 0
+    if ".edu.vn" in url.lower():
+        d += 50
+    elif "wikipedia.org" in url.lower() or "wikimedia.org" in url.lower():
+        d += 40
+    elif any(k in url.lower() for k in ("tuyensinh", "diemthi", "trangedu", "unipath")):
+        d += 20
+    vt = (truong.viet_tat or "").strip().lower()
+    if vt and vt in low:
+        d += 30
+    tok_ten = set(bo_dau(truong.ten_truong).split()) - {
+        "truong", "dai", "hoc", "vien", "cua", "va", "tai", "quoc", "gia","cao","dang"}
+    d += sum(1 for t in tok_ten if t in low) * 10
+    return d
+
+
 class _TrichLogoWeb(HTMLParser):
     """Thu thập ứng viên ảnh logo từ trang chủ trường."""
 
@@ -342,6 +386,92 @@ def tim_web_logo(tieu_de: str, ma: str) -> str | None:
     return None
 
 
+def _tai_bing_validated(url: str, ma: str) -> str | None:
+    """Tải logo từ Bing, kiểm định magic bytes + kích thước, lưu {ma}.{duoi}.
+
+    Dùng PIL để xác nhận ảnh raster hợp lệ; SVG nhận diện bằng magic header.
+    Trả tên file đã lưu (vd "CMC.png") hoặc None nếu ảnh hỏng/thuộc domain rác."""
+    host = urllib.parse.urlparse(url).netloc.lower()
+    if any(rd in host for rd in RAC_DOMAINS):
+        return None
+    req = urllib.request.Request(url, headers={
+        "User-Agent": UA_WEB, "Referer": "https://www.bing.com/"})
+    try:
+        data = urllib.request.urlopen(req, timeout=10, context=_CTX).read()
+    except Exception:
+        return None
+    if not data or len(data) < 1500 or len(data) > 4 * 1024 * 1024:
+        return None
+    head = data[:1024]
+    if head.lstrip().startswith(b"<svg") or b"http://www.w3.org/2000/svg" in head:
+        duoi = ".svg"
+        im = None
+    else:
+        try:
+            im = Image.open(io.BytesIO(data))
+            w, h = im.size
+            if min(w, h) < 80 or w / h > 2.8 or h / w > 2.8:
+                return None
+            duoi = ".png" if im.format == "PNG" else ".webp" if im.format == "WEBP" else ".jpg"
+        except Exception:
+            return None
+    ten = os.path.join(OUT, f"{ma}{duoi}")
+    with open(ten, "wb") as f:
+        f.write(data)
+    return os.path.basename(ten)
+
+
+def tim_logo_bing(truong) -> tuple[str | None, str | None]:
+    """Tìm logo qua Bing Images: prompt 'logo trường {tên} {viết tắt}'.
+
+    Lọc domain rác, chấm điểm nguồn uy tín (.edu.vn/Wikipedia/tuyensinh) +
+    viết tắt + token tên trường. Chỉ nhận khi điểm > ngưỡng đủ tin (>= 55)
+    hoặc có viết tắt khớp, rồi tải và kiểm định ảnh thật.
+    Trả (ten_file_da_luu, url_nguon) hoặc (None, None)."""
+    vt = (truong.viet_tat or "").strip()
+    query = f"logo trường {truong.ten_truong} {vt}".strip()
+    req = urllib.request.Request(
+        BING + urllib.parse.urlencode({"q": query, "qft": "+filterui:photo-transparent",
+                                       "first": "1"}),
+        headers={"User-Agent": UA_WEB, "Accept-Language": "vi-VN,vi;q=0.9"})
+    try:
+        html = urllib.request.urlopen(req, timeout=12, context=_CTX) \
+            .read().decode("utf-8", errors="ignore")
+    except Exception:
+        return None, None
+    matches = re.findall(r'class="iusc"[^>]*m="([^"]+)"', html)
+    vt_low = vt.lower()
+    cands = []
+    seen = set()
+    for m in matches:
+        try:
+            data = json.loads(html.unescape(m))
+        except Exception:
+            continue
+        u = data.get("murl") or ""
+        if not u or u in seen:
+            continue
+        seen.add(u)
+        desc = data.get("desc") or data.get("t") or ""
+        host = urllib.parse.urlparse(u).netloc.lower()
+        if any(rd in host for rd in RAC_DOMAINS):
+            continue
+        low_all = f"{u} {desc}".lower()
+        if any(rk in low_all for rk in RAC_TU):
+            continue
+        score = _diem_bing(u, desc, truong)
+        if vt_low and vt_low in low_all:
+            cands.append((score, u))
+        elif score >= 55:
+            cands.append((score, u))
+    cands.sort(key=lambda x: -x[0])
+    for _, u in cands:
+        ten = _tai_bing_validated(u, truong.ma_truong)
+        if ten:
+            return ten, u
+    return None, None
+
+
 def phu_huynh(truong) -> str | None:
     """Mã trường mẹ đã có logo, cho phân hiệu/cơ sở dùng chung logo.
 
@@ -401,6 +531,13 @@ def main():
                 trung += 1
                 continue
         if not logo:
+            # 3) Dự phòng Bing Images theo prompt "logo trường {tên} {viết tắt}"
+            ten_file, url_bing = tim_logo_bing(t)
+            if ten_file:
+                print(f"[{i}] {t.ma_truong:5} OK  (Bing Images) -> {ten_file}")
+                trung += 1
+                time.sleep(0.4)
+                continue
             me = phu_huynh(t)
             if me:
                 if args.thu:
