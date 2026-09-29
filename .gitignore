@@ -37,6 +37,7 @@ cache/
 data/
 db/
 ref/
+*.zip
 
 # Tài liệu kế hoạch, không phải mã nguồn
 plan.AI.docx
