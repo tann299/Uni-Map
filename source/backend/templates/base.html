@@ -130,7 +130,7 @@
 
   <!-- HEADER (Cover 100% UI mockup: logo SVG, badge 2021-2025, nav items, guest / user auth state) -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest border-b border-surface-container-highest">
-    <div class="h-16 max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+    <div class="h-16 max-w-[1350px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
 
       <!-- Left: Logo + Brand name -->
       <div class="flex items-center gap-4 shrink-0">
@@ -207,7 +207,7 @@
   <!-- MAIN CONTENT (khong boc max-width: moi trang tu dat hero/filter full-bleed nhu mockup) -->
   <main class="flex-1 w-full">
     {% if messages %}
-      <div class="max-w-[1500px] mx-auto px-margin-mobile lg:px-margin pt-space-md space-y-2">
+      <div class="max-w-[1350px] mx-auto px-margin-mobile lg:px-margin pt-space-md space-y-2">
         {% for message in messages %}
           <div class="p-4 rounded-xl text-sm {% if message.tags == 'error' %}bg-error-container text-on-error-container border border-error/30{% else %}bg-emerald-50 text-emerald-800 border border-emerald-200{% endif %}">
             {{ message }}
@@ -221,7 +221,7 @@
 
   <!-- FOOTER (mockup: 12 cot 4/3/3/2, bottom bar la dai rieng) -->
   <footer class="w-full bg-surface-container-lowest border-t border-surface-container-highest mt-auto">
-    <div class="max-w-[1500px] mx-auto px-margin-mobile lg:px-margin py-space-xl">
+    <div class="max-w-[1350px] mx-auto px-margin-mobile lg:px-margin py-space-xl">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-space-xl">
 
         <!-- Col 1 (4/12): Brand info -->
@@ -285,7 +285,7 @@
 
     <!-- Bottom bar: dai rieng, chi dong copyright -->
     <div class="border-t border-surface-container-high">
-      <div class="max-w-[1500px] mx-auto px-margin-mobile lg:px-margin py-space-md">
+      <div class="max-w-[1350px] mx-auto px-margin-mobile lg:px-margin py-space-md">
         <p class="font-label-sm text-label-sm text-on-surface-variant">© 2025 Uni Map Platform. Đồng hành cùng thí sinh và phụ huynh trên con đường đại học.</p>
       </div>
     </div>
