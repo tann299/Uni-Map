@@ -21,6 +21,10 @@
       <div class="px-space-md py-space-sm rounded-lg bg-surface-container-low border border-outline-variant/40">
         Hồ sơ: <strong class="text-emerald-700 font-mono">{{ tong_hoso }}</strong>
       </div>
+      <button type="button" onclick="document.getElementById('modal-them').showModal()"
+        class="px-space-md py-space-sm rounded-lg bg-primary text-on-primary text-label-md hover:bg-primary-container transition-colors flex items-center gap-1.5 font-semibold">
+        <span class="material-symbols-outlined text-[18px]">person_add</span><span>Thêm người dùng</span>
+      </button>
     </div>
   </div>
 
@@ -53,7 +57,8 @@
             <th class="py-space-md px-space-md">Vai trò</th>
             <th class="py-space-md px-space-md text-center">Hồ sơ điểm</th>
             <th class="py-space-md px-space-md">Ngày tham gia</th>
-            <th class="py-space-md px-space-md text-right">Trạng thái</th>
+            <th class="py-space-md px-space-md">Trạng thái</th>
+            <th class="py-space-md px-space-md text-right">Thao tác</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-surface-container">
@@ -84,16 +89,37 @@
             </td>
             <td class="py-space-md px-space-md text-center font-bold text-on-surface">{{ u.so_ho_so }}</td>
             <td class="py-space-md px-space-md text-on-surface-variant text-label-sm">{{ u.date_joined|date:"d/m/Y H:i" }}</td>
-            <td class="py-space-md px-space-md text-right">
+            <td class="py-space-md px-space-md">
               {% if u.is_active %}
                 <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[11px] font-bold">Hoạt động</span>
               {% else %}
                 <span class="px-2 py-0.5 rounded bg-error-container text-on-error-container text-[11px] font-bold">Bị khóa</span>
               {% endif %}
             </td>
+            <td class="py-space-md px-space-md text-right whitespace-nowrap">
+              <button type="button" class="p-1.5 rounded bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors" title="Sửa tài khoản"
+                data-sua-nguoi-dung
+                data-id="{{ u.pk }}"
+                data-username="{{ u.username }}"
+                data-email="{{ u.email }}"
+                data-ho="{{ u.last_name }}"
+                data-ten="{{ u.first_name }}"
+                data-staff="{% if u.is_staff %}1{% endif %}"
+                data-active="{% if u.is_active %}1{% endif %}"
+                data-ten-hien-thi="{{ u.username }}">
+                <span class="material-symbols-outlined text-[18px]">edit</span>
+              </button>
+              <form method="post" action="{% url 'quantri:nguoi_dung_xoa' u.pk %}" class="inline"
+                    onsubmit="return confirm('Xoá tài khoản “{{ u.username|escapejs }}” cùng toàn bộ hồ sơ và lịch sử gợi ý của người này?');">
+                {% csrf_token %}
+                <button type="submit" class="p-1.5 rounded bg-surface-container text-on-surface-variant hover:bg-error-container hover:text-error transition-colors" title="Xoá tài khoản">
+                  <span class="material-symbols-outlined text-[18px]">delete</span>
+                </button>
+              </form>
+            </td>
           </tr>
           {% empty %}
-          <tr><td colspan="7" class="py-8 text-center text-on-surface-variant">Không tìm thấy người dùng nào.</td></tr>
+          <tr><td colspan="8" class="py-8 text-center text-on-surface-variant">Không tìm thấy người dùng nào.</td></tr>
           {% endfor %}
         </tbody>
       </table>
@@ -116,4 +142,132 @@
   </div>
 
 </div>
+
+<!-- ===== MODAL THÊM NGƯỜI DÙNG ===== -->
+<dialog id="modal-them" class="p-0 rounded-xl bg-surface-container-lowest border border-outline-variant backdrop:bg-on-background/40 max-w-lg w-full m-auto">
+  <form method="post" action="{% url 'quantri:nguoi_dung_them' %}" class="p-space-lg flex flex-col gap-space-md">
+    {% csrf_token %}
+    <div class="flex items-center justify-between pb-space-xs border-b border-surface-container-high">
+      <h3 class="font-title-md text-title-md font-bold text-on-surface">Thêm người dùng</h3>
+      <button type="button" class="p-1 hover:bg-surface-container rounded transition-colors" onclick="document.getElementById('modal-them').close()" aria-label="Đóng">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+      <label class="flex flex-col gap-1">
+        <span class="text-label-sm text-on-surface-variant">Tên đăng nhập *</span>
+        <input name="username" required maxlength="150" class="h-10 px-3 rounded-lg bg-surface-container-low text-body-sm focus:outline-none focus:bg-surface-container-lowest">
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-label-sm text-on-surface-variant">Mật khẩu *</span>
+        <input name="password" type="password" required class="h-10 px-3 rounded-lg bg-surface-container-low text-body-sm focus:outline-none focus:bg-surface-container-lowest">
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-label-sm text-on-surface-variant">Họ</span>
+        <input name="last_name" maxlength="150" class="h-10 px-3 rounded-lg bg-surface-container-low text-body-sm focus:outline-none focus:bg-surface-container-lowest">
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-label-sm text-on-surface-variant">Tên</span>
+        <input name="first_name" maxlength="150" class="h-10 px-3 rounded-lg bg-surface-container-low text-body-sm focus:outline-none focus:bg-surface-container-lowest">
+      </label>
+      <label class="flex flex-col gap-1 sm:col-span-2">
+        <span class="text-label-sm text-on-surface-variant">Email</span>
+        <input name="email" type="email" class="h-10 px-3 rounded-lg bg-surface-container-low text-body-sm focus:outline-none focus:bg-surface-container-lowest">
+      </label>
+    </div>
+
+    <div class="flex items-center gap-space-lg">
+      <label class="flex items-center gap-2 text-body-sm text-on-surface">
+        <input type="checkbox" name="is_staff" class="w-4 h-4 accent-[#0058be]"><span>Quyền quản trị (staff)</span>
+      </label>
+      <label class="flex items-center gap-2 text-body-sm text-on-surface">
+        <input type="checkbox" name="is_active" checked class="w-4 h-4 accent-[#0058be]"><span>Hoạt động</span>
+      </label>
+    </div>
+
+    <div class="flex items-center justify-end gap-space-xs pt-space-xs">
+      <button type="button" class="px-space-md py-space-sm rounded-lg bg-surface-container text-on-surface text-label-md hover:bg-surface-container-high transition-colors" onclick="document.getElementById('modal-them').close()">Huỷ</button>
+      <button type="submit" class="px-space-md py-space-sm rounded-lg bg-primary text-on-primary text-label-md font-semibold hover:bg-primary-container transition-colors">Tạo tài khoản</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- ===== MODAL SỬA NGƯỜI DÙNG ===== -->
+<dialog id="modal-sua" class="p-0 rounded-xl bg-surface-container-lowest border border-outline-variant backdrop:bg-on-background/40 max-w-lg w-full m-auto">
+  <form id="form-sua" method="post" class="p-space-lg flex flex-col gap-space-md">
+    {% csrf_token %}
+    <div class="flex items-center justify-between pb-space-xs border-b border-surface-container-high">
+      <h3 class="font-title-md text-title-md font-bold text-on-surface">Sửa <span id="sua-tieu-de" class="text-primary"></span></h3>
+      <button type="button" class="p-1 hover:bg-surface-container rounded transition-colors" onclick="document.getElementById('modal-sua').close()" aria-label="Đóng">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+      <label class="flex flex-col gap-1">
+        <span class="text-label-sm text-on-surface-variant">Tên đăng nhập *</span>
+        <input id="sua-username" name="username" required maxlength="150" class="h-10 px-3 rounded-lg bg-surface-container-low text-body-sm focus:outline-none focus:bg-surface-container-lowest">
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-label-sm text-on-surface-variant">Mật khẩu mới</span>
+        <input id="sua-password" name="password" type="password" placeholder="Để trống = giữ nguyên" class="h-10 px-3 rounded-lg bg-surface-container-low text-body-sm focus:outline-none focus:bg-surface-container-lowest">
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-label-sm text-on-surface-variant">Họ</span>
+        <input id="sua-ho" name="last_name" maxlength="150" class="h-10 px-3 rounded-lg bg-surface-container-low text-body-sm focus:outline-none focus:bg-surface-container-lowest">
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="text-label-sm text-on-surface-variant">Tên</span>
+        <input id="sua-ten" name="first_name" maxlength="150" class="h-10 px-3 rounded-lg bg-surface-container-low text-body-sm focus:outline-none focus:bg-surface-container-lowest">
+      </label>
+      <label class="flex flex-col gap-1 sm:col-span-2">
+        <span class="text-label-sm text-on-surface-variant">Email</span>
+        <input id="sua-email" name="email" type="email" class="h-10 px-3 rounded-lg bg-surface-container-low text-body-sm focus:outline-none focus:bg-surface-container-lowest">
+      </label>
+    </div>
+
+    <div class="flex items-center gap-space-lg">
+      <label class="flex items-center gap-2 text-body-sm text-on-surface">
+        <input id="sua-staff" type="checkbox" name="is_staff" class="w-4 h-4 accent-[#0058be]"><span>Quyền quản trị (staff)</span>
+      </label>
+      <label class="flex items-center gap-2 text-body-sm text-on-surface">
+        <input id="sua-active" type="checkbox" name="is_active" class="w-4 h-4 accent-[#0058be]"><span>Hoạt động</span>
+      </label>
+    </div>
+
+    <div class="flex items-center justify-end gap-space-xs pt-space-xs">
+      <button type="button" class="px-space-md py-space-sm rounded-lg bg-surface-container text-on-surface text-label-md hover:bg-surface-container-high transition-colors" onclick="document.getElementById('modal-sua').close()">Huỷ</button>
+      <button type="submit" class="px-space-md py-space-sm rounded-lg bg-primary text-on-primary text-label-md font-semibold hover:bg-primary-container transition-colors">Lưu thay đổi</button>
+    </div>
+  </form>
+</dialog>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  // Nút sửa trên từng dòng -> đổ dữ liệu vào modal (đọc từ data-* của chính nút).
+  (function () {
+    var modal = document.getElementById('modal-sua');
+    var form = document.getElementById('form-sua');
+    if (!modal || !form) return;
+    var URL_SUA = "{% url 'quantri:nguoi_dung_sua' 0 %}";
+
+    document.querySelectorAll('[data-sua-nguoi-dung]').forEach(function (nut) {
+      nut.addEventListener('click', function () {
+        var d = nut.dataset;
+        form.action = URL_SUA.replace('/0/', '/' + d.id + '/');
+        document.getElementById('sua-tieu-de').textContent = d.tenHienThi;
+        document.getElementById('sua-username').value = d.username;
+        document.getElementById('sua-email').value = d.email;
+        document.getElementById('sua-ho').value = d.ho;
+        document.getElementById('sua-ten').value = d.ten;
+        document.getElementById('sua-password').value = '';
+        document.getElementById('sua-staff').checked = d.staff === '1';
+        document.getElementById('sua-active').checked = d.active === '1';
+        modal.showModal();
+      });
+    });
+  })();
+</script>
 {% endblock %}

@@ -16,9 +16,69 @@
       </div>
       <p class="text-body-sm text-on-surface-variant flex items-center gap-space-xs">
         <span class="material-symbols-outlined text-[18px] text-primary">history_toggle_off</span>
-        <span>Duy trì 5 năm liên tục theo quy chuẩn CN-05 ({{ so_fact|intcomma }} dòng Fact hiện tại).</span>
+        <span>Duy trì cửa sổ trượt liên tục theo quy chuẩn CN-05 ({{ so_fact|intcomma }} dòng Fact hiện tại).</span>
       </p>
     </div>
+  </div>
+
+  <!-- Điều khiển Pipeline: chọn chu kỳ năm -> cào + cập nhật DB -->
+  <div class="flex flex-col gap-space-md bg-surface-container-lowest p-space-lg rounded-xl border border-outline-variant/40 shadow-sm">
+    <div class="flex items-center gap-space-xs">
+      <span class="material-symbols-outlined text-primary text-[22px]">cloud_download</span>
+      <h2 class="font-title-md text-title-md text-on-surface">Chạy Pipeline Cào &amp; Cập nhật</h2>
+    </div>
+
+    {% if trang_thai_cao.dang_chay %}
+      <div class="flex items-center gap-2 p-space-sm rounded-lg bg-secondary-fixed text-on-secondary-fixed text-label-sm">
+        <span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span>
+        <span>{{ trang_thai_cao.buoc|default:"Đang chạy…" }} (bắt đầu {{ trang_thai_cao.bat_dau }})</span>
+      </div>
+      <script>setTimeout(function(){ window.location.reload(); }, 5000);</script>
+    {% elif trang_thai_cao.loi %}
+      <div class="p-space-sm rounded-lg bg-red-50 border border-red-200 text-label-sm text-red-800">
+        <strong class="block mb-1">Pipeline lỗi — DB giữ nguyên trạng thái trước import.</strong>
+        <code class="font-mono text-[12px] break-all">{{ trang_thai_cao.loi }}</code>
+      </div>
+    {% elif trang_thai_cao.ket_thuc %}
+      <div class="p-space-sm rounded-lg bg-emerald-50 border border-emerald-200 text-label-sm text-emerald-800 flex items-center gap-2">
+        <span class="material-symbols-outlined text-[18px]">check_circle</span>
+        <span>Cào {{ trang_thai_cao.so_nam }} năm + nạp DB xong lúc {{ trang_thai_cao.ket_thuc }}.</span>
+      </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'quantri:cap_nhat_chay' %}"
+          class="flex flex-col md:flex-row md:items-end gap-space-md">
+      {% csrf_token %}
+      <label class="flex flex-col gap-1">
+        <span class="text-label-sm text-on-surface-variant font-semibold">Chu kỳ năm giữ lại</span>
+        <select name="so_nam" class="px-space-md py-2 rounded-lg border border-outline-variant bg-surface text-body-sm text-on-surface">
+          {% for n in so_nam_cho_phep %}
+            <option value="{{ n }}" {% if n == so_nam_hien_tai %}selected{% endif %}>{{ n }} năm</option>
+          {% endfor %}
+        </select>
+      </label>
+
+      <label class="flex items-center gap-2 pb-2.5 text-body-sm text-on-surface-variant">
+        <input type="checkbox" name="refresh" class="rounded border-outline-variant">
+        <span>Cào mới từ web (bỏ qua cache — chậm hơn vài phút)</span>
+      </label>
+
+      <label class="flex items-center gap-2 pb-2.5 text-body-sm text-on-surface-variant">
+        <input type="checkbox" name="huan_luyen" class="rounded border-outline-variant">
+        <span>Huấn luyện lại mô hình sau khi nạp (thêm ~1–2 phút)</span>
+      </label>
+
+      <button type="submit" {% if trang_thai_cao.dang_chay %}disabled{% endif %}
+              class="px-space-md py-space-sm rounded-lg bg-primary text-on-primary font-label-md text-label-md inline-flex items-center gap-1.5 transition-colors {% if trang_thai_cao.dang_chay %}opacity-50 cursor-not-allowed{% else %}hover:bg-primary/90{% endif %}">
+        <span class="material-symbols-outlined text-[18px]">{% if trang_thai_cao.dang_chay %}progress_activity{% else %}play_arrow{% endif %}</span>
+        {% if trang_thai_cao.dang_chay %}Đang chạy…{% else %}Bắt đầu cào &amp; cập nhật{% endif %}
+      </button>
+    </form>
+
+    <p class="text-[12px] text-outline">
+      Giới hạn 3–10 năm (khớp số cột <code class="font-mono">diem_nam_1..10</code> trong schema).
+      Cổng an toàn CN-08 tự loại năm mới chưa đủ 50% trung vị, nên chọn dài vẫn an toàn khi nguồn công bố nhỏ giọt.
+    </p>
   </div>
 
   <!-- Smart Banner CN-08 Guard Alert -->
@@ -85,7 +145,7 @@
           </div>
           <h3 class="font-title-md text-title-md text-on-surface mt-2">Tính Đặc trưng Điểm chuẩn</h3>
           <code class="block font-mono text-[12px] p-1.5 rounded bg-surface-container text-on-surface-variant my-2">tinh_dac_trung.py</code>
-          <p class="text-body-sm text-outline">Tính xu hướng (slope), biên động (std), min, max, trung bình 5 năm.</p>
+          <p class="text-body-sm text-outline">Tính xu hướng (slope), biên động (std), min, max, trung bình {{ so_nam_cua_so }} năm.</p>
         </div>
         <div class="mt-4 pt-2 border-t border-surface-variant text-[12px] text-outline">Bảng: <span class="font-mono text-on-surface">dac_trung_diemchuan</span></div>
       </div>
@@ -102,7 +162,7 @@
           <code class="block font-mono text-[12px] p-1.5 rounded bg-surface-container text-on-surface-variant my-2">kiem_tra_cn08.py</code>
           <p class="text-body-sm text-outline">Kiểm soát ngưỡng trượt năm, chặn dữ liệu công bố lẻ tẻ làm lệch mô hình.</p>
         </div>
-        <div class="mt-4 pt-2 border-t border-surface-variant text-[12px] text-outline">Trạng thái: <span class="font-semibold text-emerald-700">Khóa an toàn 2021–2025</span></div>
+        <div class="mt-4 pt-2 border-t border-surface-variant text-[12px] text-outline">Trạng thái: <span class="font-semibold text-emerald-700">Khóa an toàn {{ cua_so_text|default:"2020–2025" }}</span></div>
       </div>
 
       <!-- Bước 5 -->
