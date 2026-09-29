@@ -1,5 +1,5 @@
 {
-  "thoi_diem": "2026-09-27 13:32:34",
+  "thoi_diem": "2026-09-29 16:11:39",
   "siêu_tham_so": {
     "RandomForest": {
       "n_estimators": 100,
@@ -46,35 +46,35 @@
   "ket_qua": [
     {
       "ten": "DecisionTree (baseline)",
-      "accuracy": 0.7218,
-      "roc_auc": 0.7507,
-      "brier": 0.2577,
-      "precision_do": 0.8047,
-      "recall_do": 0.6472,
-      "f1_do": 0.7174,
-      "precision_truot": 0.6571,
-      "recall_truot": 0.8115
+      "accuracy": 0.7214,
+      "roc_auc": 0.7535,
+      "brier": 0.255,
+      "precision_do": 0.8006,
+      "recall_do": 0.6514,
+      "f1_do": 0.7183,
+      "precision_truot": 0.6581,
+      "recall_truot": 0.8053
     },
     {
       "ten": "RandomForest (chính)",
-      "accuracy": 0.7457,
-      "roc_auc": 0.8331,
-      "brier": 0.1805,
-      "precision_do": 0.816,
-      "recall_do": 0.6892,
-      "f1_do": 0.7473,
-      "precision_truot": 0.6857,
-      "recall_truot": 0.8135
+      "accuracy": 0.7456,
+      "roc_auc": 0.8354,
+      "brier": 0.1763,
+      "precision_do": 0.8098,
+      "recall_do": 0.6973,
+      "f1_do": 0.7493,
+      "precision_truot": 0.6887,
+      "recall_truot": 0.8035
     }
   ],
   "feature_importance": [
     {
       "dac_trung": "margin",
-      "muc_dong_gop": 0.60646
+      "muc_dong_gop": 0.60603
     },
     {
       "dac_trung": "diem_thi",
-      "muc_dong_gop": 0.21327
+      "muc_dong_gop": 0.21805
     },
     {
       "dac_trung": "diem_moi_nhat",
@@ -82,82 +82,82 @@
     },
     {
       "dac_trung": "diem_tb",
-      "muc_dong_gop": 0.04429
-    },
-    {
-      "dac_trung": "xu_huong",
-      "muc_dong_gop": 0.016
+      "muc_dong_gop": 0.04251
     },
     {
       "dac_trung": "bien_dong",
-      "muc_dong_gop": 0.01343
+      "muc_dong_gop": 0.01639
+    },
+    {
+      "dac_trung": "xu_huong",
+      "muc_dong_gop": 0.01636
     },
     {
       "dac_trung": "pt_Điểm thi THPT",
-      "muc_dong_gop": 0.00907
+      "muc_dong_gop": 0.00714
     },
     {
       "dac_trung": "nn_Sư phạm - Giáo dục",
-      "muc_dong_gop": 0.00748
-    },
-    {
-      "dac_trung": "pt_Điểm học bạ",
-      "muc_dong_gop": 0.00716
+      "muc_dong_gop": 0.00693
     },
     {
       "dac_trung": "so_nam_co_dl",
-      "muc_dong_gop": 0.00702
+      "muc_dong_gop": 0.00682
+    },
+    {
+      "dac_trung": "pt_Điểm học bạ",
+      "muc_dong_gop": 0.00606
     },
     {
       "dac_trung": "vm_Miền Nam",
-      "muc_dong_gop": 0.00515
-    },
-    {
-      "dac_trung": "vm_Miền Bắc",
-      "muc_dong_gop": 0.00402
+      "muc_dong_gop": 0.00448
     },
     {
       "dac_trung": "nn_Y - Dược - Sức khỏe",
-      "muc_dong_gop": 0.00313
+      "muc_dong_gop": 0.00372
+    },
+    {
+      "dac_trung": "vm_Miền Bắc",
+      "muc_dong_gop": 0.00334
     },
     {
       "dac_trung": "vm_Miền Trung",
-      "muc_dong_gop": 0.00246
+      "muc_dong_gop": 0.00216
     },
     {
       "dac_trung": "nn_Kinh tế - Kinh doanh - Tài chính",
-      "muc_dong_gop": 0.00155
+      "muc_dong_gop": 0.00138
     },
     {
       "dac_trung": "nn_Kỹ thuật - Công nghệ",
-      "muc_dong_gop": 0.00151
+      "muc_dong_gop": 0.00136
     },
     {
       "dac_trung": "nn_Khoa học XH & Nhân văn",
-      "muc_dong_gop": 0.00104
-    },
-    {
-      "dac_trung": "nn_Công nghệ thông tin",
-      "muc_dong_gop": 0.00093
+      "muc_dong_gop": 0.00084
     },
     {
       "dac_trung": "nn_Ngôn ngữ - Quốc tế học",
-      "muc_dong_gop": 0.00079
-    },
-    {
-      "dac_trung": "nn_Kiến trúc - Xây dựng",
-      "muc_dong_gop": 0.00072
+      "muc_dong_gop": 0.00073
     },
     {
       "dac_trung": "nn_Nông - Lâm - Ngư - Thú y",
+      "muc_dong_gop": 0.00071
+    },
+    {
+      "dac_trung": "nn_Kiến trúc - Xây dựng",
       "muc_dong_gop": 0.00068
     },
     {
-      "dac_trung": "nn_Du lịch - Khách sạn - Nhà hàng",
+      "dac_trung": "nn_Công nghệ thông tin",
       "muc_dong_gop": 0.00066
     },
     {
-      "dac_trung": "nn_Báo chí - Truyền thông",
+      "dac_trung": "nn_Du lịch - Khách sạn - Nhà hàng",
+      "muc_dong_gop": 0.00062
+    },
+    {
+      "dac_trung": "nn_Khác",
       "muc_dong_gop": 0.00058
     },
     {
@@ -166,17 +166,17 @@
     },
     {
       "dac_trung": "nn_Luật",
-      "muc_dong_gop": 0.00053
-    },
-    {
-      "dac_trung": "nn_Khác",
       "muc_dong_gop": 0.00049
     },
     {
+      "dac_trung": "nn_Báo chí - Truyền thông",
+      "muc_dong_gop": 0.00042
+    },
+    {
       "dac_trung": "nn_Quân đội - Công an",
-      "muc_dong_gop": 0.00011
+      "muc_dong_gop": 7e-05
     }
   ],
-  "acc_cu": 0.7457,
+  "acc_cu": null,
   "thay_the": true
 }

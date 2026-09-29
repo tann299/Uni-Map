@@ -35,7 +35,7 @@
           <span class="px-space-sm py-0.5 rounded bg-surface-container text-on-surface-variant font-mono">Mã: {{ truong.ma_truong }}</span>
           <span class="px-space-sm py-0.5 rounded bg-surface-container text-on-surface-variant">{{ truong.viet_tat }}</span>
           <span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-[#DCFCE7] text-[#16A34A] border border-[#16A34A]/30">
-            <span class="material-symbols-outlined text-[15px]">verified</span> Dữ liệu 2021–2025
+            <span class="material-symbols-outlined text-[15px]">verified</span> Dữ liệu {{ cua_so_text|default:"2020–2025" }}
           </span>
         </div>
       </div>
@@ -65,6 +65,8 @@
   <!-- Bộ lọc -->
   <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md mb-space-md">
     <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md" method="get" action="{% url 'university:chi_tiet_truong' truong.ma_truong %}">
+      {# Giữ lựa chọn số cột năm khi lọc. #}
+      <input type="hidden" name="cot" value="{{ so_cot }}">
       <div class="space-y-1">
         <label class="font-label-sm text-label-sm text-on-surface-variant block" for="fTH">Tổ hợp môn</label>
         <div class="relative">
@@ -133,12 +135,24 @@
     <div class="p-space-md flex items-center justify-between gap-space-sm border-b border-surface-container-high">
       <h2 class="font-title-md text-title-md font-bold text-on-surface flex items-center gap-2">
         <span class="material-symbols-outlined text-[20px] text-primary-container">analytics</span>
-        Bảng điểm chuẩn &amp; Xu hướng 5 năm (2021 – 2025)
+        Bảng điểm chuẩn &amp; Xu hướng {{ so_nam_cua_so }} năm ({{ cua_so_text }})
       </h2>
       <span class="px-space-sm py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap">
         Đang hiển thị <strong class="text-primary-container">{{ ds|length }}</strong> ngành
       </span>
     </div>
+
+    {% if cua_so_day_du|length > so_cot %}
+    <div class="flex items-center justify-between gap-space-sm px-space-md py-space-sm bg-surface-container-low border-b border-surface-container-high">
+      <span class="font-label-sm text-label-sm text-on-surface-variant">Đang hiện {{ so_cot }} năm gần nhất trong {{ cua_so_day_du|length }} năm dữ liệu</span>
+      <a class="px-3 py-1 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary transition-colors" href="{% querystring cot=10 %}">Xem đủ {{ cua_so_day_du|length }} năm →</a>
+    </div>
+    {% elif so_cot == 10 and cua_so_day_du|length == 10 %}
+    <div class="flex items-center justify-between gap-space-sm px-space-md py-space-sm bg-surface-container-low border-b border-surface-container-high">
+      <span class="font-label-sm text-label-sm text-on-surface-variant">Đang hiện đủ {{ so_cot }} năm dữ liệu</span>
+      <a class="px-3 py-1 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-colors" href="{% querystring cot=5 %}">← Thu gọn 5 năm</a>
+    </div>
+    {% endif %}
 
     <div class="overflow-x-auto">
       <table class="w-full text-left border-collapse">
@@ -173,7 +187,7 @@
                   <span class="inline-flex items-center gap-0.5 px-space-xs py-0.5 rounded border font-label-sm text-label-sm font-medium {{ r.chip.cls }}">
                     <span class="material-symbols-outlined text-[15px]">{{ r.chip.icon }}</span> {{ r.bien_dong }}
                   </span>
-                  <span class="font-label-sm text-[11px] text-outline mt-0.5">{{ r.so_nam_co_dl }}/5 năm</span>
+                  <span class="font-label-sm text-[11px] text-outline mt-0.5">{{ r.so_nam_co_dl }}/{{ so_nam_cua_so }} năm</span>
                 </div>
               </td>
               <td class="py-space-md px-space-md text-right whitespace-nowrap">
@@ -185,7 +199,7 @@
             </tr>
           {% empty %}
             <tr>
-              <td class="py-space-xl px-space-md text-center text-on-surface-variant" colspan="9">
+              <td class="py-space-xl px-space-md text-center text-on-surface-variant" colspan="{{ colspan|default:9 }}">
                 <span class="material-symbols-outlined text-[40px] text-outline block mb-space-xs">search_off</span>
                 Không có ngành nào khớp bộ lọc.
               </td>
@@ -197,7 +211,7 @@
   </section>
 
   <p class="font-label-sm text-label-sm text-outline mt-space-md">
-    Nguồn: dữ liệu tuyển sinh Bộ GD&amp;ĐT, cửa sổ 2021–2025. Điểm hiển thị theo thang 30, đã bao gồm điểm ưu tiên công bố của trường.
+    Nguồn: dữ liệu tuyển sinh Bộ GD&amp;ĐT, cửa sổ {{ cua_so_text|default:"2020–2025" }}. Điểm hiển thị theo thang 30, đã bao gồm điểm ưu tiên công bố của trường.
   </p>
 
 </div>

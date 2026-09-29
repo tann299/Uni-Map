@@ -14,7 +14,7 @@
         <span class="material-symbols-outlined text-[16px] text-secondary">verified</span>Cổng Thông Tin Dành Cho Thí Sinh &amp; Phụ Huynh
       </span>
       <h1 class="font-headline-lg text-headline-lg text-on-background font-bold tracking-tight text-balance">
-        Tra cứu Điểm chuẩn 5 năm &amp;<div>Định hướng Nguyện vọng Đại học bằng AI</div>
+        Tra cứu Điểm chuẩn {{ so_nam_cua_so }} năm &amp;<div>Định hướng Nguyện vọng Đại học bằng AI</div>
       </h1>
     </div>
 
@@ -22,7 +22,7 @@
     <div class="bg-surface-container-lowest border-2 border-primary p-space-lg rounded-xl flex flex-col gap-space-md">
       <div class="flex items-center gap-space-sm pb-space-sm border-b border-surface-container-high">
         <span class="material-symbols-outlined text-[22px] text-primary">manage_search</span>
-        <span class="font-title-md text-title-md text-primary font-bold">Bộ lọc tra cứu nhanh toàn quốc (Dữ liệu 2021–2025)</span>
+        <span class="font-title-md text-title-md text-primary font-bold">Bộ lọc tra cứu nhanh toàn quốc (Dữ liệu {{ cua_so_text|default:"2020–2025" }})</span>
       </div>
 
       <form class="grid grid-cols-1 md:grid-cols-12 gap-space-md" method="get" action="{% url 'university:tra_cuu' %}">
@@ -121,7 +121,7 @@
           <div class="font-data-metric text-data-metric font-bold text-secondary">{{ kpi.so_nganh }}</div>
           <div class="font-headline-sm text-headline-sm font-semibold text-on-surface">Ngành đào tạo</div>
         </div>
-        <p class="font-body-sm text-body-sm text-on-surface-variant">Chuẩn hóa mã danh mục ngành đào tạo liên tục 5 năm.</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Chuẩn hóa mã danh mục ngành đào tạo liên tục {{ so_nam_cua_so }} năm.</p>
       </div>
 
       <div class="bg-surface-container-lowest p-space-md rounded-xl border border-surface-container-high flex flex-col justify-between">
@@ -221,17 +221,16 @@
                   </span>
                 </td>
                 <td class="py-3.5 px-4 text-center">
-                  <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded font-mono">{{ r.so_nam_co_dl }}/5 năm</span>
+                  <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded font-mono">{{ r.so_nam_co_dl }}/{{ so_nam_cua_so }} năm</span>
                 </td>
                 <td class="py-3.5 px-4 text-right">
                   <div class="flex items-center justify-end gap-1.5">
                     <a class="px-2.5 py-1 text-primary hover:bg-primary-fixed/30 font-label-sm text-label-sm rounded transition-colors font-semibold" href="{% url 'university:tra_cuu' %}?truong={{ r.ma_truong }}&amp;nganh={{ r.nganh_slug }}">Xem chi tiết</a>
-                    <button class="px-2.5 py-1 bg-primary-container hover:bg-primary text-on-primary font-label-sm text-label-sm rounded transition-colors font-semibold" type="button" data-khop-diem>Khớp điểm</button>
                   </div>
                 </td>
               </tr>
             {% empty %}
-              <tr><td class="py-6 px-4 text-center text-on-surface-variant" colspan="9">Chưa có dữ liệu điểm chuẩn đủ 5 năm.</td></tr>
+              <tr><td class="py-6 px-4 text-center text-on-surface-variant" colspan="9">Chưa có dữ liệu điểm chuẩn đủ {{ so_nam_cua_so }} năm.</td></tr>
             {% endfor %}
             {% endlocalize %}
           </tbody>
@@ -270,64 +269,4 @@
   </div>
 </section>
 
-<!-- MODAL THỬ TÍNH ĐIỂM NHANH (khách) -->
-<dialog id="guest-calc-modal" class="p-0 rounded-lg bg-surface-container-lowest border-2 border-on-background backdrop:bg-on-background/40 max-w-lg w-full m-auto">
-  <div class="p-space-lg flex flex-col gap-space-md">
-    <div class="flex items-center justify-between pb-space-xs border-b border-surface-container-high">
-      <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Thử tính điểm nhanh</h3>
-      <button class="p-1 hover:bg-surface-container rounded transition-colors" data-dong-modal type="button" aria-label="Đóng">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    </div>
-    <p class="font-body-sm text-body-sm text-on-surface-variant">Nhập điểm thi thử để hệ thống gợi ý tạm thời xác suất trúng tuyển theo thang điểm 2025.</p>
-
-    <div class="grid grid-cols-3 gap-space-sm">
-      <div class="flex flex-col gap-1">
-        <label class="font-label-sm text-label-sm font-semibold" for="diem-mon-1">Toán</label>
-        <input id="diem-mon-1" data-diem-mon class="h-10 px-2.5 border border-outline rounded text-center font-mono" max="10" min="0" placeholder="8.5" step="0.25" type="number">
-      </div>
-      <div class="flex flex-col gap-1">
-        <label class="font-label-sm text-label-sm font-semibold" for="diem-mon-2">Vật lý / Văn</label>
-        <input id="diem-mon-2" data-diem-mon class="h-10 px-2.5 border border-outline rounded text-center font-mono" max="10" min="0" placeholder="8.0" step="0.25" type="number">
-      </div>
-      <div class="flex flex-col gap-1">
-        <label class="font-label-sm text-label-sm font-semibold" for="diem-mon-3">Hóa / Anh</label>
-        <input id="diem-mon-3" data-diem-mon class="h-10 px-2.5 border border-outline rounded text-center font-mono" max="10" min="0" placeholder="8.75" step="0.25" type="number">
-      </div>
-    </div>
-
-    <div class="p-space-sm bg-surface-container rounded border border-outline-variant flex items-center justify-between">
-      <span class="font-label-md text-label-md text-on-surface">Tổng điểm dự kiến:</span>
-      <span id="tong-diem-du-kien" class="font-headline-sm text-headline-sm font-bold text-primary font-mono">0.00</span>
-    </div>
-
-    <div class="flex items-center justify-end gap-space-xs pt-space-xs">
-      <button class="px-4 py-2 bg-surface-container text-on-surface font-label-md text-label-md rounded transition-colors" data-dong-modal type="button">Đóng</button>
-      <a class="px-4 py-2 bg-primary-container text-on-primary font-label-md text-label-md rounded font-semibold transition-colors" href="{% url 'accounts:dang_ky' %}">Đăng ký để lưu kết quả</a>
-    </div>
-  </div>
-</dialog>
-
-{% endblock %}
-
-{% block extra_scripts %}
-<script>
-  // Modal chi mo khi bam "Khop diem" — khong bind ca trang nhu mockup.
-  const modal = document.getElementById('guest-calc-modal');
-  const oDiem = [...document.querySelectorAll('[data-diem-mon]')];
-  const oTong = document.getElementById('tong-diem-du-kien');
-
-  function capNhatTong() {
-    const tong = oDiem.reduce((s, el) => s + (parseFloat(el.value) || 0), 0);
-    oTong.textContent = tong.toFixed(2);
-  }
-
-  oDiem.forEach(el => el.addEventListener('input', capNhatTong));
-
-  document.querySelectorAll('[data-khop-diem]').forEach(btn =>
-    btn.addEventListener('click', () => modal?.showModal?.()));
-
-  document.querySelectorAll('[data-dong-modal]').forEach(btn =>
-    btn.addEventListener('click', () => modal?.close()));
-</script>
 {% endblock %}

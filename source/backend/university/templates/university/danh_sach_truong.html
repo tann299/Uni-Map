@@ -13,7 +13,7 @@
     <div class="space-y-space-xs mb-space-lg">
       <div class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container text-primary-container font-label-sm text-label-sm">
         <span class="material-symbols-outlined text-[16px]">verified</span>
-        <span>{{ tong_truong }} trường ĐH · Dữ liệu tuyển sinh 2021–2025</span>
+        <span>{{ tong_truong }} trường ĐH · Dữ liệu tuyển sinh {{ cua_so_text|default:"2020–2025" }}</span>
       </div>
       <h1 class="font-headline-lg text-headline-lg text-on-surface">Danh sách Trường Đại học</h1>
     </div>
@@ -187,7 +187,7 @@
   {% endif %}
 
   <p class="font-label-sm text-label-sm text-outline mt-space-md">
-    Nguồn: dữ liệu tuyển sinh Bộ GD&amp;ĐT, cửa sổ 2021–2025. Điểm TB là trung bình điểm chuẩn mới nhất các ngành của trường.
+    Nguồn: dữ liệu tuyển sinh Bộ GD&amp;ĐT, cửa sổ {{ cua_so_text|default:"2020–2025" }}. Điểm TB là trung bình điểm chuẩn mới nhất các ngành của trường.
   </p>
 
 </div>

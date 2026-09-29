@@ -57,16 +57,16 @@
       {% endif %}
     </div>
     <div>
-      <div class="font-data-metric text-data-metric font-mono text-on-surface">{{ kq.dt.so_nam_co_dl|default:"—" }}/5</div>
+      <div class="font-data-metric text-data-metric font-mono text-on-surface">{{ kq.dt.so_nam_co_dl|default:"—" }}/{{ so_nam_cua_so }}</div>
       <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Năm dữ liệu</div>
     </div>
   </section>
 
-  <!-- Biểu đồ 5 năm (CN-04) -->
+  <!-- Biểu đồ {{ so_nam_cua_so }} năm (CN-04) -->
   <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-md">
     <h2 class="font-title-md text-title-md font-bold text-on-surface mb-space-md flex items-center gap-2">
       <span class="material-symbols-outlined text-[20px] text-primary-container">monitoring</span>
-      Lịch sử điểm chuẩn (2021–2025)
+      Lịch sử điểm chuẩn ({{ cua_so_text|default:"2020–2025" }})
     </h2>
     <div class="flex items-end gap-space-sm h-44 border-b border-outline-variant">
       {% for c in bieu_do %}

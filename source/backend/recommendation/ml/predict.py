@@ -60,10 +60,13 @@ def nap_mo_hinh() -> dict | None:
 
             cot = ten_cot_dac_trung()
             scaler = joblib.load(NONG_SCALER)
-            # Scaler lưu lúc train gắn tên cột -> gắn lại để khỏi cảnh báo
-            # "X does not have valid feature names" mỗi request.
+            # Lúc suy luận ta đưa vào numpy array (nhanh hơn DataFrame), còn
+            # scaler lưu tên cột từ lúc fit -> sklearn cảnh báo "X does not have
+            # valid feature names" mỗi request. Gắn lại tên cột KHÔNG làm hết
+            # cảnh báo (đã thử); phải xoá hẳn attribute để sklearn coi scaler
+            # là không có tên cột. Thứ tự cột do `ten_cot_dac_trung()` bảo đảm.
             if hasattr(scaler, "feature_names_in_"):
-                scaler.feature_names_in_ = np.asarray(cot, dtype=object)
+                del scaler.feature_names_in_
             _kho = {"model": joblib.load(NONG_PKL), "scaler": scaler, "cot": cot}
         except Exception:  # noqa: BLE001 — mọi lỗi đều rơi về dự phòng
             _kho = None

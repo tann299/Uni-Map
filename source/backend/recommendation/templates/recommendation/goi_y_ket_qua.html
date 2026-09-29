@@ -21,7 +21,7 @@
         Đề xuất nguyện vọng
       </h1>
       <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
-        Hồ sơ <strong class="text-on-surface">{{ ho_so.ten_ho_so }}</strong> · {{ ho_so.phuong_thuc }}{% if ho_so.diem_uu_tien %} · ưu tiên +{{ ho_so.diem_uu_tien }}{% endif %} · Cửa sổ 2021–2025
+        Hồ sơ <strong class="text-on-surface">{{ ho_so.ten_ho_so }}</strong> · {{ ho_so.phuong_thuc }}{% if ho_so.diem_uu_tien %} · ưu tiên +{{ ho_so.diem_uu_tien }}{% endif %} · Cửa sổ {{ cua_so_text|default:"2020–2025" }}
       </p>
     </div>
     <div class="flex items-center gap-space-xs shrink-0">
@@ -112,7 +112,7 @@
             </span>
           </div>
 
-          <!-- mini biểu đồ 5 năm -->
+          <!-- mini biểu đồ {{ so_nam_cua_so }} năm -->
           <div class="flex items-end gap-1 h-8">
             {% for c in r.kq.chuoi_diem %}
               <div class="flex-1 rounded-t bg-primary-container/30" style="height: {% if c %}{% widthratio c 30 100 %}{% else %}4{% endif %}%" title="{{ c|default:'không tuyển' }}"></div>
@@ -120,7 +120,7 @@
           </div>
 
           <div class="flex items-center justify-between gap-space-xs pt-space-sm border-t border-surface-container-high">
-            <span class="font-label-sm text-label-sm text-outline">Dựa trên {{ r.kq.so_nam_co_dl }}/5 năm dữ liệu</span>
+            <span class="font-label-sm text-label-sm text-outline">Dựa trên {{ r.kq.so_nam_co_dl }}/{{ so_nam_cua_so }} năm dữ liệu</span>
             <div class="flex items-center gap-1.5">
               <button type="button"
                       data-chon-so-sanh

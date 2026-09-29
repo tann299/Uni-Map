@@ -97,10 +97,12 @@ def _so_vn(x: float, don_vi: str = "") -> str:
     return f"{x:,.2f}".rstrip("0").rstrip(".").replace(".", ",") + don_vi
 
 
-def giai_thich(dac_trung: dict) -> list[dict]:
+def giai_thich(dac_trung: dict, tong_so_nam: int = 10) -> list[dict]:
     """4 câu giải thích từ đặc trưng THẬT (SRS CN-04). Không bịa số.
 
     `dac_trung`: {margin, xu_huong, bien_dong, so_nam_co_dl, nam_moi_nhat}
+    `tong_so_nam`: độ dài cửa sổ hiện tại (3–10) — lấy từ `CuaSoNam`, không
+    viết cứng, để đổi chu kỳ ở UI admin là câu chữ tự đúng.
     Trả list {loai, chu, canh_bao} để template tô màu câu cảnh báo.
     """
     margin = float(dac_trung["margin"] or 0)
@@ -108,6 +110,7 @@ def giai_thich(dac_trung: dict) -> list[dict]:
     bien_dong = float(dac_trung.get("bien_dong") or 0)
     so_nam = int(dac_trung.get("so_nam_co_dl") or 0)
     nam = dac_trung.get("nam_moi_nhat") or "gần nhất"
+    tong = max(int(tong_so_nam or 1), 1)
 
     cau = []
 
@@ -133,18 +136,18 @@ def giai_thich(dac_trung: dict) -> list[dict]:
     # 3. Độ dao động.
     if bien_dong >= 2.0:
         cau.append({"loai": "bien_dong", "canh_bao": True,
-                    "chu": f"Dao động 5 năm: {_so_vn(bien_dong)} điểm — khó đoán"})
+                    "chu": f"Dao động {tong} năm: {_so_vn(bien_dong)} điểm — khó đoán"})
     else:
         cau.append({"loai": "bien_dong", "canh_bao": False,
-                    "chu": f"Dao động 5 năm: {_so_vn(bien_dong)} điểm — tương đối ổn định"})
+                    "chu": f"Dao động {tong} năm: {_so_vn(bien_dong)} điểm — tương đối ổn định"})
 
     # 4. Độ tin cậy dữ liệu — cảnh báo khi mỏng (UC-05/7a).
     if so_nam < 3:
-        chu = f"Dựa trên {so_nam}/5 năm dữ liệu — độ tin cậy thấp"
-    elif so_nam == 5:
-        chu = "Dựa trên 5/5 năm dữ liệu — độ tin cậy cao"
+        chu = f"Dựa trên {so_nam}/{tong} năm dữ liệu — độ tin cậy thấp"
+    elif so_nam == tong:
+        chu = f"Dựa trên {tong}/{tong} năm dữ liệu — độ tin cậy cao"
     else:
-        chu = f"Dựa trên {so_nam}/5 năm dữ liệu"
+        chu = f"Dựa trên {so_nam}/{tong} năm dữ liệu"
     cau.append({"loai": "do_tin_cay", "canh_bao": so_nam < 3, "chu": chu})
 
     return cau

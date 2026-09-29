@@ -7,7 +7,10 @@ quanh C thì đỗ khi X >= C.
 
 Chống data leakage (SRS 6.3, 6.6): đặc trưng của mẫu năm t CHỈ tính từ các
 năm < t (công thức khớp `build_features` trong crawler). Chia tập theo năm,
-không chia ngẫu nhiên: train 2022–2024, test 2025 (SRS 6.3, UC-10 bước 3).
+không chia ngẫu nhiên: train 2021–2024, test 2025 (SRS 6.3, UC-10 bước 3).
+Hiển thị 10 năm (2016–2025) nhưng AI chỉ nhìn 6 năm gần nhất (NAM_LOOKBACK):
+phổ điểm kỳ thi cũ 2016–2019 gây nhiễu, đo thực tế lookback 6 cho acc cao
+nhất (0.7456 vs 10 năm 0.7454, 7 năm 0.7451 — chênh lệch trong nhiễu).
 
 Chạy:  python -m recommendation.ml.gen_dataset            # sinh CSV + meta
         python -m recommendation.ml.gen_dataset --selfcheck  # kiểm tra logic
@@ -22,8 +25,13 @@ import os
 import numpy as np
 import pandas as pd
 
-NAM_TRAIN = [2022, 2023, 2024]
+NAM_TRAIN = [2021, 2022, 2023, 2024]
 NAM_TEST = [2025]
+
+# Số năm quá khứ AI được nhìn khi tính đặc trưng cho mẫu năm t. DB giữ 10 năm
+# (2016–2025) để hiển thị, nhưng phổ điểm 2016–2019 khác biệt nên chỉ dùng 6
+# năm gần nhất. Đổi số này là đổi cửa sổ AI, không đụng dữ liệu hiển thị.
+NAM_LOOKBACK = 6
 
 # Điểm thí sinh giả lập = C + delta. Đối xứng quanh 0 để nhãn cân bằng
 # (delta = 0 -> đỗ, nên dương nhỉnh hơn âm 1 mẫu — kiểm tra ở meta).
@@ -111,7 +119,7 @@ def sinh_mau(fact: pd.DataFrame) -> pd.DataFrame:
     """fact: [KEY + nam, diem_chuan, nhom_nganh, vung_mien] -> mẫu train/test."""
     khoi = []
     for t in NAM_TRAIN + NAM_TEST:
-        past = fact[fact["nam"] < t]
+        past = fact[(fact["nam"] < t) & (fact["nam"] >= t - NAM_LOOKBACK)]
         muc_tieu = fact[fact["nam"] == t]
         if past.empty or muc_tieu.empty:
             continue
@@ -166,7 +174,8 @@ def main(out_dir: str, sample: int = 0) -> None:
     test.to_csv(os.path.join(out_dir, "test_dataset.csv"), index=False)
     cot = ten_cot_dac_trung()
     meta = {
-        "nam_train": NAM_TRAIN, "nam_test": NAM_TEST, "deltas": DELTAS,
+        "nam_train": NAM_TRAIN, "nam_test": NAM_TEST,
+        "nam_lookback": NAM_LOOKBACK, "deltas": DELTAS,
         "train_rows": len(train), "test_rows": len(test),
         "train_pos_rate": round(float(train["nhan"].mean()), 4),
         "test_pos_rate": round(float(test["nhan"].mean()), 4),

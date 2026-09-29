@@ -75,11 +75,11 @@ def test_giai_thich_co_cau():
     """CN-04: đúng 4 câu, margin âm -> câu đầu là cảnh báo."""
     dt = {"margin": -0.5, "xu_huong": 0.6, "bien_dong": 2.1,
           "so_nam_co_dl": 2, "nam_moi_nhat": 2025}
-    cau = giai_thich(dt)
+    cau = giai_thich(dt, tong_so_nam=6)
     assert len(cau) == 4, f"cần 4 câu, got {len(cau)}"
     assert cau[0]["canh_bao"] is True, "margin âm phải là cảnh báo"
     assert cau[1]["canh_bao"] is True, "xu_huong +0.6 phải cảnh báo"
-    assert cau[3]["canh_bao"] is True, "2/5 năm phải cảnh báo độ tin cậy"
+    assert cau[3]["canh_bao"] is True, "2/6 năm phải cảnh báo độ tin cậy"
 
 def _tang(t, n):
     return [{"tang": t, "margin": n - i} for i in range(n)]
@@ -109,11 +109,11 @@ def test_chon_can_ban_tang_thieu_nhuong_suat():
 def test_giai_thich_khong_bia_so():
     """CN-04: câu phải chứa đúng con số trong đặc trưng."""
     dt = {"margin": 1.3, "xu_huong": 0.4, "bien_dong": 1.0,
-          "so_nam_co_dl": 5, "nam_moi_nhat": 2025}
-    chu = " ".join(c["chu"] for c in giai_thich(dt))
+          "so_nam_co_dl": 6, "nam_moi_nhat": 2025}
+    chu = " ".join(c["chu"] for c in giai_thich(dt, tong_so_nam=6))
     assert "1,3" in chu, "margin phải dùng dấu phẩy tiếng Việt"
     assert "2025" in chu
-    assert "5/5 năm" in chu
+    assert "6/6 năm" in chu
 
 def main():
     tests = [v for k, v in sorted(globals().items()) if k.startswith("test_")]

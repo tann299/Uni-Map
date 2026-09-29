@@ -140,7 +140,7 @@
           <div class="p-space-md border-b border-surface-container-high">
             <div class="font-label-sm text-label-sm text-on-surface-variant mb-space-xs flex items-center gap-1">
               <span class="material-symbols-outlined text-[16px] text-primary-container">history_edu</span>
-              Lịch sử điểm chuẩn 5 năm
+              Lịch sử điểm chuẩn {{ so_nam_cua_so }} năm
             </div>
             <div class="flex items-end gap-1 h-28">
               {% for c in r.theo_nam %}
@@ -164,7 +164,7 @@
             </div>
             <div class="flex items-center justify-between gap-2 font-label-sm text-label-sm">
               <span class="text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">verified</span>Dữ liệu</span>
-              <span class="font-mono {% if r.kq.so_nam_co_dl < 3 %}text-[#DC2626]{% else %}text-on-surface{% endif %}">{{ r.kq.so_nam_co_dl }}/5 năm</span>
+              <span class="font-mono {% if r.kq.so_nam_co_dl < 3 %}text-[#DC2626]{% else %}text-on-surface{% endif %}">{{ r.kq.so_nam_co_dl }}/{{ so_nam_cua_so }} năm</span>
             </div>
             <div class="flex items-center justify-between gap-2 font-label-sm text-label-sm">
               <span class="text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">workspace_premium</span>Tổ hợp</span>

@@ -1,5 +1,6 @@
 {
   "nam_train": [
+    2021,
     2022,
     2023,
     2024
@@ -7,6 +8,7 @@
   "nam_test": [
     2025
   ],
+  "nam_lookback": 6,
   "deltas": [
     -3.0,
     -2.0,
@@ -20,11 +22,11 @@
     2.0,
     3.0
   ],
-  "train_rows": 720159,
-  "test_rows": 239525,
+  "train_rows": 913924,
+  "test_rows": 244123,
   "train_pos_rate": 0.5455,
   "test_pos_rate": 0.5455,
-  "so_key": 91581,
+  "so_key": 100363,
   "cot_dac_trung": [
     "diem_thi",
     "margin",

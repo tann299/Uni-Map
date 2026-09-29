@@ -128,7 +128,7 @@
 </head>
 <body class="bg-surface text-on-surface font-body min-h-screen flex flex-col pt-16 antialiased">
 
-  <!-- HEADER (Cover 100% UI mockup: logo SVG, badge 2021-2025, nav items, guest / user auth state) -->
+  <!-- HEADER (Cover 100% UI mockup: logo SVG, badge 2020-2025, nav items, guest / user auth state) -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest border-b border-surface-container-highest">
     <div class="h-16 max-w-[1350px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
 
@@ -171,7 +171,7 @@
         <!-- Verified Data Badge (from mockup) -->
         <div class="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-low border border-surface-container-highest">
           <span class="material-symbols-outlined text-[16px] text-primary-container">verified</span>
-          <span class="text-xs text-on-surface-variant font-medium">Dữ liệu 2021–2025</span>
+          <span class="text-xs text-on-surface-variant font-medium">Dữ liệu {{ cua_so_text|default:"2020–2025" }}</span>
         </div>
 
         {% if user.is_authenticated %}
@@ -238,7 +238,7 @@
           <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Nền tảng cố vấn học thuật và định hướng tuyển sinh đại học thông minh dựa trên phân tích dữ liệu đa chiều và thuật toán máy học tin cậy.</p>
           <div>
             <span class="inline-flex items-center gap-2 px-2.5 py-1 bg-surface-container text-primary font-label-sm text-label-sm rounded-full border border-outline-variant">
-              <span class="w-2 h-2 rounded-full bg-[#16A34A]"></span>Dữ liệu chuẩn hóa 2021–2025
+              <span class="w-2 h-2 rounded-full bg-[#16A34A]"></span>Dữ liệu chuẩn hóa {{ cua_so_text|default:"2020–2025" }}
             </span>
           </div>
           <div class="flex items-center gap-2 text-on-surface-variant pt-1">
@@ -252,10 +252,10 @@
         <div class="lg:col-span-3 flex flex-col gap-3">
           <span class="font-label-md text-label-md uppercase tracking-wider text-on-surface font-bold">Tính năng</span>
           <ul class="flex flex-col gap-2 font-body-sm text-body-sm text-on-surface-variant">
-            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'university:tra_cuu' %}">Tra cứu điểm chuẩn 5 năm</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'university:tra_cuu' %}">Tra cứu điểm chuẩn {{ so_nam_cua_so }} năm</a></li>
             <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'accounts:dang_nhap' %}">Gợi ý Nguyện vọng AI</a></li>
             <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'recommendation:so_sanh_moi' %}">So sánh nguyện vọng</a></li>
-            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'university:danh_sach_truong' %}">Danh sách 288 trường ĐH</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'university:danh_sach_truong' %}">Danh sách {{ so_truong }} trường ĐH</a></li>
           </ul>
         </div>
 

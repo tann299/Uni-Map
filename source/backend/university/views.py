@@ -4,7 +4,8 @@ View app `university` — tra cứu điểm chuẩn (UC-01) + chi tiết trườ
 
 Gồm hai tầng:
   * Trang HTML (`trang_chu`, `tra_cuu`, `danh_sach_truong`, `chi_tiet_truong`)
-    pivot 5 năm theo `dac_trung_diemchuan` — đã có sẵn cột `diem_nam_1..5`.
+    pivot N năm theo `dac_trung_diemchuan` — đọc cột `diem_nam_1..10` theo
+    `CuaSoNam`, nên đổi chu kỳ ở UI admin là bảng tự dài/ngắn theo.
   * API JSON dưới `/api/` (`api_tra_cuu`) trả fact phẳng từng năm.
 
 Toàn bộ dữ liệu ở đây do crawler + import_mysql.py nạp vào; view chỉ đọc.
@@ -40,8 +41,26 @@ SAP_XEP = {
 
 
 def cua_so_nam() -> list[CuaSoNam]:
-    """vi_tri 1..5 -> năm thật, dùng làm tiêu đề cột."""
+    """vi_tri 1..10 -> năm thật, dùng làm tiêu đề cột."""
     return list(CuaSoNam.objects.all())
+
+
+# Mặc định bày đủ cả cửa sổ; `?cot=5` để thu gọn khi bảng quá dài.
+SO_COT_MAC_DINH = 10
+SO_COT_CHO_PHEP = (5, 10)
+
+
+def so_cot_hien_thi(request) -> int:
+    try:
+        cot = int(request.GET.get("cot", SO_COT_MAC_DINH))
+    except (TypeError, ValueError):
+        return SO_COT_MAC_DINH
+    return cot if cot in SO_COT_CHO_PHEP else SO_COT_MAC_DINH
+
+
+def cua_so_hien_thi(request) -> list[CuaSoNam]:
+    """`cua_so` đã cắt còn N năm mới nhất theo `?cot=`."""
+    return cua_so_nam()[-so_cot_hien_thi(request):]
 
 
 def _chip(bien_dong) -> dict:
@@ -55,13 +74,15 @@ def _chip(bien_dong) -> dict:
 
 
 def _thanh_dong(row, cua_so) -> dict:
-    """1 dòng bảng: gộp (trường, ngành, tổ hợp) + chuỗi 5 năm.
+    """1 dòng bảng: gộp (trường, ngành, tổ hợp) + chuỗi N năm của cửa sổ.
 
     `theo_nam` ghép sẵn (năm, điểm) vì template Django không zip được 2 list.
+    `cua_so` có thể đã cắt còn N năm mới nhất -> lấy đuôi chuỗi điểm cho khớp.
     """
     return {
         "theo_nam": [
-            {"nam": c.nam, "diem": d} for c, d in zip(cua_so, row.chuoi_diem())
+            {"nam": c.nam, "diem": d}
+            for c, d in zip(cua_so, row.chuoi_diem()[-len(cua_so):])
         ],
         "chip": _chip(row.bien_dong),
         "ma_truong": row.ma_truong_id,
@@ -169,10 +190,11 @@ def trang_chu(request):
         "so_dong_diem": DiemChuan.objects.count(),
         "so_to_hop": ToHop.objects.count(),
     }
-    # "Ngành tiêu biểu": điểm chuẩn năm mới nhất cao nhất, đủ 5 năm dữ liệu.
+    # "Ngành tiêu biểu": điểm chuẩn năm mới nhất cao nhất, đủ dữ liệu cả cửa sổ.
+    so_nam = len(cua_so_nam())
     tieu_bieu = DacTrungDiemChuan.objects.select_related(
         "ma_truong", "nganh", "ma_to_hop"
-    ).filter(so_nam_co_dl=5).order_by("-diem_moi_nhat")[:5]
+    ).filter(so_nam_co_dl=so_nam).order_by("-diem_moi_nhat")[:5]
 
     # Khám phá theo nhóm ngành: lấy thẳng từ dữ liệu, không hardcode 6 nhóm
     # của mockup (mockup dùng tên nhóm không có trong CSDL).
@@ -197,12 +219,15 @@ def tra_cuu(request):
     paginator = Paginator(qs, PAGE_SIZE)
     page = paginator.get_page(request.GET.get("trang") or 1)
 
-    cua_so = cua_so_nam()
+    cua_so = cua_so_hien_thi(request)
     return render(request, "university/tra_cuu.html", {
         "nav_active": "tra_cuu",
         "params": params,
         "bo_loc": _bo_loc(),
         "cua_so": cua_so,
+        "so_cot": len(cua_so),
+        "colspan": len(cua_so) + 5,
+        "cua_so_day_du": cua_so_nam(),
         # Giu query string khi doi trang: template dung {% querystring %} (Django 5.1+).
         "page": page,
         # Danh sach so trang da rut gon (91k dong -> ~4.5k trang).
@@ -299,9 +324,9 @@ def danh_sach_truong(request):
 
 
 def chi_tiet_truong(request, ma_truong):
-    """UC-02 — chi tiết 1 trường: KPI + bảng điểm chuẩn 5 năm theo ngành."""
+    """UC-02 — chi tiết 1 trường: KPI + bảng điểm chuẩn cả cửa sổ theo ngành."""
     t = get_object_or_404(Truong, pk=ma_truong)
-    cua_so = cua_so_nam()
+    cua_so = cua_so_hien_thi(request)
 
     g = request.GET
     ma_to_hop = (g.get("ma_to_hop") or "").strip()
@@ -332,6 +357,9 @@ def chi_tiet_truong(request, ma_truong):
         "nav_active": "truong",
         "truong": t,
         "cua_so": cua_so,
+        "so_cot": len(cua_so),
+        "colspan": len(cua_so) + 4,
+        "cua_so_day_du": cua_so_nam(),
         "params": {"ma_to_hop": ma_to_hop, "phuong_thuc": phuong_thuc,
                    "nhom_nganh": nhom_nganh, "sap_xep": sap_xep},
         "bo_loc": {

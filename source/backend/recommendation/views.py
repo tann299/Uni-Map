@@ -67,7 +67,7 @@ def _loc_cung(hs, to_hop_diem, *, dung_nhom=True, dung_vung=True):
 
 
 def _thanh_dong(r, diem_hs, uu_tien_ap_dung, p=None):
-    """1 ứng viên -> dict hiển thị (giữ `kq` là dòng đặc trưng để lấy chuỗi 5 năm).
+    """1 ứng viên -> dict hiển thị (giữ `kq` là dòng đặc trưng để lấy chuỗi năm).
 
     `p` là xác suất đỗ của mô hình; None = chưa chấm được -> phân tầng bằng
     `margin` (chế độ dự phòng UC-05/5b).
@@ -231,7 +231,7 @@ def chi_tiet_goi_y(request, kq_id):
         "bien_dong": dt.bien_dong if dt else 0,
         "so_nam_co_dl": dt.so_nam_co_dl if dt else 0,
         "nam_moi_nhat": nam_that[-1] if nam_that else "gần nhất",
-    })
+    }, tong_so_nam=len(nam_that))
     return render(request, "recommendation/goi_y_chi_tiet.html", {
         "nav_active": "goi_y", "kq": kq, "ho_so": kq.lan_goi_y.ho_so,
         "dt": dt, "bieu_do": bieu_do, "giai_thich": cau,

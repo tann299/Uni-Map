@@ -15,7 +15,7 @@
       <div class="space-y-space-xs mb-space-lg">
         <div class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container text-primary-container font-label-sm text-label-sm">
           <span class="material-symbols-outlined text-[16px]">verified</span>
-          <span>Dữ liệu Tuyển sinh Chính quy 2021–2025</span>
+          <span>Dữ liệu Tuyển sinh Chính quy {{ cua_so_text|default:"2020–2025" }}</span>
         </div>
         <h1 class="font-headline-lg text-headline-lg text-on-surface">Tra cứu Điểm chuẩn</h1>
       </div>
@@ -41,6 +41,8 @@
         {% if params.tinh_thanh %}<input type="hidden" name="tinh_thanh" value="{{ params.tinh_thanh }}">{% endif %}
         {% if params.vung_mien %}<input type="hidden" name="vung_mien" value="{{ params.vung_mien }}">{% endif %}
         {% if params.sap_xep %}<input type="hidden" name="sap_xep" value="{{ params.sap_xep }}">{% endif %}
+        {# Giữ lựa chọn số cột năm khi lọc/tìm — không thì mỗi lần lọc lại về 5 năm. #}
+        <input type="hidden" name="cot" value="{{ so_cot }}">
 
         <div class="flex items-center gap-space-xs mt-space-sm overflow-x-auto whitespace-nowrap">
           <span class="font-label-sm text-label-sm text-on-surface-variant">Gợi ý nhanh:</span>
@@ -70,6 +72,7 @@
         {% if params.q %}<input type="hidden" name="q" value="{{ params.q }}">{% endif %}
         {% if params.truong %}<input type="hidden" name="truong" value="{{ params.truong }}">{% endif %}
         {% if params.nganh %}<input type="hidden" name="nganh" value="{{ params.nganh }}">{% endif %}
+        <input type="hidden" name="cot" value="{{ so_cot }}">
 
         <div class="space-y-1">
           <label class="font-label-sm text-label-sm text-on-surface-variant block" for="filterRegion">Tỉnh thành</label>
@@ -182,8 +185,19 @@
       </div>
     </section>
 
-    <!-- ===== BẢNG ĐIỂM CHUẨN 5 NĂM ===== -->
+    <!-- ===== BẢNG ĐIỂM CHUẨN ===== -->
     <section class="w-full bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden mb-space-lg">
+      {% if cua_so_day_du|length > so_cot %}
+      <div class="flex items-center justify-between gap-space-sm px-space-md py-space-sm bg-surface-container-low border-b border-surface-container-high">
+        <span class="font-label-sm text-label-sm text-on-surface-variant">Đang hiện {{ so_cot }} năm gần nhất{% with dau=cua_so.0 %}{% with cuoi=cua_so|last %} ({{ dau.nam }}–{{ cuoi.nam }}){% endwith %}{% endwith %} trong {{ cua_so_day_du|length }} năm dữ liệu</span>
+        <a class="px-3 py-1 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary transition-colors" href="{% querystring cot=10 %}">Xem đủ {{ cua_so_day_du|length }} năm →</a>
+      </div>
+      {% elif so_cot == 10 and cua_so_day_du|length == 10 %}
+      <div class="flex items-center justify-between gap-space-sm px-space-md py-space-sm bg-surface-container-low border-b border-surface-container-high">
+        <span class="font-label-sm text-label-sm text-on-surface-variant">Đang hiện đủ {{ so_cot }} năm dữ liệu</span>
+        <a class="px-3 py-1 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-colors" href="{% querystring cot=5 %}">← Thu gọn 5 năm</a>
+      </div>
+      {% endif %}
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
@@ -206,7 +220,7 @@
                   <span class="font-label-sm text-[10px] text-on-primary-fixed-variant font-normal">Chính thức</span>
                 </th>
               {% endwith %}
-              <th class="py-space-md px-space-md font-semibold whitespace-nowrap text-center">Biến động 5 năm</th>
+              <th class="py-space-md px-space-md font-semibold whitespace-nowrap text-center">Biến động {{ so_nam_cua_so }} năm</th>
               <th class="py-space-md px-space-md font-semibold whitespace-nowrap text-right">Hành động</th>
             </tr>
           </thead>
@@ -247,7 +261,7 @@
                     <span class="inline-flex items-center gap-0.5 px-space-xs py-0.5 rounded border font-label-sm text-label-sm font-medium {{ r.chip.cls }}">
                       <span class="material-symbols-outlined text-[15px]">{{ r.chip.icon }}</span> {{ r.bien_dong }} điểm/năm
                     </span>
-                    <span class="font-label-sm text-[11px] text-outline mt-0.5">{{ r.so_nam_co_dl }}/5 năm dữ liệu</span>
+                    <span class="font-label-sm text-[11px] text-outline mt-0.5">{{ r.so_nam_co_dl }}/{{ so_nam_cua_so }} năm dữ liệu</span>
                   </div>
                 </td>
                 <td class="py-space-md px-space-md text-right whitespace-nowrap">
@@ -271,7 +285,7 @@
               </tr>
             {% empty %}
               <tr>
-                <td class="py-space-xl px-space-md text-center text-on-surface-variant" colspan="10">
+                <td class="py-space-xl px-space-md text-center text-on-surface-variant" colspan="{{ colspan|default:15 }}">
                   <span class="material-symbols-outlined text-[40px] text-outline block mb-space-xs">search_off</span>
                   Không tìm thấy ngành nào khớp bộ lọc.
                   <a class="text-primary-container hover:underline font-semibold" href="{% url 'university:tra_cuu' %}">Đặt lại bộ lọc</a>
