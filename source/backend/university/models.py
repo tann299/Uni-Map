@@ -41,7 +41,7 @@ class Truong(models.Model):
 
 class Nganh(models.Model):
     nganh_id = models.AutoField(primary_key=True)
-    nganh_slug = models.CharField(unique=True, max_length=120)
+    nganh_slug = models.CharField(unique=True, max_length=320)
     ten_nganh = models.CharField(max_length=320)
     nhom_nganh = models.CharField(max_length=40)
 
@@ -116,7 +116,7 @@ class DiemChuan(models.Model):
 
 
 class DacTrungDiemChuan(models.Model):
-    """Đặc trưng cho mô hình (SRS 6.4). diem_nam_1..5 map qua CuaSoNam."""
+    """Đặc trưng cho mô hình (SRS 6.4). diem_nam_1..10 map qua CuaSoNam."""
 
     ma_truong = models.ForeignKey(Truong, models.DO_NOTHING, db_column="ma_truong")
     nganh = models.ForeignKey(Nganh, models.DO_NOTHING, db_column="nganh_id")
@@ -128,6 +128,11 @@ class DacTrungDiemChuan(models.Model):
     diem_nam_3 = models.DecimalField(max_digits=4, decimal_places=2, null=True)
     diem_nam_4 = models.DecimalField(max_digits=4, decimal_places=2, null=True)
     diem_nam_5 = models.DecimalField(max_digits=4, decimal_places=2, null=True)
+    diem_nam_6 = models.DecimalField(max_digits=4, decimal_places=2, null=True)
+    diem_nam_7 = models.DecimalField(max_digits=4, decimal_places=2, null=True)
+    diem_nam_8 = models.DecimalField(max_digits=4, decimal_places=2, null=True)
+    diem_nam_9 = models.DecimalField(max_digits=4, decimal_places=2, null=True)
+    diem_nam_10 = models.DecimalField(max_digits=4, decimal_places=2, null=True)
 
     diem_tb = models.DecimalField(max_digits=4, decimal_places=2)
     diem_min = models.DecimalField(max_digits=4, decimal_places=2)
@@ -137,18 +142,23 @@ class DacTrungDiemChuan(models.Model):
     xu_huong = models.DecimalField(max_digits=6, decimal_places=3)
     so_nam_co_dl = models.PositiveIntegerField()
 
+    # Tổng số cột chuỗi điểm trên 1 dòng. Cửa sổ trượt đổi bằng cách thay số
+    # năm ở UI admin (3–10), không phải sửa code thêm lần nào nữa.
+    SO_COT_CHUOI = 10
+
     class Meta:
         managed = False
         db_table = "dac_trung_diemchuan"
         unique_together = (("ma_truong", "nganh", "ma_to_hop", "phuong_thuc"),)
 
     def chuoi_diem(self) -> list:
-        """Chuỗi 5 năm theo thứ tự cũ -> mới, None = năm không tuyển."""
-        return [getattr(self, f"diem_nam_{i}") for i in range(1, 6)]
+        """Chuỗi 10 năm theo thứ tự cũ -> mới, None = năm không tuyển."""
+        return [getattr(self, f"diem_nam_{i}")
+                for i in range(1, self.SO_COT_CHUOI + 1)]
 
 
 class CuaSoNam(models.Model):
-    """vi_tri 1..5 -> năm thật. Đổi cửa sổ không cần ALTER TABLE (CN-05)."""
+    """vi_tri 1..10 -> năm thật. Đổi cửa sổ không cần ALTER TABLE (CN-05)."""
 
     vi_tri = models.PositiveIntegerField(primary_key=True)
     nam = models.PositiveSmallIntegerField(unique=True)

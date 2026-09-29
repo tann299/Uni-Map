@@ -9,8 +9,8 @@ Nạp data/*.csv vào cơ sở dữ liệu uni_map (lược đồ: db/schema.sql
   * IDEMPOTENT — dùng INSERT ... ON DUPLICATE KEY UPDATE trên các khoá tự nhiên
     nên chạy lại nhiều lần không nhân bản dòng.
   * TRANSACTION — lỗi giữa chừng thì rollback, DB giữ nguyên trạng thái trước đó.
-  * CỬA SỔ TRƯỢT — sau khi nạp, tự xoá năm đã rơi khỏi cửa sổ. Cửa sổ nhỏ hơn 5
-    năm (`--years 3`) chạy được không cần ALTER TABLE: cột năm thừa để NULL.
+  * CỬA SỔ TRƯỢT — sau khi nạp, tự xoá năm đã rơi khỏi cửa sổ. Cửa sổ nhỏ hơn
+    10 năm (`--years 3`) chạy được không cần ALTER TABLE: cột năm thừa để NULL.
   * DỌN RÁC — xoá dòng fact không còn trong CSV và dòng chiều mồ côi. Không có
     bước này, dữ liệu cũ (slug đổi vì sửa font, ngành nguồn đã bỏ) nằm lại vĩnh
     viễn vì upsert chỉ thêm/cập nhật, không xoá. Lịch sử gợi ý của học sinh
@@ -49,7 +49,7 @@ HERE     = os.path.dirname(os.path.abspath(__file__))
 ROOT     = os.path.dirname(HERE)
 DATA_DIR = os.path.join(ROOT, "data")
 BATCH    = 2000            # số dòng mỗi lần executemany
-SO_COT_NAM = 5             # số cột diem_nam_* trong schema.sql
+SO_COT_NAM = 10            # số cột diem_nam_* trong schema.sql
 
 
 def read_csv(name: str) -> pd.DataFrame:
@@ -90,9 +90,9 @@ def nap_truong(cur) -> pd.DataFrame:
 def nap_nganh(cur) -> dict[str, int]:
     """Nạp ngành rồi trả map nganh_slug -> nganh_id (khoá thay thế)."""
     df = read_csv("nganh.csv")
-    # slug trong DB là VARCHAR(120); đã kiểm chứng cắt 120 không gây trùng
-    df["nganh_slug"] = df.nganh_slug.str.slice(0, 120).str.rstrip("-")
-    assert df.nganh_slug.is_unique, "cắt slug 120 ký tự gây trùng — cần nới cột"
+    # Cột `nganh_slug` là VARCHAR(320) — đủ chứa slug dài nhất (287 ký tự), nên
+    # không cắt ngắn. Cắt ở 120 từng gây trùng: 2 slug khác nhau sau ký tự 120.
+    assert df.nganh_slug.is_unique, "nganh_slug trong CSV bị trùng"
 
     sql = """INSERT INTO nganh (nganh_slug, ten_nganh, nhom_nganh)
              VALUES (%s, %s, %s)
@@ -135,7 +135,6 @@ def nap_to_hop(cur) -> pd.DataFrame:
 
 def nap_diem_chuan(cur, slug2id: dict[str, int]) -> pd.DataFrame:
     df = read_csv("diem_chuan.csv")
-    df["nganh_slug"] = df.nganh_slug.str.slice(0, 120).str.rstrip("-")
     df["nganh_id"] = df.nganh_slug.map(slug2id)
     mat = df.nganh_id.isna()
     if mat.any():
@@ -157,15 +156,14 @@ def nap_diem_chuan(cur, slug2id: dict[str, int]) -> pd.DataFrame:
 def nap_dac_trung(cur, slug2id: dict[str, int]) -> list[int]:
     """Nạp bảng đặc trưng + ánh xạ cửa sổ năm. Trả danh sách năm trong cửa sổ."""
     df = read_csv("dac_trung_diemchuan.csv")
-    df["nganh_slug"] = df.nganh_slug.str.slice(0, 120).str.rstrip("-")
     df["nganh_id"] = df.nganh_slug.map(slug2id).astype(int)
 
     ycols = sorted(c for c in df.columns if c.startswith("diem_2"))
     years = [int(c.split("_")[1]) for c in ycols]
 
-    # Bảng có đúng 5 cột diem_nam_1..5. Cửa sổ nhỏ hơn (`--years 3`) thì các cột
+    # Bảng có 10 cột diem_nam_1..10. Cửa sổ nhỏ hơn (`--years 3`) thì các cột
     # cuối phải là NULL, nếu không số placeholder sẽ lệch số cột -> INSERT nổ.
-    # Cửa sổ lớn hơn 5 thì phải ALTER TABLE, chặn ngay ở đây cho rõ nguyên nhân.
+    # Cửa sổ lớn hơn 10 thì phải ALTER TABLE, chặn ngay ở đây cho rõ nguyên nhân.
     if len(years) > SO_COT_NAM:
         sys.exit(f"Cửa sổ {len(years)} năm > {SO_COT_NAM} cột diem_nam_* trong "
                  f"schema.sql. Thêm cột rồi cập nhật SO_COT_NAM.")
@@ -181,7 +179,7 @@ def nap_dac_trung(cur, slug2id: dict[str, int]) -> list[int]:
         s = pd.to_numeric(df[c], errors="coerce")
         df[c] = s.astype(object).where(s.notna(), None)
 
-    # cột năm còn thiếu so với 5 cột của bảng -> None
+    # cột năm còn thiếu so với 10 cột của bảng -> None
     for i in range(len(years), SO_COT_NAM):
         df[f"_trong_{i}"] = None
     ycols += [f"_trong_{i}" for i in range(len(years), SO_COT_NAM)]
@@ -193,13 +191,16 @@ def nap_dac_trung(cur, slug2id: dict[str, int]) -> list[int]:
     sql = f"""INSERT INTO dac_trung_diemchuan
                 (ma_truong, nganh_id, ma_to_hop, phuong_thuc,
                  diem_nam_1, diem_nam_2, diem_nam_3, diem_nam_4, diem_nam_5,
+                 diem_nam_6, diem_nam_7, diem_nam_8, diem_nam_9, diem_nam_10,
                  diem_tb, diem_min, diem_max, diem_moi_nhat,
                  bien_dong, xu_huong, so_nam_co_dl)
               VALUES ({ph})
               ON DUPLICATE KEY UPDATE
                 diem_nam_1 = VALUES(diem_nam_1), diem_nam_2 = VALUES(diem_nam_2),
                 diem_nam_3 = VALUES(diem_nam_3), diem_nam_4 = VALUES(diem_nam_4),
-                diem_nam_5 = VALUES(diem_nam_5),
+                diem_nam_5 = VALUES(diem_nam_5), diem_nam_6 = VALUES(diem_nam_6),
+                diem_nam_7 = VALUES(diem_nam_7), diem_nam_8 = VALUES(diem_nam_8),
+                diem_nam_9 = VALUES(diem_nam_9), diem_nam_10 = VALUES(diem_nam_10),
                 diem_tb    = VALUES(diem_tb),    diem_min   = VALUES(diem_min),
                 diem_max   = VALUES(diem_max),   diem_moi_nhat = VALUES(diem_moi_nhat),
                 bien_dong  = VALUES(bien_dong),  xu_huong   = VALUES(xu_huong),
@@ -225,7 +226,6 @@ def don_fact_la(cur, slug2id: dict[str, int]):
             ("diem_chuan", "diem_chuan.csv", True),
             ("dac_trung_diemchuan", "dac_trung_diemchuan.csv", False)):
         df = read_csv(csv_name)
-        df["nganh_slug"] = df.nganh_slug.str.slice(0, 120).str.rstrip("-")
         df["nganh_id"] = df.nganh_slug.map(slug2id).astype(int)
         if not co_nam:
             df["nam"] = 0
@@ -320,7 +320,8 @@ def kiem_tra(cur):
     # khoá ngoại đã do InnoDB đảm bảo; ở đây kiểm các bất biến nghiệp vụ
     assert q("SELECT COUNT(*) FROM truong WHERE tinh_thanh = ''") == 0, \
         "có trường thiếu tinh_thanh"
-    assert q("SELECT COUNT(DISTINCT nam) FROM diem_chuan") <= 5, "cửa sổ > 5 năm"
+    assert q("SELECT COUNT(DISTINCT nam) FROM diem_chuan") <= SO_COT_NAM, \
+        f"cửa sổ > {SO_COT_NAM} năm"
     assert q("SELECT COUNT(*) FROM diem_chuan WHERE diem_chuan <= 0 OR diem_chuan > 40") == 0, \
         "điểm chuẩn ngoài thang"
     assert dem["cua_so_nam"] == q("SELECT COUNT(DISTINCT nam) FROM diem_chuan"), \

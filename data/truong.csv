@@ -51,6 +51,7 @@ NLN,Phân hiệu Đại học Nông Lâm TPHCM tại Ninh Thuận,,Khánh Hòa,M
 QSP,Phân hiệu Đại học Quốc gia TPHCM tại Bến Tre,SPAS,Vĩnh Long,Miền Nam
 DTG,Phân hiệu Đại học Thái Nguyên tại Hà Giang,,Thái Nguyên,Miền Bắc
 XDN,Phân hiệu Đại học Xây dựng miền Trung tại Đà Nẵng,MUCE,Đắk Lắk,Miền Trung
+YHT,Phân hiệu Đại học Y Hà Nội tại Thanh Hóa,,Thanh Hóa,Miền Trung
 DHD,Trường Du Lịch - Đại Học Huế,HUHT,Huế,Miền Trung
 QHK,Trường Khoa học liên ngành và Nghệ thuật Hà Nội,VNU-SIS,Hà Nội,Miền Bắc
 DTF,Trường Ngoại Ngữ Thái Nguyên,SFL,Thái Nguyên,Miền Bắc
@@ -59,6 +60,7 @@ QHQ,Trường Quốc Tế - ĐHQG Hà Nội,VNUIS,Hà Nội,Miền Bắc
 LCH,Trường Sĩ Quan Chính Trị - Đại Học Chính Trị,POC,Bắc Ninh,Miền Bắc
 SNH,Trường Sĩ Quan Công Binh - Hệ Quân sự - Đại học Ngô Quyền,NQU,TP Hồ Chí Minh,Miền Nam
 KGH,Trường Sĩ Quan Không Quân - Hệ Đại học,,Khánh Hòa,Miền Trung
+VPH,Trường Sĩ Quan Kĩ Thuật Quân Sự - Hệ Quân sự - Đại Học Trần Đại Nghĩa,,TP Hồ Chí Minh,Miền Nam
 LAH,Trường Sĩ Quan Lục Quân 1 - Đại học Trần Quốc Tuấn,TQT Uni,Hà Nội,Miền Bắc
 LBH,Trường Sĩ Quan Lục Quân 2 - Đại học Nguyễn Huệ,,Huế,Miền Trung
 PBH,Trường Sĩ Quan Pháo Binh,,Hà Nội,Miền Bắc
@@ -159,6 +161,8 @@ NLS,Trường Đại Học Nông Lâm TPHCM,NLU,TP Hồ Chí Minh,Miền Nam
 DTN,Trường Đại Học Nông Lâm Thái Nguyên,TUAF,Thái Nguyên,Miền Bắc
 DPC,Trường Đại Học Phan Châu Trinh,PCTU,Đà Nẵng,Miền Trung
 DPT,Trường Đại Học Phan Thiết,UPT,Lâm Đồng,Miền Trung
+PCH1,Trường Đại Học Phòng Cháy Chữa Cháy (Hệ Dân sự Phía Bắc),,Hà Nội,Miền Bắc
+PCS1,Trường Đại Học Phòng Cháy Chữa Cháy (Hệ Dân sự Phía Nam),,Đồng Nai,Miền Nam
 PCS,Trường Đại Học Phòng Cháy Chữa Cháy (phía Nam),,TP Hồ Chí Minh,Miền Nam
 DPX,Trường Đại Học Phú Xuân,PXU,Huế,Miền Trung
 DPY,Trường Đại Học Phú Yên,PYU,Đắk Lắk,Miền Trung
@@ -173,6 +177,7 @@ DBH,Trường Đại Học Quốc Tế Bắc Hà,IUBH,Bắc Ninh,Miền Bắc
 HIU,Trường Đại Học Quốc Tế Hồng Bàng,HIU,TP Hồ Chí Minh,Miền Nam
 EIU,Trường Đại Học Quốc Tế Miền Đông,EIU,TP Hồ Chí Minh,Miền Nam
 SGD,Trường Đại Học Sài Gòn,SGU,TP Hồ Chí Minh,Miền Nam
+SKD,Trường Đại Học Sân Khấu Điện Ảnh Hà Nội,SKDAHCM,Hà Nội,Miền Bắc
 DDS,Trường Đại Học Sư Phạm - Đại Học Đà Nẵng,UED,Đà Nẵng,Miền Trung
 DHS,Trường Đại Học Sư Phạm Huế,HUE,Huế,Miền Trung
 SPH,Trường Đại Học Sư Phạm Hà Nội,HNUE,Hà Nội,Miền Bắc
@@ -255,6 +260,7 @@ DNC,Trường Đại học Nam Cần Thơ,NCTU,Cần Thơ,Miền Nam
 CEA,Trường Đại học Nghệ An,NAUE,Nghệ An,Miền Trung
 NTH,Trường Đại học Ngoại thương,FTU,Hà Nội,Miền Bắc
 NTS,Trường Đại học Ngoại thương (Cơ sở II),FTU2,TP Hồ Chí Minh,Miền Nam
+LBS,Trường Đại học Nguyễn Huệ,,Huế,Miền Trung
 DBG,Trường Đại học Nông Lâm Bắc Giang,BAFU,Bắc Ninh,Miền Bắc
 DNV,Trường Đại học Nội vụ Hà Nội,,Hà Nội,Miền Bắc
 HPU,Trường Đại học Quản lý và Công nghệ Hải Phòng,HPU,Hải Phòng,Miền Bắc
@@ -272,6 +278,7 @@ DFA,Trường Đại học Tài chính Quản trị kinh doanh,UFBA,Hưng Yên,M
 TQU,Trường Đại học Tân Trào,TTU,Tuyên Quang,Miền Bắc
 TTU,Trường Đại học Tân Tạo,TTU,Tây Ninh,Miền Nam
 VJU,Trường Đại học Việt Nhật - ĐHQG Hà Nội,VJU,Hà Nội,Miền Bắc
+ZNH,Trường Đại học Văn hóa Nghệ thuật Quân đội,,Hà Nội,Miền Bắc
 QHY,Trường Đại học Y Dược - ĐHQG Hà Nội,UMP,Hà Nội,Miền Bắc
 BMU,Trường Đại học Y Dược Buôn Ma Thuột,BMTU,Đắk Lắk,Miền Trung
 THU,Trường Đại học Y khoa Tokyo Việt Nam,THUV,Hưng Yên,Miền Bắc

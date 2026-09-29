@@ -66,7 +66,7 @@ TABLES = {
     "nganh": (34, 14, "ref", "nganh  (2.312)", [
         ("nganh_id", "PK"), ("nganh_slug", "U"), ("ten_nganh", ""),
         ("nhom_nganh", "")]),
-    "to_hop": (64, 14, "ref", "to_hop  (330)", [
+    "to_hop": (64, 14, "ref", "to_hop  (329)", [
         ("ma_to_hop", "PK"), ("ten_to_hop", ""), ("cac_mon", ""), ("so_mon", "")]),
     "to_hop_mon": (94, 14, "ref", "to_hop_mon  (848)", [
         ("ma_to_hop", "FK"), ("ma_mon", "FK"), ("vi_tri", "")]),
@@ -74,18 +74,18 @@ TABLES = {
         ("ma_mon", "PK"), ("ten_mon", ""), ("la_nang_khieu", ""), ("thu_tu", "")]),
 
     # --- B. Sự kiện: xếp dọc, căn giữa dưới nhóm A ---
-    "diem_chuan": (36, 58, "fact", "diem_chuan  (178.821)   FACT", [
+    "diem_chuan": (36, 58, "fact", "diem_chuan  (193.762)   FACT", [
         ("id", "PK"), ("ma_truong", "FK"), ("nganh_id", "FK"), ("ma_to_hop", "FK"),
         ("phuong_thuc", ""), ("nam", ""), ("diem_chuan", ""),
         ("UNIQUE(4 khoá + nam)", "NK")]),
-    "dac_trung": (36, 94, "ai", "dac_trung_diemchuan  (91.782)   AI", [
+    "dac_trung": (36, 94, "ai", "dac_trung_diemchuan  (93.358)   AI", [
         ("ma_truong / nganh_id / ma_to_hop", "FK"), ("phuong_thuc", ""),
-        ("diem_nam_1 … diem_nam_5", ""), ("diem_tb / min / max", ""),
+        ("diem_nam_1 … diem_nam_6", ""), ("diem_tb / min / max", ""),
         ("diem_moi_nhat", ""), ("bien_dong / xu_huong", ""),
         ("so_nam_co_dl", "")]),
 
     # --- Vận hành: cột riêng bên phải ---
-    "cua_so_nam": (100, 58, "ops", "cua_so_nam  (5)", [
+    "cua_so_nam": (100, 58, "ops", "cua_so_nam  (6)", [
         ("vi_tri", "PK"), ("nam", "U")]),
     "lan_cap_nhat": (100, 76, "ops", "lan_cap_nhat", [
         ("id", "PK"), ("thoi_diem", ""), ("nam_bat_dau / ket_thuc", ""),

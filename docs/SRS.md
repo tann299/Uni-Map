@@ -7,18 +7,18 @@
 
 Tài liệu đặc tả yêu cầu cho **Uni Map** — hệ thống web giúp học sinh lớp 12 tìm
 trường/ngành đại học phù hợp với **điểm thi, tổ hợp môn, sở thích ngành và khu vực**
-của mình. Hệ thống dùng **mô hình học máy** huấn luyện trên điểm chuẩn 5 năm gần nhất
+của mình. Hệ thống dùng **mô hình học máy** huấn luyện trên điểm chuẩn các năm gần nhất
 để xếp hạng và **giải thích** mức độ phù hợp của từng nguyện vọng.
 
 ## 1.2 Phạm vi
 
 **Trong phạm vi:**
-- Tra cứu điểm chuẩn 2021–2025 của 288 trường đại học, 2.163 ngành, 328 tổ hợp môn
+- Tra cứu điểm chuẩn 2016–2025 của 295 trường đại học, 3.037 ngành, 340 tổ hợp môn
 - Nhập điểm học sinh → gợi ý danh sách trường/ngành xếp hạng theo xác suất đỗ
 - Phân tầng nguyện vọng: **An toàn / Vừa sức / Thử sức**
 - Giải thích lý do gợi ý (khoảng cách điểm, xu hướng, độ dao động)
 - Tài khoản người dùng, lưu lịch sử tra cứu
-- Cập nhật dữ liệu hằng năm theo cơ chế cửa sổ trượt 5 năm
+- Cập nhật dữ liệu hằng năm theo cơ chế cửa sổ trượt (3–10 năm, chọn ở trang quản trị)
 
 **Ngoài phạm vi:**
 - Không đăng ký nguyện vọng thay học sinh (việc này thuộc hệ thống của Bộ GD&ĐT)
@@ -35,7 +35,7 @@ của mình. Hệ thống dùng **mô hình học máy** huấn luyện trên đ
 | **Nguyện vọng (NV)** | Một lựa chọn (trường + ngành + tổ hợp) của học sinh |
 | **`margin`** | Điểm học sinh − điểm chuẩn mới nhất. Dương = có lợi thế |
 | **`xu_huong`** | Độ dốc hồi quy điểm chuẩn theo năm. Dương = ngành đang khó dần |
-| **`bien_dong`** | max − min điểm chuẩn 5 năm. Cao = khó đoán, rủi ro |
+| **`bien_dong`** | max − min điểm chuẩn 6 năm. Cao = khó đoán, rủi ro |
 | **Cửa sổ trượt** | Cơ chế luôn giữ đúng N năm mới nhất, tự bỏ năm cũ |
 | **Chuỗi điểm** | Dãy điểm chuẩn nhiều năm của cùng một (trường, ngành, tổ hợp) |
 
@@ -85,7 +85,7 @@ Django · MySQL · HTML/CSS/JavaScript.
 | GĐ-1 | Điểm chuẩn lấy từ nguồn tổng hợp (`diemthi.tuyensinh247.com`), không phải đề án gốc từng trường → **phải ghi rõ nguồn trên UI** |
 | GĐ-2 | Hệ thống chỉ dùng phương thức **Điểm thi THPT** và **Điểm học bạ** (thang 30/40) vì các phương thức khác không cùng thang, không so sánh được |
 | GĐ-3 | Không có dữ liệu đỗ/trượt thật của học sinh → nhãn huấn luyện **sinh từ lịch sử điểm chuẩn** (mục 6.3) |
-| RB-1 | Chỉ 9.709/91.581 chuỗi có đủ 5 năm → gợi ý phải hiển thị `so_nam_co_dl` để người dùng biết độ tin cậy |
+| RB-1 | Chỉ 6.407/93.358 chuỗi có đủ 6 năm → gợi ý phải hiển thị `so_nam_co_dl` để người dùng biết độ tin cậy |
 | RB-2 | Dữ liệu cập nhật 1 lần/năm sau khi các trường công bố điểm chuẩn (khoảng tháng 8) |
 | RB-3 | Chạy được trên máy sinh viên: không yêu cầu GPU, mô hình < 100 MB |
 | RB-4 | Nguồn hỏng font ngẫu nhiên và công bố điểm chuẩn nhỏ giọt suốt mùa tuyển sinh → crawler phải tự vá và tự chặn năm chưa đủ dữ liệu (CN-08) |
@@ -160,11 +160,11 @@ Django · MySQL · HTML/CSS/JavaScript.
 
 1. Học sinh bấm vào một nguyện vọng trong danh sách gợi ý
 2. Hệ thống hiển thị:
-   - Biểu đồ điểm chuẩn 5 năm của ngành đó
+   - Biểu đồ điểm chuẩn 6 năm của ngành đó
    - `margin`: "Bạn hơn điểm chuẩn 2025 là **+1,3 điểm**"
    - `xu_huong`: "Điểm chuẩn đang **tăng 0,4 điểm/năm**" (kèm cảnh báo nếu tăng)
-   - `bien_dong`: "Dao động 5 năm: **2,1 điểm** — khá ổn định"
-   - `so_nam_co_dl`: "Dựa trên **5/5 năm** dữ liệu"
+   - `bien_dong`: "Dao động 6 năm: **2,1 điểm** — khá ổn định"
+   - `so_nam_co_dl`: "Dựa trên **6/6 năm** dữ liệu"
    - Mức đóng góp của từng đặc trưng vào quyết định của mô hình
 3. Hệ thống nêu rõ đây là **tham khảo dựa trên lịch sử**, không phải cam kết
 
@@ -179,7 +179,7 @@ Django · MySQL · HTML/CSS/JavaScript.
 
 1. Quản trị chạy `python source/crawler/crawl_diemchuan.py --refresh`
 2. Hệ thống crawl toàn bộ trường đại học của nguồn, gộp vào cache, vá font, làm
-   sạch, **tự trượt cửa sổ** sang 5 năm mới nhất đã đủ dữ liệu
+   sạch, **tự trượt cửa sổ** sang các năm mới nhất đã đủ dữ liệu
 3. Self-check chạy tự động: khoá chính/ngoại, miền giá trị, khoá tự nhiên, vị trí trường
 4. Nếu self-check thất bại → **dừng, không import** (bảo vệ dữ liệu đang chạy)
 5. Import vào MySQL bằng upsert theo khoá tự nhiên; xoá năm rơi khỏi cửa sổ
@@ -224,7 +224,7 @@ Ký hiệu ưu tiên: **P0** = bắt buộc cho MVP · **P1** = nên có · **P2
 | US-05 | Là **khách**, tôi muốn **biết nguồn dữ liệu và thời điểm cập nhật** để đánh giá độ tin cậy. | P0 | 6 |
 
 **Tiêu chí chấp nhận US-01:**
-- Nhập tên ngành (có gợi ý tự động) → hiện bảng điểm chuẩn 5 năm
+- Nhập tên ngành (có gợi ý tự động) → hiện bảng điểm chuẩn 6 năm
 - Có biểu đồ đường thể hiện xu hướng
 - Năm không tuyển ngành đó hiển thị "—", không hiển thị 0
 - Hiện rõ `so_nam_co_dl` nếu chuỗi thiếu năm
@@ -266,7 +266,7 @@ Ký hiệu ưu tiên: **P0** = bắt buộc cho MVP · **P1** = nên có · **P2
 
 **Tiêu chí chấp nhận US-14:**
 - Mỗi gợi ý nêu được: khoảng cách điểm (`margin`), xu hướng, độ dao động, số năm dữ liệu
-- Có biểu đồ điểm chuẩn 5 năm
+- Có biểu đồ điểm chuẩn 6 năm
 - Diễn đạt bằng tiếng Việt tự nhiên, không phơi tên biến kỹ thuật ra người dùng
 - Có câu miễn trừ: kết quả là **tham khảo dựa trên lịch sử**, không đảm bảo đỗ
 
@@ -274,7 +274,7 @@ Ký hiệu ưu tiên: **P0** = bắt buộc cho MVP · **P1** = nên có · **P2
 
 | ID | User story | Ưu tiên | Tuần |
 |---|---|---|---|
-| US-19 | Là **quản trị**, tôi muốn **cập nhật dữ liệu bằng một lệnh** và tự động trượt sang 5 năm mới nhất. | P0 | 3–4 |
+| US-19 | Là **quản trị**, tôi muốn **cập nhật dữ liệu bằng một lệnh** và tự động trượt sang các năm mới nhất. | P0 | 3–4 |
 | US-20 | Là **quản trị**, tôi muốn **dữ liệu bị chặn khi không đạt kiểm tra chất lượng** để không phá DB đang chạy. | P0 | 4 |
 | US-21 | Là **quản trị**, tôi muốn **huấn luyện lại mô hình và xem báo cáo đánh giá** trước khi thay thế bản đang dùng. | P0 | 5 |
 | US-22 | Là **quản trị**, tôi muốn **sửa dữ liệu gán sai (tỉnh, nhóm ngành) bằng cách chỉnh file CSV**, không phải sửa code. | P1 | 4 |
@@ -297,7 +297,7 @@ là điểm khác biệt của Uni Map và đều bắt nguồn từ cách dữ 
 
 ## CN-01 — Tự tính điểm mọi tổ hợp từ điểm từng môn
 
-**Vấn đề:** Học sinh có 4–6 môn, hệ thống có 328 tổ hợp. Tự dò xem mình đủ điều kiện
+**Vấn đề:** Học sinh có 4–6 môn, hệ thống có 329 tổ hợp. Tự dò xem mình đủ điều kiện
 tổ hợp nào là việc rất mệt và dễ bỏ sót.
 
 **Cách làm:** Bảng `to_hop.cac_mon` lưu mã môn dạng máy đọc được:
@@ -319,7 +319,7 @@ for to_hop in ToHop.objects.all():
 → Một lần nhập điểm, hệ thống quét **toàn bộ** cơ hội xét tuyển.
 
 **Phụ thuộc dữ liệu:** `cac_mon` phủ **99,58%** dòng điểm chuẩn. Dựng từ danh mục
-344 tổ hợp của Bộ GD&ĐT 2025 + API nguồn (API một mình chỉ có 279/330 mã).
+344 tổ hợp của Bộ GD&ĐT 2025 + API nguồn (API một mình chỉ có 279/329 mã).
 
 ## CN-02 — Nối chuỗi điểm nhiều năm qua tên ngành đã chuẩn hoá
 
@@ -333,8 +333,8 @@ năm bị **cắt vụn** thành nhiều mảnh 1 năm → không tính được
 "CT tiên tiến Việt-Mỹ ngành điện tử viễn thông"             ──→ dien-tu-vien-thong
 ```
 
-**Kết quả đo được:** 4.754 tên gốc trong cửa sổ → **2.163 ngành**. Số chuỗi đủ 5
-năm là **9.709** (so với 5.877 nếu khớp theo tên thô). Đây là điều kiện để
+**Kết quả đo được:** 6.318 tên gốc trong cửa sổ → **2.345 ngành**. Số chuỗi đủ 6
+năm là **6.407** (so với 5.877 nếu khớp theo tên thô). Đây là điều kiện để
 `xu_huong` có ý nghĩa thống kê.
 
 
@@ -364,25 +364,26 @@ lý do kèm theo.
 |---|---|
 | `margin = +1.3` | "Bạn **hơn 1,3 điểm** so với điểm chuẩn 2025" |
 | `xu_huong = +0.4` | "⚠️ Điểm chuẩn đang **tăng ~0,4 điểm/năm** — cân nhắc rủi ro" |
-| `bien_dong = 2.1` | "Dao động 5 năm: **2,1 điểm** — tương đối ổn định" |
-| `so_nam_co_dl = 5` | "Dựa trên **5/5 năm** dữ liệu — độ tin cậy cao" |
+| `bien_dong = 2.1` | "Dao động 6 năm: **2,1 điểm** — tương đối ổn định" |
+| `so_nam_co_dl = 6` | "Dựa trên **6/6 năm** dữ liệu — độ tin cậy cao" |
 
-Không phơi tên biến kỹ thuật ra người dùng. Kèm biểu đồ điểm 5 năm và câu miễn trừ.
+Không phơi tên biến kỹ thuật ra người dùng. Kèm biểu đồ điểm 6 năm và câu miễn trừ.
 
-## CN-05 — Cửa sổ trượt 5 năm tự động
+## CN-05 — Cửa sổ trượt tự động
 
 **Vấn đề:** Điểm chuẩn 2015 không còn giá trị tham chiếu; nhưng nếu cắt cứng
-`2021–2025` trong code thì mỗi năm phải sửa lại.
+`2016–2025` trong code thì mỗi năm phải sửa lại.
 
 **Cách làm:** Script tự phát hiện năm mới nhất trong dữ liệu rồi lùi N năm.
 
 ```bash
-python source/crawler/crawl_diemchuan.py --refresh   # 2026 đủ dữ liệu → tự thành 2022–2026
-python source/crawler/crawl_diemchuan.py --years 3   # muốn 3 năm
+python source/crawler/crawl_diemchuan.py --refresh   # 2026 đủ dữ liệu → tự thành 2017–2026
+python source/crawler/crawl_diemchuan.py --years 6   # muốn 6 năm
 ```
 
 Cache dữ liệu thô (`cache/raw.csv.gz`, giữ mọi năm từ 2010) cho phép **đổi cửa sổ
-mà không crawl lại**.
+mà không crawl lại**. Trên web, chu kỳ chọn được ở trang **Quản trị → Cập nhật dữ
+liệu** (3–10 năm); số cột `diem_nam_1..10` trong `schema.sql` là sức chứa tối đa.
 
 **Trạng thái:** ✅ đã hoàn thành và kiểm chứng.
 
@@ -398,7 +399,7 @@ mà không crawl lại**.
    (`ref/truong_tinh_thucong.csv`) — học viện quân đội/công an, ĐH Bách Khoa HCM…
 3. Quy đổi tỉnh cũ → tỉnh sau sáp nhập + vùng miền (`ref/tinh_thanh.csv`)
 
-**Kết quả:** **288/288 trường (100%)** — 29 tỉnh/thành; Miền Bắc 139, Nam 83, Trung 66.
+**Kết quả:** **289/289 trường (100%)** — 29 tỉnh/thành; Miền Bắc 139, Nam 83, Trung 66.
 
 
 **Trạng thái:** ✅ đã hoàn thành.
@@ -442,7 +443,7 @@ hình — lỗi phát hiện rất muộn.
 **Hậu quả nếu không xử lý:** Hỏng font làm một ngành bị tách thành nhiều slug
 (`Quản trị kinh doanh` và `Quản tr␦␦ kinh doanh` là hai ngành khác nhau) → chuỗi
 điểm bị cắt vụn, đúng cái CN-02 phải chống. Cửa sổ nhận năm 2026 thì số chuỗi đủ
-5 năm sụp từ **9.643 xuống 223** → `xu_huong` mất ý nghĩa thống kê.
+6 năm sụp từ **6.407 xuống 223** → `xu_huong` mất ý nghĩa thống kê.
 
 **Cách làm — bốn tầng:**
 
@@ -451,7 +452,7 @@ hình — lỗi phát hiện rất muộn.
 | Tải lại và gộp | Mỗi trường tải tối đa 3 lần, gộp theo `id` dòng của nguồn, giữ bản sạch | Phần lớn ô hỏng biến mất ngay ở tầng này |
 | Vá theo biến thể | Mỗi cụm `U+FFFD` = đúng 1 ký tự → khớp `Du l␦␦ch` với `Du l.ch` → tìm `Du lịch`. Nhiều ứng viên thì chọn tên xuất hiện nhiều nhất | **137/141** tên hỏng được vá; 4 tên còn lại nằm ngoài cửa sổ |
 | Cache tích luỹ | Crawl **gộp** vào `cache/raw.csv.gz`, không ghi đè | Giữ được 2010–2026 dù nguồn chỉ còn từ 2013 |
-| Cổng năm mới | Năm mới nhất phải đạt ≥ 50% trung vị các năm trước mới vào cửa sổ | 2026 bị loại tự động, cửa sổ giữ 2021–2025, chuỗi đủ 5 năm **9.709** |
+| Cổng năm mới | Năm mới nhất phải đạt ≥ 50% trung vị các năm trước mới vào cửa sổ | 2026 bị loại tự động, cửa sổ giữ 2020–2025, chuỗi đủ 6 năm **6.407** |
 
 Cổng năm mới **không phải ngưỡng cứng theo lịch**: sang tháng 8/2027 khi nguồn đã
 công bố đủ, năm mới tự được nhận — vẫn không phải sửa code, đúng điều CN-05 hứa.
@@ -560,7 +561,7 @@ lịch sử điểm chuẩn** — mỗi dòng điểm chuẩn lịch sử là m�
 > thì kết quả là **đỗ khi `X ≥ C`**.
 
 ```python
-# Sinh mẫu huấn luyện từ 178.825 dòng điểm chuẩn lịch sử
+# Sinh mẫu huấn luyện từ 193.762 dòng điểm chuẩn lịch sử
 # Với mỗi (trường, ngành, tổ hợp) và mỗi năm t, tạo các thí sinh giả lập
 # có điểm quanh điểm chuẩn, rồi gán nhãn theo kết quả thật của năm đó.
 X = features(diem_gia_lap, dac_trung_tinh_den_nam_t_tru_1)
@@ -594,7 +595,7 @@ Chia ngẫu nhiên sẽ để năm 2025 lọt vào tập train → rò rỉ thô
 | `vung_mien` (one-hot) | `truong` | Chênh lệch điểm theo vùng |
 | `phuong_thuc` | `diem_chuan` | THPT và học bạ có mức điểm khác nhau |
 
-Toàn bộ đặc trưng **đã có sẵn** trong `data/dac_trung_diemchuan.csv` (91.581 dòng)
+Toàn bộ đặc trưng **đã có sẵn** trong `data/dac_trung_diemchuan.csv` (93.358 dòng)
 — nhưng **không dùng trực tiếp để huấn luyện**: các cột ở đó tổng hợp trên cả 5
 năm, kể cả năm cần dự đoán. Dùng thẳng là data leakage (mục 6.6). Khi huấn luyện
 phải dựng lại đặc trưng theo từng năm cắt: với mỗi năm `t`, chỉ dùng điểm chuẩn
@@ -661,7 +662,7 @@ GPU (RB-3), và chịu được đặc trưng thiếu (`so_nam_co_dl` nhỏ).
 Chi tiết đầy đủ trong `docs/README_DATA.md`. Sơ đồ quan hệ:
 
 ```
-truong (288)          nganh (2.163)         to_hop (328)
+truong (289)          nganh (2.345)         to_hop (329)
   ma_truong  PK         nganh_id   PK         ma_to_hop PK
   ten_truong            nganh_slug UQ         ten_to_hop
   viet_tat              ten_nganh             cac_mon    ← CN-01
@@ -670,31 +671,31 @@ truong (288)          nganh (2.163)         to_hop (328)
       │                     │                     │
       └─────────────────────┼─────────────────────┘
                             │
-                 diem_chuan (178.825)  ← bảng fact
+                 diem_chuan (193.762)  ← bảng fact
                    id PK
                    ma_truong   FK
                    nganh_id    FK
                    ma_to_hop   FK
                    phuong_thuc      (THPT | học bạ)
-                   nam              (2021–2025)
+                   nam              (2020–2025)
                    diem_chuan
                    UNIQUE(ma_truong, nganh_id, ma_to_hop, phuong_thuc, nam)
                             │
                             ▼ tổng hợp (lưu DB để đạt PC-01 < 3s)
-                 dac_trung_diemchuan (91.581)  ← input cho AI, bước 3–4
-                   diem_nam_1 … diem_nam_5     ← đặt theo VỊ TRÍ, không theo năm
+                 dac_trung_diemchuan (93.358)  ← input cho AI, bước 3–4
+                   diem_nam_1 … diem_nam_6     ← đặt theo VỊ TRÍ, không theo năm
                    diem_tb, diem_min, diem_max, diem_moi_nhat
                    bien_dong, so_nam_co_dl, xu_huong
                             │
-                 cua_so_nam (5)  ← vị trí cột 1..5 → năm thật
+                 cua_so_nam (6)  ← vị trí cột 1..6 → năm thật
                    vi_tri PK, nam UQ
 ```
 
 Hai chi tiết khiến cập nhật hằng năm **không cần đổi cấu trúc bảng**:
 
-`diem_nam_1..5` đặt tên theo **vị trí**, không theo năm. Cửa sổ trượt sang
+`diem_nam_1..6` đặt tên theo **vị trí**, không theo năm. Cửa sổ trượt sang
 2022–2026 thì chỉ nội dung đổi, không `ALTER TABLE`. Bảng `cua_so_nam` cho biết
-vị trí nào ứng với năm nào; cửa sổ nhỏ hơn 5 năm thì các cột cuối để NULL.
+vị trí nào ứng với năm nào; cửa sổ nhỏ hơn 6 năm thì các cột cuối để NULL.
 
 `nganh_id` (surrogate key) làm khoá ngoại thay cho `nganh_slug`. Slug có thể đổi
 khi crawler sửa được tên hỏng font hoặc nguồn đổi tên ngành; `nganh_slug` vẫn giữ
@@ -708,14 +709,15 @@ khi crawler sửa được tên hỏng font hoặc nguồn đổi tên ngành; `
 | Khoá tự nhiên (nền tảng upsert) | ✅ không trùng |
 | Dòng chiều thừa (không có fact) | ✅ 0 — dim dẫn xuất từ fact |
 | Ký tự hỏng font (`U+FFFD`) | ✅ 0 trong toàn bộ DB (vá 137/141 tên) |
-| `tinh_thanh` / `vung_mien` | ✅ 100% (288/288) |
+| `tinh_thanh` / `vung_mien` | ✅ 100% (289/289) |
 | `cac_mon` | ✅ 99,58% dòng |
 | `nhom_nganh` | ⚠️ ~9% còn "Khác" |
-| Cửa sổ 5 năm tự động | ✅ 2021–2025, tự trượt, có cổng chặn năm chưa đủ |
+| Cửa sổ 6 năm tự động | ✅ 2020–2025, tự trượt, có cổng chặn năm chưa đủ |
 
-Số trường là **288**, không phải 289: Nhạc Viện TPHCM bị loại vì nguồn ghi tổ hợp
-là `1` — không rút được mã tổ hợp nào nên không có dòng điểm chuẩn hợp lệ. Trường
-không tra cứu được thì không nên xuất hiện trên UI.
+Số trường hiện là **289** (tăng 1 so với 288 cũ): Phân hiệu ĐH Y Hà Nội tại Thanh Hóa
+(YHT) có dữ liệu từ năm 2020 nên tự lọt vào cửa sổ 6 năm. Nhạc Viện TPHCM vẫn bị loại
+vì nguồn ghi tổ hợp là `1` — không rút được mã tổ hợp nào nên không có dòng điểm
+chuẩn hợp lệ. Trường không tra cứu được thì không nên xuất hiện trên UI.
 
 ---
 
@@ -727,11 +729,11 @@ không tra cứu được thì không nên xuất hiện trên UI.
 | 2 | Database & Backend | Mục 8 · US-19 | ✅ |
 | 3 | Cào dữ liệu | UC-09 · US-19 · CN-05 | ✅ |
 | 4 | Xử lý dữ liệu | CN-01, CN-02, CN-06, CN-07 · US-20, US-22 | ✅ |
-| 5 | Xây dựng AI | UC-10 · Mục 6 · US-21 | ⏳ |
-| 6 | Website & tài khoản | UC-01→04 · US-01→11 | ⏳ |
-| 7 | Tích hợp AI + Web | UC-05 · US-08, US-12 | ⏳ |
-| 8 | Trang kết quả & giải thích | UC-06 · CN-03, CN-04 · US-13→16 | ⏳ |
-| 9 | Hoàn thiện & cải tiến AI | US-11, US-17, US-18 | ⏳ |
+| 5 | Xây dựng AI | UC-10 · Mục 6 · US-21 | ✅ |
+| 6 | Website & tài khoản | UC-01→04 · US-01→11 | ✅ |
+| 7 | Tích hợp AI + Web | UC-05 · US-08, US-12 | ✅ |
+| 8 | Trang kết quả & giải thích | UC-06 · CN-03, CN-04 · US-13→16 | ✅ |
+| 9 | Hoàn thiện & cải tiến AI | US-11, US-17, US-18 | ✅ |
 | 10 | Đóng gói | PC-01→12 | ⏳ |
 | 11–12 | Kiểm thử + báo cáo | Toàn bộ tiêu chí chấp nhận · US-23 | ⏳ |
 
@@ -750,11 +752,11 @@ Uni-Map/
 ├── data/  db/  ref/  cache/     ← dùng chung giữa crawler và backend
 └── docs/                        ← SRS.md · README_DATA.md · Plan.docx
 
-uni_map (MySQL 8.0.30)  truong 288 · nganh 2.163 · to_hop 328 · mon 27
-                        to_hop_mon 848 · diem_chuan 178.825
-                        dac_trung_diemchuan 91.581 · cua_so_nam 5 (2021–2025)
+uni_map (MySQL 8.0.30)  truong 289 · nganh 2.345 · to_hop 329 · mon 27
+                        to_hop_mon 848 · diem_chuan 193.762
+                        dac_trung_diemchuan 93.358 · cua_so_nam 6 (2020–2025)
 
-tracuu/models.py  14 model, tất cả managed=False — schema.sql là nguồn sự thật
+5 app: university · accounts · admissions · recommendation · quantri (mọi model managed=False)
 ```
 
 Dữ liệu và `db/` để ở gốc, không nhét vào `source/`, vì crawler ghi và backend

@@ -67,7 +67,9 @@ HEADERS = {
     "Referer": ORIGIN + "/diem-chuan.html",
 }
 
-LATEST_N_YEARS = 5        # cửa sổ trượt: số năm mới nhất muốn giữ
+# Sức chứa tối đa của cửa sổ = số cột diem_nam_1..10 trong schema.sql. Số năm
+# thực dùng do `--years` (hoặc UI admin) chọn, 3..10.
+LATEST_N_YEARS = 10       # cửa sổ trượt: số năm mới nhất muốn giữ
 END_YEAR       = None     # None = tự lấy năm mới nhất ĐỦ DỮ LIỆU
 LEVEL_DAIHOC   = 2        # 2 = Đại học, 1 = Cao đẳng
 MAX_WORKERS    = 8
@@ -79,8 +81,8 @@ BAD_CHAR        = "�"
 CORRUPT_RETRIES = 3       # số lần tải lại 1 trường khi còn ô hỏng
 
 # Năm mới nhất phải có >= tỉ lệ này so với trung vị các năm trước mới được vào
-# cửa sổ. Nguồn công bố nhỏ giọt (tháng 8 mới đủ); nhận sớm sẽ làm chuỗi 5 năm
-# sụp về gần 0 vì năm mới gần như rỗng.
+# cửa sổ. Nguồn công bố nhỏ giọt (tháng 8 mới đủ); nhận sớm sẽ làm chuỗi nhiều
+# năm sụp về gần 0 vì năm mới gần như rỗng.
 MIN_YEAR_RATIO = 0.5
 
 # Neo mọi đường dẫn vào gốc dự án (2 cấp trên: source/crawler/ -> gốc), không
@@ -505,11 +507,11 @@ def chon_nam_cuoi(nam: pd.Series) -> int:
     """Năm mới nhất ĐỦ DỮ LIỆU để làm mốc cuối cửa sổ.
 
     Nguồn công bố điểm chuẩn nhỏ giọt suốt mùa tuyển sinh: đầu tháng 9/2026 chỉ
-    có 445 dòng cho năm 2026 (4,5% so với trung vị các năm trước). Nhận nó làm
-    mốc cuối thì cửa sổ thành 2022–2026, và số chuỗi đủ 5 năm sụp từ 9.643 xuống
-    223 — `xu_huong` mất hết ý nghĩa thống kê.
+    có 432 dòng cho năm 2026 (4,7% so với trung vị 9.288 của các năm trước, tức
+    dưới ngưỡng 4.644). Nhận nó làm mốc cuối thì cửa sổ thành 2021–2026, và số
+    chuỗi đủ 6 năm sụp từ 6.407 xuống 210 — `xu_huong` mất hết ý nghĩa thống kê.
 
-    Nên bỏ dần năm mới nhất khi nó chưa đạt MIN_YEAR_RATIO so với trung vị 5 năm
+    Nên bỏ dần năm mới nhất khi nó chưa đạt MIN_YEAR_RATIO so với trung vị 6 năm
     liền trước. Sang tháng 8 năm sau, khi nguồn đã đủ, năm mới tự được nhận —
     không phải sửa code (đây là điều CN-05 hứa).
     """

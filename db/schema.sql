@@ -47,18 +47,18 @@ CREATE TABLE truong (
 ) ENGINE=InnoDB COMMENT='Trường đại học';
 
 -- -----------------------------------------------------------------------------
---  nganh — 2.312 ngành (tên đã chuẩn hoá, gộp biến thể theo năm)
+--  nganh — 2.312+ ngành (tên đã chuẩn hoá, gộp biến thể theo năm)
 --
 --  QUYẾT ĐỊNH THIẾT KẾ: dùng khoá thay thế nganh_id INT thay vì nganh_slug.
 --  Lý do: slug dài tới 287 ký tự; nếu làm khoá chính thì bảng diem_chuan
 --  (178k dòng) tốn ~3,6 MB chỉ riêng cột khoá (INT chỉ 0,7 MB) và mọi
 --  index phụ đều phải chứa lại khoá chính đó.
 --  Slug vẫn giữ UNIQUE để dùng cho URL và cho bước import (đối chiếu CSV).
---  Đã kiểm chứng: cắt slug ở 120 ký tự KHÔNG gây trùng (2.312/2.312 vẫn duy nhất).
+--  VARCHAR(320) chứa đủ toàn bộ slug không cần cắt ngắn (max đo được 287 ký tự).
 -- -----------------------------------------------------------------------------
 CREATE TABLE nganh (
     nganh_id    INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    nganh_slug  VARCHAR(120) NOT NULL COMMENT 'Khoá tự nhiên, dùng cho URL',
+    nganh_slug  VARCHAR(320) NOT NULL COMMENT 'Khoá tự nhiên, dùng cho URL',
     ten_nganh   VARCHAR(320) NOT NULL COMMENT 'Tên đã chuẩn hoá',
     nhom_nganh  VARCHAR(40)  NOT NULL COMMENT '15 nhóm, vd Công nghệ thông tin',
 
@@ -82,7 +82,7 @@ CREATE TABLE mon (
 ) ENGINE=InnoDB COMMENT='Môn xét tuyển';
 
 -- -----------------------------------------------------------------------------
---  to_hop — 330 tổ hợp môn
+--  to_hop — 329 tổ hợp môn
 --  Giữ cột cac_mon dạng chuỗi 'TOAN,LI,HOA' để đọc nhanh khi hiển thị,
 --  đồng thời chuẩn hoá thành bảng to_hop_mon để JOIN/lọc bằng SQL.
 -- -----------------------------------------------------------------------------
@@ -118,7 +118,7 @@ CREATE TABLE to_hop_mon (
 -- =============================================================================
 
 -- -----------------------------------------------------------------------------
---  diem_chuan — BẢNG FACT, 178.821 dòng
+--  diem_chuan — BẢNG FACT, 193.762 dòng
 --  Mỗi dòng = điểm chuẩn của (trường × ngành × tổ hợp × phương thức × năm).
 --
 --  KHOÁ TỰ NHIÊN (uq_diem_chuan) là nền tảng của cập nhật hằng năm:
@@ -159,13 +159,13 @@ CREATE TABLE diem_chuan (
 ) ENGINE=InnoDB COMMENT='Điểm chuẩn theo năm (bảng fact)';
 
 -- -----------------------------------------------------------------------------
---  dac_trung_diemchuan — 91.782 dòng, INPUT CHO AI (SRS mục 6.4)
+--  dac_trung_diemchuan — 93.358 dòng, INPUT CHO AI (SRS mục 6.4)
 --
 --  Đây là bảng DẪN XUẤT: tổng hợp từ diem_chuan, dựng lại sau mỗi lần cập nhật.
 --  Lưu vào DB (thay vì tính lúc chạy) vì engine gợi ý cần đọc nó cho hàng trăm
 --  ứng viên trong mỗi request, phải đạt yêu cầu < 3 giây (SRS PC-01).
 --
---  Các cột diem_nam_1..5 là chuỗi điểm theo cửa sổ trượt. Đặt tên theo VỊ TRÍ
+--  Các cột diem_nam_1..6 là chuỗi điểm theo cửa sổ trượt. Đặt tên theo VỊ TRÍ
 --  (không phải diem_2021) để sang năm không phải ALTER TABLE - bảng
 --  cua_so_nam cho biết vị trí nào ứng với năm nào.
 -- -----------------------------------------------------------------------------
@@ -181,7 +181,12 @@ CREATE TABLE dac_trung_diemchuan (
     diem_nam_2    DECIMAL(4,2) NULL,
     diem_nam_3    DECIMAL(4,2) NULL,
     diem_nam_4    DECIMAL(4,2) NULL,
-    diem_nam_5    DECIMAL(4,2) NULL COMMENT 'Năm mới nhất trong cửa sổ',
+    diem_nam_5    DECIMAL(4,2) NULL,
+    diem_nam_6    DECIMAL(4,2) NULL,
+    diem_nam_7    DECIMAL(4,2) NULL,
+    diem_nam_8    DECIMAL(4,2) NULL,
+    diem_nam_9    DECIMAL(4,2) NULL,
+    diem_nam_10   DECIMAL(4,2) NULL COMMENT 'Năm mới nhất trong cửa sổ',
 
     -- đặc trưng tổng hợp
     diem_tb       DECIMAL(4,2) NOT NULL,
@@ -190,7 +195,7 @@ CREATE TABLE dac_trung_diemchuan (
     diem_moi_nhat DECIMAL(4,2) NOT NULL COMMENT 'Điểm năm gần nhất CÓ dữ liệu',
     bien_dong     DECIMAL(5,2) NOT NULL COMMENT 'max - min, độ dao động = rủi ro',
     xu_huong      DECIMAL(6,3) NOT NULL COMMENT 'Độ dốc hồi quy điểm/năm',
-    so_nam_co_dl  TINYINT UNSIGNED NOT NULL COMMENT '1-5, độ tin cậy của chuỗi',
+    so_nam_co_dl  TINYINT UNSIGNED NOT NULL COMMENT '1-10, độ tin cậy của chuỗi',
 
     PRIMARY KEY (id),
     UNIQUE KEY uq_dt (ma_truong, nganh_id, ma_to_hop, phuong_thuc),
@@ -207,15 +212,15 @@ CREATE TABLE dac_trung_diemchuan (
     CONSTRAINT fk_dt_tohop  FOREIGN KEY (ma_to_hop) REFERENCES to_hop (ma_to_hop)
         ON DELETE RESTRICT,
 
-    CONSTRAINT chk_dt_sonam CHECK (so_nam_co_dl BETWEEN 1 AND 5)
+    CONSTRAINT chk_dt_sonam CHECK (so_nam_co_dl BETWEEN 1 AND 10)
 ) ENGINE=InnoDB COMMENT='Đặc trưng cho mô hình AI (bảng dẫn xuất)';
 
 -- -----------------------------------------------------------------------------
---  cua_so_nam — vị trí cột -> năm thật. Chỉ 5 dòng.
---  Cho phép đổi cửa sổ (2021-2025 -> 2022-2026) mà KHÔNG ALTER TABLE.
+--  cua_so_nam — vị trí cột -> năm thật. Chỉ 10 dòng.
+--  Cho phép đổi cửa sổ (2020-2025 -> 2021-2026) mà KHÔNG ALTER TABLE.
 -- -----------------------------------------------------------------------------
 CREATE TABLE cua_so_nam (
-    vi_tri  TINYINT UNSIGNED NOT NULL COMMENT '1..5, khớp diem_nam_1..5',
+    vi_tri  TINYINT UNSIGNED NOT NULL COMMENT '1..10, khớp diem_nam_1..10',
     nam     SMALLINT UNSIGNED NOT NULL,
 
     PRIMARY KEY (vi_tri),

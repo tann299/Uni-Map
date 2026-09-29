@@ -19,6 +19,7 @@ A16,"Toán, Khoa học tự nhiên, Ngữ văn","TOAN,KHTN,VAN",BoGD2025,3
 A17,"Toán, Vật lý, Khoa học xã hội","TOAN,LI,KHXH",BoGD2025,3
 A18,"Toán, Hoá học, Khoa học xã hội","TOAN,HOA,KHXH",BoGD2025,3
 A19,,,,0
+A20,,,,0
 A21,,,,0
 B00,"Toán, Hóa học, Sinh học","TOAN,HOA,SINH",BoGD2025,3
 B01,"Toán, Sinh học, Lịch sử","TOAN,SINH,SU",BoGD2025,3
@@ -146,6 +147,7 @@ D95,"Toán, Khoa học tự nhiên, Tiếng Trung","TOAN,KHTN,TRUNG",BoGD2025,3
 D96,"Toán, Khoa học xã hội, Tiếng Anh","TOAN,KHXH,ANH",BoGD2025,3
 D97,"Toán, Khoa học xã hội, Tiếng Pháp","TOAN,KHXH,PHAP",BoGD2025,3
 D98,"Toán, Khoa học xã hội, Tiếng Đức","TOAN,KHXH,DUC",BoGD2025,3
+D99,"Toán, Khoa học xã hội, Tiếng Nga","TOAN,KHXH,NGA",BoGD2025,3
 E01,,,,0
 E02,,,,0
 E03,,,,0
@@ -181,14 +183,21 @@ M10,"Toán, Tiếng Anh, NK","TOAN,ANH,NK",BoGD2025,3
 M11,"Ngữ văn, Tiếng Anh, NK","VAN,ANH,NK",BoGD2025,3
 M13,"Toán, Sinh, Năng khiếu Mầm non","TOAN,SINH,NK",BoGD2025,3
 M14,"Toán, Địa lý, Năng khiếu Mầm non","TOAN,DIA,NK",BoGD2025,3
+M15,,,,0
+M17,,,,0
+M18,,,,0
 M19,,,,0
 M20,,,,0
 M21,,,,0
+M22,,,,0
+M23,,,,0
+M25,,,,0
 M26,"Ngữ văn, Địa, Năng khiếu","VAN,DIA,NK",BoGD2025,3
 M27,"Ngữ văn, Anh, Năng khiếu","VAN,ANH,NK",BoGD2025,3
 M28,"Ngữ văn, Công nghệ công nghiệp, Năng khiếu","VAN,CN_CN,NK",BoGD2025,3
 M29,"Ngữ văn, Công nghệ nông nghiệp, Năng khiếu","VAN,CN_NN,NK",BoGD2025,3
 M30,"Ngữ văn, Giáo dục Kinh tế và pháp luật, Năng khiếu","VAN,GDKTPL,NK",BoGD2025,3
+M99,,,,0
 N00,"Ngữ văn, Năng khiếu Âm nhạc 1, Năng khiếu Âm nhạc 2","VAN,NK,NK",BoGD2025,3
 N01,"Toán, Năng khiếu Âm nhạc 1, Năng khiếu Âm nhạc 2","TOAN,NK,NK",BoGD2025,3
 N02,"Ngữ văn, Ký xướng âm, Hát hoặc biểu diễn nhạc cụ","VAN,NK,NK",tuyensinh247,3
@@ -197,6 +206,8 @@ N04,"Ngữ văn, Năng khiếu thuyết trình, năng khiếu","VAN,NK,NK",BoGD2
 N05,"Ngữ văn, Xây dựng kịch bản sự kiện, Năng khiếu","VAN,NK,NK",BoGD2025,3
 N06,,,,0
 N07,,,,0
+N08,,,,0
+N10,,,,0
 Q00,"Tư duy định lượng, Tư duy định tính, Khoa học/ Tiếng Anh","DGTD_DL,DGTD_DT,KHOAHOC_ANH",tuyensinh247,3
 Q01,,,,0
 Q02,,,,0
@@ -227,6 +238,7 @@ R25,,,,0
 R26,,,,0
 R27,,,,0
 S00,"Ngữ văn, NK SKĐA 1, NK SKĐA 2","VAN,NK,NK",BoGD2025,3
+S01,,,,0
 T00,"Toán, Sinh học, Năng khiếu TDTT","TOAN,SINH,NK",BoGD2025,3
 T01,"Toán, NK TDTT1, NK TDTT 2","TOAN,NK,NK",BoGD2025,3
 T02,"Toán, Ngữ văn, Năng khiếu TDTT","TOAN,VAN,NK",BoGD2025,3

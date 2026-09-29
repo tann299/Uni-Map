@@ -22,6 +22,26 @@ PROJECT_ROOT = BASE_DIR.parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
 
 
+def _doc_env(duong_dan):
+    """Nạp .env dạng KEY=VALUE vào os.environ — không cần python-dotenv.
+
+    .env nằm trong .gitignore nên khoá bí mật không lọt vào git.
+    Biến môi trường thật (nếu có) luôn thắng file: setdefault, không ghi đè.
+    """
+    if not duong_dan.exists():
+        return
+    for dong in duong_dan.read_text(encoding="utf-8").splitlines():
+        dong = dong.strip()
+        if not dong or dong.startswith("#") or "=" not in dong:
+            continue
+        ten, _, gia_tri = dong.partition("=")
+        os.environ.setdefault(ten.strip(), gia_tri.strip().strip("'\""))
+
+
+_doc_env(PROJECT_ROOT / ".env")
+_doc_env(BASE_DIR / ".env")
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -34,6 +54,13 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get('DJANGO_DEBUG', '1') == '1'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
+
+# Đăng nhập Google (accounts/views_google.py). Lấy ở Google Cloud Console ->
+# Credentials -> OAuth client ID (Web application). Redirect URI phải khai đúng
+# "<host>/accounts/google/xac-thuc/". Để trống thì nút Google báo lỗi cấu hình
+# chứ không sập trang.
+GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', '')
+GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '')
 
 
 # Application definition
@@ -77,6 +104,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'university.context_processors.cua_so_nam',
             ],
         },
     },
@@ -149,6 +177,12 @@ STATICFILES_DIRS = []
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# `Nganh.nganh_slug` là UNIQUE dài 320 ký tự. Django cảnh báo mysql.W003 vì mặc
+# định giả định index giới hạn 255 ký tự — đúng với MySQL cũ (COMPACT row
+# format, khoá index 767 byte). MySQL 8 mặc định DYNAMIC: index tới 3072 byte
+# = 768 ký tự utf8mb4, nên 320 an toàn. Đã kiểm chứng bằng `SHOW CREATE TABLE`.
+SILENCED_SYSTEM_CHECKS = ["mysql.W003"]
 
 LOGIN_URL = "accounts:dang_nhap"
 LOGIN_REDIRECT_URL = "university:trang_chu"
