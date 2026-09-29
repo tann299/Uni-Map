@@ -2,7 +2,7 @@
 
 Hệ thống gợi ý trường/ngành đại học bằng AI, dành cho học sinh lớp 12. Nhập điểm
 từng môn → nhận danh sách trường/ngành xếp theo xác suất đỗ, chia ba tầng
-**An toàn / Vừa sức / Thử sức**, kèm lời giải thích dựa trên điểm chuẩn 5 năm.
+**An toàn / Vừa sức / Thử sức**, kèm lời giải thích dựa trên điểm chuẩn 6 năm.
 
 Đặc tả đầy đủ: [docs/SRS.md](docs/SRS.md) · Mô hình dữ liệu: [docs/README_DATA.md](docs/README_DATA.md)
 
@@ -15,9 +15,13 @@ Uni-Map/
 │   │   ├── crawl_diemchuan.py     crawl · làm sạch · self-check
 │   │   └── build_ref_tohop.py     dựng bảng tra tổ hợp → môn
 │   └── backend/         Django project
-│       ├── config/      settings, urls, wsgi
+│       ├── config/          settings, urls, wsgi
 │       ├── manage.py
-│       └── tracuu/      14 model (managed=False) + lệnh kiemtra
+│       ├── university/      tra cứu + chi tiết trường (UC-01, UC-02)
+│       ├── accounts/        đăng ký/đăng nhập + Google OAuth (UC-03)
+│       ├── admissions/      hồ sơ năng lực học sinh (UC-04)
+│       ├── recommendation/  gợi ý AI + so sánh nguyện vọng (UC-05→08)
+│       └── quantri/         dashboard + pipeline cập nhật (UC-09, UC-10)
 ├── data/                CSV do crawler sinh ra → nạp vào DB
 ├── db/                  schema.sql · import_mysql.py · sơ đồ CSDL
 ├── ref/                 dữ liệu tham chiếu sửa tay được (tỉnh, tổ hợp)
@@ -47,21 +51,21 @@ MySQL và import dữ liệu trước khi gọi API. Kiểm parser không cần 
 
 ```bash
 cd source/backend
-PYTHONIOENCODING=utf-8 python -m tracuu.check_api
+PYTHONIOENCODING=utf-8 python manage.py kiemtra
 ```
 
 Cây code backend hiện tại:
 
 ```
 source/backend/
-├── config/                 cấu hình Django + route gốc
+├── config/                 cấu hình Django + route gốc (.env loader)
 ├── manage.py
-└── tracuu/
-    ├── models.py           ORM ánh xạ schema.sql
-    ├── views.py            API tra cứu điểm chuẩn
-    ├── urls.py             route /api/tra-cuu/
-    ├── check_api.py        assert parser query
-    └── management/commands/kiemtra.py
+├── university/             model CSDL · view HTML tra cứu · API /api/tra-cuu/
+├── accounts/               auth thường + Google OAuth 2.0 (views_google.py)
+├── admissions/             hồ sơ điểm từng môn + điểm học bạ
+├── recommendation/         phân tầng CN-03 · giải thích CN-04 · pipeline ML (RandomForest)
+├── quantri/                bảng điều khiển quản trị · pipeline cập nhật
+└── templates/              base.html + giao diện Tailwind theo chuẩn UI
 ```
 
 ## Cài đặt

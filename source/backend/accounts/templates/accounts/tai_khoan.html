@@ -3,137 +3,208 @@
 {% block title %}Tài khoản của tôi — Uni Map{% endblock %}
 
 {% block content %}
-<div class="max-w-5xl mx-auto px-margin-mobile lg:px-margin py-space-lg">
+<div class="max-w-[1350px] mx-auto px-margin-mobile lg:px-margin py-space-lg">
 
-  <div class="mb-space-lg pb-space-sm border-b border-surface-container-high">
-    <h1 class="font-headline-lg text-headline-lg text-on-surface font-bold">Tài khoản của tôi</h1>
-    <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Quản lý thông tin cá nhân, mật khẩu và hồ sơ năng lực.</p>
-  </div>
-
-  <!-- Tabs -->
-  <div class="inline-flex p-1 bg-surface-container-low rounded-xl border border-surface-container-highest mb-space-lg">
-    <a href="?tab=ho_so" class="px-4 py-1.5 rounded-lg text-sm font-semibold transition-all {% if tab == 'ho_so' %}bg-white text-primary-container shadow-sm{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
-      Hồ sơ năng lực ({{ danh_sach|length }})
-    </a>
-    <a href="?tab=thong_tin" class="px-4 py-1.5 rounded-lg text-sm font-semibold transition-all {% if tab == 'thong_tin' %}bg-white text-primary-container shadow-sm{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
-      Thông tin cá nhân
-    </a>
-    <a href="?tab=mat_khau" class="px-4 py-1.5 rounded-lg text-sm font-semibold transition-all {% if tab == 'mat_khau' %}bg-white text-primary-container shadow-sm{% else %}text-on-surface-variant hover:text-on-surface{% endif %}">
-      Đổi mật khẩu
-    </a>
-  </div>
-
-  {% if tab == 'ho_so' %}
-  <!-- ===== Hồ sơ năng lực ===== -->
-  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-sm mb-space-md">
-    <p class="font-body-sm text-body-sm text-on-surface-variant">Nhập điểm từng môn một lần — hệ thống tự suy ra mọi tổ hợp bạn đủ điều kiện (CN-01).</p>
+  <!-- Tiêu đề trang -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm mb-space-lg">
+    <div>
+      <h1 class="font-headline-lg text-headline-lg text-on-surface font-bold">Tài khoản của tôi</h1>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Hồ sơ năng lực, thông tin cá nhân và bảo mật.</p>
+    </div>
     <a href="{% url 'admissions:tao_ho_so' %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors shadow-sm shrink-0">
       <span class="material-symbols-outlined text-[18px]">add</span>
       <span>Tạo hồ sơ mới</span>
     </a>
   </div>
 
-  {% if danh_sach %}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md">
-      {% for hs in danh_sach %}
-        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md flex flex-col gap-space-sm">
-          <div class="flex items-start justify-between gap-2">
-            <div class="min-w-0">
-              <div class="font-title-md text-title-md font-bold text-on-surface truncate">{{ hs.ten_ho_so }}</div>
-              <div class="font-label-sm text-label-sm text-on-surface-variant">{{ hs.phuong_thuc }}</div>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+
+    <!-- ===== Sidebar hồ sơ ===== -->
+    <aside class="lg:col-span-4 flex flex-col gap-space-md lg:sticky lg:top-20">
+      <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg">
+        <div class="flex items-center gap-space-md">
+          <div class="w-16 h-16 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold font-headline-md text-headline-md shrink-0">
+            {{ user.get_full_name|default:user.username|slice:":1"|upper }}
+          </div>
+          <div class="min-w-0">
+            <div class="font-title-md text-title-md font-bold text-on-surface truncate">{{ user.get_full_name|default:user.username }}</div>
+            <div class="font-label-sm text-label-sm text-on-surface-variant font-mono truncate">@{{ user.username }}</div>
+            <div class="flex items-center gap-space-xs mt-1">
+              {% if user.is_staff %}
+                <span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed text-[11px] font-bold">Quản trị viên</span>
+              {% else %}
+                <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant text-[11px] font-medium">Học sinh</span>
+              {% endif %}
+              <span class="font-label-sm text-label-sm text-outline">tham gia {{ user.date_joined|date:"m/Y" }}</span>
             </div>
-            <span class="material-symbols-outlined text-[22px] text-primary-container shrink-0">description</span>
-          </div>
-
-          <div class="flex flex-wrap gap-space-xs font-label-sm text-label-sm">
-            <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">{{ hs.diemmon_set.count }} môn</span>
-            {% if hs.diem_uu_tien %}<span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed">ưu tiên +{{ hs.diem_uu_tien }}</span>{% endif %}
-            {% if hs.vung_mien_uu_tien %}<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">{{ hs.vung_mien_uu_tien }}</span>{% endif %}
-          </div>
-
-          <div class="font-label-sm text-label-sm text-outline">Cập nhật {{ hs.ngay_sua|date:"d/m/Y H:i" }}</div>
-
-          <div class="flex items-center gap-space-xs pt-space-sm border-t border-surface-container-high">
-            <a href="{% url 'admissions:chi_tiet_ho_so' hs.pk %}" class="flex-1 px-space-sm py-1.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-sm text-label-sm text-center transition-colors">Xem tổ hợp</a>
-            <a href="{% url 'admissions:sua_ho_so' hs.pk %}" class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-primary-container hover:bg-surface-container-high transition-colors" title="Sửa">
-              <span class="material-symbols-outlined text-[18px]">edit</span>
-            </a>
-            <a href="{% url 'admissions:xoa_ho_so' hs.pk %}" class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-error hover:bg-error-container transition-colors" title="Xóa">
-              <span class="material-symbols-outlined text-[18px]">delete</span>
-            </a>
           </div>
         </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-xl text-center">
-      <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">school</span>
-      <p class="font-body-md text-body-md text-on-surface-variant mb-space-md">Bạn chưa có hồ sơ năng lực nào.</p>
-      <a href="{% url 'admissions:tao_ho_so' %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors">
-        <span class="material-symbols-outlined text-[18px]">add</span>
-        <span>Tạo hồ sơ đầu tiên</span>
-      </a>
-    </div>
-  {% endif %}
 
-  {% elif tab == 'thong_tin' %}
-  <!-- ===== Thông tin cá nhân ===== -->
-  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg max-w-2xl">
-    <div class="flex items-center gap-3 mb-space-md pb-space-md border-b border-surface-container-high">
-      <div class="w-14 h-14 rounded-full bg-primary-container text-on-primary flex items-center justify-center shrink-0">
-        <span class="material-symbols-outlined text-[26px]">school</span>
-      </div>
-      <div>
-        <div class="font-title-md text-title-md font-bold text-on-surface">{{ user.get_full_name|default:user.username }}</div>
-        <div class="font-label-sm text-label-sm text-on-surface-variant">{{ user.username }}{% if user.is_staff %} · Quản trị viên{% else %} · Học sinh{% endif %}</div>
-        <div class="font-label-sm text-label-sm text-outline">Tham gia {{ user.date_joined|date:"d/m/Y" }}</div>
-      </div>
-    </div>
-
-    <form method="post" class="flex flex-col gap-space-md">
-      {% csrf_token %}
-      <input type="hidden" name="luu_thong_tin" value="1">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
-        {% for f in form_tt %}
-          <div class="flex flex-col gap-1">
-            <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ f.id_for_label }}">{{ f.label }}</label>
-            {{ f }}
-            {% if f.errors %}<p class="text-error text-xs">{{ f.errors.0 }}</p>{% endif %}
+        <!-- Số liệu nhanh -->
+        <div class="grid grid-cols-3 gap-space-sm mt-space-md pt-space-md border-t border-surface-container-high text-center">
+          <div>
+            <div class="font-data-metric text-data-metric font-mono font-bold text-primary-container">{{ thong_ke.so_ho_so }}</div>
+            <div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Hồ sơ</div>
           </div>
-        {% endfor %}
-      </div>
-      <div class="flex justify-end">
-        <button type="submit" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg transition-colors shadow-sm">Lưu thay đổi</button>
-      </div>
-    </form>
-  </section>
+          <div>
+            <div class="font-data-metric text-data-metric font-mono font-bold text-on-surface">{{ thong_ke.so_to_hop }}</div>
+            <div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Tổ hợp</div>
+          </div>
+          <div>
+            <div class="font-data-metric text-data-metric font-mono font-bold text-on-surface">{{ thong_ke.so_lan_goi_y }}</div>
+            <div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Lượt gợi ý</div>
+          </div>
+        </div>
+      </section>
 
-  {% else %}
-  <!-- ===== Đổi mật khẩu ===== -->
-  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg max-w-2xl">
-    <h2 class="font-title-md text-title-md font-bold text-on-surface mb-space-xs">Đổi mật khẩu</h2>
-    <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">Sau khi đổi bạn vẫn đang đăng nhập — không phải vào lại.</p>
+      <!-- Điều hướng tab -->
+      <nav class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-sm flex lg:flex-col gap-1">
+        <a href="?tab=ho_so" class="flex items-center gap-2 px-space-md py-space-sm rounded-lg font-label-md text-label-md font-semibold transition-colors {% if tab == 'ho_so' %}bg-primary-container/15 text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}">
+          <span class="material-symbols-outlined text-[20px]">description</span>
+          <span class="flex-1">Hồ sơ năng lực</span>
+          <span class="px-1.5 py-0.5 rounded bg-surface-container font-mono text-[11px]">{{ thong_ke.so_ho_so }}</span>
+        </a>
+        <a href="?tab=thong_tin" class="flex items-center gap-2 px-space-md py-space-sm rounded-lg font-label-md text-label-md font-semibold transition-colors {% if tab == 'thong_tin' %}bg-primary-container/15 text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}">
+          <span class="material-symbols-outlined text-[20px]">person</span>
+          <span class="flex-1">Thông tin cá nhân</span>
+        </a>
+        <a href="?tab=mat_khau" class="flex items-center gap-2 px-space-md py-space-sm rounded-lg font-label-md text-label-md font-semibold transition-colors {% if tab == 'mat_khau' %}bg-primary-container/15 text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}">
+          <span class="material-symbols-outlined text-[20px]">lock</span>
+          <span class="flex-1">Đổi mật khẩu</span>
+        </a>
+        <form method="post" action="{% url 'accounts:dang_xuat' %}" class="lg:mt-1 lg:pt-1 lg:border-t lg:border-surface-container-high">
+          {% csrf_token %}
+          <button type="submit" class="w-full flex items-center gap-2 px-space-md py-space-sm rounded-lg font-label-md text-label-md font-semibold text-on-surface-variant hover:bg-error-container hover:text-error transition-colors">
+            <span class="material-symbols-outlined text-[20px]">logout</span>
+            <span class="flex-1 text-left">Đăng xuất</span>
+          </button>
+        </form>
+      </nav>
+    </aside>
 
-    <form method="post" class="flex flex-col gap-space-md">
-      {% csrf_token %}
-      <input type="hidden" name="doi_mat_khau" value="1">
-      {% if form_mk.non_field_errors %}
-        <div class="p-3 rounded-xl bg-error-container text-on-error-container border border-error/30 font-body-sm text-body-sm">{{ form_mk.non_field_errors }}</div>
+    <!-- ===== Nội dung ===== -->
+    <div class="lg:col-span-8 min-w-0">
+
+      {% if tab == 'ho_so' %}
+      {% if danh_sach %}
+        <div class="flex flex-col gap-space-md">
+          {% for hs in danh_sach %}
+            <article class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0">
+                  <div class="font-title-md text-title-md font-bold text-on-surface truncate">{{ hs.ten_ho_so }}</div>
+                  <div class="flex flex-wrap items-center gap-space-xs mt-1 font-label-sm text-label-sm">
+                    <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">{{ hs.phuong_thuc }}</span>
+                    {% if hs.diem_uu_tien %}<span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-semibold">ưu tiên +{{ hs.diem_uu_tien }}</span>{% endif %}
+                    {% if hs.vung_mien_uu_tien %}<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">{{ hs.vung_mien_uu_tien }}</span>{% endif %}
+                  </div>
+                </div>
+                <span class="font-label-sm text-label-sm text-outline whitespace-nowrap">sửa {{ hs.ngay_sua|date:"d/m/Y" }}</span>
+              </div>
+
+              <!-- Điểm từng môn -->
+              <div class="flex flex-wrap gap-space-xs mt-space-sm">
+                {% for d in hs.ds_diem_mon %}
+                  <span class="px-2 py-1 rounded-lg bg-surface-container-low border border-surface-container-high font-mono text-[12px]"><strong>{{ d.ma_mon_id }}</strong> {{ d.diem }}</span>
+                {% empty %}
+                  <span class="font-body-sm text-body-sm text-outline">Chưa nhập điểm môn nào.</span>
+                {% endfor %}
+              </div>
+
+              <div class="flex flex-wrap items-center gap-space-sm mt-space-sm pt-space-sm border-t border-surface-container-high">
+                <a href="{% url 'admissions:chi_tiet_ho_so' hs.pk %}" class="inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-primary-container hover:underline">
+                  <span class="material-symbols-outlined text-[18px]">calculate</span>
+                  {{ hs.so_to_hop }} tổ hợp đủ điều kiện
+                </a>
+                <span class="text-outline">·</span>
+                {% if hs.so_lan_goi_y %}
+                  <a href="{% url 'recommendation:xem_goi_y' hs.pk %}" class="inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-primary-container hover:underline">
+                    <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+                    Xem gợi ý ({{ hs.so_lan_goi_y }} lượt)
+                  </a>
+                  <a href="{% url 'recommendation:lich_su_goi_y' hs.pk %}" class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container hover:underline">Lịch sử</a>
+                {% else %}
+                  <a href="{% url 'recommendation:xem_goi_y' hs.pk %}" class="inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-primary-container hover:underline">
+                    <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+                    Nhận gợi ý AI
+                  </a>
+                {% endif %}
+                <span class="flex-1"></span>
+                <a href="{% url 'admissions:sua_ho_so' hs.pk %}" class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-primary-container hover:bg-surface-container-high transition-colors" title="Sửa hồ sơ">
+                  <span class="material-symbols-outlined text-[18px]">edit</span>
+                </a>
+                <a href="{% url 'admissions:xoa_ho_so' hs.pk %}" class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-error hover:bg-error-container transition-colors" title="Xóa hồ sơ">
+                  <span class="material-symbols-outlined text-[18px]">delete</span>
+                </a>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-xl text-center">
+          <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">school</span>
+          <p class="font-title-md text-title-md font-bold text-on-surface">Chưa có hồ sơ năng lực</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-space-md">Nhập điểm từng môn một lần — hệ thống tự suy ra mọi tổ hợp bạn đủ điều kiện (CN-01).</p>
+          <a href="{% url 'admissions:tao_ho_so' %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+            <span>Tạo hồ sơ đầu tiên</span>
+          </a>
+        </div>
       {% endif %}
-      {% for f in form_mk %}
-        <div class="flex flex-col gap-1">
-          <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ f.id_for_label }}">{{ f.label }}</label>
-          {{ f }}
-          {% if f.help_text %}<p class="text-[11px] text-on-surface-variant leading-snug">{{ f.help_text|safe }}</p>{% endif %}
-          {% if f.errors %}<p class="text-error text-xs">{{ f.errors.0 }}</p>{% endif %}
-        </div>
-      {% endfor %}
-      <div class="flex justify-end">
-        <button type="submit" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg transition-colors shadow-sm">Đổi mật khẩu</button>
-      </div>
-    </form>
-  </section>
-  {% endif %}
 
+      {% elif tab == 'thong_tin' %}
+      <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg">
+        <h2 class="font-title-md text-title-md font-bold text-on-surface">Thông tin cá nhân</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-space-md">Tên đăng nhập <span class="font-mono font-semibold text-on-surface">@{{ user.username }}</span> không đổi được.</p>
+
+        <form method="post" class="flex flex-col gap-space-md">
+          {% csrf_token %}
+          <input type="hidden" name="luu_thong_tin" value="1">
+          {% if form_tt.non_field_errors %}
+            <div class="p-3 rounded-xl bg-error-container text-on-error-container border border-error/30 font-body-sm text-body-sm">{{ form_tt.non_field_errors }}</div>
+          {% endif %}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+            {% for f in form_tt %}
+              <div class="flex flex-col gap-1 {% if f.name == 'email' %}sm:col-span-2{% endif %}">
+                <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ f.id_for_label }}">{{ f.label }}</label>
+                {{ f }}
+                {% if f.errors %}<p class="text-error text-xs">{{ f.errors.0 }}</p>{% endif %}
+              </div>
+            {% endfor %}
+          </div>
+          <div class="flex justify-end pt-space-xs">
+            <button type="submit" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg transition-colors shadow-sm font-semibold">Lưu thay đổi</button>
+          </div>
+        </form>
+      </section>
+
+      {% else %}
+      <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg">
+        <h2 class="font-title-md text-title-md font-bold text-on-surface">Đổi mật khẩu</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-space-md">Sau khi đổi bạn vẫn đang đăng nhập — không phải vào lại.</p>
+
+        <form method="post" class="flex flex-col gap-space-md max-w-xl">
+          {% csrf_token %}
+          <input type="hidden" name="doi_mat_khau" value="1">
+          {% if form_mk.non_field_errors %}
+            <div class="p-3 rounded-xl bg-error-container text-on-error-container border border-error/30 font-body-sm text-body-sm">{{ form_mk.non_field_errors }}</div>
+          {% endif %}
+          {% for f in form_mk %}
+            <div class="flex flex-col gap-1">
+              <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ f.id_for_label }}">{{ f.label }}</label>
+              {{ f }}
+              {% if f.help_text %}<p class="text-[11px] text-on-surface-variant leading-snug">{{ f.help_text|safe }}</p>{% endif %}
+              {% if f.errors %}<p class="text-error text-xs">{{ f.errors.0 }}</p>{% endif %}
+            </div>
+          {% endfor %}
+          <div class="flex justify-end pt-space-xs">
+            <button type="submit" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg transition-colors shadow-sm font-semibold">Đổi mật khẩu</button>
+          </div>
+        </form>
+      </section>
+      {% endif %}
+
+    </div>
+  </div>
 </div>
 {% endblock %}
