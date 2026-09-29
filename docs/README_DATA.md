@@ -27,8 +27,8 @@ chỉ chạy một lần, `ref/to_hop_mon.csv` đã có sẵn trong repo).
 |---|---|
 | Nguồn điểm chuẩn | `diemthi.tuyensinh247.com` (API JSON công khai) |
 | Nguồn tổ hợp môn | Danh mục **344 tổ hợp xét tuyển 2025 của Bộ GD&ĐT** + API trên |
-| Phạm vi | **Đại học** (level = 2) — 289 trường có dữ liệu tra cứu được |
-| Thời gian | **Cửa sổ trượt 6 năm mới nhất đã đủ dữ liệu** (hiện: 2020–2025) |
+| Phạm vi | **Đại học** (level = 2) — 295 trường có dữ liệu tra cứu được |
+| Thời gian | **Cửa sổ trượt 10 năm mới nhất đã đủ dữ liệu** (hiện: 2016–2025) |
 | Bộ lọc | Chỉ dòng rút được mã tổ hợp chuẩn (`A00`, `D01`, `X26`…) |
 | Làm sạch | Bỏ điểm ≤ 0, lỗi nguồn (>1600), THPT/học bạ > 40, tên ngành rỗng, slug rỗng, dòng trùng; vá ký tự hỏng font từ nguồn |
 
@@ -36,8 +36,8 @@ chỉ chạy một lần, `ref/to_hop_mon.csv` đã có sẵn trong repo).
 
 ## 2. Cập nhật hằng năm — cửa sổ trượt tự động
 
-Script **tự phát hiện năm mới nhất** trong dữ liệu rồi lùi lại 6 năm. Khi nguồn có
-điểm 2026, chạy `--refresh` sẽ **tự thành 2022–2026 — không sửa code**.
+Script **tự phát hiện năm mới nhất** trong dữ liệu rồi lùi lại 10 năm. Khi nguồn có
+điểm 2026, chạy `--refresh` sẽ **tự thành 2017–2026 — không sửa code**.
 
 Nạp vào MySQL bằng **upsert** theo khoá tự nhiên:
 
@@ -51,7 +51,7 @@ for r in rows:
 DiemChuan.objects.filter(nam__lt=nam_min).delete()   # bỏ năm rơi khỏi cửa sổ
 ```
 
-Đơn giản hơn: `TRUNCATE` rồi `LOAD DATA INFILE 'diem_chuan.csv'` — file đã cắt sẵn đúng 6 năm.
+Đơn giản hơn: `TRUNCATE` rồi `LOAD DATA INFILE 'diem_chuan.csv'` — file đã cắt sẵn đúng 10 năm.
 
 **Cache:** `cache/raw.csv.gz` (~1 MB, **tích luỹ** mọi năm 2010→nay). Mỗi lần crawl
 gộp vào cache cũ, không ghi đè — nguồn đã từng bỏ toàn bộ 2010–2012 giữa hai lần
@@ -75,11 +75,11 @@ to_hop ──┘
 | `ref/dia_danh.csv` | **Địa danh trong tên trường → tỉnh** (suy tự động ~98% trường). | 127 |
 | `ref/truong_tinh_thucong.csv` | **Điền tay** cho trường không có địa danh trong tên (học viện quân đội, ĐH Bách Khoa HCM…). | 81 |
 | `cache/raw.csv.gz` | **Dữ liệu thô tích luỹ**, mọi năm, chưa lọc. Gộp mỗi lần crawl, không ghi đè. | ~104k |
-| `data/truong.csv` | **Dim trường** — `ma_truong` (PK), `ten_truong`, `viet_tat`, `tinh_thanh`, `vung_mien` | 289 |
-| `data/nganh.csv` | **Dim ngành** — `nganh_slug` (khoá tự nhiên), `ten_nganh`, `nhom_nganh` (15 nhóm). DB dùng `nganh_id` làm PK. | 2.345 |
-| `data/to_hop.csv` | **Dim tổ hợp** — `ma_to_hop` (PK), `ten_to_hop`, `cac_mon`, `nguon`, `so_mon` | 329 |
-| `data/diem_chuan.csv` | **Bảng fact** — mỗi dòng = 1 điểm chuẩn của (trường × ngành × tổ hợp × phương thức × năm). File chính nạp DB. | 193.762 |
-| `data/dac_trung_diemchuan.csv` | **Đặc trưng cho sklearn** — chuỗi điểm 6 năm đã pivot + thống kê. Lưu DB để engine gợi ý đạt PC-01 (< 3s). | 93.358 |
+| `data/truong.csv` | **Dim trường** — `ma_truong` (PK), `ten_truong`, `viet_tat`, `tinh_thanh`, `vung_mien` | 295 |
+| `data/nganh.csv` | **Dim ngành** — `nganh_slug` (khoá tự nhiên), `ten_nganh`, `nhom_nganh` (15 nhóm). DB dùng `nganh_id` làm PK. | 3.037 |
+| `data/to_hop.csv` | **Dim tổ hợp** — `ma_to_hop` (PK), `ten_to_hop`, `cac_mon`, `nguon`, `so_mon` | 340 |
+| `data/diem_chuan.csv` | **Bảng fact** — mỗi dòng = 1 điểm chuẩn của (trường × ngành × tổ hợp × phương thức × năm). File chính nạp DB. | 240.483 |
+| `data/dac_trung_diemchuan.csv` | **Đặc trưng cho sklearn** — chuỗi điểm 10 năm đã pivot + thống kê. Lưu DB để engine gợi ý đạt PC-01 (< 3s). | 100.363 |
 | `data/diem_chuan_daihoc.xlsx` | Bản cho người xem (5 sheet). Không dùng để import. | — |
 
 **Ba dim đều dẫn xuất TỪ bảng fact**, không phải từ dữ liệu thô. Dựng từ thô sẽ
@@ -99,7 +99,7 @@ Nguồn không có dữ liệu này, nên script tự dựng qua **3 tầng, t�
 3. **Quy đổi tỉnh cũ → tỉnh sau sáp nhập 2025** (`ref/tinh_thanh.csv`) — 63 tỉnh về
    34, kèm vùng miền
 
-Kết quả: **289/289 trường (100%)** — 29 tỉnh/thành; Miền Bắc 139, Miền Nam 83, Miền Trung 66.
+Kết quả: **295/295 trường (100%)** — 29 tỉnh/thành; Miền Bắc 142, Miền Nam 85, Miền Trung 68.
 
 > Sửa một trường bị gán sai: thêm 1 dòng vào `ref/truong_tinh_thucong.csv` rồi chạy lại.
 > Không cần sửa code.
@@ -116,12 +116,12 @@ D01 → VAN,TOAN,ANH       D90 → TOAN,KHTN,ANH
 X26 → TOAN,TIN,ANH       (NK = năng khiếu do trường tự tổ chức)
 ```
 
-Phủ **99,58%** dòng điểm chuẩn. API tuyensinh247 chỉ có 279 mã trong khi dữ liệu
-thực dùng 329 mã, nên phải ghép thêm danh mục Bộ GD&ĐT.
+Phủ **99,56%** dòng điểm chuẩn. API tuyensinh247 chỉ có 279 mã trong khi dữ liệu
+thực dùng 340 mã, nên phải ghép thêm danh mục Bộ GD&ĐT.
 
 ### Chuẩn hoá tên ngành (`nganh_slug`)
 
-Nguồn đổi tên ngành mỗi năm nên chuỗi 6 năm bị đứt. Script gộp biến thể về 1 slug:
+Nguồn đổi tên ngành mỗi năm nên chuỗi 10 năm bị đứt. Script gộp biến thể về 1 slug:
 
 ```
 "Công nghệ Thông tin Việt-Nhật (Chương trình tiên tiến)"  ─┐
@@ -130,8 +130,8 @@ Nguồn đổi tên ngành mỗi năm nên chuỗi 6 năm bị đứt. Script g�
 "CT tiên tiến Việt-Mỹ ngành điện tử viễn thông"            ──> dien-tu-vien-thong
 ```
 
-6.318 tên gốc → **2.345 ngành**; chuỗi đủ 6 năm **6.407** (khớp theo tên gốc chỉ
-được 3.639, **+76%** — gộp biến thể là phần lớn công sức nối chuỗi).
+5.752 tên gốc → **3.037 ngành**; chuỗi đủ 10 năm **2.134** (khớp theo tên gốc chỉ
+được 1.078, **+98%** — gộp biến thể là phần lớn công sức nối chuỗi).
 
 ---
 
@@ -175,8 +175,8 @@ Mỗi dòng = 1 tổ hợp tuyển sinh (trường × ngành × tổ hợp × ph
 
 | cột | ý nghĩa |
 |---|---|
-| `diem_2020 … diem_2025` | chuỗi điểm chuẩn 6 năm (rỗng = năm đó không tuyển) |
-| `diem_tb`, `diem_min`, `diem_max` | thống kê 6 năm |
+| `diem_2016 … diem_2025` | chuỗi điểm chuẩn 10 năm (rỗng = năm đó không tuyển) |
+| `diem_tb`, `diem_min`, `diem_max` | thống kê cả cửa sổ |
 | `diem_moi_nhat` | điểm năm gần nhất có dữ liệu — **feature quan trọng nhất** |
 | `bien_dong` | `max − min`, độ dao động (rủi ro) |
 | `xu_huong` | độ dốc hồi quy (điểm/năm): `> 0` tăng, `< 0` giảm |
@@ -210,8 +210,8 @@ diem_to_hop = sum(diem_hs[m] for m in row.cac_mon.split(","))   # A00 -> 24.25
 
 | Thiếu | Vì sao cần | Cách bổ sung |
 |---|---|---|
-| `nhom_nganh = "Khác"` — 218 ngành (**9,4%**) | phân loại chưa trúng | thêm từ khoá vào `MAJOR_GROUPS`; một phần là rác nguồn (`7340101`, `CTĐT`) không cứu được |
-| 47/329 mã tổ hợp chưa có môn (**0,42%** dòng) | chủ yếu mã `R*`/`E*`/`T*` do trường tự đặt | bổ sung tay vào `SUBJECTS` trong `build_ref_tohop.py` |
+| `nhom_nganh = "Khác"` — 310 ngành (**10,2%**) | phân loại chưa trúng | thêm từ khoá vào `MAJOR_GROUPS`; một phần là rác nguồn (`7340101`, `CTĐT`) không cứu được |
+| 56/340 mã tổ hợp chưa có môn (**0,44%** dòng) | chủ yếu mã `R*`/`E*`/`T*` do trường tự đặt | bổ sung tay vào `SUBJECTS` trong `build_ref_tohop.py` |
 | Chỉ tiêu, học phí, điểm sàn | tăng chất lượng gợi ý | đề án tuyển sinh / website trường |
 
 > `tinh_thanh` / `vung_mien` **đã lấp xong** (100%) — xem mục 3.

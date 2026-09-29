@@ -2,7 +2,7 @@
 
 Hệ thống gợi ý trường/ngành đại học bằng AI, dành cho học sinh lớp 12. Nhập điểm
 từng môn → nhận danh sách trường/ngành xếp theo xác suất đỗ, chia ba tầng
-**An toàn / Vừa sức / Thử sức**, kèm lời giải thích dựa trên điểm chuẩn 6 năm.
+**An toàn / Vừa sức / Thử sức**, kèm lời giải thích dựa trên điểm chuẩn 10 năm.
 
 Đặc tả đầy đủ: [docs/SRS.md](docs/SRS.md) · Mô hình dữ liệu: [docs/README_DATA.md](docs/README_DATA.md)
 
