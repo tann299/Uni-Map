@@ -53,15 +53,24 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '1') == '1'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
+ALLOWED_HOSTS =  [
+    host.strip()
+    for host in os.environ.get(
+        'DJANGO_ALLOWED_HOSTS',
+        'localhost,127.0.0.1'
+    ).split(',')
+    if host.strip()
+]
 
-# Đăng nhập Google (accounts/views_google.py). Lấy ở Google Cloud Console ->
-# Credentials -> OAuth client ID (Web application). Redirect URI phải khai đúng
-# "<host>/accounts/google/xac-thuc/". Để trống thì nút Google báo lỗi cấu hình
-# chứ không sập trang.
+# OAuth (accounts/views_oauth.py). Nút nào chưa cấu hình báo lỗi chứ không sập trang.
+# Google: Google Cloud Console -> Credentials -> OAuth client ID.
+#   Redirect URI: "<host>/accounts/google/xac-thuc/"
+# Facebook: Facebook for Developers -> OAuth client. Valid OAuth Redirect URIs:
+#   "<host>/accounts/facebook/xac-thuc/" (facebook bắt buộc https, trừ localhost)
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', '')
 GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET', '')
-
+FACEBOOK_APP_ID = os.environ.get('FACEBOOK_APP_ID', '')
+FACEBOOK_APP_SECRET = os.environ.get('FACEBOOK_APP_SECRET', '')
 
 # Application definition
 

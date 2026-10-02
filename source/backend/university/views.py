@@ -130,8 +130,11 @@ def _loc(request):
     qs = DacTrungDiemChuan.objects.select_related("ma_truong", "nganh", "ma_to_hop")
 
     if q:
+        # Mã trường ("BKA") khác viết tắt ("HUST") — phải tìm cả hai, HS hay gõ
+        # mã trên giấy tờ. `ma_truong__ma_truong` = FK -> khoá chính của Truong.
         qs = qs.filter(
-            Q(ma_truong__ten_truong__icontains=q)
+            Q(ma_truong__ma_truong__icontains=q)
+            | Q(ma_truong__ten_truong__icontains=q)
             | Q(ma_truong__viet_tat__icontains=q)
             | Q(nganh__ten_nganh__icontains=q)
             | Q(nganh__nhom_nganh__icontains=q)

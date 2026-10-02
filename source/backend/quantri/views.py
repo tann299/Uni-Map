@@ -25,7 +25,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from admissions.models import HoSoNangLuc
-from recommendation.ml import gen_dataset, train
+# gen_dataset, train chỉ import khi bấm nút huấn luyện (lazy import)
+# để Django không crash khi môi trường deploy nhẹ chưa có numpy/sklearn.
 from recommendation.ml.predict import ML_DIR, nap_lai, phien_ban
 from recommendation.models import KetQuaGoiY, LanGoiY
 from university.models import (CuaSoNam, DiemChuan, LanCapNhat, Nganh, ToHop,
@@ -105,6 +106,7 @@ def _chay_cao_va_import(so_nam: int, refresh: bool, huan_luyen: bool) -> None:
         _trang_thai_cao["log"].append(f"[import]\n{log_imp}")
 
         if huan_luyen:
+            from recommendation.ml import gen_dataset, train
             # UC-10 — cùng ngưỡng an toàn: chỉ thay model.pkl nếu acc không giảm.
             with _khoa_hl:
                 bao = _doc_bao_cao()
@@ -135,7 +137,7 @@ def _chay_cao_va_import(so_nam: int, refresh: bool, huan_luyen: bool) -> None:
 
 def _doc_bao_cao() -> dict | None:
     """Đọc `bao_cao_danh_gia.json` của mô hình đang có trên đĩa."""
-    duong = os.path.join(ML_DIR, train.NONG_BAO_CAO)
+    duong = os.path.join(ML_DIR, "bao_cao_danh_gia.json")
     try:
         with open(duong, encoding="utf-8") as f:
             return json.load(f)
@@ -155,6 +157,8 @@ def _doc_meta() -> dict | None:
 def _chay_huan_luyen(sample: int, acc_cu: float | None) -> None:
     """Chạy nền: sinh dataset -> train -> ghi trạng thái (UC-10 bước 2–6)."""
     try:
+        from recommendation.ml import gen_dataset, train
+
         _trang_thai.update(buoc="Đang dựng bảng đặc trưng và sinh mẫu…")
         gen_dataset.main(ML_DIR, sample)
         _trang_thai.update(buoc="Đang huấn luyện RandomForest…")

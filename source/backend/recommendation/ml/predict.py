@@ -14,10 +14,8 @@ import json
 import os
 import threading
 
-import numpy as np
-
-from .gen_dataset import FEATURES_SO, NHOM_NGANH, PHUONG_THUC, VUNG_MIEN
-from .gen_dataset import ten_cot_dac_trung
+from .constants import (FEATURES_SO, NHOM_NGANH, PHUONG_THUC, VUNG_MIEN,
+                        ten_cot_dac_trung)
 
 ML_DIR = os.path.dirname(os.path.abspath(__file__))
 NONG_PKL = os.path.join(ML_DIR, "model.pkl")
@@ -87,6 +85,8 @@ def _vector(dong_dac_trung, cot: list[str]) -> np.ndarray:
     Cột one-hot dựng theo danh mục CỐ ĐỊNH trong `gen_dataset`, không theo giá
     trị có trong DB — nhóm ngành mới chưa từng thấy thành vector toàn 0 (CN-08).
     """
+    import numpy as np  # lazy: numpy chỉ cần khi thực sự chấm điểm
+
     pt = dong_dac_trung.phuong_thuc
     nn = dong_dac_trung.nganh.nhom_nganh
     vm = dong_dac_trung.ma_truong.vung_mien
@@ -112,6 +112,8 @@ def cham_xac_suat(ds_dong, cot: list[str] | None = None) -> np.ndarray | None:
         return None
     cot = cot or kho["cot"]
     try:
+        import numpy as np  # lazy: numpy chỉ cần khi thực sự chấm điểm
+
         X = np.vstack([_vector(d, cot) for d, _ in ds_dong])
         # Điền 3 ô đầu của FEATURES_SO: diem_thi, margin, diem_moi_nhat.
         diem = np.array([diem_hs for _, diem_hs in ds_dong], dtype="float64")

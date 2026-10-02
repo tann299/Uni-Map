@@ -38,6 +38,8 @@ data/
 db/
 ref/
 *.zip
+Báo cáo/
 
 # Tài liệu kế hoạch, không phải mã nguồn
 plan.AI.docx
+Report/

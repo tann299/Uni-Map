@@ -25,6 +25,9 @@ import os
 import numpy as np
 import pandas as pd
 
+from .constants import (FEATURES_SO, NHOM_NGANH, PHUONG_THUC, VUNG_MIEN,
+                        ten_cot_dac_trung)
+
 NAM_TRAIN = [2021, 2022, 2023, 2024]
 NAM_TEST = [2025]
 
@@ -38,23 +41,6 @@ NAM_LOOKBACK = 6
 DELTAS = [-3.0, -2.0, -1.0, -0.5, -0.2, 0.0, 0.2, 0.5, 1.0, 2.0, 3.0]
 
 KEY = ["ma_truong", "nganh_id", "ma_to_hop", "phuong_thuc"]
-
-# 6 đặc trưng số + 3 nhóm one-hot (SRS 6.4). `diem_thi` cũng vào vector: lúc
-# chạy thật mô hình nhận điểm học sinh, không chỉ margin.
-FEATURES_SO = ["diem_thi", "margin", "diem_moi_nhat", "diem_tb",
-               "xu_huong", "bien_dong", "so_nam_co_dl"]
-# Danh mục one-hot CỐ ĐỊNH — khớp `Nganh.nhom_nganh` trong DB (15 giá trị).
-# Cố định thay vì suy từ tập train để lúc suy luận cột khớp thứ tự kể cả khi
-# tập train thiếu một nhóm ngành nào đó.
-NHOM_NGANH = ["Báo chí - Truyền thông", "Công nghệ thông tin",
-              "Du lịch - Khách sạn - Nhà hàng", "Khác",
-              "Khoa học XH & Nhân văn", "Kiến trúc - Xây dựng",
-              "Kinh tế - Kinh doanh - Tài chính", "Kỹ thuật - Công nghệ",
-              "Luật", "Nghệ thuật - Thiết kế - TDTT", "Ngôn ngữ - Quốc tế học",
-              "Nông - Lâm - Ngư - Thú y", "Quân đội - Công an",
-              "Sư phạm - Giáo dục", "Y - Dược - Sức khỏe"]
-VUNG_MIEN = ["Miền Bắc", "Miền Trung", "Miền Nam"]
-PHUONG_THUC = ["Điểm thi THPT", "Điểm học bạ"]
 
 
 def encode(ds: pd.DataFrame) -> pd.DataFrame:
@@ -72,13 +58,6 @@ def encode(ds: pd.DataFrame) -> pd.DataFrame:
         ds = ds.drop(columns=[cot])
     return ds
 
-
-def ten_cot_dac_trung() -> list[str]:
-    """Thứ tự cột vector đặc trưng — BẮT BUỘC khớp lúc suy luận (bước 3.1)."""
-    return (FEATURES_SO
-            + [f"nn_{g}" for g in dict.fromkeys(NHOM_NGANH)]
-            + [f"vm_{g}" for g in VUNG_MIEN]
-            + [f"pt_{g}" for g in PHUONG_THUC])
 
 # ponytail: CSV thay parquet vì chưa có pyarrow; chuyển khi dataset > 500MB.
 # ponytail: DELTAS cố định thay vì lấy mẫu theo phân phối điểm thật; nâng cấp

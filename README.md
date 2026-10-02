@@ -61,7 +61,7 @@ source/backend/
 ├── config/                 cấu hình Django + route gốc (.env loader)
 ├── manage.py
 ├── university/             model CSDL · view HTML tra cứu · API /api/tra-cuu/
-├── accounts/               auth thường + Google OAuth 2.0 (views_google.py)
+├── accounts/               auth thường + OAuth 2.0 Google & Facebook (views_oauth.py)
 ├── admissions/             hồ sơ điểm từng môn + điểm học bạ
 ├── recommendation/         phân tầng CN-03 · giải thích CN-04 · pipeline ML (RandomForest)
 ├── quantri/                bảng điều khiển quản trị · pipeline cập nhật

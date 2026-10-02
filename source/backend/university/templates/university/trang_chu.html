@@ -158,7 +158,9 @@
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm pb-space-sm border-b border-surface-container-high">
       <div class="flex items-center gap-2">
         <span class="w-2.5 h-2.5 bg-primary rounded-full"></span>
-        <h2 class="font-headline-md text-headline-md text-on-background font-bold">Điểm chuẩn các ngành tiêu biểu{% with c=cua_so|last %} {{ c.nam }}{% endwith %}</h2>
+        <h2 class="font-headline-md text-headline-md text-on-background font-bold">
+    Điểm chuẩn các ngành tiêu biểu{% with c=cua_so|last %} {{ c.nam|stringformat:"s" }}{% endwith %}
+</h2>
       </div>
       <a class="font-label-md text-label-md text-primary font-semibold hover:underline flex items-center gap-1" href="{% url 'university:tra_cuu' %}">
         Xem toàn bộ {{ kpi.so_nganh }} ngành <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
@@ -174,10 +176,10 @@
               <th class="py-3 px-4 font-semibold">Ngành đào tạo &amp; Mã ngành</th>
               <th class="py-3 px-4 font-semibold text-center">Tổ hợp</th>
               {% for c in cua_so|slice:"-3:-1" %}
-                <th class="py-3 px-3 font-semibold text-right">{{ c.nam }}</th>
+                <th class="py-3 px-3 font-semibold text-right">{{ c.nam| stringformat:"s" }}</th>
               {% endfor %}
               {% with c=cua_so|last %}
-                <th class="py-3 px-3 font-semibold text-right bg-primary-fixed/30 text-on-primary-fixed">{{ c.nam }} (Chuẩn)</th>
+                <th class="py-3 px-3 font-semibold text-right bg-primary-fixed/30 text-on-primary-fixed">{{ c.nam|stringformat:"s" }} (Chuẩn)</th>
               {% endwith %}
               <th class="py-3 px-4 font-semibold text-center">Biến động</th>
               <th class="py-3 px-4 font-semibold text-center">Dữ liệu</th>
