@@ -12,12 +12,12 @@ nào cũng được.
 
 ```bash
 pip install -r requirements.txt
-python source/crawler/build_ref_tohop.py               # 1 lần: dựng bảng tra tổ hợp -> môn
-python source/crawler/crawl_diemchuan.py               # dùng cache (~10s)
-python source/crawler/crawl_diemchuan.py --refresh     # crawl mới từ nguồn (~40s) — hằng năm
-python source/crawler/crawl_diemchuan.py --years 3     # đổi cửa sổ sang 3 năm
-python source/crawler/crawl_diemchuan.py --end 2025    # khoá năm cuối
-python source/crawler/crawl_diemchuan.py --selfcheck   # chỉ kiểm tra dữ liệu đã xuất
+python datas/crawler/build_ref_tohop.py               # 1 lần: dựng bảng tra tổ hợp -> môn
+python datas/crawler/crawl_diemchuan.py               # dùng cache (~10s)
+python datas/crawler/crawl_diemchuan.py --refresh     # crawl mới từ nguồn (~40s) — hằng năm
+python datas/crawler/crawl_diemchuan.py --years 3     # đổi cửa sổ sang 3 năm
+python datas/crawler/crawl_diemchuan.py --end 2025    # khoá năm cuối
+python datas/crawler/crawl_diemchuan.py --selfcheck   # chỉ kiểm tra dữ liệu đã xuất
 ```
 
 `build_ref_tohop.py` cần thêm `pdfplumber` (không có trong `requirements.txt` vì

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="utf-8"/>
+      <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" /> -->
+      <title>DKS - Trường Đại học kiểm sát Hà nội</title>
+      <base href="/"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <link id="app-icon" rel="icon" type="image/x-icon" href="./assets/img/favicon.png"/>
+
+      <link rel="stylesheet" href="./assets/css/all.min.css">
+      <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+      <!-- <link rel="stylesheet"
+            href="./assets/css/owl.carousel.min.css">
+      <link rel="stylesheet"
+            href="./assets/css/owl.theme.default.css">
+      <link rel="stylesheet"
+            href="./assets/css/lightgallery.min.css"> -->
+
+      <link rel="stylesheet" href="./assets/css/style.css">
+
+      <meta property="og:title" content="DKS - Trường Đại học Kiểm sát Hà nội"/>
+      <meta property="og:description" content="DKS - Trường Đại học Kiểm sát Hà nội"/>
+      <meta property="og:image" content="https://tks.edu.vn/slideshow/ban-giam-hieu-lanh-dao_05052020092632729_qmdsvg2n.fph.jpg"/>
+
+      <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+      </script>
+<link rel="stylesheet" href="styles.cab356723b0a4750afb6.css">
+
+
+
+
+</head>
+
+<body>
+
+
+      <asc-nx-root></asc-nx-root>
+<script src="runtime.7bb520543d6de86e79aa.js" defer></script><script src="polyfills.96a572a9dafffc734564.js" defer></script><script src="scripts.663dbdd18cc017d2a87d.js" defer></script><script src="main.859a8e876d12c3731304.js" defer></script></body>
+
+</html>

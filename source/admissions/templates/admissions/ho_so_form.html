@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}{{ tieu_de }} — Uni Map{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-margin-mobile lg:px-margin py-space-lg">
+
+  <a href="{% url 'admissions:danh_sach_ho_so' %}" class="inline-flex items-center gap-1.5 text-on-surface-variant hover:text-primary-container transition-colors font-label-md text-label-md mb-space-md">
+    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+    <span>Danh sách hồ sơ</span>
+  </a>
+
+  <h1 class="font-headline-md text-headline-md text-on-surface font-bold mb-space-lg">{{ tieu_de }}</h1>
+
+  <form method="post" class="flex flex-col gap-space-lg">
+    {% csrf_token %}
+
+    {% if form.non_field_errors or formset.non_form_errors %}
+      <div class="p-3 rounded-xl bg-error-container text-on-error-container border border-error/30 font-body-sm text-body-sm">
+        {{ form.non_field_errors }}{{ formset.non_form_errors }}
+      </div>
+    {% endif %}
+
+    <!-- Thông tin hồ sơ -->
+    <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg">
+      <h2 class="font-title-md text-title-md font-bold text-on-surface mb-space-md flex items-center gap-2">
+        <span class="material-symbols-outlined text-[20px] text-primary-container">badge</span>
+        Thông tin hồ sơ
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+        {% for field in form %}
+          <div class="flex flex-col gap-1">
+            <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}<p class="text-error text-xs">{{ field.errors.0 }}</p>{% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- Điểm từng môn -->
+    <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg">
+      <h2 class="font-title-md text-title-md font-bold text-on-surface flex items-center gap-2">
+        <span class="material-symbols-outlined text-[20px] text-primary-container">calculate</span>
+        Điểm từng môn
+      </h2>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs mb-space-md">
+        Nhập điểm theo môn, không cần tự cộng tổ hợp. Tổ hợp thiếu môn sẽ được bỏ qua im lặng.
+      </p>
+
+      {{ formset.management_form }}
+
+      <div class="flex flex-col gap-space-sm">
+        {% for f in formset %}
+          <div class="grid grid-cols-12 gap-space-sm items-start">
+            <div class="col-span-7">{{ f.ma_mon }}{% if f.ma_mon.errors %}<p class="text-error text-xs mt-1">{{ f.ma_mon.errors.0 }}</p>{% endif %}</div>
+            <div class="col-span-3">{{ f.diem }}{% if f.diem.errors %}<p class="text-error text-xs mt-1">{{ f.diem.errors.0 }}</p>{% endif %}</div>
+            <div class="col-span-2 flex items-center justify-center pt-2">{{ f.DELETE }}</div>
+            {% for hidden in f.hidden_fields %}{{ hidden }}{% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- Nhóm ngành quan tâm (US-09) -->
+    <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg">
+      <h2 class="font-title-md text-title-md font-bold text-on-surface flex items-center gap-2">
+        <span class="material-symbols-outlined text-[20px] text-primary-container">interests</span>
+        Nhóm ngành quan tâm
+      </h2>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs mb-space-md">
+        Chọn nhóm ngành bạn muốn theo học — gợi ý AI sẽ chỉ đề xuất ngành trong nhóm này. Để trống = xét mọi nhóm ngành.
+      </p>
+
+      {{ formset_nhom.management_form }}
+
+      <div class="flex flex-col gap-space-sm">
+        {% for f in formset_nhom %}
+          <div class="grid grid-cols-12 gap-space-sm items-start">
+            <div class="col-span-10">{{ f.nhom_nganh }}{% if f.nhom_nganh.errors %}<p class="text-error text-xs mt-1">{{ f.nhom_nganh.errors.0 }}</p>{% endif %}</div>
+            <div class="col-span-2 flex items-center justify-center pt-2">{{ f.DELETE }}</div>
+            {% for hidden in f.hidden_fields %}{{ hidden }}{% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <div class="flex items-center justify-end gap-space-sm">
+      <a href="{% url 'admissions:danh_sach_ho_so' %}" class="px-space-lg py-space-sm bg-surface-container text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container-high transition-colors">Hủy</a>
+      <button type="submit" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg transition-colors shadow-sm">Lưu hồ sơ</button>
+    </div>
+  </form>
+
+</div>
+{% endblock %}

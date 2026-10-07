@@ -177,7 +177,7 @@ Django · MySQL · HTML/CSS/JavaScript.
 
 **Luồng chính:**
 
-1. Quản trị chạy `python source/crawler/crawl_diemchuan.py --refresh`
+1. Quản trị chạy `python datas/crawler/crawl_diemchuan.py --refresh`
 2. Hệ thống crawl toàn bộ trường đại học của nguồn, gộp vào cache, vá font, làm
    sạch, **tự trượt cửa sổ** sang các năm mới nhất đã đủ dữ liệu
 3. Self-check chạy tự động: khoá chính/ngoại, miền giá trị, khoá tự nhiên, vị trí trường
@@ -281,7 +281,7 @@ Ký hiệu ưu tiên: **P0** = bắt buộc cho MVP · **P1** = nên có · **P2
 | US-23 | Là **quản trị**, tôi muốn **xem thống kê lượt tra cứu và ngành được quan tâm nhất**. | P2 | 11 |
 
 **Tiêu chí chấp nhận US-19:** ✅ *đã hoàn thành*
-- `python source/crawler/crawl_diemchuan.py --refresh` chạy trọn quy trình
+- `python datas/crawler/crawl_diemchuan.py --refresh` chạy trọn quy trình
 - Tự phát hiện năm mới nhất **đã đủ dữ liệu**; khi 2026 đủ → cửa sổ tự thành
   2022–2026, không sửa code, không `ALTER TABLE`
 - Self-check chạy tự động cuối quy trình
@@ -377,8 +377,8 @@ Không phơi tên biến kỹ thuật ra người dùng. Kèm biểu đồ đi�
 **Cách làm:** Script tự phát hiện năm mới nhất trong dữ liệu rồi lùi N năm.
 
 ```bash
-python source/crawler/crawl_diemchuan.py --refresh   # 2026 đủ dữ liệu → tự thành 2017–2026
-python source/crawler/crawl_diemchuan.py --years 10  # muốn 10 năm
+python datas/crawler/crawl_diemchuan.py --refresh   # 2026 đủ dữ liệu → tự thành 2017–2026
+python datas/crawler/crawl_diemchuan.py --years 10  # muốn 10 năm
 ```
 
 Cache dữ liệu thô (`cache/raw.csv.gz`, giữ mọi năm từ 2010) cho phép **đổi cửa sổ
@@ -768,37 +768,37 @@ Dữ liệu và `db/` để ở gốc, không nhét vào `source/`, vì crawler 
 1. Crawl và tự trượt cửa sổ. Tự gộp cache, vá font, chặn năm chưa đủ, chạy self-check cuối cùng:
 
 ```bash
-python source/crawler/crawl_diemchuan.py --refresh
+python datas/crawler/crawl_diemchuan.py --refresh
 ```
 
 2. Dựng lược đồ — **chỉ lần đầu**. Câu lệnh này mở đầu bằng `DROP DATABASE IF EXISTS uni_map`, tức là xoá sạch dữ liệu đang có. Không chạy lại sau khi đã import:
 
 ```bash
-mysql -u root --default-character-set=utf8mb4 < db/schema.sql
+mysql -u root --default-character-set=utf8mb4 < database/schema.sql
 ```
 
 3. Thử import rồi rollback, không ghi gì vào DB:
 
 ```bash
-python db/import_mysql.py --dry-run
+python database/import_mysql.py --dry-run
 ```
 
 4. Import thật (chỉ chạy nếu bước 1 và 3 đều đạt):
 
 ```bash
-python db/import_mysql.py
+python database/import_mysql.py
 ```
 
 5. Đăng ký migration Django — **chỉ lần đầu**. `--fake-initial` vì `auth_user` đã có sẵn từ `schema.sql`:
 
 ```bash
-PYTHONIOENCODING=utf-8 python source/backend/manage.py migrate --fake-initial
+PYTHONIOENCODING=utf-8 python source/manage.py migrate --fake-initial
 ```
 
 6. Kiểm tra tầng ORM khớp DB (8 phép kiểm, chỉ đọc):
 
 ```bash
-PYTHONIOENCODING=utf-8 python source/backend/manage.py kiemtra
+PYTHONIOENCODING=utf-8 python source/manage.py kiemtra
 ```
 
 **Hai điều dễ sai trên Windows:**

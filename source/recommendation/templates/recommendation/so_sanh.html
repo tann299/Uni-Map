@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+{% load l10n %}
+{% load truong_logo %}
+
+{% block title %}So sánh nguyện vọng — Uni Map{% endblock %}
+
+{% block content %}
+{% localize off %}
+<div class="max-w-[1350px] mx-auto px-margin-mobile lg:px-margin py-space-lg">
+
+  <a href="{% url 'recommendation:xem_goi_y' ho_so.pk %}" class="inline-flex items-center gap-1.5 text-on-surface-variant hover:text-primary-container transition-colors font-label-md text-label-md mb-space-md">
+    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+    <span>Về danh sách gợi ý</span>
+  </a>
+
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-sm mb-space-lg pb-space-sm border-b border-surface-container-high">
+    <div>
+      <h1 class="font-headline-md text-headline-md text-on-surface font-bold flex items-center gap-2">
+        <span class="material-symbols-outlined text-[26px] text-primary-container">analytics</span>
+        So sánh chi tiết nguyện vọng
+      </h1>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+        Hồ sơ <strong class="text-on-surface">{{ ho_so.ten_ho_so }}</strong> · chọn tối đa {{ toi_da }} nguyện vọng cạnh nhau (UC-07)
+      </p>
+    </div>
+    <span class="px-space-sm py-1 rounded-lg bg-surface-container font-label-sm text-label-sm text-on-surface-variant shrink-0">
+      Đang so sánh <strong id="demDaChon" class="text-primary-container">{{ ds|length }}</strong>/{{ toi_da }}
+    </span>
+  </div>
+
+  <!-- UC-07: chọn ngay tại trang này. Nút "So sánh" ở danh sách gợi ý chỉ là
+       lối tắt — mọi thay đổi ở đây ghi thẳng vào `?ss=` rồi tải lại trang. -->
+  <section id="khuChon" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md mb-space-lg {% if not ung_vien %}hidden{% endif %}">
+    <div class="flex flex-wrap items-center justify-between gap-space-sm mb-space-sm">
+      <h2 class="font-title-md text-title-md font-bold text-on-surface flex items-center gap-2">
+        <span class="material-symbols-outlined text-[20px] text-primary-container">playlist_add_check</span>
+        Chọn nguyện vọng để so sánh
+      </h2>
+      <button type="button" id="xoaHet"
+              class="font-label-sm text-label-sm text-on-surface-variant hover:text-error inline-flex items-center gap-1 transition-colors">
+        <span class="material-symbols-outlined text-[16px]">restart_alt</span>Bỏ chọn tất cả
+      </button>
+    </div>
+
+    <input id="oTim" type="search" placeholder="Tìm theo tên trường, ngành, mã tổ hợp…"
+           class="w-full mb-space-sm px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest font-body-sm text-body-sm">
+
+    <div id="dsUngVien" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-space-xs max-h-[26rem] overflow-y-auto pr-1">
+      {% for r in ung_vien %}
+        <button type="button" data-ung-vien
+                data-ss="{{ r.khoa }}"
+                data-tim="{{ r.kq.nganh.ten_nganh|lower }} {{ r.kq.ma_truong.ten_truong|lower }} {{ r.kq.ma_truong_id|lower }} {{ r.kq.ma_to_hop_id|lower }}"
+                class="text-left p-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest hover:border-primary-container transition-colors flex items-start gap-2 {{ r.style.cls }}">
+          <span class="material-symbols-outlined text-[18px] shrink-0 mt-0.5 {{ r.style.icon }}"></span>
+          <span class="min-w-0 flex-1">
+            <span class="block font-label-md text-label-md font-semibold text-on-surface leading-snug">{{ r.kq.nganh.ten_nganh }}</span>
+            <span class="block font-label-sm text-label-sm text-on-surface-variant truncate">{{ r.kq.ma_truong.ten_truong }} · {{ r.kq.ma_truong_id }} · <span class="font-mono">{{ r.kq.ma_to_hop_id }}</span></span>
+            <span class="flex items-center gap-2 mt-1 font-label-sm text-label-sm">
+              <span class="text-on-surface-variant">{{ r.tang }}</span>
+              {% if r.xac_suat is not None %}<span class="font-mono text-on-surface-variant">{{ r.xac_suat }}%</span>{% endif %}
+              <span class="font-mono {% if r.margin >= 0 %}text-[#16A34A]{% else %}text-[#DC2626]{% endif %}">{% if r.margin >= 0 %}+{% endif %}{{ r.margin }}</span>
+            </span>
+          </span>
+          <span class="material-symbols-outlined text-[18px] shrink-0 mt-0.5 text-outline">add_circle</span>
+        </button>
+      {% endfor %}
+    </div>
+    <p id="khongKhop" class="hidden font-body-sm text-body-sm text-on-surface-variant mt-space-sm">Không có nguyện vọng nào khớp từ khóa.</p>
+    {% if not ung_vien %}
+    <p class="font-body-sm text-body-sm text-on-surface-variant">
+      Đã chọn đủ {{ toi_da }} nguyện vọng — bỏ bớt một cái để đổi sang ngành khác.
+    </p>
+    {% endif %}
+  </section>
+
+  {% if ds %}
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-space-md mb-space-lg">
+      {% for r in ds %}
+        <section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+          <div class="p-space-md border-b border-surface-container-high">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-start gap-2 min-w-0">
+                {% logo_truong r.kq.ma_truong_id as logo %}
+                {% if logo %}
+                  <div class="w-9 h-9 rounded bg-surface-container-lowest border border-surface-container-high flex items-center justify-center shrink-0 overflow-hidden mt-0.5"><img class="w-full h-full object-contain" src="{{ logo }}" alt="Logo {{ r.kq.ma_truong.ten_truong }}" loading="lazy"></div>
+                {% else %}
+                  <div class="w-9 h-9 rounded bg-primary-container text-on-primary flex items-center justify-center shrink-0 font-bold font-label-sm text-label-sm mt-0.5">{{ r.kq.ma_truong.viet_tat|slice:":3" }}</div>
+                {% endif %}
+                <div class="min-w-0">
+                  <div class="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">Mã: {{ r.kq.ma_truong_id }} · Mã ngành: {{ r.kq.nganh.nganh_slug }}</div>
+                  <div class="font-title-md text-title-md font-bold text-on-surface leading-snug mt-0.5">{{ r.kq.nganh.ten_nganh }}</div>
+                  <div class="font-label-md text-label-md text-on-surface-variant whitespace-nowrap">{{ r.kq.ma_truong.ten_truong }}</div>
+                </div>
+              </div>
+              <div class="flex flex-col items-end gap-1 shrink-0">
+                {% if r.style %}
+                  <span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg border font-label-sm text-label-sm {{ r.style.cls }}">
+                    <span class="material-symbols-outlined text-[15px]">{{ r.style.icon }}</span>{{ r.tang }}
+                  </span>
+                {% else %}
+                  <span class="px-2 py-1 rounded-lg bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Thiếu môn</span>
+                {% endif %}
+                <button type="button" data-bo-ss="{{ r.khoa }}"
+                        class="inline-flex items-center gap-1 px-2 py-1 rounded-lg border border-outline-variant text-on-surface-variant hover:text-error hover:border-error font-label-sm text-label-sm transition-colors"
+                        title="Bỏ nguyện vọng này khỏi bảng so sánh">
+                  <span class="material-symbols-outlined text-[15px]">close</span>Bỏ
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-space-sm p-space-md border-b border-surface-container-high text-center">
+            <div>
+              <div class="font-data-metric text-data-metric font-mono text-primary-container">{{ r.diem_hoc_sinh|default:"—" }}</div>
+              <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Điểm của bạn</div>
+            </div>
+            <div>
+              <div class="font-data-metric text-data-metric font-mono text-on-surface">{{ r.kq.diem_moi_nhat }}</div>
+              <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Chuẩn gần nhất</div>
+            </div>
+            <div>
+              {% if r.margin is not None %}
+                <div class="font-data-metric text-data-metric font-mono {% if r.margin >= 0 %}text-[#16A34A]{% else %}text-[#DC2626]{% endif %}">{% if r.margin >= 0 %}+{% endif %}{{ r.margin }}</div>
+              {% else %}
+                <div class="font-data-metric text-data-metric font-mono text-outline">—</div>
+              {% endif %}
+              <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Khoảng cách</div>
+            </div>
+          </div>
+
+          {% if r.xac_suat is not None %}
+          <div class="px-space-md py-space-sm border-b border-surface-container-high flex items-center justify-between gap-2">
+            <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">insights</span>Khả năng đỗ (AI)
+            </span>
+            <span class="font-data-metric text-data-metric font-mono {% if r.xac_suat >= 80 %}text-[#16A34A]{% elif r.xac_suat >= 40 %}text-[#D97706]{% else %}text-[#DC2626]{% endif %}">{{ r.xac_suat }}%</span>
+          </div>
+          {% endif %}
+
+          <div class="p-space-md border-b border-surface-container-high">
+            <div class="font-label-sm text-label-sm text-on-surface-variant mb-space-xs flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px] text-primary-container">history_edu</span>
+              Lịch sử điểm chuẩn {{ so_nam_cua_so }} năm
+            </div>
+            <div class="flex items-end gap-1 h-28">
+              {% for c in r.theo_nam %}
+                <div class="flex-1 flex flex-col items-center justify-end h-full">
+                  <span class="font-label-sm text-[10px] text-on-surface-variant font-mono mb-0.5">{{ c.diem|default:"—" }}</span>
+                  <div class="w-full rounded-t bg-primary-container/40" style="height: {% if c.diem %}{% widthratio c.diem 30 100 %}{% else %}3{% endif %}%"></div>
+                  <span class="font-label-sm text-[10px] text-outline mt-0.5">{{ c.nam }}</span>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="p-space-md flex flex-col gap-space-sm mt-auto">
+            <div class="flex items-center justify-between gap-2 font-label-sm text-label-sm">
+              <span class="text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">trending_up</span>Xu hướng</span>
+              <span class="font-mono text-on-surface">{{ r.kq.xu_huong }} đ/năm</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 font-label-sm text-label-sm">
+              <span class="text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">balance</span>Biến động</span>
+              <span class="font-mono text-on-surface">{{ r.kq.bien_dong }} đ</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 font-label-sm text-label-sm">
+              <span class="text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">verified</span>Dữ liệu</span>
+              <span class="font-mono {% if r.kq.so_nam_co_dl < 3 %}text-[#DC2626]{% else %}text-on-surface{% endif %}">{{ r.kq.so_nam_co_dl }}/{{ so_nam_cua_so }} năm</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 font-label-sm text-label-sm">
+              <span class="text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">workspace_premium</span>Tổ hợp</span>
+              <span class="font-mono text-primary-container">{{ r.kq.ma_to_hop_id }}</span>
+            </div>
+            {% if not r.du_mon %}
+              <p class="font-label-sm text-label-sm text-on-error-container bg-error-container rounded-lg px-2 py-1">
+                Hồ sơ chưa có đủ điểm môn cho tổ hợp {{ r.kq.ma_to_hop_id }} — không xét được.
+              </p>
+            {% endif %}
+          </div>
+        </section>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-xl text-center mb-space-lg">
+      <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">compare_arrows</span>
+      {% if ung_vien %}
+        <p class="font-body-md text-body-md text-on-surface-variant">Bấm 2–{{ toi_da }} nguyện vọng ở danh sách phía trên để đặt cạnh nhau.</p>
+      {% else %}
+        <p class="font-body-md text-body-md text-on-surface-variant mb-space-md">Chưa có nguyện vọng nào khớp hồ sơ để so sánh. Hãy nhập thêm điểm môn hoặc bỏ bớt giới hạn nhóm ngành / khu vực.</p>
+        <a href="{% url 'admissions:sua_ho_so' ho_so.pk %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors">
+          <span class="material-symbols-outlined text-[18px]">edit</span><span>Sửa hồ sơ</span>
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <p class="font-label-sm text-label-sm text-outline border-t border-surface-container-high pt-space-sm">
+    Kết quả <strong>tham khảo</strong> dựa trên lịch sử điểm chuẩn, <strong>không đảm bảo đỗ</strong>. Điểm của bạn đã cộng điểm ưu tiên khai trong hồ sơ.
+  </p>
+
+</div>
+{% endlocalize %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  // UC-07: mọi thay đổi chọn/bỏ chọn ghi thẳng vào `?ss=` của CHÍNH trang này
+  // (ss = 'MA_TRUONG|nganh_id|ma_to_hop|phuong_thuc', xem _doc_danh_sach_so_sanh).
+  (function () {
+    var TOI_DA = {{ toi_da }};
+    var URL = "{% url 'recommendation:so_sanh' ho_so.pk %}";
+    var daChon = {{ da_chon|safe }};
+
+    // Trang này tự nó đã là đích — đi với 1 nguyện vọng cũng được, còn lại
+    // chọn tiếp ở danh sách phía trên. Không chặn alert như nút ở trang gợi ý.
+    function di() {
+      if (!daChon.length) { window.location.href = URL; return; }
+      window.location.href = URL + '?' +
+        daChon.map(function (s) { return 'ss=' + encodeURIComponent(s); }).join('&');
+    }
+    function them(khoa) {
+      if (daChon.indexOf(khoa) >= 0) return;
+      if (daChon.length >= TOI_DA) { alert('Chỉ so sánh tối đa ' + TOI_DA + ' nguyện vọng.'); return; }
+      daChon.push(khoa);
+      di();
+    }
+    function bot(khoa) {
+      daChon = daChon.filter(function (s) { return s !== khoa; });
+      di();
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-ung-vien]'), function (b) {
+      b.addEventListener('click', function () { them(b.getAttribute('data-ss')); });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-bo-ss]'), function (b) {
+      b.addEventListener('click', function () { bot(b.getAttribute('data-bo-ss')); });
+    });
+
+    var xoaHet = document.getElementById('xoaHet');
+    if (xoaHet) xoaHet.addEventListener('click', function () {
+      window.location.href = URL;  // không ss -> trang tự nạp lại danh sách chọn
+    });
+
+    // Lọc nhanh trong danh sách ứng viên (12 mục — đủ ngắn nhưng vẫn tiện).
+    var oTim = document.getElementById('oTim');
+    var khongKhop = document.getElementById('khongKhop');
+    if (oTim) oTim.addEventListener('input', function () {
+      var q = oTim.value.trim().toLowerCase(), hien = 0;
+      Array.prototype.forEach.call(document.querySelectorAll('[data-ung-vien]'), function (b) {
+        var khop = !q || b.getAttribute('data-tim').indexOf(q) >= 0;
+        b.classList.toggle('hidden', !khop);
+        if (khop) hien++;
+      });
+      if (khongKhop) khongKhop.classList.toggle('hidden', hien > 0);
+    });
+  })();
+</script>
+{% endblock %}

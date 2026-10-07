@@ -34,7 +34,7 @@ Uni-Map/
 Backend dùng Django thuần + ORM, không thêm REST framework. Chạy từ gốc dự án:
 
 ```bash
-cd source/backend
+cd source
 PYTHONIOENCODING=utf-8 python manage.py runserver
 ```
 
@@ -50,14 +50,14 @@ Response gồm `data`, `pagination`, `years`, `source`, `updated_at`. Cần dự
 MySQL và import dữ liệu trước khi gọi API. Kiểm parser không cần DB:
 
 ```bash
-cd source/backend
+cd source
 PYTHONIOENCODING=utf-8 python manage.py kiemtra
 ```
 
 Cây code backend hiện tại:
 
 ```
-source/backend/
+source/
 ├── config/                 cấu hình Django + route gốc (.env loader)
 ├── manage.py
 ├── university/             model CSDL · view HTML tra cứu · API /api/tra-cuu/
@@ -85,31 +85,31 @@ Chạy đúng thứ tự 1 → 5.
 1. Crawl dữ liệu. Tự gộp cache, vá font, chặn năm chưa đủ, chạy self-check cuối cùng:
 
 ```bash
-python source/crawler/crawl_diemchuan.py --refresh
+python datas/crawler/crawl_diemchuan.py --refresh
 ```
 
 2. Dựng lược đồ. `--default-character-set=utf8mb4` là **bắt buộc** — thiếu nó, MySQL client trên Windows dùng cp1252 và làm hỏng giá trị ENUM tiếng Việt ngay lúc `CREATE TABLE`:
 
 ```bash
-mysql -u root --default-character-set=utf8mb4 < db/schema.sql
+mysql -u root --default-character-set=utf8mb4 < database/schema.sql
 ```
 
 3. Nạp dữ liệu:
 
 ```bash
-python db/import_mysql.py
+python database/import_mysql.py
 ```
 
 4. Đăng ký migration Django. `--fake-initial` vì `auth_user` đã có sẵn từ `schema.sql`:
 
 ```bash
-PYTHONIOENCODING=utf-8 python source/backend/manage.py migrate --fake-initial
+PYTHONIOENCODING=utf-8 python source/manage.py migrate --fake-initial
 ```
 
 5. Kiểm tra tầng ORM khớp DB (8 phép kiểm, chỉ đọc):
 
 ```bash
-PYTHONIOENCODING=utf-8 python source/backend/manage.py kiemtra
+PYTHONIOENCODING=utf-8 python source/manage.py kiemtra
 ```
 
 ## Cập nhật hằng năm
@@ -118,16 +118,16 @@ Khoảng tháng 8, sau khi các trường công bố điểm chuẩn. Chỉ ba l
 đổi cấu trúc bảng — cửa sổ trượt tự nhận năm mới:
 
 ```bash
-python source/crawler/crawl_diemchuan.py --refresh
-python db/import_mysql.py
-PYTHONIOENCODING=utf-8 python source/backend/manage.py kiemtra
+python datas/crawler/crawl_diemchuan.py --refresh
+python database/import_mysql.py
+PYTHONIOENCODING=utf-8 python source/manage.py kiemtra
 ```
 
 Nếu self-check ở bước 1 thất bại thì **dừng, không import** — dữ liệu đang chạy
 được bảo vệ. Bước 2 luôn `--dry-run` được trước khi ghi thật:
 
 ```bash
-python db/import_mysql.py --dry-run
+python database/import_mysql.py --dry-run
 ```
 
 ## Hai điều dễ sai trên Windows
@@ -142,8 +142,8 @@ DB thật, chỉ đọc.
 ## Tuỳ chọn khác của crawler
 
 ```bash
-python source/crawler/crawl_diemchuan.py              # dùng cache, không gọi mạng
-python source/crawler/crawl_diemchuan.py --years 3    # đổi cửa sổ sang 3 năm
-python source/crawler/crawl_diemchuan.py --end 2025   # khoá năm cuối
-python source/crawler/crawl_diemchuan.py --selfcheck  # chỉ kiểm dữ liệu đã xuất
+python datas/crawler/crawl_diemchuan.py              # dùng cache, không gọi mạng
+python datas/crawler/crawl_diemchuan.py --years 3    # đổi cửa sổ sang 3 năm
+python datas/crawler/crawl_diemchuan.py --end 2025   # khoá năm cuối
+python datas/crawler/crawl_diemchuan.py --selfcheck  # chỉ kiểm dữ liệu đã xuất
 ```

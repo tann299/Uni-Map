@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <!-- = logo.html bỏ tua rua (stroke 2.5px tàng hình ở 16x16) -->
+  <rect width="48" height="48" rx="10" fill="#1D4ED8"/>
+  <path d="M24 10L9 18L24 26L39 18L24 10Z" fill="#FFFFFF"/>
+  <path d="M14 22.5V31C14 34.5 18.5 38 24 38C29.5 38 34 34.5 34 31V22.5L24 28L14 22.5Z" fill="#BFDBFE"/>
+</svg>

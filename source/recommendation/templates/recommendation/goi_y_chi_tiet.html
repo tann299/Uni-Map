@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load l10n %}
+{% load truong_logo %}
+
+{% block title %}Chi tiết gợi ý — {{ kq.nganh.ten_nganh }} — Uni Map{% endblock %}
+
+{% block content %}
+{% localize off %}
+<div class="max-w-3xl mx-auto px-margin-mobile lg:px-margin py-space-lg">
+
+  <a href="{% url 'recommendation:lich_su_goi_y' ho_so.pk %}" class="inline-flex items-center gap-1.5 text-on-surface-variant hover:text-primary-container transition-colors font-label-md text-label-md mb-space-md">
+    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+    <span>Về lịch sử gợi ý</span>
+  </a>
+
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-sm mb-space-md">
+    <div class="flex items-start gap-3 min-w-0">
+      {% logo_truong kq.ma_truong_id as logo %}
+      {% if logo %}
+        <div class="w-14 h-14 rounded-xl bg-surface-container-lowest border border-surface-container-high flex items-center justify-center shrink-0 overflow-hidden"><img class="w-full h-full object-contain" src="{{ logo }}" alt="Logo {{ kq.ma_truong.ten_truong }}" loading="lazy"></div>
+      {% else %}
+        <div class="w-14 h-14 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shrink-0 font-bold font-title-md text-title-md">{{ kq.ma_truong.viet_tat|slice:":3" }}</div>
+      {% endif %}
+      <div class="min-w-0">
+        <h1 class="font-headline-md text-headline-md text-on-surface font-bold leading-tight">{{ kq.nganh.ten_nganh }}</h1>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+          {{ kq.ma_truong.ten_truong }} ({{ kq.ma_truong.viet_tat }}) · {{ kq.ma_truong.tinh_thanh }} · {{ kq.phuong_thuc }}
+        </p>
+      </div>
+    </div>
+    <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border font-label-md text-label-md shrink-0 {{ style.cls }}">
+      <span class="material-symbols-outlined text-[18px]">{{ style.icon }}</span> Tầng: {{ kq.tang }}
+    </span>
+  </div>
+
+  <!-- Tổng quan -->
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-md grid grid-cols-2 sm:grid-cols-5 gap-space-md text-center">
+    <div>
+      <div class="font-data-metric text-data-metric font-mono text-primary-container">{{ kq.diem_hoc_sinh }}</div>
+      <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Điểm của bạn</div>
+    </div>
+    <div>
+      <div class="font-data-metric text-data-metric font-mono text-on-surface">{{ kq.dt.diem_moi_nhat|default:kq.margin }}</div>
+      <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Điểm chuẩn 2025</div>
+    </div>
+    <div>
+      <div class="font-data-metric text-data-metric font-mono {% if kq.margin >= 0 %}text-[#16A34A]{% else %}text-[#DC2626]{% endif %}">{% if kq.margin >= 0 %}+{% endif %}{{ kq.margin }}</div>
+      <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Khoảng cách (margin)</div>
+    </div>
+    <div>
+      {% if dung_ai %}
+      <div class="font-data-metric text-data-metric font-mono {% if kq.tang == 'An toàn' %}text-[#16A34A]{% elif kq.tang == 'Vừa sức' %}text-[#D97706]{% else %}text-[#DC2626]{% endif %}">{{ xac_suat_phan_tram }}%</div>
+      <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Khả năng đỗ (AI)</div>
+      {% else %}
+      <div class="font-data-metric text-data-metric font-mono text-outline">—</div>
+      <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Chưa dùng AI</div>
+      {% endif %}
+    </div>
+    <div>
+      <div class="font-data-metric text-data-metric font-mono text-on-surface">{{ kq.dt.so_nam_co_dl|default:"—" }}/{{ so_nam_cua_so }}</div>
+      <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Năm dữ liệu</div>
+    </div>
+  </section>
+
+  <!-- Biểu đồ {{ so_nam_cua_so }} năm (CN-04) -->
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-md">
+    <h2 class="font-title-md text-title-md font-bold text-on-surface mb-space-md flex items-center gap-2">
+      <span class="material-symbols-outlined text-[20px] text-primary-container">monitoring</span>
+      Lịch sử điểm chuẩn ({{ cua_so_text|default:"2020–2025" }})
+    </h2>
+    <div class="flex items-end gap-space-sm h-44 border-b border-outline-variant">
+      {% for c in bieu_do %}
+        <div class="flex-1 flex flex-col items-center justify-end h-full">
+          <div class="w-full rounded-t bg-primary-container transition-all" style="height: {% if c.diem %}{% widthratio c.diem 30 100 %}{% else %}2{% endif %}%" title="{{ c.diem|default:'không tuyển' }}"></div>
+          <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">{{ c.nam }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- Giải thích (CN-04) -->
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-md">
+    <h2 class="font-title-md text-title-md font-bold text-on-surface mb-space-md flex items-center gap-2">
+      <span class="material-symbols-outlined text-[20px] text-primary-container">lightbulb</span>
+      Tại sao gợi ý ngành này?
+    </h2>
+    <ul class="flex flex-col gap-space-sm">
+      {% for c in giai_thich %}
+        <li class="flex items-start gap-2 font-body-sm text-body-sm {% if c.canh_bao %}text-on-error-container{% endif %}">
+          <span class="material-symbols-outlined text-[20px] shrink-0 {% if c.canh_bao %}text-[#DC2626]{% else %}text-primary-container{% endif %}">
+            {% if c.loai == 'margin' %}swap_vert{% elif c.loai == 'xu_huong' %}trending_up{% elif c.loai == 'bien_dong' %}balance{% else %}verified{% endif %}
+          </span>
+          <span>{{ c.chu }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <!-- Miễn trừ (PC-12) -->
+  <p class="font-label-sm text-label-sm text-outline border-t border-surface-container-high pt-space-sm">
+    Gợi ý <strong>tham khảo</strong> dựa trên lịch sử điểm chuẩn, <strong>không đảm bảo đỗ</strong>. Khoảng cách điểm chỉ là một trong nhiều yếu tố (chỉ tiêu, số thí sinh, đề thi).
+  </p>
+
+</div>
+{% endlocalize %}
+{% endblock %}

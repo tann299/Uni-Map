@@ -1,14 +1,11 @@
-# ===== CỐT LÕI DỰ ÁN (WEB & CRAWLER) =====
-Django==5.2.8
-gunicorn==23.0.0
-PyMySQL==1.1.2
+pandas==3.0.2
+numpy==2.3.3
 requests==2.32.5
-PyJWT==2.14.0
+scikit-learn==1.8.0
+Django==5.2.8
+mysqlclient==2.2.7
+PyMySQL==1.1.2
 openpyxl==3.1.5
 
-# ===== MÔ HÌNH HỌC MÁY (AI / RECOMMENDATION) =====
-# scikit-learn + numpy: chấm điểm xác suất đỗ (predict.py)
-# pandas: huấn luyện lại mô hình (train.py) & tiền xử lý dữ liệu
-scikit-learn==1.8.0
-numpy==2.3.3
-pandas==3.0.2
+
+
