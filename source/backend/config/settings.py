@@ -27,6 +27,10 @@ def _doc_env(duong_dan):
 
     .env nằm trong .gitignore nên khoá bí mật không lọt vào git.
     Biến môi trường thật (nếu có) luôn thắng file: setdefault, không ghi đè.
+
+    Key rỗng bị bỏ qua: .env mẫu liệt kê sẵn mọi key với giá trị trống, nên copy
+    nó thành .env là mọi biến hoá "" — đè hết default của settings và Django sập
+    toàn site (SECRET_KEY rỗng -> ImproperlyConfigured ở mọi request).
     """
     if not duong_dan.exists():
         return
@@ -35,7 +39,9 @@ def _doc_env(duong_dan):
         if not dong or dong.startswith("#") or "=" not in dong:
             continue
         ten, _, gia_tri = dong.partition("=")
-        os.environ.setdefault(ten.strip(), gia_tri.strip().strip("'\""))
+        gia_tri = gia_tri.strip().strip("'\"")
+        if gia_tri:
+            os.environ.setdefault(ten.strip(), gia_tri)
 
 
 _doc_env(PROJECT_ROOT / ".env")
@@ -46,19 +52,18 @@ _doc_env(BASE_DIR / ".env")
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    'DJANGO_SECRET_KEY',
+# `or` chứ không phải default của get(): .env mẫu có dòng `DJANGO_SECRET_KEY=`
+# (rỗng) nên key tồn tại với giá trị "" — get() trả "" và Django sập toàn site
+# bằng ImproperlyConfigured ở mọi request.
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY') or (
     'django-insecure-8@srnic7)2+dsnl!0oy9e#b4l31-p0e@c)57b3+u$-_&-st_e(')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '1') == '1'
+DEBUG = (os.environ.get('DJANGO_DEBUG') or '1') == '1'
 
 ALLOWED_HOSTS =  [
     host.strip()
-    for host in os.environ.get(
-        'DJANGO_ALLOWED_HOSTS',
-        'localhost,127.0.0.1'
-    ).split(',')
+    for host in (os.environ.get('DJANGO_ALLOWED_HOSTS') or 'localhost,127.0.0.1').split(',')
     if host.strip()
 ]
 
