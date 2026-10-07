@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 ================================================================================
- IMPORT DỮ LIỆU VÀO MYSQL  —  dự án "Uni Map"
+ IMPORT DỮ LIỆU VÀO MYSQL  —  dự án "Uni Connect"
 ================================================================================
 Nạp data/*.csv vào cơ sở dữ liệu uni_map (lược đồ: database/schema.sql).
 

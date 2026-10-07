@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Views cho Custom Admin Console (Uni Map Management Portal).
+Views cho Custom Admin Console (Uni Connect Management Portal).
 Được thiết kế theo đúng chuẩn giao diện trong UI_unimap:
   - admin_dashboard
   - qu_n_l_d_li_u_tuy_n_sinh_uni_map_admin

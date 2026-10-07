@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Uni Map — Con đường đến đại học{% endblock %}</title>
+  <title>{% block title %}Uni Connect — Con đường đến đại học{% endblock %}</title>
   {% load static %}
   <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
   <link rel="apple-touch-icon" href="{% static 'favicon.svg' %}">
@@ -140,7 +140,7 @@
         <a class="flex items-center gap-2" href="{% url 'university:trang_chu' %}">
           {% include "partials/logo.html" with class="h-9 w-9 shrink-0" %}
           <div class="flex flex-col">
-            <span class="font-headline-sm text-headline-sm text-primary leading-none">Uni Map</span>
+            <span class="font-headline-sm text-headline-sm text-primary leading-none">Uni Connect</span>
             <span class="text-[11px] text-on-surface-variant leading-tight mt-0.5">Con đường đến đại học</span>
           </div>
         </a>
@@ -234,7 +234,7 @@
               <span class="material-symbols-outlined text-[22px]">school</span>
             </div>
             <div class="flex flex-col">
-              <span class="font-bold text-lg text-primary-container leading-none">Uni Map</span>
+              <span class="font-bold text-lg text-primary-container leading-none">Uni Connect</span>
               <span class="text-[11px] text-on-surface-variant leading-tight">Con đường đến đại học</span>
             </div>
           </div>
@@ -289,7 +289,7 @@
     <!-- Bottom bar: dai rieng, chi dong copyright -->
     <div class="border-t border-surface-container-high">
       <div class="max-w-[1350px] mx-auto px-margin-mobile lg:px-margin py-space-md">
-        <p class="font-label-sm text-label-sm text-on-surface-variant">© 2025 Uni Map Platform. Đồng hành cùng thí sinh và phụ huynh trên con đường đại học.</p>
+        <p class="font-label-sm text-label-sm text-on-surface-variant">© 2025 Uni Connect Platform. Đồng hành cùng thí sinh và phụ huynh trên con đường đại học.</p>
       </div>
     </div>
   </footer>

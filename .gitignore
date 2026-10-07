@@ -38,6 +38,10 @@ data/
 db/
 ref/
 *.zip
+
+# SQL dump đầy đủ để import lên shared hosting (34MB, sinh lại được từ
+# schema.sql + import_mysql.py). Không commit để repo không phình.
+database/dump_directadmin/
 Báo cáo/
 
 # Tài liệu kế hoạch, không phải mã nguồn

@@ -1,11 +1,11 @@
-# SRS — Uni Map
+# SRS — Uni Connect
 ## Hệ thống gợi ý trường/ngành đại học bằng AI
 
 # 1. Giới thiệu
 
 ## 1.1 Mục đích
 
-Tài liệu đặc tả yêu cầu cho **Uni Map** — hệ thống web giúp học sinh lớp 12 tìm
+Tài liệu đặc tả yêu cầu cho **Uni Connect** — hệ thống web giúp học sinh lớp 12 tìm
 trường/ngành đại học phù hợp với **điểm thi, tổ hợp môn, sở thích ngành và khu vực**
 của mình. Hệ thống dùng **mô hình học máy** huấn luyện trên điểm chuẩn các năm gần nhất
 để xếp hạng và **giải thích** mức độ phù hợp của từng nguyện vọng.
@@ -293,7 +293,7 @@ Ký hiệu ưu tiên: **P0** = bắt buộc cho MVP · **P1** = nên có · **P2
 # 5. Chức năng đặc thù
 
 Đây là các chức năng **không có ở một trang tra cứu điểm chuẩn thông thường** — chúng
-là điểm khác biệt của Uni Map và đều bắt nguồn từ cách dữ liệu đã được chuẩn hoá.
+là điểm khác biệt của Uni Connect và đều bắt nguồn từ cách dữ liệu đã được chuẩn hoá.
 
 ## CN-01 — Tự tính điểm mọi tổ hợp từ điểm từng môn
 

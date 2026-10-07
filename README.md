@@ -1,4 +1,4 @@
-# Uni Map
+# Uni Connect
 
 Hệ thống gợi ý trường/ngành đại học bằng AI, dành cho học sinh lớp 12. Nhập điểm
 từng môn → nhận danh sách trường/ngành xếp theo xác suất đỗ, chia ba tầng

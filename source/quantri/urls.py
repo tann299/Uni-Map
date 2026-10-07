@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Định tuyến Custom Admin Console (Uni Map Management Portal)."""
+"""Định tuyến Custom Admin Console (Uni Connect Management Portal)."""
 from django.urls import path
 
 from . import views

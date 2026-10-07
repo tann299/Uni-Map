@@ -1,4 +1,4 @@
-# Uni Map — Dữ liệu tuyển sinh & cách tổ chức
+# Uni Connect — Dữ liệu tuyển sinh & cách tổ chức
 
 Dữ liệu cho **hệ thống AI gợi ý trường/ngành đại học** theo `Plan.docx`:
 Python crawler → Pandas → **MySQL** → **Django** → **Scikit-learn** → Web.

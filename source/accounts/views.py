@@ -51,7 +51,7 @@ def dang_ky(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, f"Tạo tài khoản thành công! Chào mừng {user.username} đến với Uni Map.")
+            messages.success(request, f"Tạo tài khoản thành công! Chào mừng {user.username} đến với Uni Connect.")
             return redirect("university:trang_chu")
     else:
         form = UserCreationForm()

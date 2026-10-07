@@ -65,7 +65,7 @@ def _dang_nhap_user(request, email: str, first_name: str = "", last_name: str = 
 
     login(request, user)
     chao = user.first_name or user.email
-    messages.success(request, f"Đăng nhập thành công! Chào mừng {chao} đến với Uni Map.")
+    messages.success(request, f"Đăng nhập thành công! Chào mừng {chao} đến với Uni Connect.")
 
     next_url = request.session.pop("oauth_next", None)
     if next_url and url_has_allowed_host_and_scheme(

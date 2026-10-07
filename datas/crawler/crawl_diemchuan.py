@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 ================================================================================
- CRAWLER ĐIỂM CHUẨN ĐẠI HỌC  —  dự án "Uni Map" (AI gợi ý trường/ngành)
+ CRAWLER ĐIỂM CHUẨN ĐẠI HỌC  —  dự án "Uni Connect" (AI gợi ý trường/ngành)
 ================================================================================
 Nguồn:
   * diemthi.tuyensinh247.com (API JSON công khai)
