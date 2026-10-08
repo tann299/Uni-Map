@@ -1,0 +1,124 @@
+{% extends "university/tai_lieu/_khung.html" %}
+
+{% block mo_ta %}
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs leading-relaxed">
+  Gửi góp ý, báo lỗi số liệu hoặc yêu cầu xóa tài khoản — chúng tôi đọc hết.
+</p>
+{% endblock %}
+
+{% block kpi %}
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-md mt-space-lg pt-space-md border-t border-surface-container-high">
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-primary-container">3–5</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Ngày phản hồi</div>
+  </div>
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-on-surface">3</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Loại yêu cầu</div>
+  </div>
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-on-surface">7</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Ngày xóa tài khoản</div>
+  </div>
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-primary-container">Miễn phí</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Mọi hỗ trợ</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block muc_luc %}
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-1"><span class="text-primary-container">1.</span>Kênh liên hệ</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-2"><span class="text-primary-container">2.</span>Báo lỗi hiệu quả</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-3"><span class="text-primary-container">3.</span>Yêu cầu xóa tài khoản</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-4"><span class="text-primary-container">4.</span>Đóng góp dữ liệu</a></li>
+{% endblock %}
+
+{% block tai_lieu %}
+
+<section id="muc-1" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">mail</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">1. Kênh liên hệ</h2>
+  </div>
+  <p class="font-body-md text-body-md text-on-surface leading-relaxed">
+    Uni Connect là đồ án sinh viên, chưa có bộ phận chăm sóc khách hàng riêng. Mọi góp ý, báo lỗi số
+    liệu và đề xuất tính năng xin gửi về email dưới đây.
+  </p>
+  <div class="rounded-lg bg-surface-container-low border border-outline-variant p-space-md mt-space-md flex flex-col gap-space-sm">
+    <p class="flex items-center gap-space-sm font-body-md text-body-md">
+      <span class="material-symbols-outlined text-[22px] text-primary-container">forward_to_inbox</span>
+      <span><strong>Email:</strong>&nbsp;<span class="font-mono text-primary-container">hotro@uniconnect.example</span></span>
+    </p>
+    <p class="flex items-center gap-space-sm font-body-sm text-body-sm text-on-surface-variant">
+      <span class="material-symbols-outlined text-[20px] text-on-surface-variant">schedule</span>
+      <span>Thời gian phản hồi: trong vòng 3–5 ngày làm việc.</span>
+    </p>
+  </div>
+</section>
+
+<section id="muc-2" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">bug_report</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">2. Báo lỗi hiệu quả</h2>
+  </div>
+  <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">Để chúng tôi xử lý nhanh, email vui lòng ghi rõ:</p>
+  <div class="flex flex-col gap-space-md">
+    <div class="rounded-lg bg-surface-container-low p-space-md flex gap-space-sm">
+      <span class="material-symbols-outlined text-[22px] text-primary-container shrink-0">fact_check</span>
+      <div>
+        <span class="font-label-md text-label-md text-on-surface font-bold block mb-1">Lỗi số liệu</span>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Tên trường + mã ngành (nếu có) + tổ hợp + năm.<br>
+        <em>Ví dụ: "BKA – Khoa học máy tính – A00 – 2024 web hiện 28.5, trường công bố 28.1".</em></p>
+      </div>
+    </div>
+    <div class="rounded-lg bg-surface-container-low p-space-md flex gap-space-sm">
+      <span class="material-symbols-outlined text-[22px] text-primary-container shrink-0">devices</span>
+      <div>
+        <span class="font-label-md text-label-md text-on-surface font-bold block mb-1">Lỗi giao diện / chức năng</span>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Trang nào (dán link), thiết bị (điện thoại / máy tính), trình duyệt gì, kèm ảnh chụp màn hình nếu được.</p>
+      </div>
+    </div>
+    <div class="rounded-lg bg-surface-container-low p-space-md flex gap-space-sm">
+      <span class="material-symbols-outlined text-[22px] text-primary-container shrink-0">account_circle</span>
+      <div>
+        <span class="font-label-md text-label-md text-on-surface font-bold block mb-1">Vấn đề tài khoản</span>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Địa chỉ email đăng ký.
+        <strong class="text-error">Tuyệt đối không gửi mật khẩu</strong> cho chúng tôi dưới bất kỳ hình thức nào.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="muc-3" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">delete_forever</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">3. Yêu cầu xóa tài khoản</h2>
+  </div>
+  <p class="font-body-md text-body-md text-on-surface leading-relaxed">
+    Gửi email <strong>từ chính địa chỉ đã đăng ký</strong> với tiêu đề:
+  </p>
+  <div class="rounded-lg bg-surface-container-low border border-outline-variant p-space-md mt-space-sm font-mono text-body-sm text-primary-container">
+    [XÓA TÀI KHOẢN] dia-chi-email-cua-ban
+  </div>
+  <div class="rounded-lg bg-[#FEE2E2] border border-[#EF4444]/30 p-space-md flex gap-space-sm mt-space-md">
+    <span class="material-symbols-outlined text-[22px] text-[#B91C1C] shrink-0">warning</span>
+    <span class="font-body-sm text-body-sm text-[#7F1D1D]">Sau khi xác minh, toàn bộ tài khoản, hồ sơ năng lực và lịch sử gợi ý bị xóa vĩnh viễn trong vòng <strong>7 ngày</strong>. Thao tác này <strong>không thể hoàn tác</strong>.</span>
+  </div>
+</section>
+
+<section id="muc-4" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">volunteer_activism</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">4. Đóng góp dữ liệu</h2>
+  </div>
+  <p class="font-body-md text-body-md text-on-surface leading-relaxed">
+    Nếu trường bạn có điểm chuẩn năm mới chưa xuất hiện trên website, gửi link thông báo chính thức của
+    trường về email trên — chúng tôi sẽ bổ sung trong đợt cập nhật tiếp theo.
+  </p>
+  <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-space-sm">
+    Cảm ơn bạn đã giúp dữ liệu chính xác hơn cho các thí sinh khóa sau.
+  </p>
+</section>
+
+{% endblock %}

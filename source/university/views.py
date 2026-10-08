@@ -18,7 +18,7 @@ from typing import Any
 
 from django.core.paginator import Paginator
 from django.db.models import Avg, Count, Q
-from django.http import JsonResponse
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_GET
 
@@ -541,3 +541,31 @@ def api_tra_cuu(request):
         },
         json_dumps_params={"ensure_ascii": False},
     )
+
+
+# ============================================================================
+# TRANG TÀI LIỆU TĨNH (nhóm "Pháp lý & Hỗ trợ" ở footer)
+# ============================================================================
+# Bốn trang nội dung cố định, không truy vấn DB ngoài context processor chung.
+# Một view dùng chung thay vì bốn hàm: nội dung nằm ở template, view chỉ chọn
+# template theo slug. Thêm trang mới = thêm 1 dòng vào TAI_LIEU + 1 template.
+# slug -> (tiêu đề, tên icon Material Symbols)
+TAI_LIEU = {
+    "dieu-khoan":    ("Điều khoản dịch vụ", "gavel"),
+    "bao-mat":       ("Chính sách bảo mật", "shield_lock"),
+    "nguon-du-lieu": ("Nguồn & minh bạch dữ liệu", "database"),
+    "lien-he":       ("Liên hệ & Báo cáo lỗi", "support_agent"),
+}
+
+
+def trang_tai_lieu(request, slug: str):
+    """Render trang tài liệu tĩnh theo `slug`. 404 nếu slug không có trong danh sách."""
+    if slug not in TAI_LIEU:
+        raise Http404(f"Không có tài liệu '{slug}'")
+    tieu_de, icon = TAI_LIEU[slug]
+    return render(request, f"university/tai_lieu/{slug}.html", {
+        "tieu_de_tai_lieu": tieu_de,
+        "icon_tai_lieu": icon,
+        "slug_tai_lieu": slug,
+        "danh_sach_tai_lieu": [(s, t) for s, (t, _) in TAI_LIEU.items()],
+    })

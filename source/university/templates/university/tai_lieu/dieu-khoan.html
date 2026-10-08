@@ -1,0 +1,152 @@
+{% extends "university/tai_lieu/_khung.html" %}
+
+{% block mo_ta %}
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs leading-relaxed">
+  Quy định khi bạn sử dụng Uni Connect: phạm vi dịch vụ, giới hạn trách nhiệm và quyền của bạn.
+</p>
+{% endblock %}
+
+{% block kpi %}
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-md mt-space-lg pt-space-md border-t border-surface-container-high">
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-primary-container">Miễn phí</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Chi phí sử dụng</div>
+  </div>
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-on-surface">13+</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Độ tuổi tối thiểu</div>
+  </div>
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-on-surface">7</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Mục điều khoản</div>
+  </div>
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-primary-container">{{ cua_so_text|default:"2020–2025" }}</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Phạm vi dữ liệu</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block muc_luc %}
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-1"><span class="text-primary-container">1.</span>Về Uni Connect</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-2"><span class="text-primary-container">2.</span>Phạm vi sử dụng</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-3"><span class="text-primary-container">3.</span>Tính chính xác dữ liệu</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-4"><span class="text-primary-container">4.</span>Tài khoản người dùng</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-5"><span class="text-primary-container">5.</span>Sở hữu trí tuệ</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-6"><span class="text-primary-container">6.</span>Giới hạn trách nhiệm</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-7"><span class="text-primary-container">7.</span>Thay đổi điều khoản</a></li>
+{% endblock %}
+
+{% block tai_lieu %}
+
+<section id="muc-1" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">info</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">1. Về Uni Connect</h2>
+  </div>
+  <p class="font-body-md text-body-md text-on-surface leading-relaxed">
+    Uni Connect là sản phẩm đồ án tốt nghiệp của sinh viên, cung cấp <strong>miễn phí</strong> công cụ
+    tra cứu điểm chuẩn tuyển sinh đại học và gợi ý nguyện vọng cho học sinh lớp 12. Website không có
+    gói trả phí, không quảng cáo, không bán dữ liệu.
+  </p>
+  <p class="font-body-md text-body-md text-on-surface leading-relaxed mt-space-sm">
+    Việc tạo tài khoản hoặc tiếp tục sử dụng website đồng nghĩa bạn đã đọc và chấp nhận toàn bộ
+    điều khoản dưới đây.
+  </p>
+</section>
+
+<section id="muc-2" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">rule</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">2. Phạm vi sử dụng</h2>
+  </div>
+  <ul class="flex flex-col gap-space-sm">
+    <li class="flex gap-space-sm">
+      <span class="material-symbols-outlined text-[20px] text-primary-container shrink-0">check_circle</span>
+      <span class="font-body-sm text-body-sm text-on-surface">Nội dung phục vụ mục đích <strong>tham khảo và học tập</strong>, không thay thế tư vấn tuyển sinh chính thức của trường đại học hoặc Bộ GD&amp;ĐT.</span>
+    </li>
+    <li class="flex gap-space-sm">
+      <span class="material-symbols-outlined text-[20px] text-primary-container shrink-0">check_circle</span>
+      <span class="font-body-sm text-body-sm text-on-surface">Người dùng đủ <strong>13 tuổi</strong> trở lên. Học sinh nhỏ hơn cần sự đồng ý và giám sát của phụ huynh hoặc người giám hộ.</span>
+    </li>
+    <li class="flex gap-space-sm">
+      <span class="material-symbols-outlined text-[20px] text-error shrink-0">cancel</span>
+      <span class="font-body-sm text-body-sm text-on-surface">Không dùng website cho mục đích thương mại, không tự động thu thập dữ liệu (crawl/scrape) khi chưa có sự cho phép bằng văn bản.</span>
+    </li>
+  </ul>
+</section>
+
+<section id="muc-3" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">fact_check</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">3. Tính chính xác của dữ liệu</h2>
+  </div>
+  <div class="rounded-lg bg-[#FFFBEB] border border-[#F59E0B]/30 p-space-md flex gap-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-[#B45309] shrink-0">warning</span>
+    <div class="font-body-sm text-body-sm text-[#78350F] leading-relaxed">
+      <strong>Xác suất đỗ là ước lượng thống kê, không phải dự báo chắc chắn.</strong>
+      Mô hình học máy tính từ dữ liệu điểm chuẩn quá khứ; kết quả tuyển sinh thật phụ thuộc số lượng
+      thí sinh đăng ký, chỉ tiêu và quy chế năm đó.
+    </div>
+  </div>
+  <p class="font-body-md text-body-md text-on-surface leading-relaxed mt-space-sm">
+    Điểm chuẩn được thu thập tự động từ nguồn công khai. Chúng tôi nỗ lực đảm bảo độ chính xác nhưng
+    <strong>không cam kết dữ liệu hoàn toàn không có sai sót</strong>. Quyết định đặt nguyện vọng cuối
+    cùng thuộc về thí sinh và gia đình, sau khi đối chiếu thông báo chính thức của trường.
+  </p>
+</section>
+
+<section id="muc-4" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">manage_accounts</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">4. Tài khoản người dùng</h2>
+  </div>
+  <ul class="flex flex-col gap-space-sm">
+    <li class="flex gap-space-sm"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-on-surface">Bạn chịu trách nhiệm bảo mật tài khoản của mình, kể cả tài khoản đăng nhập qua Google.</span></li>
+    <li class="flex gap-space-sm"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-on-surface">Không chia sẻ mật khẩu, không mạo danh người khác, không đăng nội dung vi phạm pháp luật.</span></li>
+    <li class="flex gap-space-sm"><span class="material-symbols-outlined text-[20px] text-error shrink-0">cancel</span><span class="font-body-sm text-body-sm text-on-surface">Chúng tôi có quyền tạm khóa tài khoản có hành vi lạm dụng hệ thống: spam, tấn công, thu thập dữ liệu tự động.</span></li>
+  </ul>
+</section>
+
+<section id="muc-5" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">copyright</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">5. Quyền sở hữu trí tuệ</h2>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+    <div class="rounded-lg bg-surface-container-low p-space-md">
+      <span class="font-label-md text-label-md text-primary-container font-bold block mb-1">Thuộc nhóm phát triển</span>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Mã nguồn, giao diện, logo Uni Connect và mô hình gợi ý.</p>
+    </div>
+    <div class="rounded-lg bg-surface-container-low p-space-md">
+      <span class="font-label-md text-label-md text-on-surface font-bold block mb-1">Thuộc đơn vị công bố gốc</span>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Dữ liệu điểm chuẩn thô — website chỉ tổng hợp và trình bày lại.</p>
+    </div>
+  </div>
+</section>
+
+<section id="muc-6" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">shield</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">6. Giới hạn trách nhiệm</h2>
+  </div>
+  <p class="font-body-md text-body-md text-on-surface leading-relaxed">
+    Trong phạm vi pháp luật cho phép, chúng tôi không chịu trách nhiệm về thiệt hại phát sinh từ việc
+    sử dụng hoặc không thể sử dụng website, bao gồm: quyết định nguyện vọng dựa trên gợi ý của hệ
+    thống, gián đoạn dịch vụ ngoài tầm kiểm soát, hoặc mất dữ liệu tài khoản.
+  </p>
+</section>
+
+<section id="muc-7" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">update</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">7. Thay đổi điều khoản</h2>
+  </div>
+  <p class="font-body-md text-body-md text-on-surface leading-relaxed">
+    Điều khoản có thể được cập nhật theo từng giai đoạn phát triển. Phiên bản mới có hiệu lực ngay khi
+    đăng tải tại trang này. Việc tiếp tục sử dụng website sau khi cập nhật nghĩa là bạn đã chấp nhận
+    điều khoản mới.
+  </p>
+</section>
+
+{% endblock %}

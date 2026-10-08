@@ -10,4 +10,6 @@ urlpatterns = [
     path("tra-cuu/", views.tra_cuu, name="tra_cuu"),
     path("truong/", views.danh_sach_truong, name="danh_sach_truong"),
     path("truong/<str:ma_truong>/", views.chi_tiet_truong, name="chi_tiet_truong"),
+    # Trang tài liệu tĩnh: /dieu-khoan/, /bao-mat/, /nguon-du-lieu/, /lien-he/
+    path("<slug:slug>/", views.trang_tai_lieu, name="tai_lieu"),
 ]

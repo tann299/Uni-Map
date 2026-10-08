@@ -135,8 +135,13 @@
   <header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest border-b border-surface-container-highest">
     <div class="h-16 max-w-[1350px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
 
-      <!-- Left: Logo + Brand name -->
-      <div class="flex items-center gap-4 shrink-0">
+      <!-- Left: Mobile Hamburger Button + Logo + Brand name -->
+      <div class="flex items-center gap-2 sm:gap-4 shrink-0">
+        <!-- Mobile hamburger button (nam ben trai, ngay truoc/duoi goc logo) -->
+        <button id="mobile-menu-btn" type="button" class="lg:hidden p-1.5 -ml-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" aria-label="Mở menu điều hướng">
+          <span id="mobile-menu-icon" class="material-symbols-outlined text-[24px]">menu</span>
+        </button>
+
         <a class="flex items-center gap-2" href="{% url 'university:trang_chu' %}">
           {% include "partials/logo.html" with class="h-9 w-9 shrink-0" %}
           <div class="flex flex-col">
@@ -169,8 +174,8 @@
         {% endif %}
       </nav>
 
-      <!-- Right: Badge + Auth State -->
-      <div class="flex items-center gap-3 shrink-0">
+      <!-- Right: Badge + Auth State + Mobile Menu Toggle -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
         <!-- Verified Data Badge (from mockup) -->
         <div class="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-low border border-surface-container-highest">
           <span class="material-symbols-outlined text-[16px] text-primary-container">verified</span>
@@ -204,6 +209,41 @@
           </div>
         {% endif %}
       </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer (Dropdown mo ra khi click hamburger) -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-surface-container-highest bg-surface-container-lowest shadow-lg">
+      <nav class="max-w-[1350px] mx-auto px-4 py-3 flex flex-col gap-1">
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-2 {% if nav_active == 'trang_chu' %}bg-primary-fixed/40 text-primary-container font-semibold{% else %}text-on-surface hover:bg-surface-container-low{% endif %}" href="{% url 'university:trang_chu' %}">
+          <span class="material-symbols-outlined text-[20px]">home</span>Trang chủ
+        </a>
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-2 {% if nav_active == 'tra_cuu' %}bg-primary-fixed/40 text-primary-container font-semibold{% else %}text-on-surface hover:bg-surface-container-low{% endif %}" href="{% url 'university:tra_cuu' %}">
+          <span class="material-symbols-outlined text-[20px]">manage_search</span>Tra cứu Điểm chuẩn
+        </a>
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-2 {% if nav_active == 'truong' %}bg-primary-fixed/40 text-primary-container font-semibold{% else %}text-on-surface hover:bg-surface-container-low{% endif %}" href="{% url 'university:danh_sach_truong' %}">
+          <span class="material-symbols-outlined text-[20px]">account_balance</span>Danh sách trường
+        </a>
+        {% if user.is_authenticated %}
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-2 {% if nav_active == 'goi_y' %}bg-primary-fixed/40 text-primary-container font-semibold{% else %}text-on-surface hover:bg-surface-container-low{% endif %}" href="{% url 'admissions:danh_sach_ho_so' %}">
+          <span class="material-symbols-outlined text-[20px] text-primary">auto_awesome</span>Gợi ý AI
+        </a>
+        {% else %}
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors inline-flex items-center justify-between" href="{% url 'accounts:dang_nhap' %}">
+          <span class="inline-flex items-center gap-2">
+            <span class="material-symbols-outlined text-[20px] text-primary">auto_awesome</span>Gợi ý AI
+          </span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded bg-primary-fixed text-primary font-bold">Cần Đăng nhập</span>
+        </a>
+        {% endif %}
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-2 {% if nav_active == 'so_sanh' %}bg-primary-fixed/40 text-primary-container font-semibold{% else %}text-on-surface hover:bg-surface-container-low{% endif %}" href="{% url 'recommendation:so_sanh_moi' %}">
+          <span class="material-symbols-outlined text-[20px]">compare_arrows</span>So sánh Nguyện vọng
+        </a>
+        {% if user.is_staff %}
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-2 text-secondary hover:bg-surface-container-low border-t border-surface-container-highest mt-1 pt-2" href="{% url 'quantri:dashboard' %}">
+          <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>Quản trị hệ thống
+        </a>
+        {% endif %}
+      </nav>
     </div>
   </header>
 
@@ -277,10 +317,10 @@
         <div class="lg:col-span-2 flex flex-col gap-3">
           <span class="font-label-md text-label-md uppercase tracking-wider text-on-surface font-bold">Pháp lý &amp; Hỗ trợ</span>
           <ul class="flex flex-col gap-2 font-body-sm text-body-sm text-on-surface-variant">
-            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="#">Điều khoản dịch vụ</a></li>
-            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="#">Chính sách bảo mật</a></li>
-            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="#">Cam kết dữ liệu độc lập</a></li>
-            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="#">Báo cáo lỗi / Góp ý</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'university:tai_lieu' 'dieu-khoan' %}">Điều khoản dịch vụ</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'university:tai_lieu' 'bao-mat' %}">Chính sách bảo mật</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'university:tai_lieu' 'nguon-du-lieu' %}">Cam kết dữ liệu độc lập</a></li>
+            <li class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><a class="hover:text-primary-container transition-colors" href="{% url 'university:tai_lieu' 'lien-he' %}">Báo cáo lỗi / Góp ý</a></li>
           </ul>
         </div>
       </div>
@@ -295,5 +335,51 @@
   </footer>
 
   {% block extra_scripts %}{% endblock %}
+
+  <script>
+    // Menu mobile: bat/tat drawer trong header. Header la `fixed` nen drawer
+    // phai `fixed` theo (dat ngay duoi thanh 64px) thay vi `absolute` — neu
+    // khong no se day/keo layout trang khi mo ra.
+    (function () {
+      const btn   = document.getElementById('mobile-menu-btn');
+      const menu  = document.getElementById('mobile-menu');
+      const icon  = document.getElementById('mobile-menu-icon');
+      if (!btn || !menu) return;
+
+      menu.classList.add('fixed', 'top-16', 'left-0', 'right-0', 'z-40',
+                         'max-h-[calc(100vh-4rem)]', 'overflow-y-auto');
+
+      function dat_trang_thai(mo) {
+        menu.classList.toggle('hidden', !mo);
+        btn.setAttribute('aria-expanded', mo ? 'true' : 'false');
+        if (icon) icon.textContent = mo ? 'close' : 'menu';
+      }
+
+      btn.addEventListener('click', function () {
+        dat_trang_thai(menu.classList.contains('hidden'));
+      });
+
+      // Chuyen len desktop (>= 1024px) thi dong menu lai, tranh menu ket o
+      // trang thai mo khi xoay ngang man hinh.
+      window.matchMedia('(min-width: 1024px)')
+            .addEventListener('change', e => { if (e.matches) dat_trang_thai(false); });
+
+      // Bam ra ngoai thi dong.
+      document.addEventListener('click', function (e) {
+        if (menu.classList.contains('hidden')) return;
+        if (!menu.contains(e.target) && !btn.contains(e.target)) dat_trang_thai(false);
+      });
+
+      // Bam vao link trong menu thi dong luon (dieu huong xong menu khong nen con mo).
+      menu.querySelectorAll('a').forEach(a =>
+        a.addEventListener('click', () => dat_trang_thai(false))
+      );
+
+      // Esc de dong.
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') dat_trang_thai(false);
+      });
+    })();
+  </script>
 </body>
 </html>

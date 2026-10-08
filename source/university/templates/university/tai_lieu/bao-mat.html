@@ -1,0 +1,146 @@
+{% extends "university/tai_lieu/_khung.html" %}
+
+{% block mo_ta %}
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs leading-relaxed">
+  Website lưu gì, dùng để làm gì — và quyền kiểm soát dữ liệu của bạn.
+</p>
+{% endblock %}
+
+{% block kpi %}
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-md mt-space-lg pt-space-md border-t border-surface-container-high">
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-primary-container">0 đồng</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Bán / chia sẻ dữ liệu</div>
+  </div>
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-on-surface">SHA-256</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Băm mật khẩu một chiều</div>
+  </div>
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-on-surface">0</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Cookie quảng cáo bên thứ ba</div>
+  </div>
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-primary-container">7 ngày</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Xóa tài khoản tối đa</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block muc_luc %}
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-1"><span class="text-primary-container">1.</span>Dữ liệu thu thập</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-2"><span class="text-primary-container">2.</span>Mục đích sử dụng</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-3"><span class="text-primary-container">3.</span>Đăng nhập Google</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-4"><span class="text-primary-container">4.</span>Cookie &amp; phiên</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-5"><span class="text-primary-container">5.</span>Quyền của bạn</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-6"><span class="text-primary-container">6.</span>Bảo mật kỹ thuật</a></li>
+{% endblock %}
+
+{% block tai_lieu %}
+
+<section id="muc-1" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">inventory_2</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">1. Dữ liệu chúng tôi thu thập</h2>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+    <div class="rounded-lg bg-surface-container-low p-space-md">
+      <span class="material-symbols-outlined text-[22px] text-primary-container block mb-1">person</span>
+      <span class="font-label-md text-label-md text-on-surface font-bold block mb-1">Tài khoản</span>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Tên đăng nhập, email, họ tên (tự nhập hoặc từ Google).</p>
+    </div>
+    <div class="rounded-lg bg-surface-container-low p-space-md">
+      <span class="material-symbols-outlined text-[22px] text-primary-container block mb-1">school</span>
+      <span class="font-label-md text-label-md text-on-surface font-bold block mb-1">Hồ sơ năng lực</span>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Điểm từng môn bạn nhập, nhóm ngành quan tâm, phương thức xét tuyển.</p>
+    </div>
+    <div class="rounded-lg bg-surface-container-low p-space-md">
+      <span class="material-symbols-outlined text-[22px] text-primary-container block mb-1">history</span>
+      <span class="font-label-md text-label-md text-on-surface font-bold block mb-1">Lịch sử gợi ý</span>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Các lần chạy gợi ý và nguyện vọng bạn đánh dấu quan tâm.</p>
+    </div>
+  </div>
+  <p class="font-body-md text-body-md text-on-surface leading-relaxed mt-space-md">
+    Website <strong>không thu thập</strong>: CMND/CCCD, số điện thoại, vị trí địa lý, thông tin thanh
+    toán (website hoàn toàn miễn phí).
+  </p>
+</section>
+
+<section id="muc-2" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">target</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">2. Mục đích sử dụng</h2>
+  </div>
+  <ul class="flex flex-col gap-space-sm">
+    <li class="flex gap-space-sm"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-on-surface">Xác thực đăng nhập và phân biệt tài khoản người dùng.</span></li>
+    <li class="flex gap-space-sm"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-on-surface">Tính toán gợi ý nguyện vọng từ điểm bạn nhập.</span></li>
+    <li class="flex gap-space-sm"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-on-surface">Lưu lịch sử để bạn xem lại kết quả cũ mà không phải nhập lại.</span></li>
+    <li class="flex gap-space-sm"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-on-surface">Thống kê tổng hợp ẩn danh phục vụ nghiên cứu đồ án.</span></li>
+  </ul>
+  <div class="rounded-lg bg-[#DCFCE7] border border-[#16A34A]/30 p-space-md flex gap-space-sm mt-space-md">
+    <span class="material-symbols-outlined text-[22px] text-[#16A34A] shrink-0">verified_user</span>
+    <span class="font-body-sm text-body-sm text-[#14532D]"><strong>Cam kết:</strong> không bán, không cho thuê, không chia sẻ dữ liệu cá nhân của bạn cho bất kỳ bên thứ ba nào vì mục đích quảng cáo.</span>
+  </div>
+</section>
+
+<section id="muc-3" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">key</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">3. Đăng nhập qua Google</h2>
+  </div>
+  <p class="font-body-md text-body-md text-on-surface leading-relaxed">
+    Google chỉ cung cấp: địa chỉ email, họ tên và ảnh đại diện (nếu có). Chúng tôi
+    <strong>không</strong> truy cập hộp thư, danh bạ hay bất kỳ dữ liệu nào khác trong tài khoản
+    Google của bạn.
+  </p>
+  <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-space-sm">
+    Thu hồi quyền bất cứ lúc nào: Cài đặt tài khoản Google → Bảo mật → Ứng dụng của bên thứ ba.
+  </p>
+</section>
+
+<section id="muc-4" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">cookie</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">4. Cookie và phiên đăng nhập</h2>
+  </div>
+  <p class="font-body-md text-body-md text-on-surface leading-relaxed">
+    Website dùng cookie phiên (session cookie) của Django để giữ trạng thái đăng nhập và token chống
+    giả mạo biểu mẫu (CSRF). Đóng trình duyệt hoặc bấm Đăng xuất sẽ hủy phiên này.
+  </p>
+  <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-space-sm">
+    Không có cookie theo dõi quảng cáo của bên thứ ba trên website.
+  </p>
+</section>
+
+<section id="muc-5" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">settings_account_box</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">5. Quyền của bạn</h2>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+    <a class="rounded-lg bg-surface-container-low hover:bg-surface-container p-space-md transition-colors" href="{% url 'accounts:tai_khoan' %}">
+      <span class="material-symbols-outlined text-[22px] text-primary-container block mb-1">edit_note</span>
+      <span class="font-label-md text-label-md text-on-surface font-bold block mb-1">Xem &amp; sửa →</span>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Toàn bộ thông tin của bạn đều sửa được tại trang Tài khoản và Hồ sơ năng lực.</p>
+    </a>
+    <a class="rounded-lg bg-surface-container-low hover:bg-surface-container p-space-md transition-colors" href="{% url 'university:tai_lieu' 'lien-he' %}">
+      <span class="material-symbols-outlined text-[22px] text-error block mb-1">delete_forever</span>
+      <span class="font-label-md text-label-md text-on-surface font-bold block mb-1">Xóa tài khoản →</span>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Xóa hồ sơ bất cứ lúc nào; lịch sử gắn theo cũng bị xóa theo. Muốn xóa toàn bộ → trang Liên hệ.</p>
+    </a>
+  </div>
+</section>
+
+<section id="muc-6" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">lock</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">6. Bảo mật kỹ thuật</h2>
+  </div>
+  <ul class="flex flex-col gap-space-sm">
+    <li class="flex gap-space-sm"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-on-surface">Mật khẩu lưu dưới dạng <strong>băm một chiều</strong> — không ai, kể cả quản trị viên, đọc được.</span></li>
+    <li class="flex gap-space-sm"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-on-surface">Tài khoản OAuth không lưu mật khẩu.</span></li>
+    <li class="flex gap-space-sm"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-on-surface">Dữ liệu truyền qua mạng được mã hóa khi website chạy qua HTTPS.</span></li>
+  </ul>
+</section>
+
+{% endblock %}

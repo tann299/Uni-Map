@@ -1,0 +1,139 @@
+{% extends "university/tai_lieu/_khung.html" %}
+
+{% block mo_ta %}
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs leading-relaxed">
+  Dữ liệu điểm chuẩn lấy từ đâu, xử lý thế nào — và vì sao bạn có thể tin vào gợi ý.
+</p>
+{% endblock %}
+
+{% block kpi %}
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-md mt-space-lg pt-space-md border-t border-surface-container-high">
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-primary-container">{{ so_truong }}</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Trường đại học</div>
+  </div>
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-on-surface">{{ so_nam_cua_so }}</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Năm dữ liệu</div>
+  </div>
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-on-surface">2</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Nguồn công khai</div>
+  </div>
+  <div>
+    <div class="font-data-metric text-data-metric font-mono text-primary-container">100%</div>
+    <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Truy vết được gốc</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block muc_luc %}
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-1"><span class="text-primary-container">1.</span>Dữ liệu lấy từ đâu</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-2"><span class="text-primary-container">2.</span>Quy trình xử lý</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-3"><span class="text-primary-container">3.</span>Mô hình gợi ý</a></li>
+<li><a class="flex items-center gap-2 py-1 text-on-surface-variant hover:text-primary-container transition-colors" href="#muc-4"><span class="text-primary-container">4.</span>Độc lập &amp; minh bạch</a></li>
+{% endblock %}
+
+{% block tai_lieu %}
+
+<section id="muc-1" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">cloud_download</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">1. Dữ liệu lấy từ đâu</h2>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+    <div class="rounded-lg bg-surface-container-low p-space-md">
+      <span class="material-symbols-outlined text-[22px] text-primary-container block mb-1">newspaper</span>
+      <span class="font-label-md text-label-md text-on-surface font-bold block mb-1">Cổng tuyển sinh công khai</span>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Điểm chuẩn theo trường × ngành × tổ hợp × phương thức × năm (ví dụ diemthi.tuyensinh247.com).</p>
+    </div>
+    <div class="rounded-lg bg-surface-container-low p-space-md">
+      <span class="material-symbols-outlined text-[22px] text-primary-container block mb-1">account_balance</span>
+      <span class="font-label-md text-label-md text-on-surface font-bold block mb-1">Danh mục của Bộ GD&amp;ĐT 2025</span>
+      <p class="font-body-sm text-body-sm text-on-surface-variant">Dùng để chuẩn hóa mã tổ hợp và ánh xạ tổ hợp → môn.</p>
+    </div>
+  </div>
+  <div class="rounded-lg bg-surface-container-low border border-outline-variant p-space-md mt-space-md flex items-center gap-space-md">
+    <div>
+      <div class="font-data-metric text-data-metric font-mono text-primary-container">{{ cua_so_text|default:"2020–2025" }}</div>
+      <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">Cửa sổ dữ liệu hiện tại · tự cập nhật theo hệ thống</div>
+    </div>
+  </div>
+</section>
+
+<section id="muc-2" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">settings_suggest</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">2. Quy trình xử lý (pipeline 5 bước)</h2>
+  </div>
+  <ol class="flex flex-col gap-space-sm">
+    {% with buoc="rounded-lg bg-surface-container-low p-space-md flex gap-space-sm" %}
+    <li class="{{ buoc }}">
+      <span class="w-7 h-7 rounded-full bg-primary-container text-on-primary font-bold font-label-md text-label-md flex items-center justify-center shrink-0">1</span>
+      <span class="font-body-sm text-body-sm text-on-surface"><strong>Thu thập:</strong> crawler tải dữ liệu thô, lưu CSV có kiểm tra trùng lặp.</span>
+    </li>
+    <li class="{{ buoc }}">
+      <span class="w-7 h-7 rounded-full bg-primary-container text-on-primary font-bold font-label-md text-label-md flex items-center justify-center shrink-0">2</span>
+      <span class="font-body-sm text-body-sm text-on-surface"><strong>Chuẩn hóa:</strong> tên ngành gộp theo từ khóa, tên trường theo danh mục Bộ GD&amp;ĐT, điểm quy về thang 30.</span>
+    </li>
+    <li class="{{ buoc }}">
+      <span class="w-7 h-7 rounded-full bg-primary-container text-on-primary font-bold font-label-md text-label-md flex items-center justify-center shrink-0">3</span>
+      <span class="font-body-sm text-body-sm text-on-surface"><strong>Tự kiểm tra (self-check):</strong> kiểm tra số trường, số dòng, khoảng điểm hợp lệ. Không đạt → dừng, không nạp.</span>
+    </li>
+    <li class="{{ buoc }}">
+      <span class="w-7 h-7 rounded-full bg-primary-container text-on-primary font-bold font-label-md text-label-md flex items-center justify-center shrink-0">4</span>
+      <span class="font-body-sm text-body-sm text-on-surface"><strong>Nạp DB:</strong> upsert theo khóa tự nhiên — chạy lại nhiều lần không nhân bản dòng.</span>
+    </li>
+    <li class="{{ buoc }}">
+      <span class="w-7 h-7 rounded-full bg-primary-container text-on-primary font-bold font-label-md text-label-md flex items-center justify-center shrink-0">5</span>
+      <span class="font-body-sm text-body-sm text-on-surface"><strong>Nhật ký:</strong> mỗi lần cập nhật ghi 1 dòng vào <code>lan_cap_nhat</code> (nguồn, khoảng năm, số dòng, thời điểm).</span>
+    </li>
+    {% endwith %}
+  </ol>
+</section>
+
+<section id="muc-3" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">psychology</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">3. Mô hình gợi ý hoạt động thế nào</h2>
+  </div>
+  <p class="font-body-md text-body-md text-on-surface leading-relaxed">
+    Engine gợi ý dùng mô hình <strong>Random Forest</strong> huấn luyện trên đặc trưng chuỗi điểm chuẩn
+    10 năm (trung bình, min, max, độ dao động, xu hướng) kết hợp điểm tổ hợp của học sinh để ước lượng
+    xác suất đỗ.
+  </p>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md mt-space-md">
+    <div class="rounded-lg bg-[#DCFCE7] border border-[#16A34A]/30 p-space-md text-center">
+      <span class="font-label-lg text-label-lg text-[#16A34A] font-bold block">An toàn</span>
+      <p class="font-body-sm text-body-sm text-[#14532D] mt-1">Xác suất cao, điểm vượt xa điểm chuẩn</p>
+    </div>
+    <div class="rounded-lg bg-[#FFFBEB] border border-[#F59E0B]/30 p-space-md text-center">
+      <span class="font-label-lg text-label-lg text-[#B45309] font-bold block">Vừa sức</span>
+      <p class="font-body-sm text-body-sm text-[#78350F] mt-1">Điểm ngang điểm chuẩn các năm</p>
+    </div>
+    <div class="rounded-lg bg-[#FEE2E2] border border-[#EF4444]/30 p-space-md text-center">
+      <span class="font-label-lg text-label-lg text-[#B91C1C] font-bold block">Thử sức</span>
+      <p class="font-body-sm text-body-sm text-[#7F1D1D] mt-1">Điểm thấp hơn, rủi ro cao nhưng đáng thử</p>
+    </div>
+  </div>
+  <p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mt-space-md">
+    Đây là ước lượng thống kê, không phải cam kết trúng tuyển.
+  </p>
+</section>
+
+<section id="muc-4" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm scroll-mt-20">
+  <div class="flex items-center gap-space-sm mb-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-primary-container">balance</span>
+    <h2 class="font-headline-sm text-headline-sm text-on-surface">4. Độc lập &amp; minh bạch</h2>
+  </div>
+  <div class="rounded-lg bg-[#DCFCE7] border border-[#16A34A]/30 p-space-md flex gap-space-sm">
+    <span class="material-symbols-outlined text-[22px] text-[#16A34A] shrink-0">verified_user</span>
+    <span class="font-body-sm text-body-sm text-[#14532D]">Uni Connect <strong>không thuộc</strong> bất kỳ trường đại học hay trung tâm luyện thi nào. Thứ hạng gợi ý hoàn toàn từ dữ liệu và mô hình — không có yếu tố quảng cáo.</span>
+  </div>
+  <ul class="flex flex-col gap-space-sm mt-space-md">
+    <li class="flex gap-space-sm"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-on-surface">Mọi con số (điểm chuẩn, xác suất, margin) đều truy vết được về dòng dữ liệu gốc qua tên ngành gốc (<code>ten_nganh_goc</code>) lưu trong database.</span></li>
+    <li class="flex gap-space-sm"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0">check_circle</span><span class="font-body-sm text-body-sm text-on-surface">Phát hiện số liệu sai? Báo qua trang <a class="text-primary-container underline hover:text-primary" href="{% url 'university:tai_lieu' 'lien-he' %}">Liên hệ</a> kèm tên trường + ngành + năm — chúng tôi đối chiếu và sửa.</span></li>
+  </ul>
+</section>
+
+{% endblock %}
