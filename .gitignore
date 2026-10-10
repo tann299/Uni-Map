@@ -32,6 +32,9 @@ source/recommendation/ml/bao_cao_danh_gia_moi.json
 Thumbs.db
 desktop.ini
 
+# Rác của Playwright MCP (snapshot/console log khi test giao diện)
+.playwright-mcp/
+
 
 cache/
 data/

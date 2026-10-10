@@ -19,7 +19,7 @@
   {% if danh_sach %}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md">
       {% for hs in danh_sach %}
-        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md flex flex-col gap-space-sm">
+        <div class="uc-card bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-md flex flex-col gap-space-sm">
           <div class="flex items-start justify-between gap-2">
             <div class="min-w-0">
               <div class="font-title-md text-title-md font-bold text-on-surface truncate">{{ hs.ten_ho_so }}</div>
@@ -49,7 +49,7 @@
       {% endfor %}
     </div>
   {% else %}
-    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-xl text-center">
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-xl text-center">
       <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">school</span>
       <p class="font-body-md text-body-md text-on-surface-variant mb-space-md">Bạn chưa có hồ sơ năng lực nào.</p>
       <a href="{% url 'admissions:tao_ho_so' %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors">

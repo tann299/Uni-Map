@@ -65,7 +65,7 @@
     <div class="lg:col-span-7 p-8 sm:p-10 lg:p-12 flex flex-col justify-center bg-white">
       <!-- Tabs -->
       <div class="flex items-center justify-end gap-2 mb-6">
-        <div class="inline-flex p-1 bg-surface-container-low rounded-xl border border-surface-container-highest">
+        <div class="inline-flex p-1 bg-surface-container-low rounded-2xl border border-surface-container-highest">
           <a href="{% url 'accounts:dang_nhap' %}" class="px-4 py-1.5 rounded-lg text-sm font-bold bg-white text-primary-container shadow-sm">Đăng nhập</a>
           <a href="{% url 'accounts:dang_ky' %}" class="px-4 py-1.5 rounded-lg text-sm font-medium text-on-surface-variant hover:text-on-surface transition-all">Tạo tài khoản</a>
         </div>
@@ -130,11 +130,11 @@
               <input type="checkbox" name="remember_me" class="w-4 h-4 rounded text-primary-container focus:ring-primary-container border-outline-variant">
               <span class="text-xs sm:text-sm text-on-surface">Nhớ tôi</span>
             </label>
-            <a href="#" class="text-primary-container hover:underline font-semibold text-xs sm:text-sm">Quên mật khẩu?</a>
+            <a href="#" class="text-primary-container uc-link font-semibold text-xs sm:text-sm">Quên mật khẩu?</a>
           </div>
 
           <!-- Submit CTA Button -->
-          <button type="submit" class="w-full py-3.5 px-6 rounded-full bg-primary-container hover:bg-primary text-on-primary font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 mt-2">
+          <button type="submit" class="uc-btn w-full py-3.5 px-6 rounded-full bg-primary-container hover:bg-primary text-on-primary font-bold text-sm shadow-md flex items-center justify-center gap-2 mt-2">
             <span>Đăng nhập →</span>
           </button>
 
@@ -160,7 +160,7 @@
           <!-- Bottom toggle link -->
           <div class="text-center text-xs sm:text-sm text-on-surface-variant mt-5">
             <span>Chưa có tài khoản? </span>
-            <a href="{% url 'accounts:dang_ky' %}" class="text-primary-container font-bold hover:underline">Đăng ký ngay</a>
+            <a href="{% url 'accounts:dang_ky' %}" class="text-primary-container font-bold uc-link">Đăng ký ngay</a>
           </div>
         </form>
       </div>

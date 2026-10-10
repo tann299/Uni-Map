@@ -285,12 +285,21 @@ def danh_sach_truong(request):
             dactrungdiemchuan__nganh__nhom_nganh=nhom_nganh).distinct()
 
     # Số ngành + điểm chuẩn TB của mỗi trường, tính bằng 1 truy vấn gộp.
+    # Chỉ lấy các trường đang hiện diện trong qs (đã lọc q/vung/tinh/nhom) ->
+    # GROUP BY trên <295 ma_truong thay vì quét cả bảng đặc trưng 100k dòng.
+    # diem_moi_nhat > 0: dòng toàn NULL khi dựng dac_trung bị ép về 0
+    # (xem import_mysql), AVG lẫn 0 ra điểm ảo, phải loại.
     thong_ke = {
         r["ma_truong_id"]: r
-        for r in DacTrungDiemChuan.objects.values("ma_truong_id")
+        for r in DacTrungDiemChuan.objects.filter(
+                ma_truong_id__in=qs.values("ma_truong"),
+                diem_moi_nhat__gt=0).values("ma_truong_id")
         .annotate(so_nganh=Count("nganh_id", distinct=True),
                   diem_tb=Avg("diem_moi_nhat"))
     }
+    # Sort Python: dữ liệu sort nằm trong dict `thong_ke` (tính riêng), không phải
+    # field trên model -> order_by() Django không dùng được. 295 dòng là nhỏ,
+    # sort tay rẻ hơn JOIN+GROUP BY lại trên qs phân trang.
     ds = [_truong_thanh_dong(t, thong_ke.get(t.ma_truong, {}).get("so_nganh", 0),
                              thong_ke.get(t.ma_truong, {}).get("diem_tb"))
           for t in qs]

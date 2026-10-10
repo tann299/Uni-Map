@@ -45,7 +45,7 @@
 
     <div class="flex flex-col gap-space-md">
       {% for lan in danh_sach %}
-        <section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+        <section class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden">
           <div class="flex flex-wrap items-center justify-between gap-space-sm p-space-md bg-surface-container-low">
             <div class="flex items-center gap-2">
               <span class="material-symbols-outlined text-[20px] text-primary-container">schedule</span>
@@ -97,7 +97,7 @@
                           {% else %}bg-[#FEE2E2] text-[#DC2626] border-[#DC2626]/30{% endif %}">{{ kq.tang }}</span>
                       </td>
                       <td class="py-space-sm px-space-md text-right">
-                        <a href="{% url 'recommendation:chi_tiet_goi_y' kq.pk %}" class="text-primary-container hover:underline font-label-sm text-label-sm inline-flex items-center gap-1">
+                        <a href="{% url 'recommendation:chi_tiet_goi_y' kq.pk %}" class="text-primary-container uc-link font-label-sm text-label-sm inline-flex items-center gap-1">
                           <span class="material-symbols-outlined text-[16px]">insights</span> Chi tiết
                         </a>
                       </td>
@@ -113,7 +113,7 @@
       {% endfor %}
     </div>
   {% else %}
-    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-xl text-center">
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-xl text-center">
       <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">history_toggle_off</span>
       <p class="font-body-md text-body-md text-on-surface-variant mb-space-md">Chưa có lần gợi ý nào cho hồ sơ này.</p>
       <a href="{% url 'recommendation:xem_goi_y' ho_so.pk %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors">

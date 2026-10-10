@@ -30,7 +30,7 @@
 
   <!-- UC-07: chọn ngay tại trang này. Nút "So sánh" ở danh sách gợi ý chỉ là
        lối tắt — mọi thay đổi ở đây ghi thẳng vào `?ss=` rồi tải lại trang. -->
-  <section id="khuChon" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md mb-space-lg {% if not ung_vien %}hidden{% endif %}">
+  <section id="khuChon" class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-md mb-space-lg {% if not ung_vien %}hidden{% endif %}">
     <div class="flex flex-wrap items-center justify-between gap-space-sm mb-space-sm">
       <h2 class="font-title-md text-title-md font-bold text-on-surface flex items-center gap-2">
         <span class="material-symbols-outlined text-[20px] text-primary-container">playlist_add_check</span>
@@ -76,7 +76,7 @@
   {% if ds %}
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-space-md mb-space-lg">
       {% for r in ds %}
-        <section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+        <section class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden flex flex-col">
           <div class="p-space-md border-b border-surface-container-high">
             <div class="flex items-start justify-between gap-2">
               <div class="flex items-start gap-2 min-w-0">
@@ -180,7 +180,7 @@
       {% endfor %}
     </div>
   {% else %}
-    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-xl text-center mb-space-lg">
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-xl text-center mb-space-lg">
       <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">compare_arrows</span>
       {% if ung_vien %}
         <p class="font-body-md text-body-md text-on-surface-variant">Bấm 2–{{ toi_da }} nguyện vọng ở danh sách phía trên để đặt cạnh nhau.</p>

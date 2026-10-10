@@ -185,9 +185,12 @@ NUMBER_GROUPING = 3
 # Toàn bộ UI dùng Tailwind + Material Symbols qua CDN; static tự quản chỉ có
 # favicon.svg. Khi DEBUG=0 (host thật) Django KHÔNG serve static, nên phải chạy
 # `manage.py collectstatic` rồi để web server trỏ /static/ vào STATIC_ROOT.
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

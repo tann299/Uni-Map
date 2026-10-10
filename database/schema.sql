@@ -274,6 +274,20 @@ CREATE TABLE IF NOT EXISTS auth_user (
 ) ENGINE=InnoDB COMMENT='Người dùng (do Django quản lý)';
 
 -- -----------------------------------------------------------------------------
+--  accounts_profile — hồ sơ mở rộng (avatar) của User
+-- -----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS accounts_profile (
+    id       BIGINT NOT NULL AUTO_INCREMENT,
+    user_id  INT NOT NULL,
+    avatar   VARCHAR(100) NULL,
+
+    PRIMARY KEY (id),
+    UNIQUE KEY uq_profile_user (user_id),
+    CONSTRAINT fk_profile_user FOREIGN KEY (user_id) REFERENCES auth_user (id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB COMMENT='Hồ sơ người dùng mở rộng (ảnh đại diện)';
+
+-- -----------------------------------------------------------------------------
 --  ho_so_nang_luc — hồ sơ của học sinh (SRS UC-04, US-07..US-11)
 --  Một học sinh có thể có nhiều hồ sơ (thi thử nhiều lần, hoặc thử "nếu điểm
 --  cao hơn thì sao") -> KHÔNG đặt UNIQUE trên user_id.

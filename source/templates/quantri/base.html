@@ -1,9 +1,12 @@
-{% load humanize %}<!DOCTYPE html>
+{% load humanize %}{% load static %}<!DOCTYPE html>
 <html lang="vi" class="h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Admin Console — Uni Connect{% endblock %}</title>
+  <link rel="icon" type="image/png" href="{% static 'favicon.png' %}?v=5">
+  <link rel="shortcut icon" href="{% static 'favicon.ico' %}?v=5">
+  <link rel="apple-touch-icon" href="{% static 'favicon.png' %}?v=5">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -48,9 +51,7 @@
 <!-- SIDEBAR w-64 (mockup UI_unimap) -->
 <aside class="fixed left-0 top-0 bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col border-r border-outline-variant overflow-y-auto">
   <div class="h-16 px-space-md flex items-center gap-space-sm border-b border-outline-variant shrink-0">
-    <div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shrink-0">
-      <span class="material-symbols-outlined text-[22px]">school</span>
-    </div>
+    <img src="{% static 'logo.png' %}?v=3" alt="Uni Connect" class="w-11 h-11 rounded-lg object-contain shrink-0" loading="eager">
     <div class="flex flex-col min-w-0">
       <div class="flex items-center gap-1.5">
         <span class="font-headline-sm text-headline-sm text-primary leading-none tracking-tight">Uni Connect</span>

@@ -9,6 +9,7 @@ from django.shortcuts import redirect, render
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 
+from accounts.models import Profile
 from admissions.models import HoSoNangLuc
 from university.services import tinh_to_hop_tu_db
 
@@ -22,6 +23,17 @@ _O_INPUT = ("w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surfac
 
 
 class ThongTinForm(forms.ModelForm):
+    avatar = forms.ImageField(
+        label="Ảnh đại diện",
+        required=False,
+        widget=forms.FileInput(attrs={"class": "hidden", "accept": "image/png,image/jpeg,image/webp"}),
+    )
+    xoa_avatar = forms.BooleanField(
+        label="Xóa ảnh đại diện",
+        required=False,
+        widget=forms.CheckboxInput(attrs={"class": "hidden"}),
+    )
+
     class Meta:
         model = User
         fields = ["first_name", "last_name", "email"]
@@ -31,6 +43,14 @@ class ThongTinForm(forms.ModelForm):
             "last_name": forms.TextInput(attrs={"class": _O_INPUT, "placeholder": "Văn A"}),
             "email": forms.EmailInput(attrs={"class": _O_INPUT, "placeholder": "ban@example.com"}),
         }
+
+    def clean_avatar(self):
+        avatar = self.cleaned_data.get("avatar")
+        if avatar:
+            # Giới hạn kích thước tối đa 5MB
+            if avatar.size > 5 * 1024 * 1024:
+                raise forms.ValidationError("Ảnh đại diện không được vượt quá 5MB.")
+        return avatar
 
 
 class MatKhauForm(PasswordChangeForm):
@@ -101,15 +121,27 @@ def tai_khoan(request):
     else:
         tab = request.GET.get("tab", "ho_so")
 
-    ft = (ThongTinForm(request.POST, instance=request.user, prefix="tt")
+    ft = (ThongTinForm(request.POST, request.FILES, instance=request.user, prefix="tt")
           if tab == "thong_tin" else ThongTinForm(instance=request.user, prefix="tt"))
     fp = (MatKhauForm(request.user, request.POST, prefix="mk")
           if tab == "mat_khau" else MatKhauForm(request.user, prefix="mk"))
 
     if request.method == "POST":
         if tab == "thong_tin" and ft.is_valid():
-            ft.save()
-            messages.success(request, "Đã cập nhật thông tin cá nhân.")
+            user = ft.save()
+            profile, _ = Profile.objects.get_or_create(user=user)
+            # Xử lý avatar
+            if ft.cleaned_data.get("xoa_avatar"):
+                profile.xoa_file_avatar()
+                profile.save()
+            elif request.FILES.get("tt-avatar"):
+                # Xóa ảnh cũ trước khi lưu ảnh mới
+                if profile.avatar:
+                    profile.xoa_file_avatar()
+                profile.avatar = request.FILES.get("tt-avatar")
+                profile.save()
+
+            messages.success(request, "Đã cập nhật thông tin cá nhân và ảnh đại diện.")
             return redirect("/accounts/tai-khoan/?tab=thong_tin")
         if tab == "mat_khau" and fp.is_valid():
             u = fp.save()

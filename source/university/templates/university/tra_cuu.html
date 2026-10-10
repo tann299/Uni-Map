@@ -11,7 +11,7 @@
   <div class="flex flex-col w-full">
 
     <!-- ===== TÌM KIẾM NHANH ===== -->
-    <section class="w-full bg-surface-container-lowest rounded-xl p-space-lg mb-space-lg shadow-sm">
+    <section class="w-full bg-surface-container-lowest rounded-2xl p-space-lg mb-space-lg shadow-sm">
       <div class="space-y-space-xs mb-space-lg">
         <div class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container text-primary-container font-label-sm text-label-sm">
           <span class="material-symbols-outlined text-[16px]">verified</span>
@@ -28,7 +28,7 @@
                    id="searchInput" name="q" type="text" value="{{ params.q }}"
                    placeholder="Tìm theo tên trường, mã trường (HUST, UET, NEU...) hoặc ngành đào tạo (Khoa học máy tính, AI, Logistics...)">
           </div>
-          <button class="px-space-xl py-space-md bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg flex items-center justify-center gap-space-xs transition-colors shrink-0 shadow-sm" type="submit">
+          <button class="uc-btn px-space-xl py-space-md bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg flex items-center justify-center gap-space-xs shrink-0 shadow-sm" type="submit">
             <span class="material-symbols-outlined text-[18px]">travel_explore</span>
             <span>Tìm kiếm</span>
           </button>
@@ -56,13 +56,13 @@
     </section>
 
     <!-- ===== BỘ LỌC ===== -->
-    <section class="w-full bg-surface-container-lowest rounded-xl p-space-lg mb-space-lg shadow-sm">
+    <section class="w-full bg-surface-container-lowest rounded-2xl p-space-lg mb-space-lg shadow-sm">
       <div class="flex items-center justify-between pb-space-sm mb-space-md">
         <div class="flex items-center gap-space-xs">
           <span class="material-symbols-outlined text-primary-container text-[20px]">tune</span>
           <h2 class="font-title-md text-title-md text-on-surface">Bộ lọc thông minh đa chiều</h2>
         </div>
-        <a class="font-label-sm text-label-sm text-primary-container hover:underline flex items-center gap-0.5" href="{% url 'university:tra_cuu' %}">
+        <a class="font-label-sm text-label-sm text-primary-container uc-link flex items-center gap-0.5" href="{% url 'university:tra_cuu' %}">
           <span class="material-symbols-outlined text-[16px]">restart_alt</span>
           <span>Đặt lại bộ lọc</span>
         </a>
@@ -177,16 +177,16 @@
           <span class="font-label-sm text-label-sm text-on-surface">Đã chọn so sánh:</span>
           <span class="font-label-sm text-label-sm text-on-primary bg-primary-container px-1.5 py-0.5 rounded-full" id="compareCount">0/3</span>
           {% if user.is_authenticated %}
-            <button id="compareGo" class="font-label-sm text-label-sm text-primary-container hover:underline ml-space-xs disabled:opacity-40 disabled:hover:no-underline" type="button" disabled>So sánh ngay →</button>
+            <button id="compareGo" class="font-label-sm text-label-sm text-primary-container uc-link ml-space-xs disabled:opacity-40" type="button" disabled>So sánh ngay →</button>
           {% else %}
-            <a class="font-label-sm text-label-sm text-primary-container hover:underline ml-space-xs" href="{% url 'accounts:dang_nhap' %}?next={% url 'university:tra_cuu' %}" title="Cần đăng nhập để so sánh nguyện vọng">Đăng nhập để so sánh →</a>
+            <a class="font-label-sm text-label-sm text-primary-container uc-link ml-space-xs" href="{% url 'accounts:dang_nhap' %}?next={% url 'university:tra_cuu' %}" title="Cần đăng nhập để so sánh nguyện vọng">Đăng nhập để so sánh →</a>
           {% endif %}
         </div>
       </div>
     </section>
 
     <!-- ===== BẢNG ĐIỂM CHUẨN ===== -->
-    <section class="w-full bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden mb-space-lg">
+    <section class="w-full bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden mb-space-lg">
       {% if cua_so_day_du|length > so_cot %}
       <div class="flex items-center justify-between gap-space-sm px-space-md py-space-sm bg-surface-container-low border-b border-surface-container-high">
         <span class="font-label-sm text-label-sm text-on-surface-variant">Đang hiện {{ so_cot }} năm gần nhất{% with dau=cua_so.0 %}{% with cuoi=cua_so|last %} ({{ dau.nam }}–{{ cuoi.nam }}){% endwith %}{% endwith %} trong {{ cua_so_day_du|length }} năm dữ liệu</span>
@@ -237,7 +237,7 @@
                     {% endif %}
                     <div class="min-w-0">
                       <div class="font-label-md text-label-md font-semibold text-on-surface whitespace-nowrap">
-                        <a class="hover:text-primary-container hover:underline transition-colors" href="{% querystring truong=r.ma_truong trang=None %}">{{ r.truong }}</a>
+                        <a class="hover:text-primary-container uc-link transition-colors" href="{% querystring truong=r.ma_truong trang=None %}">{{ r.truong }}</a>
                       </div>
                       <span class="block whitespace-nowrap font-label-sm text-label-sm text-on-surface-variant">Mã: {{ r.ma_truong }} • {{ r.tinh_thanh }} • {{ r.vung_mien }}</span>
                     </div>
@@ -288,7 +288,7 @@
                 <td class="py-space-xl px-space-md text-center text-on-surface-variant" colspan="{{ colspan|default:15 }}">
                   <span class="material-symbols-outlined text-[40px] text-outline block mb-space-xs">search_off</span>
                   Không tìm thấy ngành nào khớp bộ lọc.
-                  <a class="text-primary-container hover:underline font-semibold" href="{% url 'university:tra_cuu' %}">Đặt lại bộ lọc</a>
+                  <a class="text-primary-container uc-link font-semibold" href="{% url 'university:tra_cuu' %}">Đặt lại bộ lọc</a>
                 </td>
               </tr>
             {% endfor %}

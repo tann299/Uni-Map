@@ -12,6 +12,8 @@
 # 1. Import hàm include(): from django.urls import include, path
 # 2. Thêm một URL vào urlpatterns: path('blog/', include('blog.urls'))
 
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
@@ -24,3 +26,7 @@ urlpatterns = [
     path("goi-y/", include("recommendation.urls")),
     path("", include("university.urls")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

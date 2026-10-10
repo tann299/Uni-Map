@@ -38,7 +38,7 @@
 
   {% localize off %}
   <!-- Điểm từng môn -->
-  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-lg">
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-lg mb-space-lg">
     <h2 class="font-title-md text-title-md font-bold text-on-surface mb-space-md flex items-center gap-2">
       <span class="material-symbols-outlined text-[20px] text-primary-container">calculate</span>
       Điểm từng môn đã nhập
@@ -54,13 +54,13 @@
       </div>
     {% else %}
       <p class="font-body-sm text-body-sm text-on-surface-variant">Chưa nhập điểm môn nào.
-        <a class="text-primary-container hover:underline font-semibold" href="{% url 'admissions:sua_ho_so' ho_so.pk %}">Nhập ngay</a>
+        <a class="text-primary-container uc-link font-semibold" href="{% url 'admissions:sua_ho_so' ho_so.pk %}">Nhập ngay</a>
       </p>
     {% endif %}
   </section>
 
   <!-- US-09: nhóm ngành quan tâm — lọc cứng ở UC-05 bước 3 -->
-  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-lg">
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-lg mb-space-lg">
     <h2 class="font-title-md text-title-md font-bold text-on-surface mb-space-md flex items-center gap-2">
       <span class="material-symbols-outlined text-[20px] text-primary-container">category</span>
       Nhóm ngành quan tâm
@@ -73,13 +73,13 @@
       </div>
     {% else %}
       <p class="font-body-sm text-body-sm text-on-surface-variant">Chưa chọn nhóm ngành nào — gợi ý sẽ trải trên mọi nhóm.
-        <a class="text-primary-container hover:underline font-semibold" href="{% url 'admissions:sua_ho_so' ho_so.pk %}">Chọn ngay</a>
+        <a class="text-primary-container uc-link font-semibold" href="{% url 'admissions:sua_ho_so' ho_so.pk %}">Chọn ngay</a>
       </p>
     {% endif %}
   </section>
 
   <!-- CN-01: tổ hợp tự tính -->
-  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden">
     <div class="p-space-lg pb-space-sm">
       <h2 class="font-title-md text-title-md font-bold text-on-surface flex items-center gap-2">
         <span class="material-symbols-outlined text-[20px] text-primary-container">auto_awesome</span>
@@ -121,7 +121,7 @@
       <div class="p-space-lg pt-0">
         <p class="font-body-sm text-body-sm text-on-surface-variant">
           Chưa tính được tổ hợp nào. Hãy nhập điểm các môn ở
-          <a class="text-primary-container hover:underline font-semibold" href="{% url 'admissions:sua_ho_so' ho_so.pk %}">trang sửa hồ sơ</a>.
+          <a class="text-primary-container uc-link font-semibold" href="{% url 'admissions:sua_ho_so' ho_so.pk %}">trang sửa hồ sơ</a>.
         </p>
       </div>
     {% endif %}

@@ -23,9 +23,9 @@ Trang con kế thừa và điền `block tai_lieu` (nội dung) + `block kpi` (t
   </nav>
 
   <!-- ===== HEADER ===== -->
-  <section class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-lg shadow-sm">
+  <section class="w-full bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-lg mb-space-lg shadow-sm">
     <div class="flex items-start gap-space-md min-w-0">
-      <div class="w-14 h-14 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+      <div class="w-14 h-14 rounded-2xl bg-primary-container text-on-primary flex items-center justify-center shrink-0">
         <span class="material-symbols-outlined text-[30px]">{% block icon %}{{ icon_tai_lieu }}{% endblock %}</span>
       </div>
       <div class="min-w-0 flex-1">
@@ -57,7 +57,7 @@ Trang con kế thừa và điền `block tai_lieu` (nội dung) + `block kpi` (t
     <aside class="flex flex-col gap-space-md lg:sticky lg:top-20">
 
       <!-- Mục lục -->
-      <nav class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md shadow-sm">
+      <nav class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-md shadow-sm">
         <span class="font-label-md text-label-md uppercase tracking-wider text-on-surface font-bold block mb-space-sm">Nội dung trang</span>
         <ul class="flex flex-col gap-1.5 font-body-sm text-body-sm">
           {% block muc_luc %}{% endblock %}
@@ -65,7 +65,7 @@ Trang con kế thừa và điền `block tai_lieu` (nội dung) + `block kpi` (t
       </nav>
 
       <!-- Tài liệu khác -->
-      <nav class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md shadow-sm">
+      <nav class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-md shadow-sm">
         <span class="font-label-md text-label-md uppercase tracking-wider text-on-surface font-bold block mb-space-sm">Tài liệu khác</span>
         <ul class="flex flex-col gap-1.5 font-body-sm text-body-sm">
           {% for s, t in danh_sach_tai_lieu %}

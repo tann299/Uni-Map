@@ -173,12 +173,17 @@ def _goi_y_uc05(hs, to_hop_diem):
     `xem_goi_y` mới lưu snapshot (UC-08).
     """
     # Nới điều kiện dần khi quá ít kết quả (UC-05/5a và 5c).
+    # Đếm bằng slice: chỉ cần biết "dưới ngưỡng" hay không, MySQL đọc tối đa
+    # NGUONG_IT+1 dòng thay vì COUNT() quét hết tập lọc (nhanh hơn khi >5k dòng).
+    def _it_dong(qs):
+        return len(qs[:NGUONG_IT + 1]) < NGUONG_IT
+
     qs = _loc_cung(hs, to_hop_diem)
     da_noi = None
-    if qs.count() < NGUONG_IT and hs.vung_mien_uu_tien in dict(VUNG_MIEN):
+    if _it_dong(qs) and hs.vung_mien_uu_tien in dict(VUNG_MIEN):
         qs = _loc_cung(hs, to_hop_diem, dung_vung=False)
         da_noi = "khu vực"
-    if qs.count() < NGUONG_IT and hs.nhomnganhquantam_set.exists():
+    if _it_dong(qs) and hs.nhomnganhquantam_set.exists():
         qs = _loc_cung(hs, to_hop_diem, dung_nhom=False, dung_vung=False)
         da_noi = "nhóm ngành và khu vực"
     rows, dung_ai = _xep_hang(hs, to_hop_diem, qs)

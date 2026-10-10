@@ -9,7 +9,7 @@
 <div class="max-w-[1350px] mx-auto px-margin-mobile lg:px-margin py-space-lg">
 
   <!-- ===== TÌM KIẾM ===== -->
-  <section class="w-full bg-surface-container-lowest rounded-xl p-space-lg mb-space-lg shadow-sm">
+  <section class="w-full bg-surface-container-lowest rounded-2xl p-space-lg mb-space-lg shadow-sm">
     <div class="space-y-space-xs mb-space-lg">
       <div class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container text-primary-container font-label-sm text-label-sm">
         <span class="material-symbols-outlined text-[16px]">verified</span>
@@ -102,7 +102,7 @@
   {% if ds %}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-space-md mb-space-lg">
       {% for t in ds %}
-        <a class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md flex flex-col gap-space-sm hover:border-primary-container hover:shadow-sm transition-all"
+        <a class="uc-card bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-md flex flex-col gap-space-sm"
            href="{% url 'university:chi_tiet_truong' t.ma_truong %}">
           <div class="flex items-start gap-space-sm">
             {% logo_truong t.ma_truong as logo %}
@@ -139,7 +139,7 @@
     </div>
 
     <!-- Phân trang -->
-    <div class="p-space-md bg-surface-container-low rounded-xl flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+    <div class="p-space-md bg-surface-container-low rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-space-sm">
       <div class="font-body-sm text-body-sm text-on-surface-variant">
         Hiển thị <strong class="text-on-surface">{{ page|length }}</strong> / {{ tong }} trường
         (Trang {{ page.number }} / {{ page.paginator.num_pages }})
@@ -177,10 +177,10 @@
       </div>
     </div>
   {% else %}
-    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-xl text-center">
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-xl text-center">
       <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">search_off</span>
       <p class="font-body-md text-body-md text-on-surface-variant mb-space-md">Không tìm thấy trường nào khớp bộ lọc.</p>
-      <a class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors" href="{% url 'university:danh_sach_truong' %}">
+      <a class="uc-btn px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5" href="{% url 'university:danh_sach_truong' %}">
         <span class="material-symbols-outlined text-[18px]">restart_alt</span><span>Đặt lại bộ lọc</span>
       </a>
     </div>

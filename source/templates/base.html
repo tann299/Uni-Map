@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Uni Connect — Con đường đến đại học{% endblock %}</title>
   {% load static %}
-  <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
-  <link rel="apple-touch-icon" href="{% static 'favicon.svg' %}">
+  <link rel="icon" type="image/png" href="{% static 'favicon.png' %}?v=5">
+  <link rel="shortcut icon" href="{% static 'favicon.ico' %}?v=5">
+  <link rel="apple-touch-icon" href="{% static 'favicon.png' %}?v=5">
 
   <!-- Google Fonts & Material Symbols Outlined -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,11 +71,14 @@
           "on-error": "#ffffff",
           "on-error-container": "#93000a"
         },
+        // Bo goc mem theo licenses.phmyhu1710.dev (--lp-radius: 16px).
+        // Luu y: `full` phai la 9999px — gia tri cu 0.75rem lam avatar va
+        // cham trang thai thanh hinh vuong bo goc thay vi hinh tron.
         borderRadius: {
-          "DEFAULT": "0.125rem",
-          "lg": "0.25rem",
-          "xl": "0.5rem",
-          "full": "0.75rem"
+          "DEFAULT": "0.75rem",
+          "lg": "0.875rem",
+          "xl": "1rem",
+          "full": "9999px"
         },
         // Thang spacing cua mockup UI_unimap (dung lam ten lop truc tiep:
         // p-space-lg, gap-space-md, px-margin...).
@@ -127,61 +131,98 @@
     }
   };
   </script>
+  <!-- Hover/lift dung chung cho khoi card + nut + link (theo licenses.phmyhu1710.dev,
+       giu mau cu). .uc-card = khoi noi dung, .uc-btn = nut, .uc-link = link text.
+       KHONG dung cho <tr> (hang bang giu hover nen phang).
+
+       Selector lap doi (.uc-card.uc-card:hover) la co y: Tailwind CDN chen
+       <style> SAU khoi nay, nen `hover:border-*` / `hover:shadow-*` cua Tailwind
+       (cung 0-2-0) se thang neu khong nang do uu tien len 0-3-0. -->
+  <style>
+    .uc-card, .uc-btn {
+      transition: transform .2s ease, border-color .2s ease,
+                  box-shadow .2s ease, background-color .2s ease;
+    }
+    .uc-card.uc-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(29, 78, 216, .35);
+      box-shadow: 0 10px 24px -12px rgba(29, 78, 216, .25);
+    }
+    .uc-btn.uc-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px -10px rgba(29, 78, 216, .45);
+    }
+    .uc-btn.uc-btn:active { transform: translateY(0); }
+
+    /* Link text: gach chan truot vao thay vi bat/tat dot ngot.
+       background-size 0%->100% nen khong day layout nhu text-decoration. */
+    .uc-link {
+      background-image: linear-gradient(currentColor, currentColor);
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      background-size: 0% 1px;
+      transition: background-size .25s ease, color .2s ease;
+    }
+    .uc-link.uc-link:hover { background-size: 100% 1px; }
+    .uc-link:disabled.uc-link:hover { background-size: 0% 1px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .uc-card, .uc-btn { transition: none; }
+      .uc-card.uc-card:hover, .uc-btn.uc-btn:hover { transform: none; }
+      .uc-link { transition: none; }
+      .uc-link.uc-link:hover { background-size: 100% 1px; }
+    }
+  </style>
+
   {% block extra_head %}{% endblock %}
 </head>
 <body class="bg-surface text-on-surface font-body min-h-screen flex flex-col pt-16 antialiased">
 
   <!-- HEADER (Cover 100% UI mockup: logo SVG, badge 2020-2025, nav items, guest / user auth state) -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest border-b border-surface-container-highest">
-    <div class="h-16 max-w-[1350px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+    <div class="h-16 max-w-[1350px] mx-auto px-3 min-[400px]:px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
 
       <!-- Left: Mobile Hamburger Button + Logo + Brand name -->
-      <div class="flex items-center gap-2 sm:gap-4 shrink-0">
+      <div class="flex items-center gap-1.5 min-[400px]:gap-2 sm:gap-4 shrink-0">
         <!-- Mobile hamburger button (nam ben trai, ngay truoc/duoi goc logo) -->
-        <button id="mobile-menu-btn" type="button" class="lg:hidden p-1.5 -ml-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" aria-label="Mở menu điều hướng">
+        <button id="mobile-menu-btn" type="button" class="xl:hidden p-1.5 -ml-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" aria-label="Mở menu điều hướng">
           <span id="mobile-menu-icon" class="material-symbols-outlined text-[24px]">menu</span>
         </button>
 
-        <a class="flex items-center gap-2" href="{% url 'university:trang_chu' %}">
-          {% include "partials/logo.html" with class="h-9 w-9 shrink-0" %}
+        <a class="flex items-center gap-2 sm:gap-2.5 min-w-0" href="{% url 'university:trang_chu' %}">
+          <img src="{% static 'logo.png' %}?v=3" alt="Uni Connect" class="h-10 w-10 sm:h-12 sm:w-12 shrink-0 object-contain drop-shadow-sm" loading="eager">
           <div class="flex flex-col">
-            <span class="font-headline-sm text-headline-sm text-primary leading-none">Uni Connect</span>
-            <span class="text-[11px] text-on-surface-variant leading-tight mt-0.5">Con đường đến đại học</span>
+            <span class="font-bold text-base sm:font-headline-sm sm:text-headline-sm text-primary leading-none">Uni Connect</span>
+            <span class="hidden sm:block text-[11px] text-on-surface-variant leading-tight mt-0.5">Con đường đến đại học</span>
           </div>
         </a>
       </div>
 
       <!-- Center: Navigation links (mockup: active = chu mau primary-container, khong phai pill nen) -->
-      <nav class="hidden lg:flex items-center gap-1 flex-nowrap whitespace-nowrap">
-        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 {% if nav_active == 'trang_chu' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'university:trang_chu' %}"><span class="material-symbols-outlined text-[18px]">home</span>Trang chủ</a>
-        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 {% if nav_active == 'tra_cuu' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'university:tra_cuu' %}"><span class="material-symbols-outlined text-[18px]">manage_search</span>Tra cứu Điểm chuẩn</a>
-        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 {% if nav_active == 'truong' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'university:danh_sach_truong' %}"><span class="material-symbols-outlined text-[18px]">account_balance</span>Danh sách trường</a>
+      <nav class="hidden xl:flex items-center gap-0.5 flex-nowrap whitespace-nowrap">
+        <a class="px-2.5 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 {% if nav_active == 'trang_chu' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'university:trang_chu' %}"><span class="material-symbols-outlined text-[18px]">home</span>Trang chủ</a>
+        <a class="px-2.5 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 {% if nav_active == 'tra_cuu' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'university:tra_cuu' %}"><span class="material-symbols-outlined text-[18px]">manage_search</span>Tra cứu Điểm chuẩn</a>
+        <a class="px-2.5 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 {% if nav_active == 'truong' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'university:danh_sach_truong' %}"><span class="material-symbols-outlined text-[18px]">account_balance</span>Danh sách trường</a>
         {% if user.is_authenticated %}
-        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 {% if nav_active == 'goi_y' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'admissions:danh_sach_ho_so' %}" title="Nhận gợi ý nguyện vọng từ hồ sơ năng lực (UC-05)">
+        <a class="px-2.5 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 {% if nav_active == 'goi_y' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'admissions:danh_sach_ho_so' %}" title="Nhận gợi ý nguyện vọng từ hồ sơ năng lực (UC-05)">
           <span class="material-symbols-outlined text-[18px] text-primary">auto_awesome</span>
           Gợi ý AI
         </a>
         {% else %}
-        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors inline-flex items-center gap-1.5" href="{% url 'accounts:dang_nhap' %}" title="Yêu cầu đăng nhập và hoàn thiện Hồ sơ năng lực (UC-05)">
+        <!-- Chip "Cần Đăng nhập" bo khoi nav (lam tran header o desktop); thay bang title tooltip. -->
+        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors inline-flex items-center gap-1.5" href="{% url 'accounts:dang_nhap' %}" title="Cần đăng nhập và hoàn thiện Hồ sơ năng lực để nhận gợi ý nguyện vọng (UC-05)">
           <span class="material-symbols-outlined text-[18px] text-primary">auto_awesome</span>
           Gợi ý AI
-          <span class="text-[10px] px-1.5 py-0.5 rounded bg-primary-fixed text-primary font-bold">Cần Đăng nhập</span>
         </a>
         {% endif %}
-        <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 {% if nav_active == 'so_sanh' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'recommendation:so_sanh_moi' %}" title="So sánh tối đa 3 nguyện vọng cạnh nhau (UC-07)"><span class="material-symbols-outlined text-[18px]">compare_arrows</span>So sánh Nguyện vọng</a>
+        <a class="px-2.5 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 {% if nav_active == 'so_sanh' %}text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}" href="{% url 'recommendation:so_sanh_moi' %}" title="So sánh tối đa 3 nguyện vọng cạnh nhau (UC-07)"><span class="material-symbols-outlined text-[18px]">compare_arrows</span>So sánh Nguyện vọng</a>
         {% if user.is_staff %}
-          <a class="px-3 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 text-secondary hover:bg-surface-container-low" href="{% url 'quantri:dashboard' %}" title="Trang Quản trị hệ thống"><span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>Quản trị</a>
+          <a class="px-2.5 py-1.5 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-1.5 text-secondary hover:bg-surface-container-low" href="{% url 'quantri:dashboard' %}" title="Trang Quản trị hệ thống"><span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>Quản trị</a>
         {% endif %}
       </nav>
 
-      <!-- Right: Badge + Auth State + Mobile Menu Toggle -->
+      <!-- Right: Auth State + Mobile Menu Toggle -->
       <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-        <!-- Verified Data Badge (from mockup) -->
-        <div class="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-low border border-surface-container-highest">
-          <span class="material-symbols-outlined text-[16px] text-primary-container">verified</span>
-          <span class="text-xs text-on-surface-variant font-medium">Dữ liệu {{ cua_so_text|default:"2020–2025" }}</span>
-        </div>
-
         {% if user.is_authenticated %}
           <!-- Student profile state (matches mockup) -->
           <div class="flex items-center gap-2 pl-2 border-l border-surface-container-highest">
@@ -190,9 +231,13 @@
                 <span class="text-xs font-semibold text-on-surface leading-tight">{{ user.get_full_name|default:user.username }}</span>
                 <span class="text-[10px] text-on-surface-variant leading-tight">Học sinh</span>
               </div>
-              <div class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-xs shadow-sm">
-                <span class="material-symbols-outlined text-[18px]">school</span>
-              </div>
+              {% if user.profile.avatar %}
+                <img src="{{ user.profile.avatar.url }}" alt="Avatar" class="w-9 h-9 rounded-full object-cover border border-outline-variant shrink-0 shadow-sm">
+              {% else %}
+                <div class="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-xs shadow-sm">
+                  {{ user.get_full_name|default:user.username|slice:":1"|upper }}
+                </div>
+              {% endif %}
             </a>
             <form method="post" action="{% url 'accounts:dang_xuat' %}" class="inline">
               {% csrf_token %}
@@ -202,17 +247,17 @@
             </form>
           </div>
         {% else %}
-          <!-- Guest state (mockup: stack doc 2 nut) -->
-          <div class="flex flex-col justify-center items-stretch gap-1 shrink-0">
-            <a href="{% url 'accounts:dang_nhap' %}" class="px-2.5 py-1 font-label-sm text-label-sm leading-none inline-flex items-center justify-center gap-1 text-primary-container hover:bg-surface-container-low rounded transition-colors"><span class="material-symbols-outlined text-[15px]">login</span>Đăng nhập</a>
-            <a href="{% url 'accounts:dang_ky' %}" class="px-2.5 py-1 font-label-sm text-label-sm leading-none inline-flex items-center justify-center gap-1 bg-primary-container text-on-primary hover:bg-primary rounded transition-colors"><span class="material-symbols-outlined text-[15px]">person_add</span>Đăng ký</a>
+          <!-- Guest state: link Dang nhap + pill Tham gia ngay -->
+          <div class="flex items-center gap-1.5 sm:gap-4 shrink-0">
+            <a href="{% url 'accounts:dang_nhap' %}" class="hidden min-[400px]:block text-xs sm:text-label-md font-semibold text-on-surface-variant hover:text-primary-container transition-colors whitespace-nowrap">Đăng nhập</a>
+            <a href="{% url 'accounts:dang_ky' %}" class="px-2.5 min-[400px]:px-3 sm:px-6 py-1.5 sm:py-2.5 rounded-full text-[11px] sm:text-label-md font-semibold bg-primary-container text-on-primary hover:bg-primary shadow-sm transition-colors whitespace-nowrap">Tham gia ngay</a>
           </div>
         {% endif %}
       </div>
     </div>
 
     <!-- Mobile Navigation Drawer (Dropdown mo ra khi click hamburger) -->
-    <div id="mobile-menu" class="hidden lg:hidden border-t border-surface-container-highest bg-surface-container-lowest shadow-lg">
+    <div id="mobile-menu" class="hidden xl:hidden border-t border-surface-container-highest bg-surface-container-lowest shadow-lg">
       <nav class="max-w-[1350px] mx-auto px-4 py-3 flex flex-col gap-1">
         <a class="px-3 py-2 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-2 {% if nav_active == 'trang_chu' %}bg-primary-fixed/40 text-primary-container font-semibold{% else %}text-on-surface hover:bg-surface-container-low{% endif %}" href="{% url 'university:trang_chu' %}">
           <span class="material-symbols-outlined text-[20px]">home</span>Trang chủ
@@ -228,11 +273,8 @@
           <span class="material-symbols-outlined text-[20px] text-primary">auto_awesome</span>Gợi ý AI
         </a>
         {% else %}
-        <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors inline-flex items-center justify-between" href="{% url 'accounts:dang_nhap' %}">
-          <span class="inline-flex items-center gap-2">
-            <span class="material-symbols-outlined text-[20px] text-primary">auto_awesome</span>Gợi ý AI
-          </span>
-          <span class="text-[10px] px-1.5 py-0.5 rounded bg-primary-fixed text-primary font-bold">Cần Đăng nhập</span>
+        <a class="px-3 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors inline-flex items-center gap-2" href="{% url 'accounts:dang_nhap' %}">
+          <span class="material-symbols-outlined text-[20px] text-primary">auto_awesome</span>Gợi ý AI
         </a>
         {% endif %}
         <a class="px-3 py-2 rounded-lg font-label-md text-label-md transition-colors inline-flex items-center gap-2 {% if nav_active == 'so_sanh' %}bg-primary-fixed/40 text-primary-container font-semibold{% else %}text-on-surface hover:bg-surface-container-low{% endif %}" href="{% url 'recommendation:so_sanh_moi' %}">
@@ -270,9 +312,7 @@
         <!-- Col 1 (4/12): Brand info -->
         <div class="lg:col-span-4 flex flex-col gap-space-md">
           <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shrink-0">
-              <span class="material-symbols-outlined text-[22px]">school</span>
-            </div>
+            <img src="{% static 'logo.png' %}?v=3" alt="Uni Connect" class="w-11 h-11 rounded-lg object-contain shrink-0" loading="lazy">
             <div class="flex flex-col">
               <span class="font-bold text-lg text-primary-container leading-none">Uni Connect</span>
               <span class="text-[11px] text-on-surface-variant leading-tight">Con đường đến đại học</span>
@@ -361,7 +401,7 @@
 
       // Chuyen len desktop (>= 1024px) thi dong menu lai, tranh menu ket o
       // trang thai mo khi xoay ngang man hinh.
-      window.matchMedia('(min-width: 1024px)')
+      window.matchMedia('(min-width: 1280px)')
             .addEventListener('change', e => { if (e.matches) dat_trang_thai(false); });
 
       // Bam ra ngoai thi dong.
