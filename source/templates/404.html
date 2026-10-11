@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}404 — Không tìm thấy trang | Uni Connect{% endblock %}
+
+{% block content %}
+<main class="min-h-[60vh] flex items-center justify-center py-16 px-4">
+  <div class="max-w-md w-full text-center">
+    <div class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-surface-container-high text-primary-container flex items-center justify-center shadow-sm">
+      <span class="material-symbols-outlined text-[44px]">explore_off</span>
+    </div>
+    <span class="inline-block px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold mb-3">Lỗi 404</span>
+    <h1 class="font-headline-md text-headline-md font-bold text-on-surface mb-2">Trang không tồn tại</h1>
+    <p class="font-body-md text-body-md text-on-surface-variant mb-6 text-balance">
+      Đường dẫn bạn truy cập có thể đã đổi hoặc không còn khả dụng. Hãy quay về trang chủ để tiếp tục tra cứu.
+    </p>
+    <div class="flex items-center justify-center gap-3">
+      <a href="{% url 'university:trang_chu' %}" class="px-5 py-2.5 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md font-semibold transition-colors shadow-sm">
+        Về Trang chủ
+      </a>
+      <a href="{% url 'university:tra_cuu' %}" class="px-5 py-2.5 rounded-lg border border-outline-variant hover:bg-surface-container text-on-surface font-label-md text-label-md font-semibold transition-colors">
+        Tra cứu điểm
+      </a>
+    </div>
+  </div>
+</main>
+{% endblock %}

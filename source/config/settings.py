@@ -207,4 +207,51 @@ LOGIN_URL = "accounts:dang_nhap"
 LOGIN_REDIRECT_URL = "university:trang_chu"
 LOGOUT_REDIRECT_URL = "university:trang_chu"
 
+# ==============================================================================
+# BẢO MẬT (Security Checklist)
+# ==============================================================================
+# #10 HTTPS: Nhận biết HTTPS qua reverse proxy (Apache/LiteSpeed ở hosting cPanel/DA).
+# Tránh redirect loop khi web server forward request sang Django qua HTTP nội bộ.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# #11 Security Headers:
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_REFERRER_POLICY = 'same-origin'
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin'
+
+# #12 Cookies: HttpOnly + SameSite + Secure (bật Secure khi chạy production)
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = 'Lax'
+# Cờ Secure: chỉ truyền qua HTTPS. Ở local (DEBUG=1) tắt để test được;
+# trên production (DEBUG=0 hoặc FORCE_HTTPS=1) tự động bật.
+_LA_HTTPS = (not DEBUG) or (os.environ.get('DJANGO_SECURE_COOKIES', '0') == '1')
+SESSION_COOKIE_SECURE = _LA_HTTPS
+CSRF_COOKIE_SECURE = _LA_HTTPS
+
+# #3 Session Lifecycle:
+# - Mặc định hết hạn sau 7 ngày (hoặc đóng trình duyệt nếu không tick "Nhớ tôi")
+# - Trượt thời gian hết hạn mỗi lần người dùng tương tác (idle timeout trượt)
+SESSION_COOKIE_AGE = 7 * 24 * 60 * 60  # 7 ngày
+SESSION_SAVE_EVERY_REQUEST = True
+
+# #7 Giới hạn upload toàn hệ thống (5MB) — chặn request khổng lồ trước khi vào view:
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
+
+# #2 Cache phục vụ Rate Limit:
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'uni-connect-cache',
+    }
+}
+
+# #6 Trang lỗi: thay trang 403 mặc định bằng trang tự viết (không lộ chi tiết).
+CSRF_FAILURE_VIEW = 'accounts.csrf_failure.csrf_failure'
+
+
+
 

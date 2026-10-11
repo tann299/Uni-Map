@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phiên làm việc hết hạn — Uni Connect</title>
+  <link rel="icon" type="image/png" href="/static/favicon.png">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Be Vietnam Pro", "Segoe UI", Roboto, sans-serif;
+      background: #F8FAFC;
+      color: #0F172A;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      max-width: 440px;
+      width: 100%;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: #FEF3C7;
+      color: #D97706;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    p { font-size: 14px; line-height: 1.6; color: #475569; margin-bottom: 24px; }
+    .btn {
+      display: inline-block;
+      padding: 10px 22px;
+      background: #1D4ED8;
+      color: #FFFFFF;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">Bảo mật (CSRF)</span>
+    <h1>Phiên làm việc không hợp lệ</h1>
+    <p>Biểu mẫu bạn gửi đã hết hạn hoặc thiếu mã xác thực bảo mật. Hãy tải lại trang và thử lại.</p>
+    <a class="btn" href="javascript:history.back()">Quay lại & Thử lại</a>
+  </div>
+</body>
+</html>

@@ -5,13 +5,56 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import (AuthenticationForm, PasswordChangeForm,
                                         UserCreationForm)
 from django.contrib.auth.models import User
+from django.core.cache import cache
+from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
+from PIL import Image
 
 from accounts.models import Profile
 from admissions.models import HoSoNangLuc
 from university.services import tinh_to_hop_tu_db
+
+
+# ==============================================================================
+# #2 RATE LIMIT ĐĂNG NHẬP — chống brute-force
+# ==============================================================================
+# Đếm số lần đăng nhập SAI theo (IP + username) trong cache. Sau SO_LAN_TOI_DA
+# lần sai liên tiếp thì khoá tạm KHOA_BAY_LAU giây. Đăng nhập đúng -> xoá bộ đếm.
+# Dùng cache locmem (settings.CACHES) nên không cần Redis/Memcached trên hosting.
+SO_LAN_TOI_DA = 5
+KHOA_BAY_LAU = 5 * 60   # 5 phút
+
+
+def _ip_khach(request) -> str:
+    """IP khách, ưu tiên header proxy (hosting shared luôn đứng sau proxy)."""
+    xff = request.META.get("HTTP_X_FORWARDED_FOR", "")
+    return (xff.split(",")[0].strip() if xff
+            else request.META.get("REMOTE_ADDR", "")) or "unknown"
+
+
+def _khoa_rate_limit(request, username: str) -> str:
+    """Khoá cache: tách theo IP và theo username để không khoá chéo người khác."""
+    return f"dn-sai:{_ip_khach(request)}:{username.strip().lower()[:150]}"
+
+
+def _bi_khoa(request, username: str):
+    """(đang bị khoá?, số giây còn lại) — None nếu không bị khoá."""
+    con_lai = cache.get(_khoa_rate_limit(request, username))
+    if con_lai and con_lai >= SO_LAN_TOI_DA:
+        return True, KHOA_BAY_LAU
+    return False, 0
+
+
+def _ghi_nhan_sai(request, username: str) -> None:
+    """Tăng bộ đếm sai. Hết hạn sau KHOA_BAY_LAU giây kể từ lần sai đầu."""
+    khoa = _khoa_rate_limit(request, username)
+    cache.set(khoa, (cache.get(khoa) or 0) + 1, KHOA_BAY_LAU)
+
+
+def _xoa_bo_dem(request, username: str) -> None:
+    cache.delete(_khoa_rate_limit(request, username))
 
 
 # Ô nhập mặc định của Django không có class -> xấu. Gắn 1 lần ở đây thay vì
@@ -20,6 +63,12 @@ _O_INPUT = ("w-full h-11 px-3 rounded-lg bg-surface-container-low text-on-surfac
             "text-body-sm border border-outline-variant focus:outline-none "
             "focus:border-primary-container focus:bg-surface-container-lowest "
             "transition-colors placeholder:text-outline")
+
+# #7 Upload ảnh đại diện: đuôi cho phép + trần kích thước pixel (chống
+# decompression bomb: file 1KB có thể giải nén thành ảnh 50000x50000 tốn RAM).
+DUOI_ANH_CHO_PHEP = (".jpg", ".jpeg", ".png", ".webp")
+DIEM_TOI_DA = 4096
+AVATAR_BYTES_TOI_DA = 5 * 1024 * 1024
 
 
 class ThongTinForm(forms.ModelForm):
@@ -45,12 +94,38 @@ class ThongTinForm(forms.ModelForm):
         }
 
     def clean_avatar(self):
+        """#7 Kiểm tra 3 lớp: đuôi file, dung lượng, và NỘI DUNG ảnh thật."""
         avatar = self.cleaned_data.get("avatar")
-        if avatar:
-            # Giới hạn kích thước tối đa 5MB
-            if avatar.size > 5 * 1024 * 1024:
-                raise forms.ValidationError("Ảnh đại diện không được vượt quá 5MB.")
+        if not avatar:
+            return avatar
+
+        ten = (avatar.name or "").lower()
+        if not ten.endswith(DUOI_ANH_CHO_PHEP):
+            raise forms.ValidationError(
+                "Chỉ chấp nhận ảnh JPG, PNG hoặc WebP.")
+
+        if avatar.size > AVATAR_BYTES_TOI_DA:
+            raise forms.ValidationError(
+                f"Ảnh đại diện không được vượt quá {AVATAR_BYTES_TOI_DA // 1024 // 1024}MB.")
+
+        # Mở bằng Pillow để chắc chắn là ảnh THẬT (file .png chứa mã độc sẽ lỗi ở đây)
+        try:
+            avatar.seek(0)
+            anh = Image.open(avatar)
+            anh.verify()          # verify() đóng file -> phải mở lại để đọc kích thước
+            avatar.seek(0)
+            anh = Image.open(avatar)
+            rong, cao = anh.size
+        except Exception:
+            raise forms.ValidationError("Tệp tải lên không phải ảnh hợp lệ.") from None
+
+        if rong > DIEM_TOI_DA or cao > DIEM_TOI_DA:
+            raise forms.ValidationError(
+                f"Ảnh quá lớn ({rong}×{cao}px). Tối đa {DIEM_TOI_DA}×{DIEM_TOI_DA}px.")
+
+        avatar.seek(0)
         return avatar
+
 
 
 class MatKhauForm(PasswordChangeForm):
@@ -84,8 +159,20 @@ def dang_nhap(request):
             return redirect("quantri:dashboard")
         return redirect("university:trang_chu")
     if request.method == "POST":
+        username = (request.POST.get("username") or "").strip()
+
+        # #2 Chặn brute-force TRƯỚC khi kiểm mật khẩu.
+        dang_bi_khoa, _ = _bi_khoa(request, username)
+        if dang_bi_khoa:
+            form = AuthenticationForm(request, data=request.POST)
+            form.add_error(None, f"Bạn đã đăng nhập sai quá {SO_LAN_TOI_DA} lần. "
+                                 f"Vui lòng thử lại sau {KHOA_BAY_LAU // 60} phút.")
+            return render(request, "accounts/dang_nhap.html", {"form": form},
+                          status=429)
+
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
+            _xoa_bo_dem(request, username)   # đăng nhập đúng -> xoá bộ đếm
             login(request, form.get_user())
             if not request.POST.get("remember_me"):
                 request.session.set_expiry(0)  # không tick "Nhớ tôi" -> hết phiên khi đóng trình duyệt
@@ -98,6 +185,10 @@ def dang_nhap(request):
             if form.get_user().is_staff:
                 return redirect("quantri:dashboard")
             return redirect("university:trang_chu")
+
+        # Sai -> ghi nhận. Chỉ đếm khi username không rỗng (tránh khoá oan IP dùng chung).
+        if username:
+            _ghi_nhan_sai(request, username)
     else:
         form = AuthenticationForm()
     return render(request, "accounts/dang_nhap.html", {"form": form})
