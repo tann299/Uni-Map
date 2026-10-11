@@ -1,7 +1,62 @@
 {% extends "base.html" %}
 {% load l10n %}
 {% load truong_logo %}
+{% load static %}
 {% block title %}Uni Connect — Tra cứu Điểm chuẩn &amp; Định hướng Nguyện vọng Đại học{% endblock %}
+
+{% block extra_head %}
+<!-- Playpen Sans: chi dung cho text that (mobile + fallback). SVG desktop dung glyph path, khong can font. -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@700&display=swap" rel="stylesheet">
+<style>
+  .uc-hero { font-family: 'Playpen Sans', cursive; }
+  .uc-hero-txt, .uc-line { display: block; }
+  .uc-hero-draw { display: none; }
+
+  /* Desktop: JS sinh SVG thi an text that (van giu trong DOM cho SEO/doc man hinh).
+     Nhoi JS thi khong co class has-svg -> text van hien binh thuong. */
+  @media (min-width: 768px) {
+    .uc-hero.has-svg .uc-hero-txt {
+      position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip-path: inset(50%); white-space: nowrap; margin: -1px; padding: 0; border: 0;
+    }
+    .uc-hero.has-svg .uc-hero-draw { display: block; }
+  }
+
+  .uc-hero-draw svg { display: block; overflow: visible; max-width: 100%; height: auto; }
+
+  /* Moi ky tu ve mot lan roi moi cham mau: stroke keo chua xong, fill dang len sau do.
+     46ms * 52 ky tu + 600ms ve + 300ms cham = ~3.2s cho ca hai dong. */
+  .uc-hero-draw .g {
+    fill: currentColor;
+    fill-opacity: 0;
+    stroke: currentColor;
+    stroke-width: 45;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    stroke-dasharray: var(--L, 0);
+    stroke-dashoffset: var(--L, 0);
+    animation:
+      ucDraw 600ms cubic-bezier(.4, .1, .3, 1) forwards,
+      ucInk 300ms cubic-bezier(.4, .1, .3, 1) forwards;
+    animation-delay:
+      calc(var(--i, 0) * 46ms),
+      calc(var(--i, 0) * 46ms + 560ms);
+  }
+  @keyframes ucDraw { to { stroke-dashoffset: 0; } }
+  @keyframes ucInk { to { fill-opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .uc-hero-draw .g {
+      animation: none;
+      stroke: none;
+      stroke-dasharray: none;
+      stroke-dashoffset: 0;
+      fill-opacity: 1;
+    }
+  }
+</style>
+{% endblock %}
 
 {% block content %}
 
@@ -13,8 +68,18 @@
       <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm rounded font-semibold self-start">
         <span class="material-symbols-outlined text-[16px] text-secondary">verified</span>Cổng Thông Tin Dành Cho Thí Sinh &amp; Phụ Huynh
       </span>
-      <h1 class="font-headline-lg text-headline-lg text-on-background font-bold tracking-tight text-balance">
-        Tra cứu Điểm chuẩn {{ so_nam_cua_so }} năm &amp;<div>Định hướng Nguyện vọng Đại học bằng AI</div>
+      {% comment %}
+      uc-hero-txt = text that (mobile + SEO/man hinh doc). uc-hero-draw = SVG ve
+      net rieng cho desktop, do JS sinh tu uc-hand-glyphs.js. Khong JS thi SVG
+      khong sinh, van hien text binh thuong.
+      {% endcomment %}
+      {# text-primary-container = dong mau voi nut "Tham gia ngay" + tieu de bo loc; SVG va text mobile keo currentColor tu day. #}
+      <h1 class="uc-hero font-headline-lg text-headline-lg text-primary-container font-bold tracking-tight text-balance">
+        <span class="uc-hero-txt">
+          <span class="uc-line">Tra cứu Điểm chuẩn {{ so_nam_cua_so }} năm &amp;</span>
+          <span class="uc-line">Định hướng Nguyện vọng Đại học bằng AI</span>
+        </span>
+        <span class="uc-hero-draw" aria-hidden="true"></span>
       </h1>
     </div>
 
@@ -272,4 +337,73 @@
   </div>
 </section>
 
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'uc-hand-glyphs.js' %}" defer></script>
+<script>
+/* Hero "viet tay": sinh SVG stroke-draw tu bang glyph.
+   - Desktop (>=768px) + co UC_HAND + khong giam chuyen dong -> ve net rieng.
+   - Con lai: giu text Playpen Sans (mobile) hoac Be Vietnam Pro (JS hong/font loi).
+   - Text that nam trong <h1> -> SEO/doc man hinh doc dung chu, khong phu thuoc SVG. */
+document.addEventListener('DOMContentLoaded', function () {
+  var hero = document.querySelector('.uc-hero');
+  var draw = document.querySelector('.uc-hero-draw');
+  if (!hero || !draw) return;
+  if (!window.matchMedia('(min-width: 768px)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!window.UC_HAND || !UC_HAND.g) return;
+
+  // Don vi: font-size headline-lg (32px) tren khong gian 1000 units cua glyph.
+  // Coords tinh = px, nen viewBox 1:1 khong can tinh toan quy doi.
+  var FS = 32, SC = FS / UC_HAND.upem, GAP = 40, i = 0;
+  var parts = [];
+
+  hero.querySelectorAll('.uc-hero-txt .uc-line').forEach(function (line, li) {
+    var text = line.textContent, x = 0;
+    for (var k = 0; k < text.length; k++) {
+      var g = UC_HAND.g[text[k]];
+      if (!g || !g[0]) { x += (UC_HAND.g[' '] ? UC_HAND.g[' '][1] : 300) * SC; continue; }
+      // Chua dat class .g -> path an (khong fill/khong stroke) cho den khi
+      // do duoc getTotalLength, tranh animation chay truoc khi co --L.
+      parts.push(
+        '<g transform="translate(' + x.toFixed(1) + ' ' + (li * GAP) + ') scale(' + SC.toFixed(4) + ')">' +
+        '<path data-i="' + i + '" d="' + g[0] + '"/></g>');
+      x += g[1] * SC;
+      i++;
+    }
+  });
+  if (!parts.length) return;
+
+  draw.innerHTML = '<svg tabindex="-1">' + parts.join('') + '</svg>';
+  var svg = draw.querySelector('svg');
+
+  // .uc-hero-draw dang display:none -> getBBox() tra rong. Phai dua vao render
+  // tree truoc khi do (visibility:hidden + toan tuyet de khong day layout cua text).
+  draw.style.cssText = 'display:block;visibility:hidden;position:absolute;left:0;top:0';
+  var bb = svg.getBBox();
+  draw.style.cssText = '';
+  if (!bb || !bb.width || !bb.height) return;
+
+  var pad = 2;  // du cho stroke-width 45 units (1.44px) khong bi cat
+  var vw = bb.width + pad * 2, vh = bb.height + pad * 2;
+  svg.setAttribute('viewBox', (bb.x - pad) + ' ' + (bb.y - pad) + ' ' + vw + ' ' + vh);
+  svg.setAttribute('width', Math.round(vw));
+  svg.setAttribute('height', Math.round(vh));
+
+  // Bay gio moi tinh do dai duong va bat dau animation (them class .g sau cung).
+  var ok = 0;
+  draw.querySelectorAll('path').forEach(function (p) {
+    try {
+      var L = p.getTotalLength();
+      if (L <= 0) return;
+      p.style.setProperty('--i', p.getAttribute('data-i'));
+      p.style.setProperty('--L', L);
+      p.classList.add('g');
+      ok++;
+    } catch (e) { /* gap path loi: bo qua ky tu do, text that van con trong DOM */ }
+  });
+  if (ok > 0) hero.classList.add('has-svg');
+});
+</script>
 {% endblock %}

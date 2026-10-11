@@ -10,7 +10,9 @@ env/
 db.sqlite3
 *.log
 /staticfiles/
-/media/
+# Media runtime (upload avatar...) — MEDIA_ROOT = source/media/, khong chua
+# anchor `/` vi nguoi go thi se bo qua.
+media/
 
 # Bí mật: settings.py đọc DB_PASSWORD, DJANGO_SECRET_KEY từ biến môi trường
 .env
@@ -37,6 +39,8 @@ desktop.ini
 
 
 cache/
+# Font tai ve cua scripts/gen_hand_glyphs.py (1.5MB, tai lai duoc)
+.cache/
 data/
 db/
 ref/
