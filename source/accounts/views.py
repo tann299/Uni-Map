@@ -138,18 +138,51 @@ class MatKhauForm(PasswordChangeForm):
             f.widget.attrs.setdefault("autocomplete", "new-password")
 
 
+class DangKyForm(UserCreationForm):
+    """Đăng ký form: thêm email và CHẶN trùng email (không phân biệt hoa/thường).
+
+    User.email mặc định không UNIQUE, nên UserCreationForm không bao giờ chặn
+    hai tài khoản cùng gmail. Form này tự kiểm tra email__iexact trước khi lưu.
+    """
+
+    email = forms.EmailField(
+        label="Email",
+        required=True,
+        widget=forms.EmailInput(attrs={"class": _O_INPUT, "placeholder": "ban@example.com"}),
+    )
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ["username", "email", "password1", "password2"]
+
+    def clean_email(self):
+        email = (self.cleaned_data.get("email") or "").strip().lower()
+        if not email:
+            raise forms.ValidationError("Vui lòng nhập email.")
+        if User.objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError("Email này đã được dùng để đăng ký tài khoản.")
+        return email
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+        return user
+
+
 def dang_ky(request):
     if request.user.is_authenticated:
         return redirect("university:trang_chu")
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = DangKyForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             messages.success(request, f"Tạo tài khoản thành công! Chào mừng {user.username} đến với Uni Connect.")
             return redirect("university:trang_chu")
     else:
-        form = UserCreationForm()
+        form = DangKyForm()
     return render(request, "accounts/dang_ky.html", {"form": form})
 
 

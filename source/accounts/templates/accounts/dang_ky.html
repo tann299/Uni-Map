@@ -103,6 +103,23 @@
             {% endif %}
           </div>
 
+          <!-- Email field -->
+          <div>
+            <div class="relative flex items-center">
+              <span class="material-symbols-outlined absolute left-3.5 text-[20px] text-outline pointer-events-none">mail</span>
+              <input type="email"
+                     name="{{ form.email.name }}"
+                     id="{{ form.email.id_for_label }}"
+                     required
+                     placeholder="Email"
+                     value="{{ form.email.value|default:'' }}"
+                     class="w-full pl-11 pr-4 py-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant text-on-surface text-sm placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-transparent transition-all">
+            </div>
+            {% if form.email.errors %}
+              <p class="text-error text-xs mt-1 ml-1">{{ form.email.errors.0 }}</p>
+            {% endif %}
+          </div>
+
           <!-- Password field -->
           <div>
             <div class="relative flex items-center">
