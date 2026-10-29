@@ -20,6 +20,8 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme
 
+from accounts.gmail import chuan_hoa_email
+
 TIMEOUT = 10
 
 # Endpoint Google OAuth 2.0
@@ -51,7 +53,13 @@ def _username_tu_email(email: str) -> str:
 
 
 def _dang_nhap_user(request, email: str, first_name: str = "", last_name: str = ""):
-    """Tìm hoặc tạo User dựa trên email đã xác thực rồi đăng nhập."""
+    """Tìm hoặc tạo User dựa trên email đã xác thực rồi đăng nhập.
+
+    Email lưu dạng CHUẨN HOÁ (lowercase; Gmail bỏ '.' và '+tag') nên các dạng
+    alias của cùng hộp thư đăng nhập về đúng một tài khoản. Gmail vẫn nhận thư
+    cho dạng chuẩn hoá vì alias chỉ là cách viết khác của cùng hộp thư.
+    """
+    email = chuan_hoa_email(email)
     user = User.objects.filter(email__iexact=email).first()
     if user is None:
         user = User(

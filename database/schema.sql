@@ -1,5 +1,5 @@
 -- =============================================================================
---  UNI MAP — LƯỢC ĐỒ CƠ SỞ DỮ LIỆU (MySQL 8.0+)
+--  UNI CONNECT — LƯỢC ĐỒ CƠ SỞ DỮ LIỆU (MySQL 8.0+)
 -- =============================================================================
 --  Hệ thống gợi ý trường/ngành đại học bằng AI.
 --  Tài liệu liên quan: docs/SRS.md (mục 8), docs/README_DATA.md
@@ -270,7 +270,8 @@ CREATE TABLE IF NOT EXISTS auth_user (
     date_joined  DATETIME(6)  NOT NULL,
 
     PRIMARY KEY (id),
-    UNIQUE KEY username (username)
+    UNIQUE KEY username (username),
+    UNIQUE KEY uq_auth_user_email_chuan (email)
 ) ENGINE=InnoDB COMMENT='Người dùng (do Django quản lý)';
 
 -- -----------------------------------------------------------------------------

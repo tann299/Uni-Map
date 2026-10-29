@@ -436,15 +436,30 @@ def nguoi_dung(request):
 # ===========================================================================
 
 def _du_lieu_form(request) -> dict:
-    """Đọc form người dùng -> dict field của `User` (chưa gồm mật khẩu)."""
+    """Đọc form người dùng -> dict field của `User` (chưa gồm mật khẩu).
+
+    Email chuẩn hoá (lowercase, Gmail bỏ '.'/'+tag') để không tạo hai tài khoản
+    cùng hộp thư qua các dạng alias khác nhau.
+    """
+    from accounts.gmail import chuan_hoa_email
     return {
         "username": (request.POST.get("username") or "").strip(),
-        "email": (request.POST.get("email") or "").strip(),
+        "email": chuan_hoa_email(request.POST.get("email")),
         "first_name": (request.POST.get("first_name") or "").strip(),
         "last_name": (request.POST.get("last_name") or "").strip(),
         "is_staff": request.POST.get("is_staff") == "on",
         "is_active": request.POST.get("is_active") == "on",
     }
+
+
+def _email_bi_trung(email: str, bo_tru_pk=None) -> bool:
+    """Email đã có user khác dùng chưa (bo_tru_pk khi đang sửa)."""
+    if not email:
+        return False
+    qs = User.objects.filter(email__iexact=email)
+    if bo_tru_pk:
+        qs = qs.exclude(pk=bo_tru_pk)
+    return qs.exists()
 
 
 def _chan_superuser(request, user) -> bool:
@@ -465,6 +480,8 @@ def nguoi_dung_them(request):
         messages.error(request, "Mật khẩu không được để trống khi tạo tài khoản.")
     elif User.objects.filter(username=du_lieu["username"]).exists():
         messages.error(request, f"Tên đăng nhập “{du_lieu['username']}” đã tồn tại.")
+    elif _email_bi_trung(du_lieu["email"]):
+        messages.error(request, f"Email “{du_lieu['email']}” đã được dùng bởi tài khoản khác.")
     else:
         User.objects.create_user(password=mat_khau, **du_lieu)
         messages.success(request, f"Đã tạo tài khoản “{du_lieu['username']}”.")
@@ -486,6 +503,8 @@ def nguoi_dung_sua(request, user_id):
         messages.error(request, "Tên đăng nhập không được để trống.")
     elif trung:
         messages.error(request, f"Tên đăng nhập “{du_lieu['username']}” đã tồn tại.")
+    elif _email_bi_trung(du_lieu["email"], bo_tru_pk=u.pk):
+        messages.error(request, f"Email “{du_lieu['email']}” đã được dùng bởi tài khoản khác.")
     else:
         for truong, gia_tri in du_lieu.items():
             setattr(u, truong, gia_tri)

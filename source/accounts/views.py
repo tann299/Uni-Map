@@ -12,6 +12,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 from PIL import Image
 
+from accounts.gmail import chuan_hoa_email
 from accounts.models import Profile
 from admissions.models import HoSoNangLuc
 from university.services import tinh_to_hop_tu_db
@@ -93,6 +94,16 @@ class ThongTinForm(forms.ModelForm):
             "email": forms.EmailInput(attrs={"class": _O_INPUT, "placeholder": "ban@example.com"}),
         }
 
+    def clean_email(self):
+        """Email đổi tại đây cũng không được trùng người khác (chuẩn hoá Gmail)."""
+        email = chuan_hoa_email(self.cleaned_data.get("email"))
+        if not email:
+            return email
+        trung = User.objects.filter(email__iexact=email).exclude(pk=self.instance.pk)
+        if trung.exists():
+            raise forms.ValidationError("Email này đã được dùng bởi tài khoản khác.")
+        return email
+
     def clean_avatar(self):
         """#7 Kiểm tra 3 lớp: đuôi file, dung lượng, và NỘI DUNG ảnh thật."""
         avatar = self.cleaned_data.get("avatar")
@@ -156,7 +167,7 @@ class DangKyForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
 
     def clean_email(self):
-        email = (self.cleaned_data.get("email") or "").strip().lower()
+        email = chuan_hoa_email(self.cleaned_data.get("email"))
         if not email:
             raise forms.ValidationError("Vui lòng nhập email.")
         if User.objects.filter(email__iexact=email).exists():
