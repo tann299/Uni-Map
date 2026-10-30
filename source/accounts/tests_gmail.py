@@ -68,6 +68,30 @@ class AliasKhongTaoUserMoiTest(TestCase):
         self._dang_nhap("an.nguyen+sp@gmail.com")
         self.assertEqual(User.objects.count(), 1)
 
+    def test_email_chua_chuan_hoa_trong_db_van_bat_duoc(self):
+        """DB chứa email gõ tay `an.nguyen@` (chưa chạy migration 0002),
+        login Google trả dạng chuẩn `annguyen@` — PHẢI bắt được, không tạo mới.
+
+        Đây là lỗ hổng cuối: so 2 chuỗi hụt khi DB có dạng alias lạ hơn
+        input — tim_theo_email so sẵn chuẩn hoá trong Python nên bắt được.
+        """
+        cu = User.objects.create_user(username="khac", email="an.nguyen@gmail.com")
+        lan2 = self._dang_nhap("annguyen@gmail.com")
+        self.assertEqual(User.objects.count(), 1)   # KHONG tao them record
+        self.assertEqual(lan2, cu.id)
+
+    def test_dang_ky_bị_chan_khi_db_chua_email_chua_chuan_hoa(self):
+        """Đăng ký form cũng chặn theo dạng chuẩn hoá, không chỉ so chuỗi."""
+        from django.urls import reverse as rev
+        User.objects.create_user(username="khac", email="an.nguyen@gmail.com")
+        r = self.client.post(rev("accounts:dang_ky"), {
+            "username": "moi", "email": "annguyen@gmail.com",
+            "password1": "MatKhauKhaManh1!", "password2": "MatKhauKhaManh1!",
+        })
+        self.assertEqual(r.status_code, 200)
+        self.assertIn("email", r.context["form"].errors)
+        self.assertEqual(User.objects.count(), 1)
+
 
 class KhoaRaceTest(TestCase):
     """Khoá cache chống 2 callback song song cùng email tạo 2 user.

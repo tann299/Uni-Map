@@ -12,7 +12,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 from PIL import Image
 
-from accounts.gmail import chuan_hoa_email, truy_van_theo_email
+from accounts.gmail import chuan_hoa_email, tim_theo_email
 from accounts.models import Profile
 from admissions.models import HoSoNangLuc
 from university.services import tinh_to_hop_tu_db
@@ -106,7 +106,7 @@ class ThongTinForm(forms.ModelForm):
         email = chuan_hoa_email(goc)
         if not email:
             return self.instance.email or goc
-        if truy_van_theo_email(goc, exclude_pk=self.instance.pk).exists():
+        if tim_theo_email(goc, exclude_pk=self.instance.pk) is not None:
             raise forms.ValidationError("Email này đã được dùng bởi tài khoản khác.")
         return email
 
@@ -177,7 +177,7 @@ class DangKyForm(UserCreationForm):
         email = chuan_hoa_email(goc)
         if not email:
             raise forms.ValidationError("Vui lòng nhập email.")
-        if truy_van_theo_email(goc).exists():
+        if tim_theo_email(goc) is not None:
             raise forms.ValidationError("Email này đã được dùng để đăng ký tài khoản.")
         return email
 

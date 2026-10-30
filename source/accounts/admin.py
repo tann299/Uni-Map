@@ -11,15 +11,19 @@ from django.contrib.auth.forms import AdminUserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from accounts.gmail import chuan_hoa_email, truy_van_theo_email
+from accounts.gmail import chuan_hoa_email, tim_theo_email
 from admissions.models import HoSoNangLuc
 
 
 def _trung_email(email: str, bo_tru_pk=None) -> bool:
-    """Email đã có user khác dùng chưa — dùng chung cho add/change form."""
+    """Email đã có user khác dùng chưa — dùng chung cho add/change form.
+
+    Dùng tim_theo_email: cả email gõ tay chưa chuẩn hoá trong DB cũng bắt được,
+    nên "đã từng tồn tại Gmail này" -> không bao giờ tạo/sửa ra bản trùng.
+    """
     if not email:
         return False
-    return truy_van_theo_email(email, exclude_pk=bo_tru_pk).exists()
+    return tim_theo_email(email, exclude_pk=bo_tru_pk) is not None
 
 
 class HoSoInline(admin.TabularInline):

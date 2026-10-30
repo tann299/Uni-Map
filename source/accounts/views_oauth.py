@@ -24,7 +24,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme
 
-from accounts.gmail import chuan_hoa_email, truy_van_theo_email
+from accounts.gmail import chuan_hoa_email, tim_theo_email
 
 TIMEOUT = 10
 
@@ -73,11 +73,12 @@ def _dang_nhap_user(request, email: str, first_name: str = "", last_name: str = 
     email = chuan_hoa_email(goc)
     khoa = f"oauth:tao-user:{email}"
 
-    # Tìm theo EMAIL trước (cả dạng chuẩn hoá lẫn gõ tay). Nếu email trong DB
-    # bị ai đó xoá (nhưng username của tài khoản OAuth cũ vốn = gmail) thì
-    # tìm tiếp theo USERNAME — không thì sẽ tạo user mới oan, dữ liệu cũ
-    # (avatar, hồ sơ) bị bỏ rơi ở tài khoản cũ.
-    user = (truy_van_theo_email(goc).first()
+    # Tìm theo EMAIL trước (cả dạng chuẩn hoá lẫn gõ tay lẫn so chuẩn hoá
+    # trong Python — đã từng tồn tại là VÀO, không bao giờ tạo thêm record).
+    # Nếu email trong DB bị ai đó xoá (nhưng username của tài khoản OAuth cũ
+    # vốn = gmail) thì tìm tiếp theo USERNAME — không thì sẽ tạo user mới
+    # oan, dữ liệu cũ (avatar, hồ sơ) bị bỏ rơi ở tài khoản cũ.
+    user = (tim_theo_email(goc)
             or User.objects.filter(Q(username__iexact=email) | Q(username__iexact=goc)).first())
     if user is not None:
         if not user.email:
@@ -91,7 +92,7 @@ def _dang_nhap_user(request, email: str, first_name: str = "", last_name: str = 
             # Request khác đang tạo cùng email: chờ nó xong, tối đa 4s.
             for _ in range(8):
                 time.sleep(0.5)
-                user = truy_van_theo_email(goc).first()
+                user = tim_theo_email(goc)
                 if user is not None:
                     break
             else:
@@ -110,9 +111,12 @@ def _dang_nhap_user(request, email: str, first_name: str = "", last_name: str = 
             try:
                 user.save()
             except IntegrityError:
-                # Trùng kiểu gì đó (email khoá cache không sống qua restart...):
-                # lấy user vừa được tạo, không nổ 500.
-                user = truy_van_theo_email(goc).get()
+                # Trùng kiểu gì đó (khoá cache không sống qua restart, hoặc
+                # username race): lấy user trùng đó, không nổ 500.
+                user = (tim_theo_email(goc)
+                        or User.objects.filter(username=user.username).first())
+                if user is None:
+                    raise   # không lần ra được để mà dùng, để lỗi gốc lộ ra
     finally:
         if ta_giu_khoa:
             cache.delete(khoa)

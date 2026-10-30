@@ -24,7 +24,7 @@ from django.db.models import Avg, Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
-from accounts.gmail import chuan_hoa_email, truy_van_theo_email
+from accounts.gmail import chuan_hoa_email, tim_theo_email
 from admissions.models import HoSoNangLuc
 # gen_dataset, train chỉ import khi bấm nút huấn luyện (lazy import)
 # để Django không crash khi môi trường deploy nhẹ chưa có numpy/sklearn.
@@ -459,12 +459,12 @@ def _du_lieu_form(request) -> dict:
 def _email_bi_trung(email_goc: str, bo_tru_pk=None) -> bool:
     """Email đã có user khác dùng chưa (bo_tru_pk khi đang sửa).
 
-    PHẢI truyền email GỐC (dạng người dùng gõ) — truy_van_theo_email tự sinh
-    thêm dạng chuẩn hoá để so với DB cũ lẫn DB mới.
+    PHẢI truyền email GỐC (dạng người dùng gõ). tim_theo_email so cả 2 chuỗi
+    lẫn chuẩn hoá trong Python — email gõ tay chưa chuẩn trong DB vẫn bắt được.
     """
     if not email_goc:
         return False
-    return truy_van_theo_email(email_goc, exclude_pk=bo_tru_pk).exists()
+    return tim_theo_email(email_goc, exclude_pk=bo_tru_pk) is not None
 
 
 def _truong_user(du_lieu: dict) -> dict:

@@ -55,3 +55,40 @@ def truy_van_theo_email(email: str | None, exclude_pk=None):
         q |= Q(email__iexact=dang)
     qs = User.objects.filter(q)
     return qs.exclude(pk=exclude_pk) if exclude_pk else qs
+
+
+def tim_theo_email(email: str | None, exclude_pk=None):
+    """Tìm USER theo email, coi TRÙNG là bất kỳ dạng alias nào của cùng hộp thư.
+
+    Bước 1: so chuỗi 2 dạng (index, nhanh) — đủ khi DB đã chuẩn hoá.
+    Bước 2 (lưới an toàn cho DB chưa chạy migration 0002): nếu input là Gmail
+    mà bước 1 hụt thì tải các user Gmail về so SẴN DẠNG CHUẨN HOÁ trong Python
+    — email gõ tay `an.nguyen@...` trong DB vẫn bắt được, từ đó KHÔNG bao giờ
+    tạo thêm record cho một Gmail đã có. Số user Gmail có giới hạn, mỗi lần
+    login chỉ duyệt 1 lượt nhỏ.
+
+    Trả về `user | None`.
+    """
+    if not (email or "").strip():
+        return None
+
+    user = truy_van_theo_email(email, exclude_pk=exclude_pk).first()
+    if user is not None:
+        return user
+
+    chuan = chuan_hoa_email(email)
+    if not chuan.endswith("@gmail.com"):   # lưới an toàn chỉ cho Gmail/Googlemail
+        return None
+    from django.contrib.auth.models import User
+    from django.db.models import Q
+
+    # KHÔNG thoát sớm khi input đã là dạng chuẩn: DB có thể đang chứa dạng
+    # CHƯA chuẩn của cùng hộp thư (`an.nguyen@gmail.com`) — chính case cần bắt.
+    qs = User.objects.filter(
+        Q(email__iendswith="@gmail.com") | Q(email__iendswith="@googlemail.com"))
+    if exclude_pk:
+        qs = qs.exclude(pk=exclude_pk)
+    for u in qs.only("id", "email"):
+        if chuan_hoa_email(u.email) == chuan:
+            return u
+    return None
