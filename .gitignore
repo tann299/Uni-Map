@@ -58,3 +58,9 @@ Report/
 # Template LaTeX đồ án tham khảo, không phải mã nguồn
 docs/mau-bao-cao-do-an-TTNT/
 docs/mau-bao-cao-do-an-TTNT-xem-truoc.pdf
+
+# Slide bao cao: node_modules thu vien, tai lai bang npm install
+docs/slide/node_modules/
+
+# Cau hinh tool local (launch.json cho preview browser, settings session)
+.claude/

@@ -15,7 +15,8 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
+from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,4 +30,13 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# /media/ (avatar) và /static/ PHẢI phục vụ được cả khi DEBUG=0 trên host thật.
+# `static()` là no-op khi DEBUG=0 nên không dùng được ở đây; `serve` chạy được
+# mọi lúc. Trên host có nginx/Apache thì web server phục vụ /media/ trước và
+# Django không bao giờ nhận request đó — route dưới chỉ là lưới an toàn cho
+# trường hợp web server không cấu hình location /media/.
+urlpatterns += [
+    re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
+    re_path(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
+]

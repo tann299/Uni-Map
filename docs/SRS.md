@@ -96,7 +96,7 @@ Django · MySQL · HTML/CSS/JavaScript.
 
 ```
                         ┌─────────────────────────────────┐
-                        │          UNI MAP                │
+                        │          UNI CONNECT            │
                         │                                 │
    ┌───────┐            │  UC-01 Tra cứu điểm chuẩn       │
    │ Khách │────────────┤  UC-02 Xem chi tiết trường      │
