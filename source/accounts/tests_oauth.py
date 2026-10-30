@@ -81,8 +81,15 @@ class DangNhapGoogleTest(TestCase):
             )
         self.assertEqual(User.objects.count(), 1)
 
-    def test_username_tay_trung_email_thi_them_hau_to(self):
-        User.objects.create_user(username="hocsinh@gmail.com", email="khac@x.local")
+    def test_username_tay_trung_email_thi_vao_tai_khoan_do(self):
+        """Username tay trùng email Gmail: vào thẳng tài khoản đó, không tạo mới.
+
+        Hành vi có chủ đích sau fix: username của tài khoản OAuth cũ vốn = gmail
+        (email có thể bị form sửa xóa) -> so username vẫn tìm ra được. Email
+        THẬT của tài khoản (`khac@x.local`) không bị ghi đè — chỉ chữa lành
+        khi email đang trống.
+        """
+        cu = User.objects.create_user(username="hocsinh@gmail.com", email="khac@x.local")
         self._dat_state()
         p1, p2 = self._mock_google()
         with p1, p2:
@@ -90,9 +97,10 @@ class DangNhapGoogleTest(TestCase):
                 reverse("accounts:google_callback"),
                 {"state": "state-dung", "code": "code-gia"},
             )
-        u = User.objects.get(email="hocsinh@gmail.com")
-        self.assertEqual(u.username, "hocsinh@gmail.com-2")
-        self.assertEqual(int(self.client.session["_auth_user_id"]), u.id)
+        self.assertEqual(User.objects.count(), 1)          # khong tao ban moi
+        cu.refresh_from_db()
+        self.assertEqual(cu.email, "khac@x.local")         # email that giu nguyen
+        self.assertEqual(int(self.client.session["_auth_user_id"]), cu.id)
 
     def test_state_sai_bi_tu_choi(self):
         self._dat_state("state-dung")

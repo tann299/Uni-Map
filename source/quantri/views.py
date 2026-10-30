@@ -517,6 +517,11 @@ def nguoi_dung_sua(request, user_id):
         messages.error(request, f"Email “{du_lieu['email']}” đã được dùng bởi tài khoản khác.")
     else:
         for truong, gia_tri in _truong_user(du_lieu).items():
+            if truong == "email" and not gia_tri:
+                # Bỏ trống ô email trong form sửa = GIỮ email cũ, không xoá.
+                # Tài khoản OAuth nhận diện bằng email — xoá là lần login sau
+                # tạo user mới oan, dữ liệu cũ (avatar, hồ sơ) bị bỏ rơi.
+                continue
             setattr(u, truong, gia_tri)
         # Tự bỏ quyền staff của chính mình sẽ tự đá khỏi trang quản trị này.
         if u.pk == request.user.pk and not u.is_staff:

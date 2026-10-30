@@ -94,3 +94,43 @@ class FormAdminTest(TestCase):
         self.assertIs(UniMapUserAdmin.add_form, UniMapUserCreationForm)
         self.assertIs(UniMapUserAdmin.form, UniMapUserChangeForm)
         self.assertIn("email", UniMapUserAdmin.add_fieldsets[0][1]["fields"])
+
+
+class EmailKhongDuBiXoaTest(TestCase):
+    """Email TRỐNG khi sửa không được xoá email cũ (bug làm mất dữ liệu).
+
+    Repro: user OAuth sửa thông tin/avatar, form gửi email rỗng -> email cũ
+    bị xóa -> lần login Google sau không tìm thấy -> tạo user '-2', avatar
+    và hồ sơ cũ bị bỏ rơi ở tài khoản cũ.
+    """
+
+    def test_admin_change_trong_giu_email_cu(self):
+        u = User.objects.create_user(username="toi", email="toi@gmail.com")
+        form = UniMapUserChangeForm(instance=u)
+        form.cleaned_data = {"email": "  "}
+        self.assertEqual(form.clean_email(), "toi@gmail.com")
+
+    def test_thong_tin_form_trong_giu_email_cu(self):
+        from accounts.views import ThongTinForm
+        u = User.objects.create_user(username="toi", email="toi@gmail.com")
+        form = ThongTinForm(data={"first_name": "Toi", "last_name": "Trong",
+                                  "email": ""}, instance=u)
+        self.assertTrue(form.is_valid(), form.errors)
+        self.assertEqual(form.cleaned_data["email"], "toi@gmail.com")
+
+    def test_thong_tin_form_doi_sang_moi_van_chay(self):
+        from accounts.views import ThongTinForm
+        u = User.objects.create_user(username="toi", email="cu@gmail.com")
+        form = ThongTinForm(data={"first_name": "Toi", "last_name": "Trong",
+                                  "email": "Moi@gmail.com"}, instance=u)
+        self.assertTrue(form.is_valid(), form.errors)
+        self.assertEqual(form.cleaned_data["email"], "moi@gmail.com")
+
+    def test_thong_tin_form_email_trung_nguoi_khac_bi_chan(self):
+        from accounts.views import ThongTinForm
+        User.objects.create_user(username="khac", email="khac@gmail.com")
+        u = User.objects.create_user(username="toi", email="toi@gmail.com")
+        form = ThongTinForm(data={"first_name": "Toi", "last_name": "Trong",
+                                  "email": "khac@gmail.com"}, instance=u)
+        self.assertFalse(form.is_valid())
+        self.assertIn("email", form.errors)

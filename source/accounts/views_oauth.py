@@ -19,6 +19,7 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.db import IntegrityError
+from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme
@@ -72,8 +73,16 @@ def _dang_nhap_user(request, email: str, first_name: str = "", last_name: str = 
     email = chuan_hoa_email(goc)
     khoa = f"oauth:tao-user:{email}"
 
-    user = truy_van_theo_email(goc).first()
+    # Tìm theo EMAIL trước (cả dạng chuẩn hoá lẫn gõ tay). Nếu email trong DB
+    # bị ai đó xoá (nhưng username của tài khoản OAuth cũ vốn = gmail) thì
+    # tìm tiếp theo USERNAME — không thì sẽ tạo user mới oan, dữ liệu cũ
+    # (avatar, hồ sơ) bị bỏ rơi ở tài khoản cũ.
+    user = (truy_van_theo_email(goc).first()
+            or User.objects.filter(Q(username__iexact=email) | Q(username__iexact=goc)).first())
     if user is not None:
+        if not user.email:
+            user.email = email
+            user.save(update_fields=["email"])   # chữa lành email đã mất
         return _dang_nhap(request, user, first_name, last_name)
 
     ta_giu_khoa = cache.add(khoa, 1, 10)

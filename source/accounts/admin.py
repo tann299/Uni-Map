@@ -59,11 +59,18 @@ class UniMapUserCreationForm(AdminUserCreationForm):
 
 
 class UniMapUserChangeForm(UserChangeForm):
-    """Form sửa user: chuẩn hoá + chặn email trùng người khác (bỏ qua chính mình)."""
+    """Form sửa user: chuẩn hoá + chặn email trùng người khác (bỏ qua chính mình).
+
+    Email TRỐNG không được xoá email cũ của tài khoản OAuth: lần login sau
+    sẽ không tìm thấy và tạo user mới, dữ liệu cũ bị bỏ rơi. Chỉ cho xoá khi
+    email cũ cũng rỗng sẵn.
+    """
 
     def clean_email(self):
         goc = (self.cleaned_data.get("email") or "").strip()
         email = chuan_hoa_email(goc)
+        if not email and self.instance.email:
+            return self.instance.email
         if email and _trung_email(goc, bo_tru_pk=self.instance.pk):
             raise ValidationError("Email này đã được dùng bởi tài khoản khác.")
         return email

@@ -35,14 +35,30 @@ class AliasKhongTaoUserMoiTest(TestCase):
         request = rf.get("/accounts/google/xac-thuc/")
         request.session = SessionStore()
         with patch("accounts.views_oauth.messages"), \
-             patch("accounts.views_oauth.login"):
+             patch("accounts.views_oauth.login") as lg:
             _dang_nhap_user(request, email, first_name="An")
+        return lg.call_args[0][1].id
 
     def test_alias_khong_tao_user_moi(self):
         self._dang_nhap("annguyen@gmail.com")
         self._dang_nhap("an.nguyen@gmail.com")
         self._dang_nhap("an.nguyen+uni@gmail.com")
         self.assertEqual(User.objects.count(), 1)
+
+    def test_email_bi_xoa_tim_theo_username_thong_bao_khong_mat_du_lieu(self):
+        """Tài khoản OAuth bị mất email (form sửa để trống) — tìm theo USERNAME.
+
+        Repro bug thật: user email='' bị login lần sau bỏ lỡ -> tạo '-2',
+        avatar/hồ sơ cũ bị bỏ rơi. Lookup username cứu được + chữa lành email.
+        """
+        cu = User.objects.create_user(username="annguyen@gmail.com", email="")
+
+        lan2 = self._dang_nhap("an.nguyen@gmail.com")
+        self.assertEqual(User.objects.count(), 1)         # khong tao user moi
+        self.assertEqual(lan2, cu.id)                     # vao dung ban cu
+        cu.refresh_from_db()
+        self.assertEqual(cu.email, "annguyen@gmail.com")  # email duoc chua lanh
+        self.assertTrue(cu.profile)                       # profile van con
         # email lưu dạng chuẩn hoá nên các lần sau khớp lookup chính xác
         self.assertEqual(User.objects.get().email, "annguyen@gmail.com")
 

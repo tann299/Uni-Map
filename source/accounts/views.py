@@ -95,11 +95,17 @@ class ThongTinForm(forms.ModelForm):
         }
 
     def clean_email(self):
-        """Email đổi tại đây cũng không được trùng người khác (chuẩn hoá Gmail)."""
+        """Email đổi tại đây cũng không được trùng người khác (chuẩn hoá Gmail).
+
+        Email TRỐNG không được ghi đè xóa email cũ: tài khoản OAuth phụ thuộc
+        email để nhận diện, xóa nó là lần login sau tạo user mới, dữ liệu cũ
+        (avatar, hồ sơ) bị bỏ rơi. Form có field email mà POST thiếu thì trống
+        cũng rơi vào đây nên chặn luôn.
+        """
         goc = (self.cleaned_data.get("email") or "").strip()
         email = chuan_hoa_email(goc)
         if not email:
-            return email
+            return self.instance.email or goc
         if truy_van_theo_email(goc, exclude_pk=self.instance.pk).exists():
             raise forms.ValidationError("Email này đã được dùng bởi tài khoản khác.")
         return email
