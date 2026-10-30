@@ -46,4 +46,32 @@ class DangKyTest(TestCase):
         User.objects.create_user(username="hocsinh", email="khac@x.local")
         r = _post_dang_ky(self.client, "hocsinh", "hocsinh@gmail.com")
         self.assertEqual(r.status_code, 200)
+        self.assertIn("username", r.context["form"].errors)
         self.assertEqual(User.objects.count(), 1)
+
+    def test_trung_username_khac_chu_lai_bị_tu_choi(self):
+        """username__iexact: HOCSINH trùng hocsinh vẫn bị chặn."""
+        User.objects.create_user(username="hocsinh", email="khac@x.local")
+        r = _post_dang_ky(self.client, "HocSinh", "moi@x.local")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn("username", r.context["form"].errors)
+        self.assertEqual(User.objects.count(), 1)
+
+    def test_trung_ca_username_lan_email_deu_hien_loi(self):
+        """Cùng lúc trùng cả hai: cả hai trường đều phải báo lỗi, không tạo gì."""
+        User.objects.create_user(username="hocsinh", email="hocsinh@gmail.com")
+        r = _post_dang_ky(self.client, "hocsinh", "HocSinh@gmail.com")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn("username", r.context["form"].errors)
+        self.assertIn("email", r.context["form"].errors)
+        self.assertEqual(User.objects.count(), 1)
+        self.assertNotIn("_auth_user_id", self.client.session)
+
+    def test_username_va_email_deu_moi_van_tao_duoc(self):
+        """Điều kiện tích cực: cả hai đều mới thì đăng ký thành công."""
+        User.objects.create_user(username="cu", email="cu@gmail.com")
+        r = _post_dang_ky(self.client, "moi", "moi@gmail.com")
+        self.assertRedirects(r, reverse("university:trang_chu"),
+                             fetch_redirect_response=False)
+        self.assertEqual(User.objects.count(), 2)
+        self.assertEqual(User.objects.get(username="moi").email, "moi@gmail.com")
