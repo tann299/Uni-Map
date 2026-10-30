@@ -24,6 +24,7 @@ from django.db.models import Avg, Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
+from accounts.gmail import chuan_hoa_email, truy_van_theo_email
 from admissions.models import HoSoNangLuc
 # gen_dataset, train chỉ import khi bấm nút huấn luyện (lazy import)
 # để Django không crash khi môi trường deploy nhẹ chưa có numpy/sklearn.
@@ -438,13 +439,16 @@ def nguoi_dung(request):
 def _du_lieu_form(request) -> dict:
     """Đọc form người dùng -> dict field của `User` (chưa gồm mật khẩu).
 
-    Email chuẩn hoá (lowercase, Gmail bỏ '.'/'+tag') để không tạo hai tài khoản
-    cùng hộp thư qua các dạng alias khác nhau.
+    `email` đã chuẩn hoá (lowercase, Gmail bỏ '.'/'+tag') để không tạo hai tài
+    khoản cùng hộp thư qua các dạng alias khác nhau. `email_goc` giữ nguyên dạng
+    người dùng gõ — _email_bi_trung cần nó để so với email CHƯA chuẩn hoá trong
+    DB cũ (nếu đã chuẩn hoá thì hai dạng trùng nhau, so vẫn đúng).
     """
-    from accounts.gmail import chuan_hoa_email
+    goc = (request.POST.get("email") or "").strip()
     return {
         "username": (request.POST.get("username") or "").strip(),
-        "email": chuan_hoa_email(request.POST.get("email")),
+        "email": chuan_hoa_email(goc),
+        "email_goc": goc,
         "first_name": (request.POST.get("first_name") or "").strip(),
         "last_name": (request.POST.get("last_name") or "").strip(),
         "is_staff": request.POST.get("is_staff") == "on",
@@ -452,14 +456,20 @@ def _du_lieu_form(request) -> dict:
     }
 
 
-def _email_bi_trung(email: str, bo_tru_pk=None) -> bool:
-    """Email đã có user khác dùng chưa (bo_tru_pk khi đang sửa)."""
-    if not email:
+def _email_bi_trung(email_goc: str, bo_tru_pk=None) -> bool:
+    """Email đã có user khác dùng chưa (bo_tru_pk khi đang sửa).
+
+    PHẢI truyền email GỐC (dạng người dùng gõ) — truy_van_theo_email tự sinh
+    thêm dạng chuẩn hoá để so với DB cũ lẫn DB mới.
+    """
+    if not email_goc:
         return False
-    qs = User.objects.filter(email__iexact=email)
-    if bo_tru_pk:
-        qs = qs.exclude(pk=bo_tru_pk)
-    return qs.exists()
+    return truy_van_theo_email(email_goc, exclude_pk=bo_tru_pk).exists()
+
+
+def _truong_user(du_lieu: dict) -> dict:
+    """Dict field của User thật — loại `email_goc` chỉ để kiểm trùng."""
+    return {k: v for k, v in du_lieu.items() if k != "email_goc"}
 
 
 def _chan_superuser(request, user) -> bool:
@@ -480,10 +490,10 @@ def nguoi_dung_them(request):
         messages.error(request, "Mật khẩu không được để trống khi tạo tài khoản.")
     elif User.objects.filter(username=du_lieu["username"]).exists():
         messages.error(request, f"Tên đăng nhập “{du_lieu['username']}” đã tồn tại.")
-    elif _email_bi_trung(du_lieu["email"]):
+    elif _email_bi_trung(du_lieu["email_goc"]):
         messages.error(request, f"Email “{du_lieu['email']}” đã được dùng bởi tài khoản khác.")
     else:
-        User.objects.create_user(password=mat_khau, **du_lieu)
+        User.objects.create_user(password=mat_khau, **_truong_user(du_lieu))
         messages.success(request, f"Đã tạo tài khoản “{du_lieu['username']}”.")
     return redirect("quantri:nguoi_dung")
 
@@ -503,10 +513,10 @@ def nguoi_dung_sua(request, user_id):
         messages.error(request, "Tên đăng nhập không được để trống.")
     elif trung:
         messages.error(request, f"Tên đăng nhập “{du_lieu['username']}” đã tồn tại.")
-    elif _email_bi_trung(du_lieu["email"], bo_tru_pk=u.pk):
+    elif _email_bi_trung(du_lieu["email_goc"], bo_tru_pk=u.pk):
         messages.error(request, f"Email “{du_lieu['email']}” đã được dùng bởi tài khoản khác.")
     else:
-        for truong, gia_tri in du_lieu.items():
+        for truong, gia_tri in _truong_user(du_lieu).items():
             setattr(u, truong, gia_tri)
         # Tự bỏ quyền staff của chính mình sẽ tự đá khỏi trang quản trị này.
         if u.pk == request.user.pk and not u.is_staff:

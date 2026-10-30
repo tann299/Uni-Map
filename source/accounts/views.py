@@ -12,7 +12,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 from PIL import Image
 
-from accounts.gmail import chuan_hoa_email
+from accounts.gmail import chuan_hoa_email, truy_van_theo_email
 from accounts.models import Profile
 from admissions.models import HoSoNangLuc
 from university.services import tinh_to_hop_tu_db
@@ -96,11 +96,11 @@ class ThongTinForm(forms.ModelForm):
 
     def clean_email(self):
         """Email đổi tại đây cũng không được trùng người khác (chuẩn hoá Gmail)."""
-        email = chuan_hoa_email(self.cleaned_data.get("email"))
+        goc = (self.cleaned_data.get("email") or "").strip()
+        email = chuan_hoa_email(goc)
         if not email:
             return email
-        trung = User.objects.filter(email__iexact=email).exclude(pk=self.instance.pk)
-        if trung.exists():
+        if truy_van_theo_email(goc, exclude_pk=self.instance.pk).exists():
             raise forms.ValidationError("Email này đã được dùng bởi tài khoản khác.")
         return email
 
@@ -167,10 +167,11 @@ class DangKyForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
 
     def clean_email(self):
-        email = chuan_hoa_email(self.cleaned_data.get("email"))
+        goc = (self.cleaned_data.get("email") or "").strip()
+        email = chuan_hoa_email(goc)
         if not email:
             raise forms.ValidationError("Vui lòng nhập email.")
-        if User.objects.filter(email__iexact=email).exists():
+        if truy_van_theo_email(goc).exists():
             raise forms.ValidationError("Email này đã được dùng để đăng ký tài khoản.")
         return email
 

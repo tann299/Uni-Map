@@ -33,3 +33,25 @@ def chuan_hoa_email(email: str | None) -> str:
         local = _XOA_O.sub("", local)
         domain = "gmail.com"
     return f"{local}@{domain}"
+
+
+def truy_van_theo_email(email: str | None, exclude_pk=None):
+    """QuerySet `auth_user` khớp email — thử CẢ dạng chuẩn hoá lẫn dạng gõ tay.
+
+    PHẢI truyền email GỐC (chưa chuẩn hoá) để sinh được cả hai dạng. DB cũ
+    (trước migration 0002) còn email dạng gõ tay (`an.nguyen@gmail.com`), còn
+    dạng chuẩn hoá là `annguyen@gmail.com` — so iexact một dạng là sót. Khi DB
+    đã chuẩn hoá hết, hai dạng trùng nhau, query vẫn đúng.
+    """
+    from django.contrib.auth.models import User
+    from django.db.models import Q
+
+    goc = (email or "").strip().lower()
+    cac_dang = {chuan_hoa_email(email), goc} - {""}
+    if not cac_dang:
+        return User.objects.none()
+    q = Q()
+    for dang in cac_dang:
+        q |= Q(email__iexact=dang)
+    qs = User.objects.filter(q)
+    return qs.exclude(pk=exclude_pk) if exclude_pk else qs

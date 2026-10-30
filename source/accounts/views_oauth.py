@@ -16,11 +16,12 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme
 
-from accounts.gmail import chuan_hoa_email
+from accounts.gmail import chuan_hoa_email, truy_van_theo_email
 
 TIMEOUT = 10
 
@@ -59,8 +60,9 @@ def _dang_nhap_user(request, email: str, first_name: str = "", last_name: str = 
     alias của cùng hộp thư đăng nhập về đúng một tài khoản. Gmail vẫn nhận thư
     cho dạng chuẩn hoá vì alias chỉ là cách viết khác của cùng hộp thư.
     """
-    email = chuan_hoa_email(email)
-    user = User.objects.filter(email__iexact=email).first()
+    goc = (email or "").strip()
+    email = chuan_hoa_email(goc)
+    user = truy_van_theo_email(goc).first()
     if user is None:
         user = User(
             username=_username_tu_email(email),
@@ -69,7 +71,12 @@ def _dang_nhap_user(request, email: str, first_name: str = "", last_name: str = 
             last_name=last_name[:150],
         )
         user.set_unusable_password()
-        user.save()
+        try:
+            user.save()
+        except IntegrityError:
+            # Hai callback song song cùng email: request kia đã tạo user trước
+            # (UNIQUE email chặn). Lấy user đó — lần này .get() chắc chắn thấy.
+            user = truy_van_theo_email(goc).get()
 
     login(request, user)
     chao = user.first_name or user.email

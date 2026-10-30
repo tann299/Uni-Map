@@ -93,7 +93,7 @@ TABLES = {
 
     # --- C. Người dùng ---
     "auth_user": (4, 140, "user", "auth_user  (Django)", [
-        ("id", "PK"), ("username", "U"), ("password", ""), ("email", "")]),
+        ("id", "PK"), ("username", "U"), ("password", ""), ("email", "U")]),
     "ho_so": (34, 140, "user", "ho_so_nang_luc", [
         ("id", "PK"), ("user_id", "FK"), ("ten_ho_so", ""),
         ("phuong_thuc", ""), ("diem_uu_tien", "")]),
@@ -230,7 +230,7 @@ def main():
                         va="center", ha="right", color=tag_color, zorder=6)
 
     # --- tiêu đề + chú giải ---
-    ax.text(1, 3.2, "UNI MAP — Sơ đồ cơ sở dữ liệu", fontproperties=f_title,
+    ax.text(1, 3.2, "UNI CONNECT — Sơ đồ cơ sở dữ liệu", fontproperties=f_title,
             color="#1F4E78")
     legend = ("PK = khoá chính   ·   FK = khoá ngoại   ·   U = duy nhất   ·   "
               "NK = khoá tự nhiên (nền tảng upsert hằng năm)   ·   "
