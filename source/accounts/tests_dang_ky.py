@@ -4,6 +4,7 @@
 Chạy: python manage.py test accounts
 """
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.test import TestCase
 from django.urls import reverse
 
@@ -21,6 +22,11 @@ def _post_dang_ky(client, username, email, pw="MatKhauKhaManh1!", pw2=None):
 
 
 class DangKyTest(TestCase):
+    def setUp(self):
+        # Rate limit đăng ký đếm trên cache dùng chung: không dọn thì test thứ
+        # 6 trong cùng class bị 429 (mỗi test POST 1 lần, giới hạn 5/giờ).
+        cache.clear()
+
     def test_dang_ky_thanh_cong_luu_email(self):
         r = _post_dang_ky(self.client, "hocsinh", "HocSinh@Gmail.com")
         self.assertRedirects(r, reverse("university:trang_chu"), fetch_redirect_response=False)

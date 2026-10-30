@@ -241,11 +241,17 @@ SESSION_SAVE_EVERY_REQUEST = True
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
 
-# #2 Cache phục vụ Rate Limit:
+# #2 Cache phục vụ Rate Limit + khoá chống race OAuth.
+# PHẢI là cache CHIA SẺ giữa các process: LocMemCache là RAM riêng từng process,
+# mà Passenger/Gunicorn chạy nhiều process -> mỗi process đếm riêng, rate limit
+# thành vô nghĩa (5 lần x 4 process = 20 lần thử) và mất sạch khi restart app.
+# FileBasedCache không cần Redis/Memcached, dùng chung được trên shared hosting.
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'uni-connect-cache',
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': BASE_DIR / '.cache' / 'django',
+        'TIMEOUT': 300,
+        'OPTIONS': {'MAX_ENTRIES': 5000},
     }
 }
 

@@ -20,9 +20,15 @@ from django.urls import reverse
 import json as _json
 from urllib.parse import quote
 
+from accounts.rate_limit import khoa_theo_user, vuot_gioi_han
 from admissions.models import HoSoNangLuc
 from university.services import tinh_to_hop_tu_db
 from university.models import VUNG_MIEN, CuaSoNam, DacTrungDiemChuan
+
+# UC-05 chạy predict_proba cả lô + ghi 2 bảng mỗi lần. 20 lần/phút đủ cho người
+# dùng thật (đổi điểm rồi xem lại vài lần), chặn được F5/script spam DB + CPU.
+GOI_Y_TOI_DA = 20
+GOI_Y_CUA_SO = 60   # 1 phút
 
 from .ml.predict import cham_xac_suat, nap_mo_hinh, phien_ban
 from .models import KetQuaGoiY, LanGoiY
@@ -127,6 +133,14 @@ def _xep_hang(hs, to_hop_diem, qs):
 
 @login_required
 def xem_goi_y(request, pk):
+    # Chặn TRƯỚC khi đọc hồ sơ/chạy ML: mỗi lần gọi là 1 lượt predict_proba cả
+    # lô + 2 lần INSERT. F5/script không được đốt CPU hosting.
+    if vuot_gioi_han(khoa_theo_user(request, "goi-y"),
+                     GOI_Y_TOI_DA, GOI_Y_CUA_SO):
+        messages.error(request, "Bạn đã xem gợi ý quá nhiều lần trong 1 phút. "
+                                "Vui lòng thử lại sau.")
+        return redirect("admissions:danh_sach_ho_so")
+
     hs = _chi_cua_user(request.user, pk)
     to_hop = tinh_to_hop_tu_db(hs.diem_theo_mon())
     to_hop_diem = {t["ma"]: t["tong"] for t in to_hop}
@@ -309,6 +323,15 @@ def so_sanh(request, pk):
     Cùng thang đo với UC-05: có mô hình thì phân tầng theo xác suất, không thì
     theo `margin` — hai trang không được nói hai chuyện khác nhau (SRS UC-07).
     """
+    # Trang này cũng chạy `_goi_y_uc05` (khi chưa đủ 3 ứng viên) và
+    # `cham_xac_suat` -> dùng CHUNG bộ đếm với `xem_goi_y` để không lách giới
+    # hạn bằng cách qua lại 2 trang.
+    if vuot_gioi_han(khoa_theo_user(request, "goi-y"),
+                     GOI_Y_TOI_DA, GOI_Y_CUA_SO):
+        messages.error(request, "Bạn đã xem gợi ý quá nhiều lần trong 1 phút. "
+                                "Vui lòng thử lại sau.")
+        return redirect("admissions:danh_sach_ho_so")
+
     hs = _chi_cua_user(request.user, pk)
     to_hop_diem = {t["ma"]: t["tong"] for t in tinh_to_hop_tu_db(hs.diem_theo_mon())}
     uu_tien = float(hs.diem_uu_tien or 0)

@@ -14,6 +14,8 @@ from PIL import Image
 
 from accounts.gmail import chuan_hoa_email, tim_theo_email
 from accounts.models import Profile
+from accounts.rate_limit import (khoa_theo_ip, khoa_theo_user,
+                                 vuot_gioi_han)
 from admissions.models import HoSoNangLuc
 from university.services import tinh_to_hop_tu_db
 
@@ -26,6 +28,17 @@ from university.services import tinh_to_hop_tu_db
 # Dùng cache locmem (settings.CACHES) nên không cần Redis/Memcached trên hosting.
 SO_LAN_TOI_DA = 5
 KHOA_BAY_LAU = 5 * 60   # 5 phút
+
+# Đăng ký: mỗi tài khoản tốn 1 lần hash mật khẩu (~100ms CPU) + tạo Profile.
+# 5 tài khoản/IP/giờ là đủ cho người dùng thật (nhà trường, gia đình dùng chung
+# IP), nhưng chặn được bot tạo hàng loạt làm nghẽn hosting shared.
+DANG_KY_TOI_DA = 5
+DANG_KY_CUA_SO = 60 * 60   # 1 giờ
+
+# Upload avatar: mỗi ảnh decode + resize LANCZOS 300x300 (CPU nặng trên shared
+# hosting). 10 lần/giờ đủ cho người dùng thật, chặn spam đổi ảnh liên tục.
+UPLOAD_AVATAR_TOI_DA = 10
+UPLOAD_AVATAR_CUA_SO = 60 * 60   # 1 giờ
 
 
 def _ip_khach(request) -> str:
@@ -193,6 +206,15 @@ def dang_ky(request):
     if request.user.is_authenticated:
         return redirect("university:trang_chu")
     if request.method == "POST":
+        # Chống bot tạo hàng loạt tài khoản: mỗi user tốn 1 lần hash mật khẩu
+        # (~100ms CPU) + tạo Profile, đủ để làm nghẽn hosting shared.
+        if vuot_gioi_han(khoa_theo_ip(request, "dang-ky"),
+                         DANG_KY_TOI_DA, DANG_KY_CUA_SO):
+            form = DangKyForm(request.POST)
+            form.add_error(None, "Bạn đã thử tạo tài khoản quá nhiều lần. "
+                                 "Vui lòng thử lại sau ít phút.")
+            return render(request, "accounts/dang_ky.html", {"form": form},
+                          status=429)
         form = DangKyForm(request.POST)
         if form.is_valid():
             user = form.save()
@@ -273,6 +295,14 @@ def tai_khoan(request):
           if la_post else MatKhauForm(request.user, prefix="mk"))
 
     if request.method == "POST":
+        # Upload avatar: mỗi ảnh tốn 1 lần decode + resize LANCZOS 300x300
+        # (CPU đáng kể trên shared hosting) -> giới hạn số lần lưu có ảnh.
+        if tab == "thong_tin" and request.FILES.get("tt-avatar"):
+            if vuot_gioi_han(khoa_theo_user(request, "upload-avatar"),
+                             UPLOAD_AVATAR_TOI_DA, UPLOAD_AVATAR_CUA_SO):
+                messages.error(request, "Bạn đã đổi ảnh đại diện quá nhiều lần. "
+                                        "Vui lòng thử lại sau ít phút.")
+                return redirect("/accounts/tai-khoan/?tab=thong_tin")
         if tab == "thong_tin" and ft.is_valid():
             user = ft.save()
             profile, _ = Profile.objects.get_or_create(user=user)
