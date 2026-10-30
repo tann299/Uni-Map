@@ -6,6 +6,7 @@ Chạy: python manage.py test accounts (test DB sqlite, không cần MySQL).
 from unittest.mock import patch
 
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.contrib.sessions.backends.db import SessionStore
 from django.test import RequestFactory, TestCase
 
@@ -49,4 +50,49 @@ class AliasKhongTaoUserMoiTest(TestCase):
         # Sau migration 0002, email cũ đã được chuẩn hoá trong DB
         User.objects.create_user(username="an", email="annguyen@gmail.com")
         self._dang_nhap("an.nguyen+sp@gmail.com")
+        self.assertEqual(User.objects.count(), 1)
+
+
+class KhoaRaceTest(TestCase):
+    """Khoá cache chống 2 callback song song cùng email tạo 2 user.
+
+    DB host chưa có UNIQUE(email) nên khoá cache.add() atomic là lớp chắn duy nhất.
+    """
+
+    def setUp(self):
+        # LocMemCache sống xuyên suốt process, không tự reset giữa các test —
+        # khoá sót từ test trước làm test sau rơi vào nhánh chờ 4s thật.
+        cache.clear()
+
+    def _dang_nhap(self, email):
+        rf = RequestFactory()
+        request = rf.get("/accounts/google/xac-thuc/")
+        request.session = SessionStore()
+        with patch("accounts.views_oauth.messages"), \
+             patch("accounts.views_oauth.login"):
+            _dang_nhap_user(request, email, first_name="An")
+
+    def test_co_khoa_va_user_da_co_lay_ngay(self):
+        """Request kia giữ khoá nhưng đã tạo xong -> lấy user cũ, không chờ."""
+        User.objects.create_user(username="hocsinh@gmail.com",
+                                 email="hocsinh@gmail.com")
+        cache.add("oauth:tao-user:hocsinh@gmail.com", 1, 10)
+        with patch("accounts.views_oauth.time.sleep") as mock_sleep:
+            self._dang_nhap("hocsinh@gmail.com")
+        mock_sleep.assert_not_called()
+        self.assertEqual(User.objects.count(), 1)
+
+    def test_co_khoa_het_ch_tao_mot_user(self):
+        """Khoá người khác giữ, hết chờ vẫn không thấy (request kia lỗi) -> tự tạo."""
+        cache.add("oauth:tao-user:hocsinh@gmail.com", 1, 10)
+        with patch("accounts.views_oauth.time.sleep"):   # không chờ thật 4s trong test
+            self._dang_nhap("hocsinh@gmail.com")
+        self.assertEqual(User.objects.count(), 1)
+
+    def test_khoa_bi_xoa_sau_khi_tao_xong(self):
+        """Ta giữ khoá, tạo xong phải giải khoá — không thì lần sau bị treo."""
+        self._dang_nhap("hocsinh@gmail.com")
+        self.assertIsNone(cache.get("oauth:tao-user:hocsinh@gmail.com"))
+        # lần đăng nhập thứ hai vẫn chạy bình thường (không vướng khoá cũ)
+        self._dang_nhap("hocsinh@gmail.com")
         self.assertEqual(User.objects.count(), 1)

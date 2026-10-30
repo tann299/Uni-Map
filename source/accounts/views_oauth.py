@@ -9,6 +9,7 @@ Cùng luồng Authorization Code chuẩn:
 """
 import hashlib
 import secrets
+import time
 from urllib.parse import urlencode
 
 import requests
@@ -16,6 +17,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -59,24 +61,64 @@ def _dang_nhap_user(request, email: str, first_name: str = "", last_name: str = 
     Email lưu dạng CHUẨN HOÁ (lowercase; Gmail bỏ '.' và '+tag') nên các dạng
     alias của cùng hộp thư đăng nhập về đúng một tài khoản. Gmail vẫn nhận thư
     cho dạng chuẩn hoá vì alias chỉ là cách viết khác của cùng hộp thư.
+
+    Chống race: DB host chưa có UNIQUE(email) (ALTER văng "Duplicate entry ''"
+    vì nhiều user để email rỗng), nên 2 callback song song cùng email có thể
+    tạo 2 user. `cache.add()` atomic — request thứ hai không giữ được khoá thì
+    chờ request kia tạo xong rồi lấy, không tạo thêm. Khoá tự hết hạn sau 10s
+    (request kia sập thì khoá không treo lâu) và luôn được xoá khi ta giữ khoá.
     """
     goc = (email or "").strip()
     email = chuan_hoa_email(goc)
+    khoa = f"oauth:tao-user:{email}"
+
     user = truy_van_theo_email(goc).first()
-    if user is None:
-        user = User(
-            username=_username_tu_email(email),
-            email=email,
-            first_name=first_name[:150],
-            last_name=last_name[:150],
-        )
-        user.set_unusable_password()
-        try:
-            user.save()
-        except IntegrityError:
-            # Hai callback song song cùng email: request kia đã tạo user trước
-            # (UNIQUE email chặn). Lấy user đó — lần này .get() chắc chắn thấy.
-            user = truy_van_theo_email(goc).get()
+    if user is not None:
+        return _dang_nhap(request, user, first_name, last_name)
+
+    ta_giu_khoa = cache.add(khoa, 1, 10)
+    try:
+        if not ta_giu_khoa:
+            # Request khác đang tạo cùng email: chờ nó xong, tối đa 4s.
+            for _ in range(8):
+                time.sleep(0.5)
+                user = truy_van_theo_email(goc).first()
+                if user is not None:
+                    break
+            else:
+                # Hết chờ vẫn chưa có -> request kia chết trước khi lưu.
+                # Xoá khoá để không treo (TTL 10s chỉ là lưới an toàn).
+                user = None
+                cache.delete(khoa)
+        if user is None:
+            user = User(
+                username=_username_tu_email(email),
+                email=email,
+                first_name=first_name[:150],
+                last_name=last_name[:150],
+            )
+            user.set_unusable_password()
+            try:
+                user.save()
+            except IntegrityError:
+                # Trùng kiểu gì đó (email khoá cache không sống qua restart...):
+                # lấy user vừa được tạo, không nổ 500.
+                user = truy_van_theo_email(goc).get()
+    finally:
+        if ta_giu_khoa:
+            cache.delete(khoa)
+
+    return _dang_nhap(request, user, first_name, last_name)
+
+
+def _dang_nhap(request, user, first_name: str = "", last_name: str = ""):
+    """Điền tên (nếu Google trả thêm) rồi đăng nhập + điều hướng."""
+    if user.first_name == "" and first_name:
+        user.first_name = first_name[:150]
+    if user.last_name == "" and last_name:
+        user.last_name = last_name[:150]
+    if user.first_name or user.last_name:
+        user.save(update_fields=["first_name", "last_name"])
 
     login(request, user)
     chao = user.first_name or user.email
