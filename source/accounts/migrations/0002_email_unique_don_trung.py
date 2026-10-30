@@ -8,18 +8,26 @@ alias, mỗi lần đăng nhập Google bằng dạng alias khác đã tạo m�
 thường trước khi có DangKyForm.
 
 Migration làm 2 việc:
- 1. Dọn dữ liệu cũ: xoá user trùng email (không phân biệt hoa/thường), giữ
-    user CŨ NHẤT. Profile/ho_so_nang_luc/... xoá theo (ON DELETE CASCADE).
- 2. Thêm UNIQUE(email) để từ nay DB tự chặn, kể cả race condition hai request
-    OAuth song song.
+ 1. Dọn dữ liệu cũ: chuẩn hoá email rồi xoá user trùng (không phân biệt hoa/
+    thường), giữ user CŨ NHẤT. Profile/ho_so_nang_luc/... xoá theo (CASCADE).
+ 2. Thêm cột generated `email_duy_nhat` + UNIQUE trên cột đó để từ nay DB tự
+    chặn, kể cả race condition hai request OAuth song song.
 
-Chú ý: unique áp trên chuỗi email; MySQL collation utf8mb4_unicode_ci so sánh
-không phân biệt hoa/thường nên 'A@x.com' và 'a@x.com' bị coi trùng ở DB. Chuẩn
-hoá alias Gmail (bỏ '.', '+tag') ở tầng app — không thể bỏ trên cột vì phải
-giữ email gốc để gửi mail.
+VÌ SAO KHÔNG UNIQUE TRỰC TIẾP TRÊN `email`:
+User.email blank=True nên admin/QRHTT để trống được -> nhiều user có
+`email = ''`. MySQL unique cho `''` là 1 dòng duy nhất, ALTER đầu tiên chạy
+thật đã báo `#1062 - Duplicate entry '' for key`. Cột generated
+`NULLIF(LOWER(TRIM(email)), '')` đổi rỗng thành NULL, MySQL bỏ qua NULL khi
+check UNIQUE -> không email thì thoải mái, có email thì bắt trùng.
+
+Chú ý: unique áp trên chuỗi đã LOWER+TRIM; alias Gmail (bỏ '.', '+tag') không
+làm được ở SQL nên chặn ở tầng app (accounts/gmail.py) — app chuẩn hoá input
+trước, DB chặn race cuối.
 
 Dùng RunPython + schema_editor.connection.vendor thay RunSQL vì test chạy
-sqlite (config không cố định DB), còn production là MySQL.
+sqlite (config không cố định DB), còn production là MySQL. Mọi bước idempotent
+(quét cột/index đã có) để chạy lại sau khi đã ALTER tay trong phpMyAdmin không
+bị Duplicate column/key name.
 """
 import re
 
@@ -58,20 +66,66 @@ def don_user_trung(apps, schema_editor):
 
 
 def them_unique(apps, schema_editor):
-    """Tạo UNIQUE(email) theo dialect: MySQL ADD UNIQUE KEY, còn lại CREATE INDEX."""
-    sql = ("ALTER TABLE auth_user ADD UNIQUE KEY uq_auth_user_email_chuan (email)"
-           if schema_editor.connection.vendor == "mysql" else
-           "CREATE UNIQUE INDEX uq_auth_user_email_chuan ON auth_user (email)")
+    """Tạo UNIQUE trên cột generated `email_duy_nhat`.
+
+    Không unique thẳng trên `email` được vì User.email blank=True: nhiều user
+    có `email = ''` -> `Duplicate entry '' for key ...` ngay khi ALTER. Cột
+    generated `NULLIF(LOWER(TRIM(email)), '')` đổi rỗng thành NULL, và MySQL
+    bỏ qua NULL khi check UNIQUE -> nhiều user không email vẫn chấp nhận,
+    còn email thật thì unique (đã lowercase + trim). Alias Gmail (bỏ '.'/+tag)
+    không làm được trong SQL -> chặn ở tầng app (gmail.chuan_hoa_email).
+    """
+    mysql = schema_editor.connection.vendor == "mysql"
     with schema_editor.connection.cursor() as cur:
-        cur.execute(sql)
+        if not _co_cot(cur, "email_duy_nhat", mysql):
+            cur.execute(
+                f"ALTER TABLE auth_user ADD COLUMN email_duy_nhat "
+                f"{'VARCHAR(254)' if mysql else 'TEXT'} "
+                f"GENERATED ALWAYS AS (NULLIF(LOWER(TRIM(email)), '')) STORED")
+        if not _co_index(cur, "uq_auth_user_email_chuan", mysql):
+            cur.execute(
+                "ALTER TABLE auth_user ADD UNIQUE KEY "
+                "uq_auth_user_email_chuan (email_duy_nhat)" if mysql else
+                "CREATE UNIQUE INDEX uq_auth_user_email_chuan "
+                "ON auth_user (email_duy_nhat)")
 
 
 def bo_unique(apps, schema_editor):
-    sql = ("ALTER TABLE auth_user DROP KEY uq_auth_user_email_chuan"
-           if schema_editor.connection.vendor == "mysql" else
-           "DROP INDEX uq_auth_user_email_chuan")
+    """Reverse: bỏ index rồi bỏ cột generated (không đụng cột email thật)."""
+    mysql = schema_editor.connection.vendor == "mysql"
     with schema_editor.connection.cursor() as cur:
-        cur.execute(sql)
+        if _co_index(cur, "uq_auth_user_email_chuan", mysql):
+            cur.execute("ALTER TABLE auth_user DROP KEY uq_auth_user_email_chuan"
+                        if mysql else
+                        "DROP INDEX uq_auth_user_email_chuan")
+        if _co_cot(cur, "email_duy_nhat", mysql):
+            cur.execute("ALTER TABLE auth_user DROP COLUMN email_duy_nhat")
+
+
+def _co_cot(cur, ten, mysql):
+    """Cột đã tồn tại chưa — ALTER chạy lại sẽ báo Duplicate column name.
+
+    Vendor truyền vào vì `cursor.connection` là DB-API connection (sqlite3/
+    MySQLdb) chứ không phải connection wrapper của Django: không có `.vendor`.
+    """
+    if mysql:
+        cur.execute("SELECT COUNT(*) FROM information_schema.COLUMNS "
+                    "WHERE TABLE_SCHEMA = DATABASE() "
+                    "AND TABLE_NAME = 'auth_user' AND COLUMN_NAME = %s", [ten])
+        return cur.fetchone()[0] > 0
+    cur.execute("PRAGMA table_info(auth_user)")
+    return any(r[1] == ten for r in cur.fetchall())
+
+
+def _co_index(cur, ten, mysql):
+    """Index đã tồn tại chưa — ADD lại báo Duplicate key name."""
+    if mysql:
+        cur.execute("SELECT COUNT(*) FROM information_schema.STATISTICS "
+                    "WHERE TABLE_SCHEMA = DATABASE() "
+                    "AND TABLE_NAME = 'auth_user' AND INDEX_NAME = %s", [ten])
+        return cur.fetchone()[0] > 0
+    cur.execute("PRAGMA index_list(auth_user)")
+    return any(r[1] == ten for r in cur.fetchall())
 
 
 class Migration(migrations.Migration):

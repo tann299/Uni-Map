@@ -265,13 +265,21 @@ CREATE TABLE IF NOT EXISTS auth_user (
     first_name   VARCHAR(150) NOT NULL,
     last_name    VARCHAR(150) NOT NULL,
     email        VARCHAR(254) NOT NULL,
+    -- email_duy_nhat: email đã LOWER+TRIM, rỗng -> NULL. Chặn trùng TRÊN CỘT
+    -- NÀY (không trên email) vì User.email blank=True: unique thẳng trên email
+    -- sẽ báo "Duplicate entry ''" khi nhiều user không có email.
+    -- MySQL bỏ qua NULL khi check UNIQUE -> user không email vẫn tạo được.
+    -- Alias Gmail (bỏ '.' / '+tag') không làm được ở SQL, chặn ở tầng app
+    -- (accounts/gmail.py::chuan_hoa_email).
+    email_duy_nhat VARCHAR(254)
+        GENERATED ALWAYS AS (NULLIF(LOWER(TRIM(email)), '')) STORED,
     is_staff     TINYINT(1)   NOT NULL,
     is_active    TINYINT(1)   NOT NULL,
     date_joined  DATETIME(6)  NOT NULL,
 
     PRIMARY KEY (id),
     UNIQUE KEY username (username),
-    UNIQUE KEY uq_auth_user_email_chuan (email)
+    UNIQUE KEY uq_auth_user_email_chuan (email_duy_nhat)
 ) ENGINE=InnoDB COMMENT='Người dùng (do Django quản lý)';
 
 -- -----------------------------------------------------------------------------
