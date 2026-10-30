@@ -263,10 +263,14 @@ def tai_khoan(request):
     else:
         tab = request.GET.get("tab", "ho_so")
 
+    # GET luôn render form UNBOUND (initial từ instance) — trước đây GET
+    # ?tab=thong_tin vẫn bound với request.POST rỗng làm MỌI ô hiển thị rỗng
+    # dù user có dữ liệu. POST mới bound.
+    la_post = request.method == "POST"
     ft = (ThongTinForm(request.POST, request.FILES, instance=request.user, prefix="tt")
-          if tab == "thong_tin" else ThongTinForm(instance=request.user, prefix="tt"))
+          if la_post else ThongTinForm(instance=request.user, prefix="tt"))
     fp = (MatKhauForm(request.user, request.POST, prefix="mk")
-          if tab == "mat_khau" else MatKhauForm(request.user, prefix="mk"))
+          if la_post else MatKhauForm(request.user, prefix="mk"))
 
     if request.method == "POST":
         if tab == "thong_tin" and ft.is_valid():
