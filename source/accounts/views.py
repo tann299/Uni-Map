@@ -14,7 +14,7 @@ from PIL import Image
 
 from accounts.gmail import chuan_hoa_email, tim_theo_email
 from accounts.models import Profile
-from accounts.rate_limit import (khoa_theo_ip, khoa_theo_user,
+from accounts.rate_limit import (ip_khach, khoa_theo_ip, khoa_theo_user,
                                  vuot_gioi_han)
 from admissions.models import HoSoNangLuc
 from university.services import tinh_to_hop_tu_db
@@ -41,16 +41,14 @@ UPLOAD_AVATAR_TOI_DA = 10
 UPLOAD_AVATAR_CUA_SO = 60 * 60   # 1 giờ
 
 
-def _ip_khach(request) -> str:
-    """IP khách, ưu tiên header proxy (hosting shared luôn đứng sau proxy)."""
-    xff = request.META.get("HTTP_X_FORWARDED_FOR", "")
-    return (xff.split(",")[0].strip() if xff
-            else request.META.get("REMOTE_ADDR", "")) or "unknown"
-
-
 def _khoa_rate_limit(request, username: str) -> str:
-    """Khoá cache: tách theo IP và theo username để không khoá chéo người khác."""
-    return f"dn-sai:{_ip_khach(request)}:{username.strip().lower()[:150]}"
+    """Khoá cache: tách theo IP và theo username để không khoá chéo người khác.
+
+    Dùng `rate_limit.ip_khach` (chỉ tin X-Forwarded-For khi request đến từ
+    proxy tin cậy) — trước đây đọc XFF vô điều kiện nên gửi header giả là
+    lách được bộ đếm brute-force.
+    """
+    return f"dn-sai:{ip_khach(request)}:{username.strip().lower()[:150]}"
 
 
 def _bi_khoa(request, username: str):

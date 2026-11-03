@@ -45,10 +45,31 @@ class DemCoBanTest(TestCase):
         self.assertTrue(vuot_gioi_han("test:a", 5, 60))
         self.assertFalse(vuot_gioi_han("test:b", 5, 60))
 
-    def test_ip_lay_tu_x_forwarded_for(self):
+    def test_ip_lay_tu_xff_khi_qua_proxy_noi_bo(self):
+        """Proxy thật (loopback/nội bộ) -> tin XFF, lấy IP khách thật."""
         r = RequestFactory().get("/")
+        r.META["REMOTE_ADDR"] = "127.0.0.1"
         r.META["HTTP_X_FORWARDED_FOR"] = "8.8.8.8, 10.0.0.1"
         self.assertEqual(ip_khach(r), "8.8.8.8")
+
+    def test_ip_bo_qua_xff_gia_mao_tu_client_ngoai(self):
+        """Client ngoài tự đặt XFF để lách rate limit -> phải dùng REMOTE_ADDR.
+
+        Lỗ hổng thật đã gặp trên host: gửi XFF ngẫu nhiên mỗi request tạo mỗi
+        lần một khoá cache mới, lách sạch giới hạn.
+        """
+        r = RequestFactory().get("/")
+        r.META["REMOTE_ADDR"] = "171.251.91.62"
+        r.META["HTTP_X_FORWARDED_FOR"] = "1.2.3.4"
+        self.assertEqual(ip_khach(r), "171.251.91.62")
+
+    def test_xff_gia_mao_khong_tao_duoc_khoa_moi(self):
+        """2 request cùng IP thật, XFF khác nhau -> CÙNG khoá -> đếm cộng dồn."""
+        k1 = khoa_theo_ip(_req(ip="171.251.91.62"), "dang-ky")
+        r2 = _req(ip="171.251.91.62")
+        r2.META["HTTP_X_FORWARDED_FOR"] = "9.9.9.9"
+        k2 = khoa_theo_ip(r2, "dang-ky")
+        self.assertEqual(k1, k2)
 
     def test_khoa_theo_user_uu_tien_user_pk(self):
         u = User.objects.create_user(username="u1", password="x")

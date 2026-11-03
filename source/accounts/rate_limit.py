@@ -17,14 +17,36 @@ chạy nhiều process thì mỗi process đếm riêng, giới hạn thành vô
 """
 from __future__ import annotations
 
+from django.conf import settings
 from django.core.cache import cache
+
+# Dải IP được coi là proxy tin cậy (LiteSpeed/Apache của hosting chạy cùng máy
+# hoặc trong mạng nội bộ). CHỈ khi request đến từ các IP này mới đọc
+# X-Forwarded-For; ngược lại client tự đặt header đó để lách rate limit.
+_DAI_PROXY = ("127.", "::1", "10.", "192.168.", "172.16.", "172.17.", "172.18.",
+              "172.19.", "172.2", "172.30.", "172.31.")
+
+
+def _la_proxy(ip: str) -> bool:
+    return any(ip.startswith(d) for d in _DAI_PROXY)
 
 
 def ip_khach(request) -> str:
-    """IP khách, ưu tiên header proxy (hosting shared luôn đứng sau proxy)."""
+    """IP khách — chỉ tin X-Forwarded-For khi request đến từ proxy tin cậy.
+
+    Trước đây đọc XFF vô điều kiện: kẻ tấn công gửi `X-Forwarded-For: <ngẫu
+    nhiên>` mỗi request là mỗi lần một khoá cache mới -> lách sạch rate limit
+    (đã kiểm chứng trên host: 3 request -> 3 khoá khác nhau). Giờ:
+      * request từ loopback/nội bộ (proxy thật) -> lấy IP thật trong XFF
+      * request từ ngoài -> dùng REMOTE_ADDR (client không giả được)
+    Có thể ép qua settings.RATE_LIMIT_TIN_XFF nếu hosting có proxy IP công khai.
+    """
+    remote = request.META.get("REMOTE_ADDR", "") or "unknown"
     xff = request.META.get("HTTP_X_FORWARDED_FOR", "")
-    return (xff.split(",")[0].strip() if xff
-            else request.META.get("REMOTE_ADDR", "")) or "unknown"
+    tin_xff = getattr(settings, "RATE_LIMIT_TIN_XFF", None)
+    if xff and (tin_xff is True or (tin_xff is None and _la_proxy(remote))):
+        return xff.split(",")[0].strip() or remote
+    return remote
 
 
 def khoa_theo_ip(request, ten: str) -> str:
