@@ -1,149 +1,254 @@
 # Uni Connect
 
-Hệ thống gợi ý trường/ngành đại học bằng AI, dành cho học sinh lớp 12. Nhập điểm
-từng môn → nhận danh sách trường/ngành xếp theo xác suất đỗ, chia ba tầng
-**An toàn / Vừa sức / Thử sức**, kèm lời giải thích dựa trên điểm chuẩn 10 năm.
+**Uni Connect** là nền tảng tra cứu tuyển sinh và định hướng nguyện vọng đại học cho học sinh THPT. Người dùng nhập điểm theo môn, xem điểm chuẩn nhiều năm, lưu hồ sơ năng lực và nhận danh sách trường/ngành được xếp hạng theo mức độ phù hợp.
 
-Đặc tả đầy đủ: [docs/SRS.md](docs/SRS.md) · Mô hình dữ liệu: [docs/README_DATA.md](docs/README_DATA.md)
+> Dự án thuộc sở hữu của **Nguyễn Ngọc Tân** — `Tanngao333@gmail.com`.
+>
+> Repository chưa công bố license. Không tự ý sử dụng lại mã nguồn, dữ liệu hoặc tài sản thiết kế cho mục đích khác khi chưa có sự đồng ý của chủ sở hữu.
 
-## Cấu trúc
+![Trang chủ Uni Connect](docs/slide/shots/home-hero.png)
 
-```
+## Tính năng
+
+- Tra cứu điểm chuẩn theo trường, ngành, tổ hợp, phương thức, tỉnh/thành và năm.
+- Xem danh sách trường, logo, thông tin chi tiết và xu hướng điểm chuẩn.
+- Đăng ký/đăng nhập bằng tài khoản thường.
+- Đăng nhập nhanh bằng Google OAuth 2.0 và Facebook OAuth 2.0.
+- Chuẩn hóa alias Gmail: dấu chấm, `+tag`, chữ hoa/thường và `googlemail.com` được nhận diện là cùng hộp thư.
+- Một email đã tồn tại luôn đăng nhập vào tài khoản cũ; không tạo record mới.
+- Hồ sơ năng lực: điểm từng môn, phương thức xét tuyển, ưu tiên và nhóm ngành quan tâm.
+- Gợi ý nguyện vọng bằng Random Forest, có chế độ dự phòng theo `margin` khi mô hình không khả dụng.
+- Phân tầng kết quả: **An toàn / Vừa sức / Thử sức**.
+- So sánh nguyện vọng và lưu lịch sử gợi ý.
+- Avatar: kiểm tra định dạng, dung lượng, kích thước pixel, xác thực nội dung ảnh bằng Pillow và resize WebP.
+- Rate limit đăng nhập, đăng ký, upload avatar và endpoint gợi ý AI.
+- Giao diện responsive bằng Django Templates + Tailwind CSS CDN.
+
+## Ảnh giao diện
+
+| Trang chủ | Tra cứu |
+|---|---|
+| ![Trang chủ](docs/slide/shots/home-hero.png) | ![Bảng tra cứu](docs/slide/shots/tracuu-table.png) |
+
+| Danh sách trường | Chi tiết trường |
+|---|---|
+| ![Danh sách trường](docs/slide/shots/truong-list.png) | ![Chi tiết trường](docs/slide/shots/truong-ktd.png) |
+
+| Đăng ký | Đăng nhập |
+|---|---|
+| ![Đăng ký](docs/slide/shots/dangky.png) | ![Đăng nhập](docs/slide/shots/dangnhap.png) |
+
+## Công nghệ
+
+- Python 3.10+
+- Django 5.2
+- MySQL 8.0+
+- Pandas, NumPy, scikit-learn
+- Pillow
+- HTML/CSS/JavaScript, Django Templates, Tailwind CSS CDN
+- Google/Facebook OAuth 2.0
+
+## Cấu trúc repository
+
+```text
 Uni-Map/
-├── source/
-│   ├── crawler/         Script cào + chuẩn hoá dữ liệu (Python thuần)
-│   │   ├── crawl_diemchuan.py     crawl · làm sạch · self-check
-│   │   └── build_ref_tohop.py     dựng bảng tra tổ hợp → môn
-│   └── backend/         Django project
-│       ├── config/          settings, urls, wsgi
-│       ├── manage.py
-│       ├── university/      tra cứu + chi tiết trường (UC-01, UC-02)
-│       ├── accounts/        đăng ký/đăng nhập + Google OAuth (UC-03)
-│       ├── admissions/      hồ sơ năng lực học sinh (UC-04)
-│       ├── recommendation/  gợi ý AI + so sánh nguyện vọng (UC-05→08)
-│       └── quantri/         dashboard + pipeline cập nhật (UC-09, UC-10)
-├── data/                CSV do crawler sinh ra → nạp vào DB
-├── db/                  schema.sql · import_mysql.py · sơ đồ CSDL
-├── ref/                 dữ liệu tham chiếu sửa tay được (tỉnh, tổ hợp)
-├── cache/               raw.csv.gz — dữ liệu thô tích luỹ mọi năm
-└── docs/                SRS, mô hình dữ liệu, kế hoạch
+├── source/                    Django project
+│   ├── config/                settings, URL root, WSGI/ASGI
+│   ├── accounts/              auth thường, OAuth, profile, rate limit
+│   ├── admissions/            hồ sơ năng lực và điểm môn
+│   ├── university/            tra cứu, trường, ngành, API
+│   ├── recommendation/        gợi ý AI, so sánh, lịch sử
+│   ├── quantri/               console quản trị
+│   ├── templates/              base template dùng chung
+│   └── manage.py
+├── database/
+│   ├── schema.sql             schema MySQL nguồn sự thật
+│   ├── import_mysql.py        import dữ liệu CSV vào MySQL
+│   └── ve_so_do.py             sinh ERD
+├── datas/                    crawler và dữ liệu nguồn
+├── docs/                     SRS, dữ liệu và slide báo cáo
+├── requirements.txt
+└── README.md
 ```
 
-## API tra cứu MVP
+## Clone và cài đặt local
 
-Backend dùng Django thuần + ORM, không thêm REST framework. Chạy từ gốc dự án:
+### 1. Clone
 
 ```bash
-cd source
-PYTHONIOENCODING=utf-8 python manage.py runserver
+git clone https://github.com/tann299/Uni-Map.git
+cd Uni-Map
 ```
 
-Endpoint `GET /api/tra-cuu/` hỗ trợ `q`, `nganh`, `truong`, `tinh_thanh`,
-`vung_mien`, `ma_to_hop`, `phuong_thuc`, `nam`, `limit`, `offset`.
-Ví dụ:
+### 2. Tạo virtual environment
 
-```bash
-curl "http://127.0.0.1:8000/api/tra-cuu/?q=công nghệ&nam=2025&limit=20"
-```
+Windows PowerShell:
 
-Response gồm `data`, `pagination`, `years`, `source`, `updated_at`. Cần dựng
-MySQL và import dữ liệu trước khi gọi API. Kiểm parser không cần DB:
-
-```bash
-cd source
-PYTHONIOENCODING=utf-8 python manage.py kiemtra
-```
-
-Cây code backend hiện tại:
-
-```
-source/
-├── config/                 cấu hình Django + route gốc (.env loader)
-├── manage.py
-├── university/             model CSDL · view HTML tra cứu · API /api/tra-cuu/
-├── accounts/               auth thường + OAuth 2.0 Google & Facebook (views_oauth.py)
-├── admissions/             hồ sơ điểm từng môn + điểm học bạ
-├── recommendation/         phân tầng CN-03 · giải thích CN-04 · pipeline ML (RandomForest)
-├── quantri/                bảng điều khiển quản trị · pipeline cập nhật
-└── templates/              base.html + giao diện Tailwind theo chuẩn UI
-```
-
-## Cài đặt
-
-```bash
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Cần MySQL 8.0+. Backend đọc thông tin kết nối từ biến môi trường, mặc định
-`root@127.0.0.1:3306/uni_map` không mật khẩu (đủ cho môi trường phát triển):
-`DB_NAME` · `DB_USER` · `DB_PASSWORD` · `DB_HOST` · `DB_PORT`.
-
-## Dựng lần đầu
-
-Chạy đúng thứ tự 1 → 5.
-
-1. Crawl dữ liệu. Tự gộp cache, vá font, chặn năm chưa đủ, chạy self-check cuối cùng:
+Linux/macOS:
 
 ```bash
-python datas/crawler/crawl_diemchuan.py --refresh
+python3.11 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-2. Dựng lược đồ. `--default-character-set=utf8mb4` là **bắt buộc** — thiếu nó, MySQL client trên Windows dùng cp1252 và làm hỏng giá trị ENUM tiếng Việt ngay lúc `CREATE TABLE`:
+### 3. Tạo file `.env`
+
+`.env` không được commit. Tạo file tại thư mục gốc:
+
+```dotenv
+DJANGO_SECRET_KEY=thay-bang-chuoi-bi-mat
+DJANGO_DEBUG=1
+DJANGO_ALLOWED_HOSTS=127.0.0.1,localhost
+
+DB_NAME=uni_map
+DB_USER=root
+DB_PASSWORD=
+DB_HOST=127.0.0.1
+DB_PORT=3306
+
+# OAuth — để trống nếu chỉ dùng đăng nhập thường
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+FACEBOOK_APP_ID=
+FACEBOOK_APP_SECRET=
+```
+
+Django đọc biến môi trường từ `.env` bằng loader tích hợp trong `source/config/settings.py`.
+
+### 4. Dựng MySQL
+
+Tạo database UTF-8 rồi chạy schema:
 
 ```bash
-mysql -u root --default-character-set=utf8mb4 < database/schema.sql
+mysql -u root -p --default-character-set=utf8mb4 < database/schema.sql
 ```
 
-3. Nạp dữ liệu:
+Sau đó import dữ liệu tuyển sinh nếu đã có CSV:
 
 ```bash
 python database/import_mysql.py
 ```
 
-4. Đăng ký migration Django. `--fake-initial` vì `auth_user` đã có sẵn từ `schema.sql`:
+`database/schema.sql` là nguồn sự thật cho các bảng dữ liệu nghiệp vụ. Các model dữ liệu crawl dùng `managed = False`, nên Django không tự tạo/xóa các bảng đó.
+
+### 5. Migration Django và chạy app
 
 ```bash
-PYTHONIOENCODING=utf-8 python source/manage.py migrate --fake-initial
+cd source
+python manage.py migrate --fake-initial
+python manage.py check
+python manage.py runserver
 ```
 
-5. Kiểm tra tầng ORM khớp DB (8 phép kiểm, chỉ đọc):
+Mở <http://127.0.0.1:8000/>.
+
+> Migration `accounts.0002_email_unique_don_trung` chuẩn hóa dữ liệu user cũ, gộp/xóa user trùng email và tạo cơ chế unique email an toàn với email rỗng. Trên hosting, đọc hướng dẫn triển khai bên dưới trước khi chạy migration.
+
+## Kiểm thử
+
+Chạy toàn bộ test với SQLite in-memory để không cần MySQL local:
 
 ```bash
-PYTHONIOENCODING=utf-8 python source/manage.py kiemtra
+cd source
+$env:DJANGO_SETTINGS_MODULE="config.test_sqlite"
+python manage.py test
 ```
 
-## Cập nhật hằng năm
-
-Khoảng tháng 8, sau khi các trường công bố điểm chuẩn. Chỉ ba lệnh, **không** cần
-đổi cấu trúc bảng — cửa sổ trượt tự nhận năm mới:
+Hoặc Linux/macOS:
 
 ```bash
-python datas/crawler/crawl_diemchuan.py --refresh
-python database/import_mysql.py
-PYTHONIOENCODING=utf-8 python source/manage.py kiemtra
+DJANGO_SETTINGS_MODULE=config.test_sqlite python manage.py test
 ```
 
-Nếu self-check ở bước 1 thất bại thì **dừng, không import** — dữ liệu đang chạy
-được bảo vệ. Bước 2 luôn `--dry-run` được trước khi ghi thật:
+Các test bao phủ:
+
+- đăng ký trùng username và email;
+- alias Gmail và login lặp lại;
+- dữ liệu email cũ chưa chuẩn hóa;
+- admin add/change user;
+- rate limit và chống giả mạo `X-Forwarded-For`;
+- migration email unique;
+- OAuth Google/Facebook.
+
+Kiểm tra route media trên môi trường `DEBUG=0`:
 
 ```bash
-python database/import_mysql.py --dry-run
+cd source
+python kiemtra_media.py
 ```
 
-## Hai điều dễ sai trên Windows
+## OAuth redirect URI
 
-`PYTHONIOENCODING=utf-8` cần cho mọi management command in tiếng Việt. Không có
-nó, lệnh chết giữa đường với `UnicodeEncodeError` — trông như đã chạy xong.
+Google Cloud Console cần khai báo đúng từng URI:
 
-`manage.py test` **không dùng được**: mọi model đặt `managed = False` nên Django
-không dựng nổi test DB. Dùng `manage.py kiemtra` thay thế — nó chạy assert trên
-DB thật, chỉ đọc.
+Local:
 
-## Tuỳ chọn khác của crawler
-
-```bash
-python datas/crawler/crawl_diemchuan.py              # dùng cache, không gọi mạng
-python datas/crawler/crawl_diemchuan.py --years 3    # đổi cửa sổ sang 3 năm
-python datas/crawler/crawl_diemchuan.py --end 2025   # khoá năm cuối
-python datas/crawler/crawl_diemchuan.py --selfcheck  # chỉ kiểm dữ liệu đã xuất
+```text
+http://localhost:8000/accounts/google/xac-thuc/
 ```
+
+Production:
+
+```text
+https://uniconnect.id.vn/accounts/google/xac-thuc/
+```
+
+Facebook dùng:
+
+```text
+https://uniconnect.id.vn/accounts/facebook/xac-thuc/
+```
+
+Không thêm khoảng trắng, không bỏ dấu `/` cuối và không dùng `http` cho production.
+
+## Deploy hosting thủ công
+
+Repository không yêu cầu host liên kết Git. Khi upload bằng File Manager/FTP:
+
+1. Backup database và `source/media/` trước.
+2. Upload code trong `source/`, không ghi đè `.env` và `source/media/`.
+3. Đảm bảo `source/.cache/` tồn tại và writable — rate limit dùng `FileBasedCache` để chia sẻ giữa các process.
+4. Chạy migration `accounts.0002` khi host có Python tương thích Django.
+5. Nếu áp schema bằng phpMyAdmin, dùng cột generated để email rỗng vẫn hợp lệ:
+
+```sql
+ALTER TABLE auth_user
+  ADD COLUMN email_duy_nhat VARCHAR(254)
+    GENERATED ALWAYS AS (NULLIF(LOWER(TRIM(email)), '')) STORED,
+  ADD UNIQUE KEY uq_auth_user_email_chuan (email_duy_nhat);
+```
+
+6. Chạy `collectstatic --noinput`.
+7. Restart Python/Passenger application.
+8. Kiểm tra `/`, `/accounts/dang-ky/`, `/accounts/dang-nhap/`, `/tra-cuu/` và login Google lặp lại.
+
+Không commit `.env`, password, OAuth secret, database dump, `media/`, `staticfiles/`, cache hoặc `node_modules/`.
+
+## Dữ liệu và mô hình AI
+
+- Dữ liệu điểm chuẩn nằm trong `datas/data/` sau khi crawler chạy.
+- `train_dataset.csv` và `test_dataset.csv` là artifact sinh lại được, không cần đưa lên production.
+- Production chỉ cần artifact model (`model.pkl`, `scaler.pkl`, metadata cần thiết).
+- Crawl/import có transaction và self-check; nếu self-check fail thì dừng trước khi ghi dữ liệu.
+
+## Tài liệu
+
+- [Đặc tả yêu cầu — SRS](docs/SRS.md)
+- [Mô hình dữ liệu](docs/README_DATA.md)
+- [Slide báo cáo](docs/slide/Uni-Connect-slide-v3.pptx)
+
+## Chủ sở hữu
+
+**Nguyễn Ngọc Tân**
+Email: `Tanngao333@gmail.com`
+
+© 2025–2026 Uni Connect. All rights reserved. License chưa được công bố.

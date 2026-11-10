@@ -64,3 +64,13 @@ docs/slide/node_modules/
 
 # Cau hinh tool local (launch.json cho preview browser, settings session)
 .claude/
+
+# Thu muc tam khi xuat SVG/PDF tu script tai lieu
+.tmp_svg/
+
+# Script nhap dung de sinh slide - khong phai ma nguon du an
+docs/slide/build_deck.js
+docs/slide/build_deck_v3.js
+docs/slide/add_fx.py
+docs/slide/add_two_slides.py
+docs/slide/rewrite_notes.py
