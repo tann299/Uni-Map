@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="250pt" viewBox="0 0 460 250">
+
+<rect x="0" y="0" width="460" height="250" fill="#FFFFFF"/>
+<rect x="125" y="26" width="210" height="26" rx="6" fill="#FCEFD9" stroke="#990000" stroke-width="1.4"/>
+<text x="230" y="39" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Hệ thống gợi ý nguyện vọng Uni Connect</text>
+<path d="M230.0,52.0 L230.0,64 L42.0,64 L42.0,74" fill="none" stroke="#990000" stroke-width="0.8"/>
+<rect x="1" y="74" width="82" height="30" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="1"/>
+<text x="42" y="84" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="8" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Tra cứu</text>
+<text x="42" y="96" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#990000" text-anchor="middle" dominant-baseline="middle">(UC-01, 02)</text>
+<rect x="1" y="112" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M42,104 L42,112" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="42" y="124.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Tìm theo tên trường,</text>
+<text x="42" y="133.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">ngành, tổ hợp, tỉnh</text>
+<rect x="1" y="146" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M42,138 L42,146" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="42" y="158.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Lọc theo vùng miền,</text>
+<text x="42" y="167.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">phương thức, năm</text>
+<rect x="1" y="180" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M42,172 L42,180" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="42" y="192.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Xem chuỗi điểm</text>
+<text x="42" y="201.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">chuẩn 10 năm</text>
+<path d="M230.0,52.0 L230.0,64 L136.0,64 L136.0,74" fill="none" stroke="#990000" stroke-width="0.8"/>
+<rect x="95" y="74" width="82" height="30" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="1"/>
+<text x="136" y="84" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="8" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Tài khoản</text>
+<text x="136" y="96" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#990000" text-anchor="middle" dominant-baseline="middle">(UC-03)</text>
+<rect x="95" y="112" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M136,104 L136,112" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="136" y="124.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Đăng ký, đăng nhập</text>
+<text x="136" y="133.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">nội bộ</text>
+<rect x="95" y="146" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M136,138 L136,146" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="136" y="158.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Đăng nhập</text>
+<text x="136" y="167.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Google OAuth2</text>
+<rect x="95" y="180" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M136,172 L136,180" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="136" y="192.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Đăng nhập</text>
+<text x="136" y="201.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Facebook OAuth2</text>
+<path d="M230.0,52.0 L230.0,64 L230.0,64 L230.0,74" fill="none" stroke="#990000" stroke-width="0.8"/>
+<rect x="189" y="74" width="82" height="30" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="1"/>
+<text x="230" y="84" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="8" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Hồ sơ</text>
+<text x="230" y="96" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#990000" text-anchor="middle" dominant-baseline="middle">(UC-04, 08)</text>
+<rect x="189" y="112" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M230,104 L230,112" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="230" y="124.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Nhập điểm từng môn</text>
+<text x="230" y="133.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">và điểm ưu tiên</text>
+<rect x="189" y="146" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M230,138 L230,146" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="230" y="158.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Chọn nhóm ngành,</text>
+<text x="230" y="167.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">vùng miền quan tâm</text>
+<rect x="189" y="180" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M230,172 L230,180" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="230" y="192.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Sửa, xoá, xem lại</text>
+<text x="230" y="201.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">hồ sơ</text>
+<path d="M230.0,52.0 L230.0,64 L324.0,64 L324.0,74" fill="none" stroke="#990000" stroke-width="0.8"/>
+<rect x="283" y="74" width="82" height="30" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="1"/>
+<text x="324" y="84" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="8" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Gợi ý AI</text>
+<text x="324" y="96" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#990000" text-anchor="middle" dominant-baseline="middle">(UC-05, 06, 07)</text>
+<rect x="283" y="112" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M324,104 L324,112" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="324" y="124.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Suy luận xác suất</text>
+<text x="324" y="133.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">theo lô</text>
+<rect x="283" y="146" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M324,138 L324,146" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="324" y="158.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Phân tầng An toàn,</text>
+<text x="324" y="167.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Vừa sức, Thử sức</text>
+<rect x="283" y="180" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M324,172 L324,180" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="324" y="192.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Sinh lời giải thích</text>
+<text x="324" y="201.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">từ đặc trưng</text>
+<rect x="283" y="214" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M324,206 L324,214" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="324" y="226.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">So sánh và lưu</text>
+<text x="324" y="235.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">nguyện vọng</text>
+<path d="M230.0,52.0 L230.0,64 L418.0,64 L418.0,74" fill="none" stroke="#990000" stroke-width="0.8"/>
+<rect x="377" y="74" width="82" height="30" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="1"/>
+<text x="418" y="84" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="8" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Quản trị</text>
+<text x="418" y="96" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#990000" text-anchor="middle" dominant-baseline="middle">(UC-09, 10, 11)</text>
+<rect x="377" y="112" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M418,104 L418,112" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="418" y="124.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Cập nhật dữ liệu</text>
+<text x="418" y="133.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">năm mới</text>
+<rect x="377" y="146" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M418,138 L418,146" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="418" y="158.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Huấn luyện lại</text>
+<text x="418" y="167.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">mô hình</text>
+<rect x="377" y="180" width="82" height="17" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M418,172 L418,180" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="418" y="188" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Quản lý người dùng</text>
+<rect x="377" y="205" width="82" height="26" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<path d="M418,197 L418,205" fill="none" stroke="#0E2841" stroke-width="0.7"/>
+<text x="418" y="217.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">Xem thống kê</text>
+<text x="418" y="226.46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">hệ thống</text>
+<text x="230" y="14" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">SƠ ĐỒ PHÂN RÃ CHỨC NĂNG (BFD)</text>
+</svg>

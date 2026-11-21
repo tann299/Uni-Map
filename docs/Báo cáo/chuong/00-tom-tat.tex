@@ -1,0 +1,12 @@
+\begin{abstract}
+
+Chọn nguyện vọng đại học là quyết định then chốt của học sinh trung học phổ thông, tuy nhiên các em thường gặp khó khăn do dữ liệu điểm chuẩn phân tán, quy mô tuyển sinh lớn và thiếu công cụ định lượng rủi ro xét tuyển. Đồ án xây dựng hệ thống web \textbf{Uni Connect} tích hợp mô hình trí tuệ nhân tạo nhằm hỗ trợ học sinh tra cứu thông tin điểm chuẩn đa chiều và nhận gợi ý danh sách trường, ngành phù hợp dựa trên năng lực cá nhân.
+
+Hệ thống quản lý cơ sở dữ liệu điểm chuẩn thực tế qua 10 năm (2016--2025) bao gồm 295 trường đại học, 3.037 ngành đào tạo, 340 tổ hợp môn xét tuyển và hơn 240.000 bản ghi điểm chuẩn. Dựa trên chuỗi dữ liệu lịch sử này, một quy trình trích xuất 27 chiều đặc trưng (khoảng cách điểm \code{margin}, điểm trung bình, biên độ dao động, xu hướng biến động điểm qua hồi quy tuyến tính, nhóm ngành và vùng miền) được thiết kế và huấn luyện với thuật toán \en{Random Forest}. Mô hình được đánh giá trên tập kiểm thử độc lập năm 2025 đạt độ chính xác \textbf{74,56\%}, diện tích dưới đường cong ROC (\en{ROC-AUC}) đạt \textbf{0,8354} và chỉ số \en{Brier score} là \textbf{0,1763}, vượt trội so với mô hình cơ sở \en{Decision Tree} (72,14\% độ chính xác và 0,7535 ROC-AUC).
+
+Toàn bộ giải pháp được đóng gói và triển khai trên nền tảng web hoàn chỉnh sử dụng framework Django 5.2 kết hợp hệ quản trị cơ sở dữ liệu MySQL. Hệ thống tự động phân loại nguyện vọng theo ba tầng trực quan: \textbf{An toàn} ($p \ge 0{,}80$), \textbf{Vừa sức} ($0{,}40 \le p < 0{,}80$) và \textbf{Thử sức} ($p < 0{,}40$), kèm theo lời giải thích tường minh về khoảng cách điểm và xu hướng cạnh tranh. Kết quả thử nghiệm thực tế chứng minh hệ thống đáp ứng tốt tiêu chuẩn thời gian phản hồi dưới 3 giây, vận hành ổn định trên hạ tầng máy chủ hạn chế và mang lại giá trị định hướng thực tiễn cao cho học sinh và phụ huynh.
+
+\vspace{0.8em}
+\noindent\textbf{Từ khoá:} gợi ý nguyện vọng, tuyển sinh đại học, Random Forest, phân tầng rủi ro, cửa sổ trượt, Django, Uni Connect.
+
+\end{abstract}

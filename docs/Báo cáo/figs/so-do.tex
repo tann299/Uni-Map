@@ -1,0 +1,590 @@
+
+\tikzset{
+  sdlbl/.style={font=\tiny, text=daumaroon, fill=white, inner sep=1pt},
+  erdt/.style={rectangle, draw=daunavy, line width=0.7pt, fill=white,
+               align=left, inner sep=3.5pt, font=\ttfamily\scriptsize,
+               text width=34mm},
+  erdlink/.style={draw=daumaroon, line width=0.7pt, -{Stealth[length=1.8mm]}},
+}
+
+\newcommand{\sodoUseCase}{%
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  act/.style={rectangle, draw=daumaroon, line width=0.9pt, rounded corners=2pt,
+              fill=lightwarm, minimum width=2.2cm, minimum height=0.75cm,
+              font=\footnotesize\bfseries, text=daumaroon},
+  uc/.style={ellipse, draw=daunavy, line width=0.7pt, fill=white,
+             minimum width=3.4cm, minimum height=0.72cm,
+             font=\scriptsize, align=center, inner sep=1pt},
+  ucai/.style={ellipse, draw=daumaroon, line width=1.1pt, fill=lightwarm,
+               minimum width=3.4cm, minimum height=0.72cm,
+               font=\scriptsize\bfseries, align=center, inner sep=1pt},
+  assoc/.style={draw=gray500, line width=0.6pt},
+]
+
+  \draw[draw=daunavy, line width=1pt, rounded corners=4pt, fill=gray100]
+        (3.0,0.95) rectangle (12.4,-8.65);
+  \node[font=\footnotesize\sffamily\bfseries, text=daunavy] at (7.7,0.6)
+        {Hệ thống Uni Connect};
+
+  \node[uc]   (uc01) at (5.1,-0.35) {UC-01 Tra cứu điểm chuẩn};
+  \node[uc]   (uc02) at (5.1,-1.55) {UC-02 Xem chi tiết trường};
+  \node[uc]   (uc03) at (5.1,-2.75) {UC-03 Đăng ký / Đăng nhập};
+
+  \node[uc]   (uc09) at (5.1,-4.85) {UC-09 Cập nhật dữ liệu năm mới};
+  \node[ucai] (uc10) at (5.1,-6.05) {UC-10 Huấn luyện lại mô hình $\star$};
+  \node[uc]   (uc11) at (5.1,-7.25) {UC-11 Xem thống kê hệ thống};
+
+  \node[uc]   (uc04) at (10.3,-0.35) {UC-04 Nhập hồ sơ năng lực};
+  \node[ucai] (uc05) at (10.3,-1.55) {UC-05 Nhận gợi ý (AI) $\star$};
+  \node[ucai] (uc06) at (10.3,-2.75) {UC-06 Xem lời giải thích $\star$};
+  \node[uc]   (uc07) at (10.3,-3.95) {UC-07 So sánh nguyện vọng};
+  \node[uc]   (uc08) at (10.3,-5.15) {UC-08 Lưu / xem lại hồ sơ};
+
+  \node[act] (khach)   at (1.15,-1.55) {Khách};
+  \node[act] (quantri) at (1.15,-6.05) {Quản trị viên};
+  \node[act] (hocsinh) at (14.55,-2.75) {Học sinh};
+
+  \foreach \u in {uc01, uc02, uc03} \draw[assoc] (khach) -- (\u);
+  \foreach \u in {uc09, uc10, uc11} \draw[assoc] (quantri) -- (\u);
+  \foreach \u in {uc04, uc05, uc06, uc07, uc08} \draw[assoc] (hocsinh) -- (\u);
+
+  \draw[draw=daumaroon, line width=0.7pt, dashed, -{Stealth[length=1.8mm]}]
+        (uc05.east) -- node[sdlbl] {\en{include}} (uc06.east);
+  \draw[draw=daumaroon, line width=0.7pt, dashed, -{Stealth[length=1.8mm]}]
+        (uc10.west) -- node[sdlbl] {\en{follows}} (uc09.west);
+
+  \node[font=\scriptsize\bfseries, text=daumaroon, align=center] at (7.7,-8.2)
+        {$\star$ : Ca sử dụng có mô hình Trí tuệ nhân tạo (Random Forest) tham gia};
+\end{tikzpicture}}
+}
+
+\newcommand{\sodoBFD}{%
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  root/.style={rectangle, rounded corners=3pt, draw=daumaroon, line width=1.1pt,
+               fill=lightwarm, inner sep=5pt, font=\small\bfseries, text=daumaroon,
+               align=center, minimum width=17.5cm},
+  grp/.style={rectangle, rounded corners=2pt, draw=daumaroon, line width=0.8pt,
+              fill=lightwarm, inner sep=4pt, font=\footnotesize\bfseries,
+              text=daumaroon, align=center, text width=3.1cm, minimum height=0.85cm},
+  fn/.style={rectangle, rounded corners=1.5pt, draw=daunavy, line width=0.5pt,
+             fill=white, inner sep=3.5pt, font=\scriptsize, text=daunavy,
+             align=left, text width=3.1cm},
+  lnk/.style={draw=daumaroon, line width=0.7pt, -{Stealth[length=1.4mm]}}
+]
+  \node[root] (top) at (8.0, 1.8) {Hệ thống gợi ý nguyện vọng đại học Uni Connect};
+
+  \node[grp] (g1) at (0, 0) {Tra cứu\\(UC-01, 02)};
+  \node[grp] (g2) at (4.0, 0) {Tài khoản\\(UC-03)};
+  \node[grp] (g3) at (8.0, 0) {Hồ sơ học sinh\\(UC-04, 08)};
+  \node[grp] (g4) at (12.0, 0) {Gợi ý AI\\(UC-05, 06, 07)};
+  \node[grp] (g5) at (16.0, 0) {Quản trị\\(UC-09, 10, 11)};
+
+  \draw[lnk] (top.south) -| (g1.north);
+  \draw[lnk] (top.south) -| (g2.north);
+  \draw[lnk] (top.south) -- (g3.north);
+  \draw[lnk] (top.south) -| (g4.north);
+  \draw[lnk] (top.south) -| (g5.north);
+
+  \node[fn, below=2.5mm of g1] (f11) {$\bullet$~Tìm trường, ngành, tổ hợp, tỉnh};
+  \node[fn, below=1.5mm of f11] (f12) {$\bullet$~Lọc vùng miền, phương thức, năm};
+  \node[fn, below=1.5mm of f12] (f13) {$\bullet$~Xem chuỗi điểm chuẩn 10 năm};
+
+  \node[fn, below=2.5mm of g2] (f21) {$\bullet$~Đăng ký, đăng nhập nội bộ};
+  \node[fn, below=1.5mm of f21] (f22) {$\bullet$~Đăng nhập Google OAuth2};
+  \node[fn, below=1.5mm of f22] (f23) {$\bullet$~Đăng nhập Facebook OAuth2};
+
+  \node[fn, below=2.5mm of g3] (f31) {$\bullet$~Nhập điểm thi THPT, học bạ};
+  \node[fn, below=1.5mm of f31] (f32) {$\bullet$~Chọn nhóm ngành, vùng quan tâm};
+  \node[fn, below=1.5mm of f32] (f33) {$\bullet$~Sửa, xóa, xem danh sách hồ sơ};
+
+  \node[fn, below=2.5mm of g4] (f41) {$\bullet$~Suy luận xác suất đỗ theo lô};
+  \node[fn, below=1.5mm of f41] (f42) {$\bullet$~Phân tầng An toàn, Vừa sức, Thử sức};
+  \node[fn, below=1.5mm of f42] (f43) {$\bullet$~Sinh lời giải thích từ đặc trưng};
+  \node[fn, below=1.5mm of f43] (f44) {$\bullet$~So sánh và lưu nguyện vọng};
+
+  \node[fn, below=2.5mm of g5] (f51) {$\bullet$~Cập nhật điểm chuẩn năm mới};
+  \node[fn, below=1.5mm of f51] (f52) {$\bullet$~Trượt cửa sổ 10 năm tự động};
+  \node[fn, below=1.5mm of f52] (f53) {$\bullet$~Huấn luyện lại mô hình AI};
+  \node[fn, below=1.5mm of f53] (f54) {$\bullet$~Quản lý người dùng, thống kê};
+\end{tikzpicture}}
+}
+
+\newcommand{\sodoERD}{%
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}
+
+  \node[erdt] (t_truong) at (0,0)
+    {{\sffamily\bfseries truong}\\[1pt]
+     \textbf{ma\_truong} PK\\ ten\_truong\\ viet\_tat\\ tinh\_thanh\\ vung\_mien};
+
+  \node[erdt, below=5mm of t_truong] (t_nganh)
+    {{\sffamily\bfseries nganh}\\[1pt]
+     \textbf{nganh\_id} PK\\ nganh\_slug UQ\\ ten\_nganh\\ nhom\_nganh};
+
+  \node[erdt, below=5mm of t_nganh] (t_mon)
+    {{\sffamily\bfseries mon}\\[1pt]
+     \textbf{ma\_mon} PK\\ ten\_mon\\ la\_nang\_khieu};
+
+  \node[erdt, below=5mm of t_mon] (t_tohop)
+    {{\sffamily\bfseries to\_hop}\\[1pt]
+     \textbf{ma\_to\_hop} PK\\ ten\_to\_hop\\ cac\_mon};
+
+  \node[erdt, below=5mm of t_tohop] (t_thm)
+    {{\sffamily\bfseries to\_hop\_mon}\\[1pt]
+     \textbf{ma\_to\_hop} PK, FK\\ \textbf{ma\_mon} PK, FK\\ vi\_tri PK};
+
+  \node[erdt, below=5mm of t_thm] (t_csn)
+    {{\sffamily\bfseries cua\_so\_nam}\\[1pt]
+     \textbf{vi\_tri} PK\\ nam UQ};
+
+  \node[erdt] (t_dc) at (7.6,0)
+    {{\sffamily\bfseries diem\_chuan}\\[1pt]
+     \textbf{id} PK\\ ma\_truong FK\\ nganh\_id FK\\ ma\_to\_hop FK\\ phuong\_thuc\\ nam\\ diem\_chuan\\ \textit{uq: 5 cột giữa}};
+
+  \node[erdt, below=5mm of t_dc] (t_dt)
+    {{\sffamily\bfseries dac\_trung\_diemchuan}\\[1pt]
+     id PK\\ ma\_truong FK\\ nganh\_id FK\\ ma\_to\_hop FK\\ phuong\_thuc\\
+     diem\_nam\_1 \dots\ diem\_nam\_10\\
+     diem\_tb, diem\_min\\ diem\_max, diem\_moi\_nhat\\
+     bien\_dong, xu\_huong\\ so\_nam\_co\_dl};
+
+  \node[erdt, below=5mm of t_dt] (t_lcn)
+    {{\sffamily\bfseries lan\_cap\_nhat}\\[1pt]
+     id PK\\ thoi\_diem, nguon\\ nam\_bat\_dau\\ nam\_ket\_thuc\\ so\_truong, so\_nganh\\ so\_dong\_diem\\ selfcheck\_dat};
+
+  \node[erdt] (t_user) at (15.2,0)
+    {{\sffamily\bfseries auth\_user}\\[1pt]
+     \textbf{id} PK\\ username UQ\\ password, email\\ is\_staff\\ is\_active};
+
+  \node[erdt, below=5mm of t_user] (t_hs)
+    {{\sffamily\bfseries ho\_so\_nang\_luc}\\[1pt]
+     id PK\\ user\_id FK\\ ten\_ho\_so\\ phuong\_thuc\\ diem\_uu\_tien};
+
+  \node[erdt, below=5mm of t_hs] (t_dm)
+    {{\sffamily\bfseries diem\_mon}\\[1pt]
+     \textbf{ho\_so\_id} PK, FK\\ \textbf{ma\_mon} PK, FK\\ diem};
+
+  \node[erdt, below=5mm of t_dm] (t_nn)
+    {{\sffamily\bfseries nhom\_nganh\_quan\_tam}\\[1pt]
+     \textbf{ho\_so\_id} PK, FK\\ \textbf{nhom\_nganh} PK};
+
+  \node[erdt, below=5mm of t_nn] (t_lgy)
+    {{\sffamily\bfseries lan\_goi\_y}\\[1pt]
+     id PK\\ ho\_so\_id FK\\ thoi\_diem\\ phien\_ban\_mo\_hinh\\ dung\_ai, so\_ket\_qua};
+
+  \node[erdt, below=5mm of t_lgy] (t_kq)
+    {{\sffamily\bfseries ket\_qua\_goi\_y}\\[1pt]
+     id PK\\ lan\_goi\_y\_id FK\\ ma\_truong FK\\ nganh\_id FK\\ ma\_to\_hop FK\\
+     diem\_hoc\_sinh, margin\\ xac\_suat\_do\\ tang, thu\_hang\\ da\_luu};
+
+  \draw[erdlink] (t_truong.east) -- (t_dc.west);
+  \draw[erdlink] (t_nganh.east)  -- (t_dc.west);
+  \draw[erdlink] (t_tohop.east)  -- (t_dc.west);
+  \draw[erdlink] (t_mon.east)    -- (t_thm.west);
+  \draw[erdlink] (t_tohop.east)  -- (t_thm.west);
+
+  \draw[erdlink] (t_dc.east)  -- node[sdlbl, midway] {dẫn xuất} (t_dt.east);
+  \draw[erdlink] (t_dt.east)  -- (t_lcn.east);
+
+  \draw[erdlink] (t_user.east)  -- node[sdlbl, midway] {1\,:\,n} (t_hs.east);
+  \draw[erdlink] (t_hs.east)    -- (t_dm.east);
+  \draw[erdlink] (t_hs.east)    -- (t_nn.east);
+  \draw[erdlink] (t_hs.east)    -- (t_lgy.east);
+  \draw[erdlink] (t_lgy.east)   -- (t_kq.east);
+
+  \draw[erdlink] (t_dc.west) -- ++(-8mm,0) -- ++(0,-6mm)
+                 -| node[sdlbl, pos=0.25] {tham chiếu} (t_kq.west);
+\end{tikzpicture}}
+}
+
+\newcommand{\sodoAPI}{%
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  grp/.style={rectangle, rounded corners=2pt, draw=daumaroon, line width=0.9pt,
+              fill=lightwarm, inner sep=3.5pt, font=\ttfamily\scriptsize\bfseries,
+              text=daumaroon, text width=26mm, align=left},
+  ep/.style={rectangle, rounded corners=1pt, draw=daunavy, line width=0.5pt,
+             fill=white, inner sep=2.5pt, font=\ttfamily\tiny, text=daunavy,
+             text width=58mm, align=left},
+  lay/.style={rectangle, rounded corners=2pt, draw=agentragreen,
+              line width=0.9pt, fill=lightforest, inner sep=4pt,
+              font=\scriptsize\bfseries, text=forestgreen,
+              text width=32mm, align=center},
+  lnk/.style={draw=gray500, line width=0.6pt},
+]
+
+  \node[grp] (g0) at (0,0) {/};
+  \node[ep, right=7mm of g0] (e0) {GET /};
+
+  \node[grp] (guni) at (0,-2.6) {university/};
+  \node[ep, right=7mm of guni] (e1)
+    {GET /tra-cuu/\quad GET /truong/\\ GET /truong/<ma\_truong>/};
+
+  \node[grp] (gapi) at (0,-5.0) {/api/};
+  \node[ep, right=7mm of gapi] (e2) {GET /api/tra-cuu/};
+
+  \node[grp] (gacc) at (0,-7.6) {accounts/};
+  \node[ep, right=7mm of gacc] (e3)
+    {GET,POST /dang-ky/\\ GET,POST /dang-nhap/\\ GET /dang-xuat/\quad GET /tai-khoan/\\
+     GET /google/dang-nhap/\,$\to$\,/google/xac-thuc/\\
+     GET /facebook/dang-nhap/\,$\to$\,/facebook/xac-thuc/};
+
+  \node[grp] (gadm) at (0,-11.2) {admissions/};
+  \node[ep, right=7mm of gadm] (e4)
+    {GET /ho-so/\quad GET,POST /ho-so/tao/\\
+     GET /ho-so/chi-tiet/<pk>/\\
+     GET,POST /ho-so/sua/<pk>/\\ POST /ho-so/xoa/<pk>/};
+
+  \node[grp] (grec) at (0,-14.4) {recommendation/};
+  \node[ep, right=7mm of grec] (e5)
+    {GET /goi-y/<pk>/\\ GET /goi-y/chi-tiet/<kq\_id>/\\
+     GET,POST /goi-y/so-sanh/\\ GET,POST /goi-y/so-sanh/<pk>/\\
+     GET /goi-y/lich-su/<pk>/\\ POST /goi-y/lich-su/<pk>/xoa/};
+
+  \node[grp] (gqt) at (0,-18.0) {quantri/};
+  \node[ep, right=7mm of gqt] (e6)
+    {GET /quan-tri/dashboard/\quad GET /quan-tri/du-lieu/\\
+     GET,POST /quan-tri/cap-nhat/\\ POST /quan-tri/cap-nhat/chay/\\
+     GET /quan-tri/ai/\quad POST /quan-tri/ai/huan-luyen/\\
+     CRUD /quan-tri/nguoi-dung/};
+
+  \node[lay] (lv1) at (12.6,-11.0) {View tầng web\\(Django)};
+  \node[lay, below=5mm of lv1] (lv2) {services.py\\ lọc cứng + xếp hạng};
+  \node[lay, below=5mm of lv2] (lv3) {ml/predict.py\\ Random Forest (RAM)};
+  \node[lay, below=5mm of lv3] (lv4) {Django ORM\\ models.py, managed = False};
+  \node[lay, below=5mm of lv4] (lv5) {MySQL 8.0\\ CSDL uni\_map};
+
+  \foreach \g/\e in {g0/e0, guni/e1, gapi/e2, gacc/e3, gadm/e4, grec/e5, gqt/e6}
+    \draw[lnk] (\g) -- (\e);
+  \foreach \e in {e0, e1, e2, e3, e4, e6}
+    \draw[lnk] (\e.east) -- (lv1.west);
+  \draw[lnk] (e5.east) -- (lv2.west);
+  \draw[lnk] (lv1) -- (lv2);
+  \draw[lnk] (lv2) -- (lv3);
+  \draw[lnk] (lv3) -- (lv4);
+  \draw[lnk] (lv4) -- (lv5);
+\end{tikzpicture}}
+}
+
+\newcommand{\sodoIFD}{%
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  font=\scriptsize, align=center, node distance=9mm and 11mm,
+  scr/.style={rectangle, rounded corners=2pt, draw=daunavy, line width=0.8pt,
+              fill=white, inner sep=4pt, font=\scriptsize, text=daunavy,
+              minimum width=30mm, minimum height=8mm, align=center},
+  scrA/.style={rectangle, rounded corners=2pt, draw=daumaroon, line width=1pt,
+               fill=lightwarm, inner sep=4pt, font=\scriptsize\bfseries,
+               text=daumaroon, minimum width=30mm, minimum height=8mm, align=center},
+  ar/.style={-{Stealth[length=2mm]}, line width=0.8pt, draw=daumaroon},
+  ar2/.style={-{Stealth[length=2mm]}, line width=0.7pt, draw=gray500, dashed},
+]
+  \node[scrA] (home) at (0,0) {Trang chủ\\ \texttt{/}};
+  \node[scr, right=of home] (tracuu) {Tra cứu điểm chuẩn\\ \texttt{/tra-cuu/}};
+  \node[scr, right=of tracuu] (ds) {Danh sách trường\\ \texttt{/truong/}};
+  \node[scr, right=of ds] (ct) {Chi tiết trường\\ \texttt{/truong/<ma>/}};
+
+  \node[scr, below=13mm of home] (dn) {Đăng nhập\\ \texttt{/dang-nhap/}};
+  \node[scr, right=of dn] (dk) {Đăng ký\\ \texttt{/dang-ky/}};
+  \node[scr, right=of dk] (tk) {Trang tài khoản\\ \texttt{/tai-khoan/}};
+
+  \node[scr, below=13mm of dn] (hslist) {Danh sách hồ sơ\\ \texttt{/ho-so/}};
+  \node[scr, right=of hslist] (hsform) {Nhập / sửa hồ sơ\\ \texttt{/ho-so/tao/}};
+  \node[scr, right=of hsform] (hsct) {Chi tiết hồ sơ\\ \texttt{/ho-so/chi-tiet/}};
+
+  \node[scrA, below=13mm of hslist] (gy) {Kết quả gợi ý AI\\ \texttt{/goi-y/<pk>/}};
+  \node[scrA, right=of gy] (gyct) {Lời giải thích\\ \texttt{/goi-y/chi-tiet/}};
+  \node[scr, right=of gyct] (ss) {So sánh nguyện vọng\\ \texttt{/goi-y/so-sanh/}};
+  \node[scr, right=of ss] (ls) {Lịch sử gợi ý\\ \texttt{/goi-y/lich-su/}};
+
+  \node[scr, below=13mm of gy] (dash) {Dashboard\\ \texttt{/quan-tri/dashboard/}};
+  \node[scr, right=of dash] (data) {Quản lý dữ liệu\\ \texttt{/quan-tri/du-lieu/}};
+  \node[scr, right=of data] (ai) {Trang AI\\ \texttt{/quan-tri/ai/}};
+  \node[scr, right=of ai] (us) {Quản lý người dùng\\ \texttt{/quan-tri/nguoi-dung/}};
+
+  \draw[ar] (home) -- (tracuu);
+  \draw[ar] (tracuu) -- (ds);
+  \draw[ar] (ds) -- (ct);
+  \draw[ar2] (ct.south) |- ++(0,-5mm) -| (tracuu.south);
+
+  \draw[ar2] (tracuu.south) -- node[sdlbl, left, text=gray700] {cần đăng nhập} (dn.north);
+  \draw[ar] (dn) -- (dk);
+  \draw[ar2] (dk.north) |- (dn.north);
+  \draw[ar] (dn) -- (tk);
+
+  \draw[ar] (hslist) -- (hsform);
+  \draw[ar] (hsform) -- (hsct);
+  \draw[ar2] (hsct.north) |- (hslist.north);
+
+  \draw[ar] (hsct.south) -- node[sdlbl, right, text=gray700] {chạy gợi ý} (gy.north);
+  \draw[ar] (gy) -- (gyct);
+  \draw[ar] (gyct) -- (ss);
+  \draw[ar2] (gy.south) -- (dash.north);
+  \draw[ar2] (ss.north) |- (ls.north);
+
+  \draw[ar] (dash) -- (data);
+  \draw[ar] (data) -- (ai);
+  \draw[ar] (ai) -- (us);
+  \draw[ar2] (ai.north) -- node[sdlbl, right, text=gray700] {huấn luyện lại} (gyct.south);
+\end{tikzpicture}}
+}
+
+\newcommand{\sodoSeqDangNhap}{%
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  part/.style={rectangle, draw=daunavy, line width=0.8pt, fill=lightnavy,
+               minimum width=2.4cm, minimum height=0.7cm, font=\scriptsize\bfseries,
+               text=daunavy, align=center},
+  act/.style={rectangle, draw=daumaroon, line width=0.8pt, fill=lightwarm,
+              minimum width=2.2cm, minimum height=0.7cm, font=\scriptsize\bfseries,
+              text=daumaroon, align=center},
+  life/.style={draw=gray500, dashed, line width=0.5pt},
+  msg/.style={draw=daumaroon, line width=0.7pt, -{Stealth[length=1.6mm]}},
+  ret/.style={draw=daunavy, line width=0.6pt, dashed, -{Stealth[length=1.6mm]}},
+  msglbl/.style={font=\tiny, text=daunavy, fill=white, inner sep=1pt},
+  altbox/.style={draw=daumaroon, line width=0.6pt, dashed, fill=gray100, fill opacity=0.35}
+]
+  \node[act] (user) at (0,0) {Học sinh};
+  \node[part] (ui) at (3.5,0) {Trình duyệt};
+  \node[part] (view) at (7.0,0) {accounts.views};
+  \node[part] (cache) at (10.5,0) {Cache (Rate Limit)};
+  \node[part] (db) at (14.0,0) {CSDL (auth\_user)};
+
+  \draw[life] (user) -- (0,-8.0);
+  \draw[life] (ui) -- (3.5,-8.0);
+  \draw[life] (view) -- (7.0,-8.0);
+  \draw[life] (cache) -- (10.5,-8.0);
+  \draw[life] (db) -- (14.0,-8.0);
+
+  \draw[msg] (0,-0.7) -- node[msglbl, above] {1. Nhập username, password} (3.5,-0.7);
+  \draw[msg] (3.5,-1.3) -- node[msglbl, above] {2. POST /dang-nhap/} (7.0,-1.3);
+  \draw[msg] (7.0,-1.9) -- node[msglbl, above] {3. \_bi\_khoa(IP, user)} (10.5,-1.9);
+  \draw[ret] (10.5,-2.5) -- node[msglbl, above] {4. Trả về trạng thái khóa} (7.0,-2.5);
+
+  \draw[altbox] (2.8,-2.8) rectangle (14.4,-3.8);
+  \node[font=\tiny\bfseries, text=daumaroon, anchor=north west] at (2.9,-2.85) {[Số lần sai $\ge$ 5]};
+  \draw[ret] (7.0,-3.4) -- node[msglbl, above] {5a. Báo lỗi tạm khóa 5 phút} (3.5,-3.4);
+
+  \draw[altbox] (2.8,-3.95) rectangle (14.4,-7.6);
+  \node[font=\tiny\bfseries, text=daumaroon, anchor=north west] at (2.9,-4.0) {[Hợp lệ / Chưa bị khóa]};
+  \draw[msg] (7.0,-4.5) -- node[msglbl, above] {5b. authenticate(user, password)} (14.0,-4.5);
+
+  \draw[msg] (7.0,-5.2) -- node[msglbl, above] {6a. [Sai mật khẩu] \_ghi\_nhan\_sai() (+1)} (10.5,-5.2);
+  \draw[ret] (7.0,-5.7) -- node[msglbl, above] {6b. Báo lỗi đăng nhập không đúng} (3.5,-5.7);
+
+  \draw[msg] (7.0,-6.3) -- node[msglbl, above] {7a. [Đúng] \_xoa\_bo\_dem()} (10.5,-6.3);
+  \draw[msg] (7.0,-6.8) -- node[msglbl, above] {7b. login() tạo session} (14.0,-6.8);
+  \draw[ret] (7.0,-7.3) -- node[msglbl, above] {7c. 302 Redirect /ho-so/} (3.5,-7.3);
+
+  \draw[ret] (3.5,-7.7) -- node[msglbl, above] {8. Hiển thị trang quản lý hồ sơ} (0,-7.7);
+\end{tikzpicture}}
+}
+
+\newcommand{\sodoSeqGoiY}{%
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  part/.style={rectangle, draw=daunavy, line width=0.8pt, fill=lightnavy,
+               minimum width=2.4cm, minimum height=0.7cm, font=\scriptsize\bfseries,
+               text=daunavy, align=center},
+  act/.style={rectangle, draw=daumaroon, line width=0.8pt, fill=lightwarm,
+              minimum width=2.2cm, minimum height=0.7cm, font=\scriptsize\bfseries,
+              text=daumaroon, align=center},
+  life/.style={draw=gray500, dashed, line width=0.5pt},
+  msg/.style={draw=daumaroon, line width=0.7pt, -{Stealth[length=1.6mm]}},
+  ret/.style={draw=daunavy, line width=0.6pt, dashed, -{Stealth[length=1.6mm]}},
+  msglbl/.style={font=\tiny, text=daunavy, fill=white, inner sep=1pt},
+  altbox/.style={draw=daumaroon, line width=0.6pt, dashed, fill=gray100, fill opacity=0.35}
+]
+  \node[act] (user) at (0,0) {Học sinh};
+  \node[part] (view) at (3.5,0) {views.py};
+  \node[part] (srv)  at (7.0,0) {services.py};
+  \node[part] (ml)   at (10.5,0) {ml/predict.py};
+  \node[part] (db)   at (14.0,0) {CSDL uni\_map};
+
+  \draw[life] (user) -- (0,-9.2);
+  \draw[life] (view) -- (3.5,-9.2);
+  \draw[life] (srv)  -- (7.0,-9.2);
+  \draw[life] (ml)   -- (10.5,-9.2);
+  \draw[life] (db)   -- (14.0,-9.2);
+
+  \draw[msg] (0,-0.7) -- node[msglbl, above] {1. Bấm nhận gợi ý (GET /goi-y/<pk>/)} (3.5,-0.7);
+  \draw[msg] (3.5,-1.3) -- node[msglbl, above] {2. goi\_y\_nguyen\_vong(ho\_so)} (7.0,-1.3);
+  \draw[msg] (7.0,-1.9) -- node[msglbl, above] {3. Lọc cứng tổ hợp, vùng miền} (14.0,-1.9);
+  \draw[ret] (14.0,-2.5) -- node[msglbl, above] {4. Trả về $N$ nguyện vọng ứng viên} (7.0,-2.5);
+  \draw[msg] (7.0,-3.1) -- node[msglbl, above] {5. cham\_xac\_suat(ds\_candidates, diem)} (10.5,-3.1);
+
+  \draw[altbox] (6.4,-3.5) rectangle (14.4,-5.3);
+  \node[font=\tiny\bfseries, text=daumaroon, anchor=north west] at (6.5,-3.55) {[Mô hình sẵn sàng trong RAM]};
+  \draw[msg] (10.5,-4.1) -- ++(1.0,0) -- ++(0,-0.4) -- ++(-1.0,0)
+        node[msglbl, right, pos=0.5] {Vector hóa 27 chiều + predict\_proba()};
+  \draw[ret] (10.5,-4.9) -- node[msglbl, above] {Trả về mảng xác suất $p$ (AI\_RANDOM\_FOREST)} (7.0,-4.9);
+
+  \draw[altbox] (6.4,-5.45) rectangle (14.4,-6.8);
+  \node[font=\tiny\bfseries, text=daumaroon, anchor=north west] at (6.5,-5.5) {[Lỗi nạp mô hình / thiếu file model.pkl]};
+  \draw[msg] (10.5,-6.0) -- ++(1.0,0) -- ++(0,-0.4) -- ++(-1.0,0)
+        node[msglbl, right, pos=0.5] {Xếp hạng theo margin thuần};
+  \draw[ret] (10.5,-6.5) -- node[msglbl, above] {Trả về danh sách margin (FALLBACK\_MARGIN)} (7.0,-6.5);
+
+  \draw[msg] (7.0,-7.1) -- ++(1.0,0) -- ++(0,-0.4) -- ++(-1.0,0)
+        node[msglbl, right, pos=0.5] {Phân tầng 3 mức + sinh lời giải thích};
+  \draw[msg] (7.0,-7.8) -- node[msglbl, above] {6. Lưu lan\_goi\_y, ket\_qua\_goi\_y} (14.0,-7.8);
+  \draw[ret] (7.0,-8.4) -- node[msglbl, above] {7. Trả về top 30 nguyện vọng phân tầng} (3.5,-8.4);
+  \draw[ret] (3.5,-8.9) -- node[msglbl, above] {8. Render giao diện phân tầng kết quả} (0,-8.9);
+\end{tikzpicture}}
+}
+
+\newcommand{\sodoSeqCapNhatAI}{%
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  part/.style={rectangle, draw=daunavy, line width=0.8pt, fill=lightnavy,
+               minimum width=2.4cm, minimum height=0.7cm, font=\scriptsize\bfseries,
+               text=daunavy, align=center},
+  act/.style={rectangle, draw=daumaroon, line width=0.8pt, fill=lightwarm,
+              minimum width=2.2cm, minimum height=0.7cm, font=\scriptsize\bfseries,
+              text=daumaroon, align=center},
+  life/.style={draw=gray500, dashed, line width=0.5pt},
+  msg/.style={draw=daumaroon, line width=0.7pt, -{Stealth[length=1.6mm]}},
+  ret/.style={draw=daunavy, line width=0.6pt, dashed, -{Stealth[length=1.6mm]}},
+  msglbl/.style={font=\tiny, text=daunavy, fill=white, inner sep=1pt}
+]
+  \node[act]  (admin) at (0,0) {Quản trị viên};
+  \node[part] (view)  at (3.5,0) {quantri.views};
+  \node[part] (db)    at (7.0,0) {CSDL uni\_map};
+  \node[part] (pipe)  at (10.5,0) {gen\_dataset.py};
+  \node[part] (train) at (14.0,0) {train.py / RAM};
+
+  \draw[life] (admin) -- (0,-8.5);
+  \draw[life] (view)  -- (3.5,-8.5);
+  \draw[life] (db)    -- (7.0,-8.5);
+  \draw[life] (pipe)  -- (10.5,-8.5);
+  \draw[life] (train) -- (14.0,-8.5);
+
+  \draw[msg] (0,-0.7) -- node[msglbl, above] {1. Kích hoạt cập nhật (POST /quan-tri/cap-nhat/chay/)} (3.5,-0.7);
+  \draw[msg] (3.5,-1.3) -- node[msglbl, above] {2. Nạp CSV điểm chuẩn mới vào diem\_chuan} (7.0,-1.3);
+  \draw[msg] (3.5,-1.9) -- node[msglbl, above] {3. Cập nhật bảng cua\_so\_nam (trượt 10 năm)} (7.0,-1.9);
+  \draw[ret] (7.0,-2.5) -- node[msglbl, above] {4. Xác nhận cập nhật, ghi log lan\_cap\_nhat} (3.5,-2.5);
+  \draw[ret] (3.5,-3.0) -- node[msglbl, above] {5. Thông báo nạp dữ liệu thành công} (0,-3.0);
+
+  \draw[msg] (0,-3.7) -- node[msglbl, above] {6. Kích hoạt huấn luyện (POST /quan-tri/ai/huan-luyen/)} (3.5,-3.7);
+  \draw[msg] (3.5,-4.3) -- node[msglbl, above] {7. build\_split(target\_year, lookback=6)} (10.5,-4.3);
+  \draw[msg] (10.5,-4.9) -- node[msglbl, above] {8. Đọc chuỗi lịch sử điểm chuẩn} (7.0,-4.9);
+  \draw[msg] (10.5,-5.5) -- ++(1.0,0) -- ++(0,-0.4) -- ++(-1.0,0)
+        node[msglbl, right, pos=0.5] {Sinh 11 DELTAS + trích 27 đặc trưng};
+  \draw[ret] (10.5,-6.2) -- node[msglbl, above] {9. Trả về tập dữ liệu phẳng huấn luyện} (3.5,-6.2);
+  \draw[msg] (3.5,-6.8) -- node[msglbl, above] {10. train\_and\_export(X, y)} (14.0,-6.8);
+  \draw[msg] (14.0,-7.3) -- ++(0.7,0) -- ++(0,-0.4) -- ++(-0.7,0)
+        node[msglbl, right, pos=0.5] {Huấn luyện RF, dump pkl, xóa \_CACHE};
+  \draw[ret] (14.0,-7.9) -- node[msglbl, above] {11. Trả về chỉ số kiểm định (Accuracy, ROC-AUC)} (3.5,-7.9);
+  \draw[ret] (3.5,-8.3) -- node[msglbl, above] {12. Hiển thị kết quả huấn luyện mới trên dashboard} (0,-8.3);
+\end{tikzpicture}}
+}
+
+\newcommand{\sodoMockupTraCuu}{%
+\resizebox{0.95\textwidth}{!}{%
+\begin{tikzpicture}[
+  box/.style={draw=daunavy, rounded corners=3pt, thick, align=center, fill=gray100, font=\small},
+  title/.style={draw=daumaroon, fill=daumaroon, text=white, font=\bfseries\small, align=center}
+]
+  \draw[thick, draw=daunavy, fill=white] (0,0) rectangle (12, 6.4);
+  \draw[fill=daunavy] (0, 5.75) rectangle (12, 6.4);
+  \node[text=white, font=\footnotesize\bfseries] at (6, 6.08)
+        {UNI CONNECT --- TRA CỨU ĐIỂM CHUẨN ĐẠI HỌC 10 NĂM (2016--2025)};
+
+  \draw[fill=gray100, draw=gray300, rounded corners=2pt] (0.4, 4.45) rectangle (11.6, 5.55);
+  \draw[fill=white, draw=gray500, rounded corners=2pt] (0.6, 4.95) rectangle (8.2, 5.4);
+  \node[font=\tiny, text=gray700, anchor=west] at (0.7, 5.17)
+        {Tìm theo tên trường, ngành, mã trường... (vd: Đại học Kiến trúc Đà Nẵng, CNTT)};
+  \draw[fill=daumaroon, draw=daumaroon, rounded corners=2pt] (8.4, 4.95) rectangle (10.0, 5.4);
+  \node[font=\tiny\bfseries, text=white] at (9.2, 5.17) {Tìm kiếm};
+
+  \node[font=\tiny, text=daunavy, anchor=west] at (0.6, 4.65)
+        {\textbf{Bộ lọc:} Miền: [Tất cả] $\blacktriangledown$ \quad Tổ hợp: [Khối A00] $\blacktriangledown$ \quad Phương thức: [Điểm thi THPT] $\blacktriangledown$};
+
+  \draw[fill=gray100, draw=daunavy!40] (0.4, 1.2) rectangle (11.6, 4.3);
+  \draw[fill=daunavy!15] (0.4, 3.85) rectangle (11.6, 4.3);
+  \node[font=\tiny\bfseries, text=daunavy] at (2.2, 4.07) {Trường đại học};
+  \node[font=\tiny\bfseries, text=daunavy] at (5.0, 4.07) {Ngành đào tạo};
+  \node[font=\tiny\bfseries, text=daunavy] at (7.0, 4.07) {Tổ hợp};
+  \node[font=\tiny\bfseries, text=daunavy] at (8.0, 4.07) {2023};
+  \node[font=\tiny\bfseries, text=daunavy] at (9.0, 4.07) {2024};
+  \node[font=\tiny\bfseries, text=daunavy] at (10.0, 4.07) {2025};
+  \node[font=\tiny\bfseries, text=daunavy] at (11.0, 4.07) {Xu hướng};
+
+  \draw[gray300] (0.4, 3.0) -- (11.6, 3.0);
+  \draw[gray300] (0.4, 2.1) -- (11.6, 2.1);
+
+  \node[font=\tiny, text=gray800] at (2.2, 3.45) {ĐH Kiến trúc Đà Nẵng (KTD)};
+  \node[font=\tiny, text=gray800] at (5.0, 3.45) {Công nghệ thông tin};
+  \node[font=\tiny, text=gray800] at (7.0, 3.45) {A00};
+  \node[font=\tiny, text=gray800] at (8.0, 3.45) {20.0};
+  \node[font=\tiny, text=gray800] at (9.0, 3.45) {21.0};
+  \node[font=\tiny\bfseries, text=daumaroon] at (10.0, 3.45) {21.5};
+  \node[font=\tiny, text=agentragreen] at (11.0, 3.45) {Tăng nhẹ $\nearrow$};
+
+  \node[font=\tiny, text=gray800] at (2.2, 2.55) {ĐH Bách Khoa Đà Nẵng (DDK)};
+  \node[font=\tiny, text=gray800] at (5.0, 2.55) {Kỹ thuật Phần mềm};
+  \node[font=\tiny, text=gray800] at (7.0, 2.55) {A00};
+  \node[font=\tiny, text=gray800] at (8.0, 2.55) {25.5};
+  \node[font=\tiny, text=gray800] at (9.0, 2.55) {25.0};
+  \node[font=\tiny\bfseries, text=daumaroon] at (10.0, 2.55) {25.1};
+  \node[font=\tiny, text=blue!80!black] at (11.0, 2.55) {Ổn định $\rightarrow$};
+
+  \node[font=\tiny, text=gray800] at (2.2, 1.65) {ĐH Sư phạm Đà Nẵng (DDS)};
+  \node[font=\tiny, text=gray800] at (5.0, 1.65) {Sư phạm Tin học};
+  \node[font=\tiny, text=gray800] at (7.0, 1.65) {A00};
+  \node[font=\tiny, text=gray800] at (8.0, 1.65) {22.0};
+  \node[font=\tiny, text=gray800] at (9.0, 1.65) {22.5};
+  \node[font=\tiny\bfseries, text=daumaroon] at (10.0, 1.65) {22.0};
+  \node[font=\tiny, text=blue!80!black] at (11.0, 1.65) {Ổn định $\rightarrow$};
+
+  \draw[fill=gray100] (0.4, 0.3) rectangle (11.6, 0.95);
+  \node[font=\tiny, text=gray700] at (6, 0.62)
+        {Hệ thống quản trị 295 trường đại học \textperiodcentered{} 3.037 ngành đào tạo \textperiodcentered{} 240.483 bản ghi điểm chuẩn};
+\end{tikzpicture}}
+}
+
+\newcommand{\sodoMockupHoSo}{%
+\resizebox{0.95\textwidth}{!}{%
+\begin{tikzpicture}[
+  box/.style={draw=daunavy, rounded corners=3pt, thick, align=center, fill=gray100, font=\small},
+  title/.style={draw=daumaroon, fill=daumaroon, text=white, font=\bfseries\small, align=center}
+]
+  \draw[thick, draw=daunavy, fill=white] (0,0) rectangle (12, 6.2);
+  \draw[fill=daunavy] (0, 5.55) rectangle (12, 6.2);
+  \node[text=white, font=\footnotesize\bfseries] at (6, 5.88)
+        {UNI CONNECT --- NHẬP HỒ SƠ ĐIỂM NĂNG LỰC THÍ SINH};
+
+  \draw[fill=gray100, draw=gray300, rounded corners=2pt] (0.4, 4.4) rectangle (11.6, 5.35);
+  \node[font=\tiny, text=daunavy, anchor=west] at (0.6, 4.95)
+        {\textbf{Tên hồ sơ:} [Hồ sơ xét tuyển nguyện vọng 2026] \quad \textbf{Phương thức:} [Xét điểm thi THPT]};
+  \node[font=\tiny, text=daunavy, anchor=west] at (0.6, 4.60)
+        {\textbf{Điểm ưu tiên:} [0.50 điểm (Khu vực 2 - Nông thôn)] \quad \textbf{Khu vực xét tuyển:} [Miền Trung, Miền Nam]};
+
+  \draw[fill=lightnavy!40, draw=daunavy!40, rounded corners=2pt] (0.4, 2.7) rectangle (11.6, 4.25);
+  \node[font=\tiny\bfseries, text=daunavy, anchor=west] at (0.6, 4.0) {BẢNG ĐIỂM CHI TIẾT TỪNG MÔN THI (THANG ĐIỂM 10):};
+
+  \foreach \m/\d/\x in {Toán/8.5/1.8, Lý/8.0/3.2, Hóa/8.5/4.6, Sinh/6.5/6.0, Văn/7.0/7.4, Sử/6.0/8.8, Địa/6.5/10.2} {
+    \draw[fill=white, draw=gray400, rounded corners=2pt] (\x-0.6, 3.0) rectangle (\x+0.6, 3.75);
+    \node[font=\tiny, text=gray700] at (\x, 3.52) {\m};
+    \node[font=\footnotesize\bfseries, text=daumaroon] at (\x, 3.22) {\d};
+  }
+
+  \draw[fill=lightwarm, draw=daugold, rounded corners=2pt] (0.4, 1.25) rectangle (11.6, 2.5);
+  \node[font=\tiny\bfseries, text=daumaroon, anchor=west] at (0.6, 2.25) {TỔNG ĐIỂM TỔ HỢP TỰ ĐỘNG TÍNH TOÁN (ĐÃ GỒM ĐIỂM ƯU TIÊN):};
+
+  \draw[fill=white, draw=daumaroon, rounded corners=2pt] (0.8, 1.45) rectangle (3.8, 2.05);
+  \node[font=\tiny, text=daunavy] at (2.3, 1.75) {Khối A00 (Toán, Lý, Hóa): \textbf{\color{daumaroon}25.50}};
+
+  \draw[fill=white, draw=daunavy, rounded corners=2pt] (4.4, 1.45) rectangle (7.4, 2.05);
+  \node[font=\tiny, text=daunavy] at (5.9, 1.75) {Khối A01 (Toán, Lý, Anh): \textbf{\color{daunavy}25.00}};
+
+  \draw[fill=white, draw=daunavy, rounded corners=2pt] (8.0, 1.45) rectangle (11.0, 2.05);
+  \node[font=\tiny, text=daunavy] at (9.5, 1.75) {Khối D01 (Toán, Văn, Anh): \textbf{\color{daunavy}24.00}};
+
+  \draw[fill=daumaroon, draw=daumaroon, rounded corners=3pt] (3.0, 0.35) rectangle (9.0, 0.95);
+  \node[font=\footnotesize\bfseries, text=white] at (6.0, 0.65)
+        {LƯU HỒ SƠ VÀ NHẬN GỢI Ý NGUYỆN VỌNG BẰNG AI $\rightarrow$};
+\end{tikzpicture}}
+}

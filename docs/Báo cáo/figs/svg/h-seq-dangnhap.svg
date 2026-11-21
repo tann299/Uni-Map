@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="250pt" viewBox="0 0 460 250">
+<defs><marker id="ar990000" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#990000"/></marker><marker id="ar0E2841" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#0E2841"/></marker></defs>
+<rect x="0" y="0" width="460" height="250" fill="#FFFFFF"/>
+<rect x="6" y="30" width="68" height="24" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="40" y="42" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Học sinh</text>
+<path d="M40,54 L40,232" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<rect x="96" y="30" width="68" height="24" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="130" y="42" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Trình duyệt</text>
+<path d="M130,54 L130,232" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<rect x="196" y="30" width="68" height="24" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="230" y="42" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">accounts.views</text>
+<path d="M230,54 L230,232" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<rect x="291" y="30" width="68" height="24" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="325" y="38" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Cache</text>
+<text x="325" y="46.58" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">(rate limit)</text>
+<path d="M325,54 L325,232" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<rect x="384" y="30" width="68" height="24" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="418" y="38" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">CSDL</text>
+<text x="418" y="46.58" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">auth_user</text>
+<path d="M418,54 L418,232" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<path d="M40,68 L130,68" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="42.35" y="57.425" width="85.3" height="9.15" fill="#FFFFFF" stroke="none"/>
+<text x="85" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.1" fill="#990000" text-anchor="middle" dominant-baseline="middle">1. nhập username, password</text>
+<path d="M130,82 L230,82" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="148.025" y="71.425" width="63.95" height="9.15" fill="#FFFFFF" stroke="none"/>
+<text x="180" y="76" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.1" fill="#990000" text-anchor="middle" dominant-baseline="middle">2. POST /dang-nhap/</text>
+<path d="M230,96 L325,96" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="242.475" y="85.425" width="70.05" height="9.15" fill="#FFFFFF" stroke="none"/>
+<text x="277.5" y="90" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.1" fill="#990000" text-anchor="middle" dominant-baseline="middle">3. _bi_khoa(IP, user)</text>
+<path d="M325,110 L230,110" fill="none" stroke="#0E2841" stroke-width="0.9" stroke-dasharray="4,2" marker-end="url(#ar0E2841)"/>
+<rect x="247.05" y="99.425" width="60.9" height="9.15" fill="#FFFFFF" stroke="none"/>
+<text x="277.5" y="104" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.1" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">4. trạng thái khoá</text>
+<rect x="122" y="118" width="350" height="20" rx="3" fill="#F3F4F6" stroke="#990000" stroke-width="0.7" stroke-dasharray="3,2"/>
+<text x="126" y="128" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#990000" text-anchor="start" dominant-baseline="middle" font-weight="bold">[số lần sai ≥ 5]</text>
+<path d="M230,134 L130,134" fill="none" stroke="#0E2841" stroke-width="0.9" stroke-dasharray="4,2" marker-end="url(#ar0E2841)"/>
+<rect x="135.825" y="123.425" width="88.35" height="9.15" fill="#FFFFFF" stroke="none"/>
+<text x="180" y="128" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.1" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">5a. báo lỗi tạm khoá 5 phút</text>
+<rect x="122" y="148" width="350" height="74" rx="3" fill="#FCFCFC" stroke="#990000" stroke-width="0.7" stroke-dasharray="3,2"/>
+<text x="126" y="158" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#990000" text-anchor="start" dominant-baseline="middle" font-weight="bold">[hợp lệ / chưa bị khoá]</text>
+<path d="M230,170 L418,170" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="272.2" y="159.425" width="103.6" height="9.15" fill="#FFFFFF" stroke="none"/>
+<text x="324" y="164" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.1" fill="#990000" text-anchor="middle" dominant-baseline="middle">5b. authenticate(user, password)</text>
+<path d="M230,184 L325,184" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="231.8" y="173.425" width="91.4" height="9.15" fill="#FFFFFF" stroke="none"/>
+<text x="277.5" y="178" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.1" fill="#990000" text-anchor="middle" dominant-baseline="middle">6a. [sai] _ghi_nhan_sai() +1</text>
+<path d="M230,196 L130,196" fill="none" stroke="#0E2841" stroke-width="0.9" stroke-dasharray="4,2" marker-end="url(#ar0E2841)"/>
+<rect x="128.2" y="185.425" width="103.6" height="9.15" fill="#FFFFFF" stroke="none"/>
+<text x="180" y="190" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.1" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">6b. báo lỗi đăng nhập không đúng</text>
+<path d="M230,210 L325,210" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="237.9" y="199.425" width="79.2" height="9.15" fill="#FFFFFF" stroke="none"/>
+<text x="277.5" y="204" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.1" fill="#990000" text-anchor="middle" dominant-baseline="middle">7a. [đúng] _xoa_bo_dem()</text>
+<path d="M230,222 L418,222" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="285.925" y="211.425" width="76.15" height="9.15" fill="#FFFFFF" stroke="none"/>
+<text x="324" y="216" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.1" fill="#990000" text-anchor="middle" dominant-baseline="middle">7b. login() tạo session</text>
+<path d="M230,234 L130,234" fill="none" stroke="#0E2841" stroke-width="0.9" stroke-dasharray="4,2" marker-end="url(#ar0E2841)"/>
+<rect x="151.075" y="223.425" width="57.85" height="9.15" fill="#FFFFFF" stroke="none"/>
+<text x="180" y="228" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.1" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">7c. 302 → /ho-so/</text>
+<text x="230" y="14" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">SƠ ĐỒ TRÌNH TỰ — UC-03 ĐĂNG NHẬP (CÓ RATE LIMIT)</text>
+</svg>

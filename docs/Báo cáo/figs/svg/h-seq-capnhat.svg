@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="268pt" viewBox="0 0 460 268">
+<defs><marker id="ar990000" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#990000"/></marker><marker id="ar0E2841" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#0E2841"/></marker></defs>
+<rect x="0" y="0" width="460" height="268" fill="#FFFFFF"/>
+<rect x="6" y="30" width="68" height="22" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="40" y="41" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Quản trị viên</text>
+<path d="M40,52 L40,250" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<rect x="96" y="30" width="68" height="22" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="130" y="41" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">quantri.views</text>
+<path d="M130,52 L130,250" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<rect x="186" y="30" width="68" height="22" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="220" y="41" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">CSDL uni_map</text>
+<path d="M220,52 L220,250" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<rect x="276" y="30" width="68" height="22" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="310" y="41" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">gen_dataset.py</text>
+<path d="M310,52 L310,250" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<rect x="386" y="30" width="68" height="22" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="420" y="41" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">train.py / RAM</text>
+<path d="M420,52 L420,250" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<path d="M40,68 L130,68" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="35.6" y="57.65" width="98.8" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="85" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="middle" dominant-baseline="middle">1. POST /quan-tri/cap-nhat/chay/</text>
+<path d="M130,84 L220,84" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="129.95" y="73.65" width="90.1" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="175" y="78" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="middle" dominant-baseline="middle">2. nạp CSV mới vào diem_chuan</text>
+<path d="M130,100 L220,100" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="118.35" y="89.65" width="113.3" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="175" y="94" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="middle" dominant-baseline="middle">3. cập nhật cua_so_nam (trượt 10 năm)</text>
+<path d="M220,116 L130,116" fill="none" stroke="#0E2841" stroke-width="0.9" stroke-dasharray="4,2" marker-end="url(#ar0E2841)"/>
+<rect x="128.5" y="105.65" width="93" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="175" y="110" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">4. xác nhận + ghi lan_cap_nhat</text>
+<path d="M130,132 L40,132" fill="none" stroke="#0E2841" stroke-width="0.9" stroke-dasharray="4,2" marker-end="url(#ar0E2841)"/>
+<rect x="31.25" y="121.65" width="107.5" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="85" y="126" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">5. thông báo nạp dữ liệu thành công</text>
+<path d="M40,152 L130,152" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="35.6" y="141.65" width="98.8" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="85" y="146" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="middle" dominant-baseline="middle">6. POST /quan-tri/ai/huan-luyen/</text>
+<path d="M130,168 L310,168" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="160.45" y="157.65" width="119.1" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="220" y="162" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="middle" dominant-baseline="middle">7. build_split(target_year, lookback=6)</text>
+<path d="M310,184 L220,184" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="217.05" y="173.65" width="95.9" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="265" y="178" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="middle" dominant-baseline="middle">8. đọc chuỗi lịch sử điểm chuẩn</text>
+<text x="314" y="200" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#0E2841" text-anchor="start" dominant-baseline="middle">sinh 11 DELTAS + trích 27 đặc trưng</text>
+<path d="M310,212 L130,212" fill="none" stroke="#0E2841" stroke-width="0.9" stroke-dasharray="4,2" marker-end="url(#ar0E2841)"/>
+<rect x="172.05" y="201.65" width="95.9" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="220" y="206" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">9. tập dữ liệu phẳng huấn luyện</text>
+<path d="M130,232 L420,232" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="234.3" y="221.65" width="81.4" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="275" y="226" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="middle" dominant-baseline="middle">10. train_and_export(X, y)</text>
+<text x="424" y="244" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.6" fill="#0E2841" text-anchor="end" dominant-baseline="middle">RF fit → dump pkl → xoá _CACHE</text>
+<path d="M420,258 L130,258" fill="none" stroke="#0E2841" stroke-width="0.9" stroke-dasharray="4,2" marker-end="url(#ar0E2841)"/>
+<rect x="214" y="247.65" width="122" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="275" y="252" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">11. chỉ số kiểm định (Accuracy, ROC-AUC)</text>
+<text x="230" y="14" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">SƠ ĐỒ TRÌNH TỰ — UC-09 + UC-10 CẬP NHẬT &amp; HUẤN LUYỆN LẠI</text>
+</svg>

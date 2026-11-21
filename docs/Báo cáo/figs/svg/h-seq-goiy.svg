@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="400pt" viewBox="0 0 460 400">
+<defs><marker id="ar990000" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#990000"/></marker><marker id="ar0E2841" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#0E2841"/></marker></defs>
+<rect x="0" y="0" width="460" height="400" fill="#FFFFFF"/>
+<rect x="6" y="30" width="68" height="22" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="40" y="41" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Học sinh</text>
+<path d="M40,52 L40,386" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<rect x="91" y="30" width="68" height="22" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="125" y="41" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">views.py</text>
+<path d="M125,52 L125,386" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<rect x="181" y="30" width="68" height="22" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="215" y="41" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">services.py</text>
+<path d="M215,52 L215,386" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<rect x="271" y="30" width="68" height="22" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="305" y="41" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">ml/predict.py</text>
+<path d="M305,52 L305,386" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<rect x="386" y="30" width="68" height="22" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="420" y="41" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">CSDL uni_map</text>
+<path d="M420,52 L420,386" fill="none" stroke="#6B7280" stroke-width="0.7" stroke-dasharray="4,3"/>
+<path d="M40,68 L125,68" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="27.3" y="57.65" width="110.4" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="82.5" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="middle" dominant-baseline="middle">1. bấm nhận gợi ý (GET /goi-y/&lt;pk&gt;/)</text>
+<path d="M125,84 L215,84" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="127.85" y="73.65" width="84.3" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="170" y="78" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="middle" dominant-baseline="middle">2. goi_y_nguyen_vong(ho_so)</text>
+<path d="M215,100 L420,100" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="272.45" y="89.65" width="90.1" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="317.5" y="94" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="middle" dominant-baseline="middle">3. lọc cứng tổ hợp, vùng miền</text>
+<path d="M420,116 L215,116" fill="none" stroke="#0E2841" stroke-width="0.9" stroke-dasharray="4,2" marker-end="url(#ar0E2841)"/>
+<rect x="278.25" y="105.65" width="78.5" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="317.5" y="110" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">4. N nguyện vọng ứng viên</text>
+<path d="M215,132 L305,132" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="219.3" y="121.65" width="81.4" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="260" y="126" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="middle" dominant-baseline="middle">5. cham_xac_suat(ds, điểm)</text>
+<rect x="56" y="146" width="396" height="52" rx="3" fill="#E8F0EA" stroke="#196B24" stroke-width="0.7" stroke-dasharray="3,2"/>
+<text x="60" y="158" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#196B24" text-anchor="start" dominant-baseline="middle" font-weight="bold">[mô hình sẵn sàng trong RAM]</text>
+<text x="60" y="174" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.6" fill="#196B24" text-anchor="start" dominant-baseline="middle">vector hoá 27 chiều → predict_proba() → mảng xác suất p</text>
+<text x="60" y="188" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.6" fill="#196B24" text-anchor="start" dominant-baseline="middle">thời gian suy luận cho 30 nguyện vọng dưới 50 ms</text>
+<path d="M305,214 L215,214" fill="none" stroke="#0E2841" stroke-width="0.9" stroke-dasharray="4,2" marker-end="url(#ar0E2841)"/>
+<rect x="217.85" y="203.65" width="84.3" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="260" y="208" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">trả về p (AI_RANDOM_FOREST)</text>
+<rect x="56" y="228" width="396" height="44" rx="3" fill="#FCEFD9" stroke="#990000" stroke-width="0.7" stroke-dasharray="3,2"/>
+<text x="60" y="240" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="start" dominant-baseline="middle" font-weight="bold">[lỗi nạp mô hình / thiếu model.pkl]</text>
+<text x="60" y="256" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.6" fill="#990000" text-anchor="start" dominant-baseline="middle">xếp hạng theo margin thuần, đánh dấu FALLBACK_MARGIN, HTTP 200</text>
+<path d="M305,288 L215,288" fill="none" stroke="#0E2841" stroke-width="0.9" stroke-dasharray="4,2" marker-end="url(#ar0E2841)"/>
+<rect x="207.7" y="277.65" width="104.6" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="260" y="282" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">danh sách margin (FALLBACK_MARGIN)</text>
+<text x="56" y="306" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#0E2841" text-anchor="start" dominant-baseline="middle">phân tầng 3 mức + sinh lời giải thích</text>
+<path d="M215,320 L420,320" fill="none" stroke="#990000" stroke-width="0.9" marker-end="url(#ar990000)"/>
+<rect x="269.55" y="309.65" width="95.9" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="317.5" y="314" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="middle" dominant-baseline="middle">6. lưu lan_goi_y, ket_qua_goi_y</text>
+<path d="M215,338 L125,338" fill="none" stroke="#0E2841" stroke-width="0.9" stroke-dasharray="4,2" marker-end="url(#ar0E2841)"/>
+<rect x="117.7" y="327.65" width="104.6" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="170" y="332" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">7. top 30 nguyện vọng đã phân tầng</text>
+<path d="M125,356 L40,356" fill="none" stroke="#0E2841" stroke-width="0.9" stroke-dasharray="4,2" marker-end="url(#ar0E2841)"/>
+<rect x="37.45" y="345.65" width="90.1" height="8.7" fill="#FFFFFF" stroke="none"/>
+<text x="82.5" y="350" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle">8. render giao diện phân tầng</text>
+<text x="230" y="14" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">SƠ ĐỒ TRÌNH TỰ — UC-05 NHẬN GỢI Ý (AI + DỰ PHÒNG)</text>
+</svg>

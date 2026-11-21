@@ -1,0 +1,30 @@
+\chapter{Kết luận và hướng phát triển}
+\label{ch:ketluan}
+
+\section{Kết luận}
+
+Đồ án xây dựng thành công hệ thống gợi ý nguyện vọng đại học Uni Connect, khép kín từ thu thập dữ liệu 10 năm (2016--2025) đến triển khai web phục vụ người dùng. Kết quả chính:
+
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item \textbf{Cơ sở dữ liệu thực tế quy mô lớn:} 295 trường, 3.037 ngành, 340 tổ hợp môn và 240.483 bản ghi điểm chuẩn qua 10 năm, giải quyết bài toán dữ liệu phân tán.
+  \item \textbf{Mô hình học máy đáng tin cậy:} Random Forest với 27 đặc trưng đạt Accuracy 74,56\%, ROC-AUC 0,8354 và Brier score 0,1763 trên tập kiểm thử độc lập năm 2025, vượt trội so với Decision Tree cơ sở.
+  \item \textbf{Gợi ý minh bạch có phân tầng:} Cơ chế 3 tầng (An toàn, Vừa sức, Thử sức) dựa trên xác suất trúng tuyển, kèm lời giải thích theo \code{margin}, \code{xu_huong} và \code{bien_dong}, giúp thí sinh xây dựng chiến lược nguyện vọng cân bằng.
+  \item \textbf{Ứng dụng web hoàn chỉnh:} Viết trên Django 5.2 kết hợp MySQL 8.0, thời gian phản hồi trang gợi ý đạt 0,42 giây (dưới ngưỡng 3 giây), có cơ chế dự phòng không gián đoạn khi thiếu mô hình AI.
+\end{itemize}
+
+\section{Bài học rút ra}
+
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item \textbf{Chất lượng và cấu trúc dữ liệu quyết định phần lớn hiệu năng:} Phần lớn thời gian đồ án tập trung vào làm sạch tên ngành, ánh xạ nhóm ngành, đồng bộ thang điểm và thiết kế bảng \code{cua_so_nam}. Khâu này đóng góp nhiều hơn việc tinh chỉnh sâu các siêu tham số học máy.
+  \item \textbf{Ranh giới rò rỉ dữ liệu trong bài toán thời gian:} Chia dữ liệu ngẫu nhiên (k-fold truyền thống) sẽ gây rò rỉ tương lai vào quá khứ, tạo kết quả ảo. Việc chia cứng theo thời gian (huấn luyện 2021--2024, kiểm thử 2025) và tính đặc trưng chỉ từ các năm trước đó là điều kiện tiên quyết để đánh giá đúng năng lực mô hình.
+  \item \textbf{Độ bền hệ thống quan trọng hơn độ phức tạp thuật toán:} Thiết kế bộ nhớ đệm nạp mô hình vào RAM và cơ chế dự phòng tự động chuyển sang xếp hạng \code{margin} khi lỗi nạp giúp hệ thống không bao giờ trả về lỗi 500 cho người dùng.
+\end{itemize}
+
+\section{Hướng phát triển}
+
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item \textbf{Mở rộng phương thức xét tuyển:} Tích hợp điểm thi Đánh giá năng lực (ĐHQG Hà Nội, ĐHQG TP.HCM) và Đánh giá tư duy (ĐH Bách Khoa Hà Nội) thông qua module chuẩn hóa thang điểm tương đương.
+  \item \textbf{Thu thập dữ liệu trúng tuyển thật:} Hợp tác hoặc khảo sát thí sinh sau mỗi mùa tuyển sinh để thu thập nhãn đỗ/trượt thật, thay thế dần nhãn giả lập từ \code{DELTAS}.
+  \item \textbf{Tối ưu hóa gợi ý tổ hợp môn:} Bổ sung thuật toán phân bổ thứ tự nguyện vọng theo lý thuyết trò chơi hoặc quy hoạch tuyến tính nhằm tối đa hóa xác suất trúng ít nhất một nguyện vọng ưu tiên.
+  \item \textbf{Kiểm thử tải và triển khai đám mây:} Đo đạc tải đồng thời trên nền tảng đám mây với cơ chế tự động mở rộng để phục vụ lượng truy cập lớn trong những ngày công bố điểm thi THPT.
+\end{itemize}

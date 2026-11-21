@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="300pt" viewBox="0 0 460 300">
+<defs><marker id="ar384152" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#384152"/></marker></defs>
+<rect x="0" y="0" width="460" height="300" fill="#FFFFFF"/>
+<rect x="336" y="34" width="118" height="34" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="1"/>
+<text x="395" y="44" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">View tầng web (Django)</text>
+<text x="395" y="57" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#384152" text-anchor="middle" dominant-baseline="middle">urls.py → views.py</text>
+<rect x="4" y="34" width="74" height="20" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="0.9"/>
+<text x="41" y="44" font-family="'Courier New', 'Liberation Mono', monospace" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">/</text>
+<rect x="84" y="34" width="244" height="20" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<text x="88" y="42" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET /</text>
+<path d="M330,44 L334,44" fill="none" stroke="#6B7280" stroke-width="0.7"/>
+<rect x="4" y="60" width="74" height="28" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="0.9"/>
+<text x="41" y="74" font-family="'Courier New', 'Liberation Mono', monospace" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">university/</text>
+<rect x="84" y="60" width="244" height="28" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<text x="88" y="68" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET /tra-cuu/   GET /truong/</text>
+<text x="88" y="76.99" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET /truong/&lt;ma_truong&gt;/</text>
+<path d="M330,74 L334,74" fill="none" stroke="#6B7280" stroke-width="0.7"/>
+<rect x="4" y="94" width="74" height="20" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="0.9"/>
+<text x="41" y="104" font-family="'Courier New', 'Liberation Mono', monospace" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">api/</text>
+<rect x="84" y="94" width="244" height="20" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<text x="88" y="102" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET /api/tra-cuu/</text>
+<path d="M330,104 L334,104" fill="none" stroke="#6B7280" stroke-width="0.7"/>
+<rect x="4" y="120" width="74" height="37.5" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="0.9"/>
+<text x="41" y="138.75" font-family="'Courier New', 'Liberation Mono', monospace" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">accounts/</text>
+<rect x="84" y="120" width="244" height="37.5" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<text x="88" y="128" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET,POST /dang-ky/   GET,POST /dang-nhap/</text>
+<text x="88" y="136.99" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET /dang-xuat/   GET /tai-khoan/</text>
+<text x="88" y="145.98" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">Google &amp; Facebook OAuth2</text>
+<path d="M330,138.75 L334,138.75" fill="none" stroke="#6B7280" stroke-width="0.7"/>
+<rect x="4" y="163.5" width="74" height="37.5" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="0.9"/>
+<text x="41" y="182.25" font-family="'Courier New', 'Liberation Mono', monospace" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">admissions/</text>
+<rect x="84" y="163.5" width="244" height="37.5" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<text x="88" y="171.5" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET /ho-so/   GET,POST /ho-so/tao/</text>
+<text x="88" y="180.49" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET /ho-so/chi-tiet/&lt;pk&gt;/</text>
+<text x="88" y="189.48" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET,POST /ho-so/sua/&lt;pk&gt;/   POST /ho-so/xoa/&lt;pk&gt;/</text>
+<path d="M330,182.25 L334,182.25" fill="none" stroke="#6B7280" stroke-width="0.7"/>
+<rect x="4" y="207" width="74" height="37.5" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="0.9"/>
+<text x="41" y="225.75" font-family="'Courier New', 'Liberation Mono', monospace" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">recommendation/</text>
+<rect x="84" y="207" width="244" height="37.5" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<text x="88" y="215" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET /goi-y/&lt;pk&gt;/   GET /goi-y/chi-tiet/&lt;kq_id&gt;/</text>
+<text x="88" y="223.99" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET,POST /goi-y/so-sanh/   GET,POST /goi-y/so-sanh/&lt;pk&gt;/</text>
+<text x="88" y="232.98" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET /goi-y/lich-su/&lt;pk&gt;/   POST /goi-y/lich-su/&lt;pk&gt;/xoa/</text>
+<path d="M330,225.75 L334,225.75" fill="none" stroke="#6B7280" stroke-width="0.7"/>
+<rect x="4" y="250.5" width="74" height="47" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="0.9"/>
+<text x="41" y="274" font-family="'Courier New', 'Liberation Mono', monospace" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">quantri/</text>
+<rect x="84" y="250.5" width="244" height="47" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.7"/>
+<text x="88" y="258.5" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET /quan-tri/dashboard/   GET /quan-tri/du-lieu/</text>
+<text x="88" y="267.49" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET,POST /quan-tri/cap-nhat/   POST /quan-tri/cap-nhat/chay/</text>
+<text x="88" y="276.48" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">GET /quan-tri/ai/   POST /quan-tri/ai/huan-luyen/</text>
+<text x="88" y="285.47" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.2" fill="#384152" text-anchor="start" dominant-baseline="middle">CRUD /quan-tri/nguoi-dung/</text>
+<path d="M330,274 L334,274" fill="none" stroke="#6B7280" stroke-width="0.7"/>
+<rect x="336" y="307.5" width="118" height="22" rx="4" fill="#E8F0EA" stroke="#196B24" stroke-width="0.9"/>
+<text x="395" y="318.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#196B24" text-anchor="middle" dominant-baseline="middle" font-weight="bold">services.py — lọc cứng + xếp hạng</text>
+<path d="M395,329.5 L395,334.5" fill="none" stroke="#384152" stroke-width="0.9" marker-end="url(#ar384152)"/>
+<rect x="336" y="334.5" width="118" height="22" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="0.9"/>
+<text x="395" y="345.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">ml/predict.py — Random Forest (RAM)</text>
+<path d="M395,356.5 L395,361.5" fill="none" stroke="#384152" stroke-width="0.9" marker-end="url(#ar384152)"/>
+<rect x="336" y="361.5" width="118" height="22" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="0.9"/>
+<text x="395" y="372.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Django ORM — models.py (managed=False)</text>
+<path d="M395,383.5 L395,388.5" fill="none" stroke="#384152" stroke-width="0.9" marker-end="url(#ar384152)"/>
+<rect x="336" y="388.5" width="118" height="22" rx="4" fill="#F3F4F6" stroke="#384152" stroke-width="0.9"/>
+<text x="395" y="399.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#384152" text-anchor="middle" dominant-baseline="middle" font-weight="bold">MySQL 8.0 — CSDL uni_map</text>
+<text x="230" y="14" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">SƠ ĐỒ ĐỊNH TUYẾN URL → TẦNG XỬ LÝ</text>
+</svg>

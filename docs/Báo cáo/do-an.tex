@@ -1,0 +1,54 @@
+% !TEX program = xelatex
+\documentclass[12pt, a4paper, oneside]{book}
+\input{styles/settings}
+\input{figs/so-do}
+
+\crname{BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO}
+\cmonhoc{Học phần AIP202 \textperiodcentered{} 2 tín chỉ}
+\ctname{HỆ THỐNG GỢI Ý NGUYỆN VỌNG ĐẠI HỌC\\BẰNG TRÍ TUỆ NHÂN TẠO UNI CONNECT}
+\cstuname{Nguyễn Ngọc Tân}
+\cmssv{2351220242}
+\clopsv{23CT1}
+\csCouncil{Công nghệ thông tin}
+\csSupervise{TS. Đỗ Phúc Hảo}
+\cttime{2026--2027}
+\csdeptname{KHOA CÔNG NGHỆ THÔNG TIN}
+\csplace{Đà Nẵng}
+
+\begin{document}
+
+\coverpage
+
+\frontmatter
+\dauPageStyle
+
+\input{chuong/00-loi-cam-doan}
+\input{chuong/00-loi-cam-on}
+\input{chuong/00-tom-tat}
+\input{chuong/00-danh-muc-viet-tat}
+
+{\small\tableofcontents}
+\listoffigures
+\listoftables
+
+\mainmatter
+\dauPageStyle
+
+\input{chuong/01-mo-dau}
+\input{chuong/02-co-so-ly-thuyet}
+\input{chuong/03-phan-tich-thiet-ke}
+\input{chuong/04-cai-dat-ket-qua}
+\input{chuong/05-ket-luan}
+
+
+\backmatter
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Tài liệu tham khảo}
+\bibliographystyle{plain}
+\bibliography{refs}
+
+\input{chuong/07-phu-luc}
+
+\end{document}

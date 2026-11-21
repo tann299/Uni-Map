@@ -1,0 +1,110 @@
+\begin{thebibliography}{10}
+
+\bibitem{Bergstra2012}
+James Bergstra and Yoshua Bengio.
+\newblock Random search for hyper-parameter optimization.
+\newblock {\em Journal of Machine Learning Research}, 13:281--305, 2012.
+
+\bibitem{Breiman1996}
+Leo Breiman.
+\newblock Bagging predictors.
+\newblock {\em Machine Learning}, 24(2):123--140, 1996.
+
+\bibitem{Breiman2001}
+Leo Breiman.
+\newblock Random forests.
+\newblock {\em Machine Learning}, 45(1):5--32, 2001.
+
+\bibitem{Brier1950}
+Glenn~W. Brier.
+\newblock Verification of forecasts expressed in terms of probability.
+\newblock {\em Monthly Weather Review}, 78(1):1--3, 1950.
+
+\bibitem{DjangoDocs}
+{Django Software Foundation}.
+\newblock {\em Django Documentation, Version 5.2}.
+\newblock Django Software Foundation, 2025.
+\newblock \url{https://docs.djangoproject.com/en/5.2/}.
+
+\bibitem{Fawcett2006}
+Tom Fawcett.
+\newblock An introduction to {ROC} analysis.
+\newblock {\em Pattern Recognition Letters}, 27(8):861--874, 2006.
+
+\bibitem{Fowler2002}
+Martin Fowler.
+\newblock {\em Patterns of Enterprise Application Architecture}.
+\newblock Addison-Wesley, Boston, 2002.
+
+\bibitem{Geron2019}
+Aur{\'e}lien G{\'e}ron.
+\newblock {\em Hands-On Machine Learning with Scikit-Learn, Keras, and
+  TensorFlow}.
+\newblock O'Reilly Media, Sebastopol, CA, 2 edition, 2019.
+
+\bibitem{Hastie2009}
+Trevor Hastie, Robert Tibshirani, and Jerome Friedman.
+\newblock {\em The Elements of Statistical Learning: Data Mining, Inference,
+  and Prediction}.
+\newblock Springer, New York, 2 edition, 2009.
+
+\bibitem{Ho1995}
+Tin~Kam Ho.
+\newblock Random decision forests.
+\newblock {\em Proceedings of the 3rd International Conference on Document
+  Analysis and Recognition}, 1:278--282, 1995.
+
+\bibitem{Kaufman2012}
+Shachar Kaufman, Saharon Rosset, Claudia Perlich, and Ofer Stitelman.
+\newblock Leakage in data mining: Formulation, detection, and avoidance.
+\newblock {\em ACM Transactions on Knowledge Discovery from Data},
+  6(4):15:1--15:21, 2012.
+
+\bibitem{HoangKiem}
+Hoàng Kiếm.
+\newblock {\em Giáo trình nhập môn trí tuệ nhân tạo}.
+\newblock Nhà xuất bản Đại học Quốc gia Thành phố Hồ Chí
+  Minh, Thành phố Hồ Chí Minh, 2007.
+
+\bibitem{McKinney2017}
+Wes McKinney.
+\newblock {\em Python for Data Analysis: Data Wrangling with Pandas, NumPy, and
+  IPython}.
+\newblock O'Reilly Media, Sebastopol, CA, 2 edition, 2017.
+
+\bibitem{MySQLDocs}
+{Oracle Corporation}.
+\newblock {\em MySQL 8.0 Reference Manual}.
+\newblock Oracle Corporation, 2024.
+\newblock \url{https://dev.mysql.com/doc/refman/8.0/en/}.
+
+\bibitem{Pedregosa2011}
+Fabian Pedregosa, Ga{\"e}l Varoquaux, Alexandre Gramfort, Vincent Michel,
+  Bertrand Thirion, Olivier Grisel, Mathieu Blondel, Peter Prettenhofer, Ron
+  Weiss, Vincent Dubourg, Jake Vanderplas, Alexandre Passos, David Cournapeau,
+  Matthieu Brucher, Matthieu Perrot, and {\'E}douard Duchesnay.
+\newblock Scikit-learn: Machine learning in python.
+\newblock {\em Journal of Machine Learning Research}, 12:2825--2830, 2011.
+
+\bibitem{Quinlan1986}
+J.~Ross Quinlan.
+\newblock Induction of decision trees.
+\newblock {\em Machine Learning}, 1(1):81--106, 1986.
+
+\bibitem{RussellNorvig2021}
+Stuart Russell and Peter Norvig.
+\newblock {\em Artificial Intelligence: A Modern Approach}.
+\newblock Pearson, Hoboken, NJ, 4 edition, 2021.
+
+\bibitem{Somerville2015}
+Ian Sommerville.
+\newblock {\em Software Engineering}.
+\newblock Pearson, Boston, 10 edition, 2015.
+
+\bibitem{VanderPlas2016}
+Jake VanderPlas.
+\newblock {\em Python Data Science Handbook: Essential Tools for Working with
+  Data}.
+\newblock O'Reilly Media, Sebastopol, CA, 2016.
+
+\end{thebibliography}

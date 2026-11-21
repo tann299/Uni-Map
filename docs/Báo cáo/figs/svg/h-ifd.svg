@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="292pt" viewBox="0 0 460 292">
+<defs><marker id="ar990000" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#990000"/></marker><marker id="arFBAE40" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#FBAE40"/></marker></defs>
+<rect x="0" y="0" width="460" height="292" fill="#FFFFFF"/>
+<rect x="8" y="34" width="100" height="30" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="1"/>
+<text x="58" y="45" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Trang chủ</text>
+<text x="58" y="56" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/</text>
+<rect x="120" y="34" width="100" height="30" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="170" y="45" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Tra cứu điểm chuẩn</text>
+<text x="170" y="56" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/tra-cuu/</text>
+<rect x="232" y="34" width="100" height="30" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="282" y="45" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Danh sách trường</text>
+<text x="282" y="56" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/truong/</text>
+<rect x="344" y="34" width="100" height="30" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="394" y="45" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Chi tiết trường</text>
+<text x="394" y="56" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/truong/&lt;ma&gt;/</text>
+<rect x="8" y="96" width="100" height="30" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="58" y="107" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Đăng nhập</text>
+<text x="58" y="118" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/dang-nhap/</text>
+<rect x="120" y="96" width="100" height="30" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="170" y="107" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Đăng ký</text>
+<text x="170" y="118" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/dang-ky/</text>
+<rect x="232" y="96" width="100" height="30" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="282" y="107" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Trang tài khoản</text>
+<text x="282" y="118" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/tai-khoan/</text>
+<rect x="344" y="96" width="100" height="30" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="394" y="107" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Quản lý hồ sơ</text>
+<text x="394" y="118" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/ho-so/</text>
+<rect x="8" y="158" width="100" height="30" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="58" y="169" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Nhập / sửa hồ sơ</text>
+<text x="58" y="180" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/ho-so/tao/</text>
+<rect x="120" y="158" width="100" height="30" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="170" y="169" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Chi tiết hồ sơ</text>
+<text x="170" y="180" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/ho-so/chi-tiet/</text>
+<rect x="232" y="158" width="100" height="30" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="1"/>
+<text x="282" y="169" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Kết quả gợi ý AI</text>
+<text x="282" y="180" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/goi-y/&lt;pk&gt;/</text>
+<rect x="344" y="158" width="100" height="30" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="1"/>
+<text x="394" y="169" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Lời giải thích</text>
+<text x="394" y="180" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/goi-y/chi-tiet/</text>
+<rect x="8" y="222" width="100" height="30" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="58" y="233" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Dashboard</text>
+<text x="58" y="244" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/quan-tri/dashboard/</text>
+<rect x="120" y="222" width="100" height="30" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="170" y="233" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Quản lý dữ liệu</text>
+<text x="170" y="244" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/quan-tri/du-lieu/</text>
+<rect x="232" y="222" width="100" height="30" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="282" y="233" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Trang AI</text>
+<text x="282" y="244" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/quan-tri/ai/</text>
+<rect x="344" y="222" width="100" height="30" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="394" y="233" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Quản lý người dùng</text>
+<text x="394" y="244" font-family="'Courier New', 'Liberation Mono', monospace" font-size="5.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">/quan-tri/nguoi-dung/</text>
+<path d="M108,49 L118,49" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<path d="M220,49 L230,49" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<path d="M332,49 L342,49" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<path d="M108,111 L118,111" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<path d="M220,111 L230,111" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<path d="M332,111 L342,111" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<path d="M108,173 L118,173" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<path d="M220,173 L230,173" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<path d="M332,173 L342,173" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<path d="M108,237 L118,237" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<path d="M220,237 L230,237" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<path d="M332,237 L342,237" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<path d="M170,64 L170,80" fill="none" stroke="#990000" stroke-width="1" stroke-dasharray="4,2"/>
+<path d="M170,80 L58,80" fill="none" stroke="#990000" stroke-width="1" stroke-dasharray="4,2"/>
+<path d="M58,80 L58,94" fill="none" stroke="#990000" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#ar990000)"/>
+<rect x="91.5" y="75.5" width="45" height="9" fill="#FFFFFF" stroke="none"/>
+<text x="114" y="80" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#990000" text-anchor="middle" dominant-baseline="middle">cần đăng nhập</text>
+<path d="M108,111 L118,111" fill="none" stroke="#990000" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#ar990000)"/>
+<path d="M282,126 L282,142" fill="none" stroke="#990000" stroke-width="1" stroke-dasharray="4,2"/>
+<path d="M282,142 L58,142" fill="none" stroke="#990000" stroke-width="1" stroke-dasharray="4,2"/>
+<path d="M58,142 L58,156" fill="none" stroke="#990000" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#ar990000)"/>
+<path d="M220,173 L230,173" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<rect x="207" y="157.5" width="36" height="9" fill="#FFFFFF" stroke="none"/>
+<text x="225" y="162" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#990000" text-anchor="middle" dominant-baseline="middle">chạy gợi ý</text>
+<path d="M332,173 L342,173" fill="none" stroke="#990000" stroke-width="1" marker-end="url(#ar990000)"/>
+<path d="M282,220 L282,206" fill="none" stroke="#FBAE40" stroke-width="1" stroke-dasharray="4,2"/>
+<path d="M282,206 L394,206" fill="none" stroke="#FBAE40" stroke-width="1" stroke-dasharray="4,2"/>
+<path d="M394,206 L394,190" fill="none" stroke="#FBAE40" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#arFBAE40)"/>
+<rect x="314" y="201.5" width="48" height="9" fill="#FFFFFF" stroke="none"/>
+<text x="338" y="206" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#FBAE40" text-anchor="middle" dominant-baseline="middle">huấn luyện lại</text>
+<text x="230" y="14" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">SƠ ĐỒ LUỒNG GIAO DIỆN (IFD)</text>
+<text x="230" y="286" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">nét liền: luồng chính    nét đứt: luồng phụ / quay về / phụ thuộc quyền</text>
+</svg>

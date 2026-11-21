@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="205pt" viewBox="0 0 460 205">
+
+<rect x="0" y="0" width="460" height="205" fill="#FFFFFF"/>
+<rect x="94" y="70.646" width="26" height="79.354" rx="2" fill="#6B7280" stroke="none"/>
+<text x="107" y="62.646" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-weight="bold">0,7214</text>
+<text x="107" y="160" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-weight="bold">DT</text>
+<rect x="124" y="67.984" width="26" height="82.016" rx="2" fill="#990000" stroke="none"/>
+<text x="137" y="59.984" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">0,7456</text>
+<text x="137" y="160" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">RF</text>
+<text x="122" y="174" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.2" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Accuracy</text>
+<rect x="188" y="67.115" width="26" height="82.885" rx="2" fill="#6B7280" stroke="none"/>
+<text x="201" y="59.115" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-weight="bold">0,7535</text>
+<text x="201" y="160" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-weight="bold">DT</text>
+<rect x="218" y="58.106" width="26" height="91.894" rx="2" fill="#990000" stroke="none"/>
+<text x="231" y="50.106" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">0,8354</text>
+<text x="231" y="160" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">RF</text>
+<text x="216" y="174" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.2" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">ROC-AUC</text>
+<rect x="282" y="70.987" width="26" height="79.013" rx="2" fill="#6B7280" stroke="none"/>
+<text x="295" y="62.987" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-weight="bold">0,7183</text>
+<text x="295" y="160" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-weight="bold">DT</text>
+<rect x="312" y="67.577" width="26" height="82.423" rx="2" fill="#990000" stroke="none"/>
+<text x="325" y="59.577" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">0,7493</text>
+<text x="325" y="160" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">RF</text>
+<text x="310" y="174" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.2" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">F1 (lớp Đỗ)</text>
+<path d="M80,150 L80,40" fill="none" stroke="#0E2841" stroke-width="1"/>
+<path d="M80,150 L450,150" fill="none" stroke="#0E2841" stroke-width="1"/>
+<path d="M76,150 L80,150" fill="none" stroke="#0E2841" stroke-width="0.8"/>
+<text x="73" y="150" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="end" dominant-baseline="middle">0,0</text>
+<path d="M76,128 L80,128" fill="none" stroke="#0E2841" stroke-width="0.8"/>
+<text x="73" y="128" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="end" dominant-baseline="middle">0,2</text>
+<path d="M76,106 L80,106" fill="none" stroke="#0E2841" stroke-width="0.8"/>
+<text x="73" y="106" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="end" dominant-baseline="middle">0,4</text>
+<path d="M76,84 L80,84" fill="none" stroke="#0E2841" stroke-width="0.8"/>
+<text x="73" y="84" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="end" dominant-baseline="middle">0,6</text>
+<path d="M76,62 L80,62" fill="none" stroke="#0E2841" stroke-width="0.8"/>
+<text x="73" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="end" dominant-baseline="middle">0,8</text>
+<path d="M76,40 L80,40" fill="none" stroke="#0E2841" stroke-width="0.8"/>
+<text x="73" y="40" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="end" dominant-baseline="middle">1,0</text>
+<text x="54" y="95" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#384152" text-anchor="middle" dominant-baseline="middle">giá trị</text>
+<text x="230" y="14" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">SO SÁNH TRỰC QUAN HAI MÔ HÌNH TRÊN TẬP KIỂM THỬ 2025</text>
+<text x="230" y="191" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">Cột xám: Decision Tree (đối chứng) — Cột đỏ: Random Forest (mô hình chính)</text>
+</svg>

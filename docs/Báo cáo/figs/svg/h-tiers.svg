@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="150pt" viewBox="0 0 460 150">
+
+<rect x="0" y="0" width="460" height="150" fill="#FFFFFF"/>
+<rect x="50" y="52" width="152" height="46" fill="#FDF0E4" stroke="#C05621" stroke-width="1.2"/>
+<text x="126" y="70" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9" fill="#C05621" text-anchor="middle" dominant-baseline="middle" font-weight="bold">THỬ SỨC</text>
+<text x="126" y="84" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7" fill="#C05621" text-anchor="middle" dominant-baseline="middle">p &lt; 0,40</text>
+<rect x="202" y="52" width="152" height="46" fill="#E8F0FA" stroke="#1F4E78" stroke-width="1.2"/>
+<text x="278" y="70" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9" fill="#1F4E78" text-anchor="middle" dominant-baseline="middle" font-weight="bold">VỪA SỨC</text>
+<text x="278" y="84" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7" fill="#1F4E78" text-anchor="middle" dominant-baseline="middle">0,40 ≤ p &lt; 0,80</text>
+<rect x="354" y="52" width="76" height="46" fill="#E9F5EA" stroke="#196B24" stroke-width="1.2"/>
+<text x="392" y="70" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9" fill="#196B24" text-anchor="middle" dominant-baseline="middle" font-weight="bold">AN TOÀN</text>
+<text x="392" y="84" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7" fill="#196B24" text-anchor="middle" dominant-baseline="middle">p ≥ 0,80</text>
+<path d="M50,106 L430,106" fill="none" stroke="#0E2841" stroke-width="1"/>
+<path d="M50,106 L50,111" fill="none" stroke="#0E2841" stroke-width="0.9"/>
+<text x="50" y="120" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#384152" text-anchor="middle" dominant-baseline="middle">0,0</text>
+<path d="M126,106 L126,111" fill="none" stroke="#0E2841" stroke-width="0.9"/>
+<text x="126" y="120" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#384152" text-anchor="middle" dominant-baseline="middle">0,2</text>
+<path d="M202,106 L202,111" fill="none" stroke="#0E2841" stroke-width="0.9"/>
+<text x="202" y="120" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#384152" text-anchor="middle" dominant-baseline="middle">0,4</text>
+<path d="M278,106 L278,111" fill="none" stroke="#0E2841" stroke-width="0.9"/>
+<text x="278" y="120" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#384152" text-anchor="middle" dominant-baseline="middle">0,6</text>
+<path d="M354,106 L354,111" fill="none" stroke="#0E2841" stroke-width="0.9"/>
+<text x="354" y="120" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#384152" text-anchor="middle" dominant-baseline="middle">0,8</text>
+<path d="M430,106 L430,111" fill="none" stroke="#0E2841" stroke-width="0.9"/>
+<text x="430" y="120" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#384152" text-anchor="middle" dominant-baseline="middle">1,0</text>
+<text x="240" y="134" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">xác suất trúng tuyển dự đoán p</text>
+<text x="230" y="16" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">BA TẦNG PHÂN LOẠI NGUYỆN VỌNG</text>
+<text x="230" y="32" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">Ngưỡng cố định, công khai trên giao diện — người dùng không phải tự ước đoán</text>
+</svg>

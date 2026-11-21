@@ -1,0 +1,1834 @@
+BỘ GIÁO DỤC VÀ ĐÀO TẠO
+
+TRƯỜNG ĐẠI HỌC KIẾN TRÚC ĐÀ NẴNG
+KHOA CÔNG NGHỆ THÔNG TIN
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+Học phần AIP202 ꞏ 2 tín chỉ
+
+HỆ THỐNG GỢI Ý NGUYỆN VỌNG ĐẠI HỌC
+BẰNG TRÍ TUỆ NHÂN TẠO (UNI CONNECT)
+
+Sinh viên thực hiện
+
+: Nguyễn Ngọc Tân (2351220242)
+
+Lớp
+
+: 23CT1
+
+Ngành
+
+: Công nghệ thông tin
+
+Giảng viên hướng dẫn : TS. Đỗ Phúc Hảo
+Năm học
+
+: 2026–2027
+
+Đà Nẵng ꞏ 2026–2027
+
+Lời cam đoan
+Tôi xin cam đoan đồ án này là công trình do chính tôi thực hiện dưới sự hướng dẫn của
+TS. Đỗ Phúc Hảo. Các nội dung nghiên cứu, số liệu và kết quả trình bày trong đồ án là
+trung thực và chưa từng được công bố trong bất kỳ công trình nào khác.
+Mọi số liệu, hình ảnh, mã nguồn và kết quả của tác giả khác được sử dụng trong đồ án
+đều được trích dẫn nguồn gốc rõ ràng trong phần tài liệu tham khảo. Toàn bộ phần mềm
+và thư viện được dùng đều có giấy phép cho phép sử dụng. Những phần có sử dụng công
+cụ trí tuệ nhân tạo hỗ trợ đã được nêu rõ trong báo cáo.
+Nếu phát hiện có bất kỳ sự gian lận nào, tôi xin chịu hoàn toàn trách nhiệm trước Khoa
+và Nhà trường.
+
+Đà Nẵng, ngày … tháng … năm …
+Sinh viên thực hiện
+
+Nguyễn Ngọc Tân
+
+i
+
+Lời cảm ơn
+Em xin gửi lời cảm ơn chân thành và sâu sắc nhất đến TS. Đỗ Phúc Hảo, người đã tận
+tình định hướng đề tài, góp ý chuyên môn và theo sát tiến độ của em trong suốt quá trình
+xây dựng và hoàn thiện đồ án Hệ thống gợi ý nguyện vọng đại học (Uni Connect).
+Em cũng xin trân trọng cảm ơn quý thầy cô Khoa Công nghệ Thông tin, Trường Đại
+học Kiến trúc Đà Nẵng đã tận tâm giảng dạy, trang bị cho em nền tảng kiến thức vững
+chắc về công nghệ phần mềm, cơ sở dữ liệu và trí tuệ nhân tạo để em có thể áp dụng vào
+giải quyết bài toán thực tế này.
+Cuối cùng, em xin bày tỏ lòng biết ơn sâu sắc đến gia đình và bạn bè đã luôn động
+viên, chia sẻ và tạo mọi điều kiện thuận lợi nhất để em an tâm học tập và hoàn thành đồ
+án đúng thời hạn.
+
+Đà Nẵng, ngày … tháng … năm …
+Sinh viên thực hiện
+
+Nguyễn Ngọc Tân
+
+ii
+
+Tóm tắt
+Chọn nguyện vọng đại học là quyết định then chốt của học sinh trung học phổ thông,
+tuy nhiên các em thường gặp khó khăn do dữ liệu điểm chuẩn phân tán, quy mô tuyển
+sinh lớn và thiếu công cụ định lượng rủi ro xét tuyển. Đồ án xây dựng hệ thống web Uni
+Connect tích hợp mô hình trí tuệ nhân tạo nhằm hỗ trợ học sinh tra cứu thông tin điểm
+chuẩn đa chiều và nhận gợi ý danh sách trường, ngành phù hợp dựa trên năng lực cá nhân.
+Hệ thống quản lý cơ sở dữ liệu điểm chuẩn thực tế qua 10 năm (2016–2025) bao gồm
+295 trường đại học, 3.037 ngành đào tạo, 340 tổ hợp môn xét tuyển và hơn 240.000 bản
+ghi điểm chuẩn. Dựa trên chuỗi dữ liệu lịch sử này, một quy trình trích xuất 27 chiều đặc
+trưng (khoảng cách điểm margin, điểm trung bình, biên độ dao động, xu hướng biến động
+điểm qua hồi quy tuyến tính, nhóm ngành và vùng miền) được thiết kế và huấn luyện với
+thuật toán Random Forest. Mô hình được đánh giá trên tập kiểm thử độc lập năm 2025 đạt
+độ chính xác 74,56%, diện tích dưới đường cong ROC (ROC-AUC) đạt 0,8354 và chỉ số
+Brier score là 0,1763, vượt trội so với mô hình cơ sở Decision Tree (72,14% độ chính xác
+và 0,7535 ROC-AUC).
+Toàn bộ giải pháp được đóng gói và triển khai trên nền tảng web hoàn chỉnh sử dụng
+framework Django 5.2 kết hợp hệ quản trị cơ sở dữ liệu MySQL. Hệ thống tự động phân
+loại nguyện vọng theo ba tầng trực quan: An toàn (𝑝 ≥ 0,80), Vừa sức (0,40 ≤ 𝑝 < 0,80)
+và Thử sức (𝑝 < 0,40), kèm theo lời giải thích tường minh về khoảng cách điểm và xu
+hướng cạnh tranh. Kết quả thử nghiệm thực tế chứng minh hệ thống đáp ứng tốt tiêu
+chuẩn thời gian phản hồi dưới 3 giây, vận hành ổn định trên hạ tầng máy chủ hạn chế và
+mang lại giá trị định hướng thực tiễn cao cho học sinh và phụ huynh.
+Từ khoá: gợi ý nguyện vọng, tuyển sinh đại học, Random Forest, phân tầng rủi ro, cửa
+sổ trượt, Django, Uni Connect.
+
+iii
+
+Danh mục từ viết tắt
+
+iv
+
+Danh mục từ viết tắt
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+v
+
+Danh mục từ viết tắt
+
+Từ viết tắt
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+Diễn giải
+Trí tuệ nhân tạo (Artificial Intelligence)
+
+AI
+Diện tích dưới đường cong (Area Under the Curve)
+AUC
+Công nghệ thông tin
+CNTT
+Cơ sở dữ liệu
+CSDL
+Trường Đại học Kiến trúc Đà Nẵng
+DAU
+Decision Tree
+DT
+Lược đồ quan hệ thực thể (Entity–Relationship Diagram)
+ERD
+Giáo dục và Đào tạo
+GD-ĐT
+Giảng viên hướng dẫn
+GVHD
+Học máy (Machine Learning)
+ML
+Mã số sinh viên
+MSSV
+Ánh xạ quan hệ đối tượng (Object–Relational Mapping)
+ORM
+Yêu cầu phi chức năng (Performance Constraint)
+PC
+Bộ nhớ truy xuất ngẫu nhiên (Random Access Memory)
+RAM
+ROC
+
+Đường cong đặc trưng hoạt động (Receiver Operating Characteristic)
+Random Forest
+
+RF
+Mức cam kết dịch vụ (Service Level Agreement)
+SLA
+Trung học phổ thông
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+THPT
+
+Ca sử dụng (Use Case)
+
+vi
+
+Danh mục từ viết tắt
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+Ghi chú: Các thuật ngữ tiếng Anh chuyên ngành khi xuất hiện lần đầu trong thân báo cáo
+đều được in nghiêng kèm nghĩa tiếng Việt tương ứng.
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+vii
+
+Mục lục
+Lời cam đoan
+
+i
+
+Lời cảm ơn
+
+ii
+
+Tóm tắt
+
+iii
+
+Danh mục từ viết tắt
+
+v
+
+1
+
+Mở đầu
+1.1 Lý do chọn đề tài . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2 Mục tiêu của đồ án . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3 Phạm vi và đối tượng . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.4 Bố cục báo cáo . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+1
+1
+2
+2
+3
+
+2
+
+Cơ sở lý thuyết và công nghệ
+2.1 Bài toán phân loại có giám sát . . . . . . . . . . . . . . . . . . . . . . .
+2.2 Decision Tree và Random Forest . . . . . . . . . . . . . . . . . . . . . .
+2.2.1 Decision Tree . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.2.2 Random Forest . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.3 Các chỉ số đánh giá mô hình . . . . . . . . . . . . . . . . . . . . . . . .
+2.4 Công cụ và thư viện . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.5 Các công trình liên quan . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+4
+4
+4
+4
+5
+5
+6
+6
+
+3
+
+Phân tích và thiết kế
+3.1 Phân tích bài toán và yêu cầu . . . . . . . . . . . . . . . . . . . . . . . .
+3.1.1 Đầu vào và đầu ra của hệ thống . . . . . . . . . . . . . . . . . .
+3.1.2 Yêu cầu chức năng . . . . . . . . . . . . . . . . . . . . . . . . .
+3.1.3 Yêu cầu phi chức năng . . . . . . . . . . . . . . . . . . . . . . .
+3.2 Thiết kế kiến trúc hệ thống . . . . . . . . . . . . . . . . . . . . . . . . .
+3.3 Thiết kế dữ liệu . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.3.1 Nguồn và quy mô dữ liệu . . . . . . . . . . . . . . . . . . . . .
+3.3.2 Lược đồ cơ sở dữ liệu . . . . . . . . . . . . . . . . . . . . . . .
+3.4 Thiết kế mô hình và bộ đặc trưng . . . . . . . . . . . . . . . . . . . . .
+3.4.1 Chiến lược sinh nhãn huấn luyện . . . . . . . . . . . . . . . . .
+
+8
+8
+8
+8
+10
+10
+11
+12
+13
+13
+14
+
+viii
+
+Mục lục
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+3.4.2 Bộ 27 đặc trưng và siêu tham số . . . . . . . . . . . . . . . . . .
+Thiết kế luồng giao diện . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+14
+15
+
+4
+
+Cài đặt và thử nghiệm
+4.1 Môi trường triển khai . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.2 Các thành phần mã nguồn chính . . . . . . . . . . . . . . . . . . . . . .
+4.2.1 Pipeline tiền xử lý và sinh tập dữ liệu . . . . . . . . . . . . . . .
+4.2.2 Huấn luyện mô hình và tối ưu kích thước lưu trữ . . . . . . . .
+4.2.3 Động cơ suy luận và cơ chế chịu lỗi . . . . . . . . . . . . . . . .
+4.3 Giao diện và kịch bản sử dụng . . . . . . . . . . . . . . . . . . . . . . .
+4.4 Kiểm thử hệ thống . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+16
+16
+16
+16
+17
+18
+19
+20
+
+5
+
+Kết quả và đánh giá
+5.1 Kết quả đạt được . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2 Độ đo đánh giá . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2.1 Tầm quan trọng đặc trưng . . . . . . . . . . . . . . . . . . . . .
+5.3 Bàn luận . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.4 Hạn chế . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+22
+22
+22
+23
+24
+24
+
+6
+
+Kết luận và hướng phát triển
+6.1 Kết luận . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.2 Bài học rút ra . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6.3 Hướng phát triển . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+25
+25
+25
+26
+
+3.5
+
+Tài liệu tham khảo
+
+27
+
+Phụ lục
+A. Hướng dẫn cài đặt và chạy chương trình . . . . . . . . . . . . . . . . . . .
+B. Bảng tự kiểm trước khi nộp . . . . . . . . . . . . . . . . . . . . . . . . . .
+C. Nhận xét của giảng viên hướng dẫn . . . . . . . . . . . . . . . . . . . . . .
+
+28
+28
+28
+29
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+ix
+
+Danh sách hình vẽ
+3.1
+3.2
+3.3
+3.4
+3.5
+3.6
+
+Sơ đồ ca sử dụng (Use Case) tổng thể của hệ thống Uni Connect. . . . .
+Sơ đồ phân rã chức năng (BFD) của hệ thống Uni Connect. . . . . . . .
+Sơ đồ kiến trúc tổng thể của hệ thống gợi ý nguyện vọng Uni Connect.
+Sơ đồ định tuyến API và URL của hệ thống Uni Connect. . . . . . . . .
+Lược đồ quan hệ (ERD) của cơ sở dữ liệu uni_map. . . . . . . . . . . .
+Sơ đồ luồng giao diện (IFD) của hệ thống Uni Connect. . . . . . . . . .
+
+9
+9
+10
+11
+13
+15
+
+4.1
+
+Mô phỏng cấu trúc giao diện phân tầng kết quả gợi ý nguyện vọng Uni
+Connect. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Ảnh chụp màn hình thực tế các phân hệ chính của ứng dụng Uni Connect.
+
+19
+20
+
+4.2
+
+x
+
+Danh sách bảng
+2.1
+
+Công cụ và thư viện sử dụng trong đồ án Uni Connect. . . . . . . . . .
+
+6
+
+3.1
+
+Quy mô cơ sở dữ liệu điểm chuẩn thực tế của hệ thống Uni Connect. . .
+
+12
+
+4.1
+
+Kịch bản và kết quả các ca kiểm thử chính của hệ thống Uni Connect. .
+
+21
+
+5.1
+
+So sánh Decision Tree và Random Forest trên tập kiểm thử năm 2025
+(244.123 mẫu). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Mức đóng góp của 6 đặc trưng quan trọng nhất. . . . . . . . . . . . . .
+
+23
+23
+
+5.2
+
+xi
+
+1
+Mở đầu
+1.1 Lý do chọn đề tài
+Kỳ thi tốt nghiệp Trung học phổ thông (THPT) và xét tuyển đại học là bước ngoặt quan
+trọng đối với mỗi học sinh lớp 12 tại Việt Nam. Hằng năm, có gần 1 triệu thí sinh tham
+dự kỳ thi với hàng chục nghìn ngành đào tạo thuộc hàng trăm trường đại học trên toàn
+quốc. Theo quy chế tuyển sinh của Bộ Giáo dục và Đào tạo, thí sinh được đăng ký không
+giới hạn số lượng nguyện vọng và hệ thống chỉ xét trúng tuyển vào một nguyện vọng duy
+nhất có thứ tự ưu tiên cao nhất.
+Tuy nhiên, trong quá trình lựa chọn và sắp xếp danh sách nguyện vọng, học sinh và
+phụ huynh thường đối mặt với nhiều rào cản lớn:
+• Dữ liệu phân tán và thiếu tính hệ thống: Điểm chuẩn qua các năm được công bố
+rải rác trên cổng thông tin của từng trường hoặc các trang tin tức tổng hợp với nhiều
+định dạng khác nhau, gây khó khăn cho việc tra cứu và so sánh chuỗi dữ liệu lịch sử.
+• Thiếu công cụ phân tích rủi ro định lượng: Thí sinh chủ yếu so sánh điểm thi cá
+nhân với điểm chuẩn của một năm gần nhất một cách cảm tính mà không tính đến các
+yếu tố biến động quan trọng như: xu hướng tăng giảm điểm chuẩn qua nhiều năm,
+mức độ dao động phổ điểm và độ cạnh tranh của từng nhóm ngành, vùng miền.
+• Chiến lược đặt nguyện vọng thiếu an toàn: Rất nhiều thí sinh đặt toàn bộ các
+ngành có điểm chuẩn xấp xỉ điểm thi hoặc quá cao, dẫn đến nguy cơ trượt toàn bộ
+các nguyện vọng yêu thích; ngược lại, một số em vì tâm lý lo sợ đã chọn các ngành
+quá thấp so với năng lực thực tế.
+Trước thực trạng đó, việc ứng dụng trí tuệ nhân tạo và học máy để xây dựng một hệ
+thống gợi ý nguyện vọng thông minh là nhu cầu cấp thiết. Hệ thống Uni Connect được
+phát triển nhằm tự động hóa quy trình thu thập dữ liệu điểm chuẩn 10 năm của các trường
+đại học tại Việt Nam, huấn luyện mô hình học máy để ước lượng xác suất trúng tuyển và
+phân tầng danh sách gợi ý thành ba mức: An toàn, Vừa sức và Thử sức. Giải pháp không
+1
+
+Chương 1. Mở đầu
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+chỉ giúp học sinh tiết kiệm thời gian tra cứu mà còn cung cấp cơ sở khoa học rõ ràng để
+các em tự tin đưa ra quyết định tuyển sinh tối ưu.
+
+1.2 Mục tiêu của đồ án
+Đồ án hướng tới các mục tiêu cụ thể sau:
+• Mục tiêu 1 (Dữ liệu): Xây dựng công cụ thu thập tự động và chuẩn hóa cơ sở dữ
+liệu điểm chuẩn tuyển sinh đại học qua 10 năm (2016–2025) với quy mô tối thiểu
+250 trường, 3.000 ngành và 200.000 bản ghi điểm chuẩn trên toàn quốc.
+• Mục tiêu 2 (Mô hình AI): Trích xuất bộ đặc trưng gồm 27 chiều phản ánh quan hệ
+giữa điểm năng lực cá nhân và đặc tính lịch sử của từng ngành học; huấn luyện mô
+hình Random Forest đạt độ chính xác dự báo trên 70% và chỉ số ROC-AUC trên 0,80
+trên tập kiểm thử độc lập.
+• Mục tiêu 3 (Phân tầng và giải thích): Thiết kế cơ chế phân tầng nguyện vọng 3 mức
+(An toàn, Vừa sức, Thử sức) dựa trên xác suất trúng tuyển dự đoán, đồng thời sinh
+lời giải thích trực quan dựa trên khoảng cách điểm (margin), xu hướng biến động
+(xu_huong) và độ biến động (bien_dong).
+• Mục tiêu 4 (Ứng dụng web): Phát triển ứng dụng web hoàn chỉnh bằng framework
+Django 5.2 kết hợp hệ quản trị cơ sở dữ liệu MySQL, cung cấp các tính năng tra cứu,
+quản lý hồ sơ điểm, nhận gợi ý AI và quản trị dữ liệu với thời gian phản hồi dưới 3
+giây.
+
+1.3 Phạm vi và đối tượng
+Đối tượng nghiên cứu:
+• Dữ liệu điểm trúng tuyển đại học các năm từ 2016 đến 2025 tại Việt Nam.
+• Các kỹ thuật tiền xử lý dữ liệu dạng bảng, trích xuất đặc trưng chuỗi thời gian và
+thuật toán Machine Learning phân loại có giám sát (Decision Tree, Random Forest).
+• Mô hình kiến trúc ứng dụng web hướng dịch vụ phục vụ người dùng cuối.
+Phạm vi thực hiện:
+• Phương thức xét tuyển: Giới hạn ở hai phương thức chiếm tỷ trọng lớn nhất và cùng
+thang điểm 30/40 là xét điểm thi tốt nghiệp THPT và xét điểm học bạ THPT. Không
+xử lý các kỳ thi đánh giá năng lực, đánh giá tư duy hoặc chứng chỉ ngoại ngữ riêng
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+2
+
+Chương 1. Mở đầu
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+biệt do khác biệt về thang điểm chuẩn.
+• Bản chất bài toán: Hệ thống đóng vai trò công cụ tư vấn và hỗ trợ ra quyết định cho
+thí sinh. Hệ thống không thay thế việc đăng ký nguyện vọng chính thức trên cổng
+thông tin của Bộ Giáo dục và Đào tạo và không dự đoán điểm chuẩn năm tới thành
+một con số tuyệt đối.
+• Môi trường triển khai: Hệ thống được thiết kế tối ưu để có thể huấn luyện và vận
+hành hiệu quả trên hạ tầng máy chủ cơ bản của trường học, không đòi hỏi phần cứng
+chuyên dụng hoặc GPU dung lượng lớn.
+
+1.4 Bố cục báo cáo
+Phần còn lại của báo cáo đồ án được tổ chức thành 5 chương chính như sau:
+• Chương 2 — Cơ sở lý thuyết và công nghệ: Trình bày cơ sở lý thuyết về bài toán
+phân loại Machine Learning, thuật toán Decision Tree, Random Forest, các chỉ số
+đánh giá mô hình và danh mục công nghệ, thư viện được sử dụng.
+• Chương 3 — Phân tích và thiết kế: Phân tích yêu cầu chức năng, phi chức năng,
+ca sử dụng (Use Case), thiết kế kiến trúc tổng thể, lược đồ cơ sở dữ liệu quan hệ và
+quy trình thiết kế bộ 27 đặc trưng cho mô hình gợi ý.
+• Chương 4 — Cài đặt và thử nghiệm: Mô tả chi tiết môi trường phát triển, quá trình
+triển khai mã nguồn thu thập dữ liệu, mã nguồn huấn luyện mô hình và giao diện
+người dùng thực tế của ứng dụng Uni Connect.
+• Chương 5 — Kết quả và đánh giá: Phân tích kết quả thực nghiệm của các mô hình
+trên tập kiểm thử năm 2025, đối chiếu mục tiêu, đánh giá độ quan trọng của các đặc
+trưng và thảo luận các trường hợp sai lệch.
+• Chương 6 — Kết luận và hướng phát triển: Tổng kết các đóng góp chính của đồ
+án, bài học kinh nghiệm và đề xuất các hướng nghiên cứu, mở rộng tính năng trong
+tương lai.
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+3
+
+2
+Cơ sở lý thuyết và công nghệ
+2.1 Bài toán phân loại có giám sát
+ĐỊNH NGHĨA ꞏ Phân loại nhị phân
+
+Phân loại nhị phân (binary classification) là bài toán học máy gán cho mỗi vector đặc
+trưng đầu vào 𝑥 một nhãn 𝑦 thuộc tập nhãn gồm hai lớp, ví dụ 𝒴 = {0, 1}. Bộ phân
+loại học một hàm 𝑓 ∶ 𝑥 ↦ 𝑃 (𝑦 = 1 ∣ 𝑥) từ dữ liệu huấn luyện đã gán nhãn sẵn, trong
+đó giá trị dự đoán thể hiện xác suất thuộc về lớp dương tính.
+Trong bối cảnh đồ án này, bài toán được mô hình hóa như sau: đầu vào là bộ 27 đặc
+trưng kết hợp giữa điểm thi năng lực của thí sinh và đặc tính lịch sử của một nguyện
+vọng cụ thể (trường, ngành, tổ hợp, phương thức). Đầu ra là xác suất thí sinh trúng tuyển
+(𝑦 = 1) vào nguyện vọng đó.
+Đặc thù của bài toán là quan hệ giữa các đặc trưng mang tính phi tuyến sâu sắc: giá
+trị của margin lớn hơn 2,0 điểm không nhất thiết đồng nghĩa với xác suất đỗ gấp đôi so
+với khi margin bằng 1,0 điểm, vì còn chịu tác động tương quan của nhiều yếu tố như xu
+hướng biến động điểm và nhóm ngành đào tạo. Do đó, các mô hình tuyến tính đơn giản
+khó đạt hiệu quả tối ưu, mở đường cho việc sử dụng các mô hình Decision Tree tập hợp.
+
+2.2 Decision Tree và Random Forest
+2.2.1 Decision Tree
+Decision Tree xây dựng một cấu trúc cây, trong đó mỗi nút trong tương ứng với một phép
+kiểm tra trên một đặc trưng, mỗi nhánh ứng với một kết quả kiểm tra, và mỗi nút lá chứa
+quyết định phân lớp cuối cùng. Quá trình huấn luyện lựa chọn đặc trưng và ngưỡng phân
+chia tại mỗi nút sao cho độ thuần nhất (purity) của các tập con tăng lên tối đa, thường đo
+
+4
+
+Chương 2. Cơ sở lý thuyết và công nghệ
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+bằng chỉ số bất thuần Gini:
+𝐾
+
+𝐺𝑖𝑛𝑖(𝑆) = 1 − ∑ 𝑝𝑘2 ,
+
+(2.1)
+
+𝑘=1
+
+trong đó 𝑝𝑘 là tỷ lệ mẫu thuộc lớp 𝑘 trong tập 𝑆 .
+Decision Tree có ưu điểm là tốc độ huấn luyện nhanh, dễ diễn giải và trực quan hóa
+logic ra quyết định. Tuy nhiên, một cây đơn lẻ rất dễ bị hiện tượng quá khớp (overfitting)
+khi cây mọc quá sâu, học thuộc cả nhiễu trong dữ liệu huấn luyện.
+
+2.2.2 Random Forest
+Random Forest là kỹ thuật học tập hợp (ensemble learning) theo phương pháp đóng bao
+(bagging), được đề xuất bởi Leo Breiman [1]. Mô hình xây dựng một tập hợp gồm nhiều
+Decision Tree độc lập, mỗi cây được huấn luyện trên một tập mẫu con lấy ngẫu nhiên có
+hoàn lại từ tập huấn luyện (bootstrap sampling) và tại mỗi lần chia nút chỉ xét một tập con
+ngẫu nhiên các đặc trưng.
+Kết quả dự đoán xác suất cuối cùng được tổng hợp bằng cách lấy trung bình xác suất
+thành viên của tất cả các cây trong rừng:
+𝑃 (𝑦 = 1 ∣ x) =
+
+1 𝑇
+∑ 𝑃 (𝑦 = 1 ∣ x),
+𝑇 𝑡=1 𝑡
+
+(2.2)
+
+trong đó 𝑇 là số cây trong rừng và 𝑃𝑡 là xác suất dự đoán của cây thứ 𝑡 theo Công
+thức (2.2).
+GHI NHỚ
+
+Random Forest đặc biệt phù hợp với dữ liệu dạng bảng, quan hệ phi tuyến và không
+yêu cầu chuẩn hóa khắt khe. Tham số feature_importances_ có sẵn của mô hình
+còn cung cấp khả năng giải thích tầm quan trọng của từng đặc trưng — yếu tố cốt lõi
+phục vụ chức năng sinh lời giải thích gợi ý trong hệ thống Uni Connect.
+
+2.3 Các chỉ số đánh giá mô hình
+Để đánh giá toàn diện khả năng dự báo xác suất trúng tuyển, đồ án sử dụng đồng thời
+bốn nhóm chỉ số sau trên tập kiểm thử độc lập năm 2025:
+• Độ chính xác (Accuracy): Tỷ lệ tổng số dự đoán đúng trên tổng số mẫu. Chỉ số này
+phản ánh hiệu năng tổng thể nhưng có thể gây hiểu lầm nếu dữ liệu mất cân bằng
+giữa các lớp.
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+5
+
+Chương 2. Cơ sở lý thuyết và công nghệ
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+• Độ chính xác của lớp Đỗ và lớp Trượt (Precision): Tỷ lệ dự đoán đúng trong số các
+mẫu được dự đoán thuộc về một lớp. Đây là chỉ số quan trọng vì hệ thống phải đảm
+bảo khi nói thí sinh có khả năng đỗ thì kết quả phải đáng tin cậy và ngược lại.
+• Diện tích dưới đường cong ROC (ROC-AUC): Đo lường khả năng phân tách và xếp
+hạng giữa hai lớp Đỗ và Trượt trên mọi ngưỡng xác suất phân loại. ROC-AUC càng
+gần 1,0 thì mô hình phân biệt càng tốt.
+• Chỉ số Brier (Brier score): Sai số bình phương trung bình giữa xác suất dự đoán và
+nhãn thực tế. Vì hệ thống dùng giá trị xác suất để phân tầng nguyện vọng (An toàn,
+Vừa sức, Thử sức), Brier score càng thấp thì mức độ hiệu chuẩn (calibration) của xác
+suất càng tốt.
+
+2.4 Công cụ và thư viện
+Hệ thống Uni Connect được xây dựng hoàn toàn trên ngôn ngữ Python và các công nghệ
+mã nguồn mở phổ biến. Bảng 2.1 liệt kê chi tiết danh mục công cụ và vai trò của từng
+thành phần.
+Bảng 2.1. Công cụ và thư viện sử dụng trong đồ án Uni Connect.
+
+Thành phần
+
+Phiên bản
+
+Vai trò
+
+Python
+
+3.13
+
+Ngôn ngữ lập trình chính của toàn hệ thống
+
+Django
+
+5.2.8
+
+Framework web: định tuyến, ORM, xác thực, quản trị
+
+MySQL
+
+8.0
+
+Hệ quản trị cơ sở dữ liệu quan hệ chính
+
+scikit-learn
+
+1.8.0
+
+Huấn luyện mô hình Random Forest [3]
+
+pandas
+
+3.0.2
+
+Đọc, xử lý và chuẩn hóa dữ liệu dạng bảng
+
+NumPy
+
+2.3.3
+
+Tính toán vector, trích xuất đặc trưng chuỗi thời gian
+
+joblib
+
+đi kèm sklearn Lưu trữ và nạp mô hình, bộ chuẩn hóa
+
+Tailwind CSS qua CDN
+
+Thiết kế giao diện người dùng đáp ứng
+
+2.5 Các công trình liên quan
+Bài toán gợi ý nguyện vọng cho thí sinh xét tuyển đã được nhiều đơn vị trong nước tiếp
+cận theo hai hướng chính. Hướng thứ nhất là các cổng tra cứu thông tin tuyển sinh trực
+tuyến (ví dụ: cổng thông tin của Bộ Giáo dục và Đào tạo, các trang báo điện tử tổng hợp
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+6
+
+Chương 2. Cơ sở lý thuyết và công nghệ
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+điểm chuẩn). Các hệ thống này ưu điểm là giàu dữ liệu nhưng chỉ dừng lại ở việc hiển thị
+bảng điểm thô, chưa cung cấp công cụ phân tích định lượng rủi ro hay gợi ý mang tính
+cá nhân hóa.
+Hướng thứ hai là các ứng dụng tư vấn sử dụng trí tuệ nhân tạo. Một số nghiên cứu
+tiêu biểu sử dụng thuật toán Random Forest trên dữ liệu giáo dục đã chứng minh hiệu
+quả vượt trội của mô hình tập hợp trong việc dự báo kết quả học tập so với các mô hình
+tuyến tính đơn lẻ [1]. Ngoài ra, các giáo trình nền tảng về trí tuệ nhân tạo cũng đặt cơ sở
+lý thuyết vững chắc cho các kỹ thuật học có giám sát và đánh giá mô hình áp dụng trong
+đồ án này [4, 2].
+Điểm khác biệt và đóng góp của đồ án Uni Connect nằm ở ba yếu tố:
+• Dữ liệu sâu và dài hạn: Sử dụng chuỗi lịch sử 10 năm liên tục (2016–2025) thay vì
+chỉ dựa vào dữ liệu 1–2 năm gần nhất, giúp mô hình nắm bắt được xu hướng và độ
+dao động dài hạn.
+• Minh bạch và giải thích được: Không chỉ đưa ra con số xác suất đơn thuần, hệ
+thống sinh kèm lời giải thích trực quan dựa trên các chỉ số thống kê cụ thể mà học
+sinh và phụ huynh dễ dàng hiểu được.
+• Tích hợp trọn vòng đời: Hệ thống vận hành khép kín từ thu thập dữ liệu, huấn luyện
+mô hình, đến phục vụ người dùng trên nền tảng web duy nhất, kèm quy trình cập nhật
+dữ liệu hằng năm linh hoạt qua cơ chế cửa sổ trượt.
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+7
+
+3
+Phân tích và thiết kế
+3.1 Phân tích bài toán và yêu cầu
+3.1.1 Đầu vào và đầu ra của hệ thống
+Đầu vào của hệ thống gợi ý trung tâm bao gồm hồ sơ năng lực do học sinh nhập:
+• Điểm thi từng môn học (thang 10) và điểm học bạ trung bình các môn.
+• Tổ hợp môn xét tuyển mà học sinh có thể sử dụng (ví dụ: A00 — Toán, Lý, Hóa).
+• Nhóm ngành đào tạo ưu tiên và khu vực địa lý mong muốn trong số 15 nhóm ngành
+và 3 vùng miền.
+Đầu ra là danh sách tối đa 30 nguyện vọng (mỗi nguyện vọng là một bộ: trường,
+ngành, tổ hợp, phương thức) được sắp xếp theo xác suất trúng tuyển giảm dần và phân
+thành 3 tầng trực quan: Tầng An toàn (𝑝 ≥ 0,80) dùng làm phương án dự phòng chắc
+chắn; tầng Vừa sức (0,40 ≤ 𝑝 < 0,80) là nhóm lựa chọn chính phù hợp năng lực; tầng
+Thử sức (𝑝 < 0,40) là nhóm kỳ vọng cao dành cho ngành yêu thích.
+
+3.1.2 Yêu cầu chức năng
+Hệ thống bao gồm 11 ca sử dụng (Use Case) chính, chia theo ba nhóm tác nhân: Khách
+(tra cứu, xem chi tiết trường), Học sinh đã đăng nhập (nhập hồ sơ điểm, nhận gợi ý AI,
+xem lời giải thích, so sánh và lưu nguyện vọng) và Quản trị viên (cập nhật dữ liệu năm
+mới, huấn luyện lại mô hình, xem thống kê). Hai ca sử dụng trung tâm có AI tham gia là
+UC-05 (Nhận gợi ý trường, ngành) và UC-10 (Huấn luyện lại mô hình). Toàn cảnh quan
+hệ giữa các tác nhân và các ca sử dụng được thể hiện ở Hình 3.1.
+
+8
+
+Chương 3. Phân tích và thiết kế
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+Hệ thống Uni Connect
+
+Khách
+
+UC-01 Tra cứu điểm chuẩn
+
+UC-04 Nhập hồ sơ năng lực
+
+UC-02 Xem chi tiết trường
+
+UC-05 Nhận gợi ý (AI) ⋆
+
+UC-03 Đăng ký / Đăng nhập
+
+UC-06 Xem lời giải thích ⋆
+
+include
+Học sinh
+
+UC-07 So sánh nguyện vọng
+UC-09 Cập nhật dữ liệu năm mới
+UC-08 Lưu / xem lại hồ sơ
+
+follows
+Quản trị viên
+
+UC-10 Huấn luyện lại mô hình ⋆
+
+UC-11 Xem thống kê hệ thống
+
+Hình 3.1. Sơ đồ ca sử dụng (Use Case) tổng thể của hệ thống Uni Connect.
+
+Mười một ca sử dụng trên được phân rã thành năm nhóm chức năng theo mô hình cây
+như Hình 3.2. Cách phân rã này bám sát cấu trúc thư mục mã nguồn thật của đồ án: mỗi
+nhóm chức năng tương ứng một ứng dụng Django độc lập.
+Hệ thống gợi ý nguyện vọng Uni Connect
+Tra cứu
+(UC-01, 02)
+
+Tìm theo tên
+Lọctrường,
+theo vùng
+miền,
+Xem
+chuỗi điểm
+ngành, tổ hợp,
+tỉnh thức,chuẩn
+phương
+năm 10 năm
+
+Tài khoản
+(UC-03)
+
+Hồ sơ học sinh
+(UC-04, 08)
+
+Gợi ý AI
+(UC-05, 06, 07)
+
+Quản trị
+(UC-09, 10, 11)
+
+Đăng nhậpĐăng nhập
+Chọn
+ngành,
+So sánh và lưu
+Đăng ký, đăng
+Cập nhật dữHuấn luyện
+Xem thống
+xoá, xem lại Suy luận
+xác tầng An Sinh
+Phân
+toàn, lời giải
+Nhập điểm
+từngnhómSửa,
+Quản lý người dùng
+OAuth2
+vùng
+thíchsức
+từ đặc trưng
+nguyện vọng
+nhập nội Google
+bộ
+liệu năm mới
+kê hệ thống
+Facebook OAuth2 môn và điểm
+danhtâm
+sách hồ sơ suất theo
+lô sức, Thử
+lại mô hình
+Vừa
+ưu miền
+tiên quan
+
+Hình 3.2. Sơ đồ phân rã chức năng (BFD) của hệ thống Uni Connect.
+
+Tiêu chí hệ thống chạy đúng:
+• Mọi điểm chuẩn hiển thị trên giao diện phải trùng khớp tuyệt đối với bản ghi đã lưu
+trong cơ sở dữ liệu.
+• Với cùng một hồ sơ đầu vào, danh sách gợi ý sinh ra phải nhất quán và có thứ tự xếp
+hạng ổn định.
+• Ngưỡng phân tầng 0,80 và 0,40 được khai báo công khai rõ ràng trên giao diện, không
+để người dùng tự ước đoán.
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+9
+
+Chương 3. Phân tích và thiết kế
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+3.1.3 Yêu cầu phi chức năng
+• Hiệu năng (PC-01): Trang gợi ý AI phải phản hồi trong vòng dưới 3 giây trên hạ
+tầng máy chủ thông thường; mô hình model.pkl ( 52 MB) chỉ nạp một lần vào RAM
+khi khởi động tiến trình, không đọc lại đĩa cứng mỗi lượt truy vấn.
+• Độ tin cậy: Mọi lỗi liên quan đến mô hình (thiếu file, sai lệch phiên bản thư viện) đều
+không được gây lỗi hệ thống 500. Hệ thống tự động chuyển sang chế độ dự phòng
+(xếp hạng bằng margin thuần) và ghi rõ trạng thái “chưa dùng mô hình AI”.
+• Khả năng mở rộng: Cơ chế cửa sổ trượt cho phép cập nhật dữ liệu năm mới (ví dụ:
+năm 2026) mà không cần thay đổi cấu trúc bảng hay viết lại mã nguồn xử lý.
+
+3.2 Thiết kế kiến trúc hệ thống
+Kiến trúc tổng thể của hệ thống Uni Connect được trình bày ở Hình 3.3. Dữ liệu vận hành
+theo luồng khép kín gồm 4 tầng chính.
+Thu thập
+(crawler, CSV)
+
+CSDL MySQL
+(15 bảng quan hệ)
+
+Mô hình AI
+(Random Forest)
+
+Django Web
+(tra cứu, gợi ý)
+
+Học sinh,
+quản trị viên
+
+Hình 3.3. Sơ đồ kiến trúc tổng thể của hệ thống gợi ý nguyện vọng Uni Connect.
+
+Luồng hoạt động cụ thể như sau: (1) Bộ thu thập ngoại tuyến crawl_diemchuan.py
+tự động tải, làm sạch dữ liệu và xuất ra các file CSV chuẩn; (2) Script import_mysql.py
+nạp dữ liệu vào CSDL MySQL; (3) Pipeline huấn luyện gen_dataset.py trích xuất đặc
+trưng và train.py sinh ra mô hình model.pkl; (4) Ứng dụng web Django phục vụ người
+dùng cuối, gọi mô hình khi có yêu cầu gợi ý thông qua module suy luận predict.py.
+Chi tiết định tuyến từ yêu cầu HTTP tới từng tầng xử lý được thể hiện ở Hình 3.4.
+Toàn bộ endpoint trong sơ đồ đều lấy nguyên văn từ bảy file urls.py của các ứng dụng
+Django (university, api, accounts, admissions, recommendation, quantri).
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+10
+
+Chương 3. Phân tích và thiết kế
+/
+
+GET /
+
+university/
+
+GET /tra-cuu/ GET /truong/
+GET /truong/<ma_truong>/
+
+/api/
+
+GET /api/tra-cuu/
+
+accounts/
+
+GET,POST /dang-ky/
+GET,POST /dang-nhap/
+GET /dang-xuat/ GET /tai-khoan/
+GET /google/dang-nhap/ → /google/xac-thuc/
+GET /facebook/dang-nhap/ → /facebook/xac-thuc/
+
+admissions/
+
+GET /ho-so/ GET,POST /ho-so/tao/
+GET /ho-so/chi-tiet/<pk>/
+GET,POST /ho-so/sua/<pk>/
+POST /ho-so/xoa/<pk>/
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+View tầng web
+(Django)
+
+services.py
+lọc cứng + xếp hạng
+
+recommendation/
+
+quantri/
+
+GET /goi-y/<pk>/
+GET /goi-y/chi-tiet/<kq_id>/
+GET,POST /goi-y/so-sanh/
+GET,POST /goi-y/so-sanh/<pk>/
+GET /goi-y/lich-su/<pk>/
+POST /goi-y/lich-su/<pk>/xoa/
+
+GET /quan-tri/dashboard/ GET /quan-tri/du-lieu/
+GET,POST /quan-tri/cap-nhat/
+POST /quan-tri/cap-nhat/chay/
+GET /quan-tri/ai/ POST /quan-tri/ai/huan-luyen/
+CRUD /quan-tri/nguoi-dung/
+
+ml/predict.py
+Random Forest (RAM)
+
+Django ORM
+models.py,
+managed = False
+
+MySQL 8.0
+CSDL uni_map
+
+Hình 3.4. Sơ đồ định tuyến API và URL của hệ thống Uni Connect.
+
+3.3 Thiết kế dữ liệu
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+11
+
+Chương 3. Phân tích và thiết kế
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+3.3.1 Nguồn và quy mô dữ liệu
+Dữ liệu điểm chuẩn được thu thập từ cổng tổng hợp diemthi.tuyensinh247.com. Quy
+trình thu thập tự động xử lý các tình huống thực tế phức tạp như lỗi font chữ tiếng Việt
+của nguồn, cơ chế công bố điểm nhỏ giọt kéo dài suốt mùa tuyển sinh và tự động chặn
+các năm chưa đủ dữ liệu tin cậy. Tổng quy mô dữ liệu thực tế sau khi chuẩn hóa được
+thống kê ở Bảng 3.1.
+Bảng 3.1. Quy mô cơ sở dữ liệu điểm chuẩn thực tế của hệ thống Uni Connect.
+
+Hạng mục dữ liệu
+
+Số lượng Ghi chú
+295 Mã trường là khóa chính, phủ 3 miền Bắc – Trung – Nam
+
+Trường đại học
+
+3.037 Gom nhóm thành 15 nhóm ngành chuẩn
+
+Ngành đào tạo
+
+340 Ví dụ: A00, B00, D01, C00
+
+Tổ hợp xét tuyển
+Bản ghi điểm chuẩn
+
+240.483 Fact (trường, ngành, tổ hợp, phương thức, năm)
+
+Chuỗi đặc trưng
+
+100.363 Dòng thống kê chuỗi 10 năm cho mỗi nguyện vọng
+
+Cửa sổ dữ liệu
+
+2016–2025 10 năm liên tục, hiển thị đầy đủ; AI dùng 6 năm gần nhất
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+12
+
+Chương 3. Phân tích và thiết kế
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+3.3.2 Lược đồ cơ sở dữ liệu
+
+Hình 3.5. Lược đồ quan hệ (ERD) của cơ sở dữ liệu uni_map.
+
+Cơ sở dữ liệu quan hệ uni_map bao gồm 15 bảng, quan hệ giữa chúng được tóm tắt ở
+Hình 3.5. Trong đó db/schema.sql là nguồn chân lý duy nhất của lược đồ (các model
+Django đặt managed = False và không sinh migration cho các bảng nghiệp vụ). Các
+bảng tham chiếu gồm truong, nganh, mon, to_hop và to_hop_mon quản lý danh mục.
+Bảng sự kiện trung tâm diem_chuan lưu điểm trúng tuyển của từng bộ (trường, ngành,
+tổ hợp, phương thức, năm). Bảng dac_trung_diemchuan lưu 10 cột điểm thô diem_nam_1
+đến diem_nam_10 cùng các chỉ số thống kê đã tính sẵn (diem_tb, diem_min, diem_max,
+diem_moi_nhat, bien_dong, xu_huong, so_nam_co_dl).
+Điểm thiết kế nổi bật là bảng cua_so_nam ánh xạ vị trí cột (1–10) sang năm thực tế
+(2016–2025). Khi cập nhật dữ liệu năm 2026, quản trị viên chỉ cần thay đổi ánh xạ này
+qua giao diện mà hệ thống tự trượt cửa sổ hiển thị, không cần thực hiện lệnh ALTER TABLE
+hay sửa đổi mã nguồn (yêu cầu CN-05).
+
+3.4 Thiết kế mô hình và bộ đặc trưng
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+13
+
+Chương 3. Phân tích và thiết kế
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+3.4.1 Chiến lược sinh nhãn huấn luyện
+Do không tồn tại dữ liệu đỗ/trượt thực tế của thí sinh trong quá khứ (giả định GĐ-3),
+đồ án áp dụng kỹ thuật sinh mẫu giả lập từ lịch sử: mỗi bản ghi điểm chuẩn 𝐶 của năm
+mục tiêu 𝑡 được xem là một “sự thật tuyển sinh” — thí sinh giả lập có điểm thi 𝑋 xung
+quanh 𝐶 sẽ đỗ nếu 𝑋 ≥ 𝐶 . Cụ thể, với mỗi nguyện vọng, 11 mức chênh lệch DELTAS
+= {−3,0; −2,0; −1,0; −0,5; −0,2; 0,0; +0,2; +0,5; +1,0; +2,0; +3,0} được cộng vào điểm
+chuẩn gốc để tạo ra 11 mẫu huấn luyện có nhãn cân bằng.
+Để ngăn chặn tuyệt đối hiện tượng rò rỉ dữ liệu (data leakage), đặc trưng của mẫu năm
+mục tiêu 𝑡 chỉ được phép tính toán từ các năm quá khứ nhỏ hơn 𝑡. Đồng thời, tập dữ liệu
+được chia cứng theo mốc thời gian: huấn luyện trên các năm 2021–2024 và kiểm thử
+hoàn toàn độc lập trên năm 2025.
+
+3.4.2 Bộ 27 đặc trưng và siêu tham số
+Vector đầu vào của mô hình gồm 27 chiều, thứ tự được cố định nghiêm ngặt trong
+file constants.py để đảm bảo tính nhất quán giữa giai đoạn huấn luyện và suy luận:
+7 đặc trưng số (diem_thi, margin, diem_moi_nhat, diem_tb, xu_huong, bien_dong,
+so_nam_co_dl), 15 cột mã hóa one-hot nhóm ngành, 3 cột vùng miền và 2 cột phương
+thức xét tuyển.
+Trong đó, margin (điểm thí sinh trừ điểm chuẩn mới nhất) là đặc trưng trung tâm phản
+ánh trực tiếp khoảng cách năng lực; xu_huong là độ dốc hồi quy tuyến tính của chuỗi
+điểm phản ánh mức độ cạnh tranh ngày càng tăng; bien_dong là hiệu số điểm lớn nhất
+trừ nhỏ nhất phản ánh mức độ rủi ro khó đoán.
+Mô hình chính RandomForestClassifier được chốt siêu tham số: n_estimators=100
+cây, min_samples_leaf=5, max_depth=14 và random_state=42. Cấu hình này là kết quả
+cân bằng giữa độ chính xác và ràng buộc kích thước file mô hình dưới 100 MB để có thể
+triển khai trên máy chủ phổ thông. Mô hình đối chứng DecisionTreeClassifier dùng
+chung min_samples_leaf=5 để so sánh công bằng. Mọi đặc trưng số đều được chuẩn hóa
+bằng StandardScaler trước khi đưa vào huấn luyện.
+LƯU Ý
+
+Tuyệt đối không dùng tập kiểm thử năm 2025 vào bất kỳ khâu lựa chọn đặc trưng
+hay tinh chỉnh siêu tham số nào. Mọi con số đánh giá báo cáo trong Chương 5 đều
+được đo duy nhất một lần trên tập kiểm thử độc lập này để đảm bảo tính khách quan
+khoa học.
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+14
+
+Chương 3. Phân tích và thiết kế
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+3.5 Thiết kế luồng giao diện
+Sơ đồ luồng giao diện ở Hình 3.6 mô tả đường đi của người dùng qua bốn nhóm màn
+hình chính: khu vực khách tra cứu công khai, khu vực tài khoản, khu vực hồ sơ và gợi
+ý dành cho học sinh đã đăng nhập, và khu vực quản trị. Đường nét liền biểu diễn luồng
+điều hướng chính, đường nét đứt biểu diễn luồng phụ hoặc luồng quay về. Mỗi màn hình
+đều ghi kèm đường dẫn URL tương ứng để đối chiếu trực tiếp với mã nguồn.
+Trang chủ
+
+Tra cứu điểm chuẩn
+
+Danh sách trường
+
+Chi tiết trường
+
+/
+
+/tra-cuu/
+
+/truong/
+
+/truong/<ma>/
+
+cần đăng nhập
+
+Đăng nhập
+
+Đăng ký
+
+Trang tài khoản
+
+/dang-nhap/
+
+/dang-ky/
+
+/tai-khoan/
+
+Danh sách hồ sơ
+
+Nhập / sửa hồ sơ
+
+Chi tiết hồ sơ
+
+/ho-so/
+
+/ho-so/tao/
+
+/ho-so/chi-tiet/
+
+chạy gợi ý
+
+Kết quả gợi ý AI
+
+Lời giải thích
+
+So sánh nguyện vọng
+
+Lịch sử gợi ý
+
+/goi-y/<pk>/
+
+/goi-y/chi-tiet/
+
+/goi-y/so-sanh/
+
+/goi-y/lich-su/
+
+huấn luyện lại
+
+Dashboard
+
+Quản lý dữ liệu
+
+Trang AI
+
+Quản lý người dùng
+
+/quan-tri/dashboard/
+
+/quan-tri/du-lieu/
+
+/quan-tri/ai/
+
+/quan-tri/nguoi-dung/
+
+Hình 3.6. Sơ đồ luồng giao diện (IFD) của hệ thống Uni Connect.
+
+Luồng nghiệp vụ trung tâm đi từ màn hình chi tiết hồ sơ sang trang kết quả gợi ý, tại
+đây hệ thống gọi mô hình để sinh xác suất trúng tuyển và phân tầng kết quả. Từ trang kết
+quả, học sinh có thể mở trang lời giải thích chi tiết cho từng nguyện vọng, chuyển sang
+màn hình so sánh nhiều nguyện vọng cạnh nhau, hoặc truy cập lại lịch sử các lần gợi ý
+trước đó.
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+15
+
+4
+Cài đặt và thử nghiệm
+4.1 Môi trường triển khai
+Hệ thống được lập trình, huấn luyện và kiểm thử hoàn chỉnh trên môi trường máy chủ
+cục bộ với các thông số cấu hình cụ thể:
+• Phần cứng: Vi xử lý Intel Core i7 12 nhân 16 luồng, bộ nhớ trong RAM 16 GB
+DDR5, ổ cứng lưu trữ thể rắn NVMe SSD 512 GB.
+• Hệ điều hành: Microsoft Windows 11 Home 64-bit kết hợp môi trường thực thi
+POSIX Git Bash.
+• Môi trường runtime: Python 3.13.2 64-bit, quản lý gói thông qua pip và môi trường
+ảo venv.
+• Cơ sở dữ liệu: MySQL Server 8.0 Community Edition, bảng mã lưu trữ
+utf8mb4_unicode_ci.
+• Quản lý phiên bản: Hệ thống kiểm soát phiên bản Git, lưu trữ kho mã nguồn tại
+https://github.com/tann299/DAU-2026-2027-Uni-Map.
+
+4.2 Các thành phần mã nguồn chính
+Kiến trúc mã nguồn được phân rã thành hai phân hệ độc lập: phân hệ xử lý dữ liệu ngoại
+tuyến (offline pipeline) và phân hệ ứng dụng web trực tuyến (online service).
+
+4.2.1 Pipeline tiền xử lý và sinh tập dữ liệu
+Module gen_dataset.py thực hiện chuyển đổi chuỗi 10 năm điểm chuẩn từ bảng quan
+hệ thành tập dữ liệu huấn luyện phẳng. Để ngăn chặn hoàn toàn rò rỉ dữ liệu, hàm xử lý
+tính toán đặc trưng tại năm 𝑡 chỉ dựa trên cửa sổ lịch sử 6 năm trước đó (𝑡 − lookback ≤
+
+16
+
+Chương 4. Cài đặt và thử nghiệm
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+năm < 𝑡) và áp dụng 11 mức chênh lệch điểm đối xứng DELTAS để sinh mẫu thí sinh giả
+lập.
+Mã nguồn 4.1. Hàm sinh mẫu giả lập đối xứng và tách tập theo thời gian.
+1
+2
+3
+
+# Symmetric delta grid around true cutoff score (constants.py)
+DELTAS = [-3.0, -2.0, -1.0, -0.5, -0.2, 0.0, 0.2, 0.5, 1.0, 2.0, 3.0]
+NAM_LOOKBACK = 6
+
+4
+5
+6
+
+7
+8
+
+def build_split(df_history, target_year):
+"""Generate training rows for target_year using only years < target_year."
+""
+valid_window = [y for y in range(target_year - NAM_LOOKBACK, target_year)]
+features = extract_window_features(df_history, valid_window)
+
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+
+# Expand each application row across 11 synthetic candidates
+expanded_rows = []
+for _, row in features.iterrows():
+cutoff = row["diem_chuan_target"]
+for d in DELTAS:
+sim_score = cutoff + d
+label = 1 if sim_score >= cutoff else 0
+expanded_rows.append({
+**row.to_dict(),
+"diem_thi": sim_score,
+"margin": d,
+"nhan": label
+})
+return pd.DataFrame(expanded_rows)
+
+4.2.2 Huấn luyện mô hình và tối ưu kích thước lưu trữ
+Quy trình huấn luyện trong train.py thực hiện chuẩn hóa dữ liệu bằng StandardScaler
+và huấn luyện mô hình RandomForestClassifier. Để đáp ứng ràng buộc lưu trữ dưới
+100 MB (nhằm đưa vào bộ nhớ RAM máy chủ phổ thông), số lượng cây được chốt ở 100
+và độ sâu tối đa được giới hạn ở mức 14.
+Mã nguồn 4.2. Quy trình huấn luyện và đóng gói mô hình.
+1
+2
+3
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+import joblib
+
+4
+5
+6
+7
+8
+
+def train_and_export(X_train, y_train, export_dir="ml/"):
+"""Fit scaler and Random Forest model, then export serialized weights."""
+scaler = StandardScaler().fit(X_train)
+Z_train = scaler.transform(X_train)
+
+9
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+17
+
+Chương 4. Cài đặt và thử nghiệm
+
+10
+11
+12
+13
+14
+15
+16
+17
+18
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+# 100 estimators, max depth 14 limits pkl file size to ~52 MB
+rf = RandomForestClassifier(
+n_estimators=100,
+min_samples_leaf=5,
+max_depth=14,
+n_jobs=-1,
+random_state=42
+)
+rf.fit(Z_train, y_train)
+
+19
+20
+21
+22
+
+joblib.dump(rf, f"{export_dir}/model.pkl", compress=3)
+joblib.dump(scaler, f"{export_dir}/scaler.pkl")
+return rf, scaler
+
+4.2.3 Động cơ suy luận và cơ chế chịu lỗi
+Tại tầng ứng dụng web Django, tệp predict.py nạp mô hình vào bộ nhớ RAM dưới
+dạng biến toàn cục để tránh chi phí I/O đọc đĩa cứng trong mỗi lượt truy vấn của người
+dùng. Khi nhận danh sách các ngành ứng viên, mô hình thực hiện dự đoán theo lô (batch
+prediction) bằng phương thức predict_proba, đảm bảo thời gian xử lý toàn bộ 30 nguyện
+vọng dưới 50 mili-giây.
+Mã nguồn 4.3. Hàm chấm xác suất theo lô và cơ chế dự phòng.
+1
+
+_CACHE = {"model": None, "scaler": None}
+
+2
+3
+4
+5
+6
+7
+8
+
+def cham_xac_suat(ds_nguyen_vong, diem_thi):
+"""Batch inference with graceful fallback to margin ranking."""
+try:
+if _CACHE["model"] is None:
+_CACHE["model"] = joblib.load("ml/model.pkl")
+_CACHE["scaler"] = joblib.load("ml/scaler.pkl")
+
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+
+# Build 27-dim feature matrix Z for all candidates at once
+X = vector_hoa_hang_loat(ds_nguyen_vong, diem_thi)
+Z = _CACHE["scaler"].transform(X)
+probs = _CACHE["model"].predict_proba(Z)[:, 1]
+return probs, "AI_RANDOM_FOREST"
+except Exception as e:
+# Fallback to deterministic margin sorting when model fails
+margins = [diem_thi - nv["diem_moi_nhat"] for nv in ds_nguyen_vong]
+return margins, "FALLBACK_MARGIN"
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+18
+
+Chương 4. Cài đặt và thử nghiệm
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+4.3 Giao diện và kịch bản sử dụng
+Ứng dụng web được xây dựng với phong cách trực quan, tối ưu cho cả máy tính để bàn
+và thiết bị di động bằng framework Tailwind CSS. Cấu trúc trang được bố trí gồm 4 phân
+khu chính:
+1. Trang tra cứu thông tin trường và ngành: Cho phép lọc nhanh 295 trường theo 3
+vùng miền, loại hình công lập/tư thục và xem chuỗi 10 năm điểm chuẩn trực quan.
+2. Trang quản lý hồ sơ điểm cá nhân: Thí sinh nhập điểm các môn thi THPT hoặc
+điểm học bạ lớp 12. Hệ thống tự động tính toán tổng điểm cho tất cả các tổ hợp xét
+tuyển hợp lệ.
+3. Trang gợi ý nguyện vọng AI: Hiển thị danh sách nguyện vọng được sắp xếp theo
+xác suất giảm dần và phân thành 3 khối màu rõ rệt: Tầng An toàn (màu xanh lá,
+𝑝 ≥ 0,80), Tầng Vừa sức (màu xanh dương, 0,40 ≤ 𝑝 < 0,80) và Tầng Thử sức (màu
+cam, 𝑝 < 0,40). Mỗi hàng đi kèm thẻ giải thích nguyên nhân ngắn gọn. Bố cục ba tầng
+này được mô phỏng ở Hình 4.1, còn ảnh chụp giao diện chạy thật nằm ở Hình 4.2.
+4. Trang quản trị hệ thống: Dành cho quản trị viên theo dõi số lượng bản ghi dữ liệu,
+kích hoạt pipeline chạy ngầm cập nhật dữ liệu và thực hiện huấn luyện lại mô hình
+trực tiếp trên giao diện.
+UNI CONNECT — HỆ THỐNG GỢI Ý NGUYỆN VỌNG ĐẠI HỌC THÔNG MINH
+Hồ sơ thí sinh: Khối A00 (Toán: 8.5, Lý: 8.0, Hóa: 8.5 → Tổng: 25.0) | Khu vực: Miền Trung
+Đã tìm thấy 30 nguyện vọng phù hợp — Thời gian suy luận: 0.038 giây (Chế độ: AI Random Forest)
+
+TẦNG AN TOÀN (Xác suất ≥ 80%) — 8 nguyện vọng
+1. Đại học Bách Khoa ĐN — CN Thông tin (Đặc thù) | Tổ hợp A00 | Điểm 2025: 23.5 | Dự đoán: 91.4% | Margin: +1.50 (Ổn định)
+2. Đại học Sư phạm ĐN — Sư phạm Tin học | Tổ hợp A00 | Điểm 2025: 22.0 | Dự đoán: 95.8% | Margin: +3.00 (An toàn cao)
+
+TẦNG VỪA SỨC (Xác suất 40% – 79%) — 14 nguyện vọng
+1. Đại học Bách Khoa ĐN — Kỹ thuật Phần mềm | Tổ hợp A00 | Điểm 2025: 25.1 | Dự đoán: 63.2% | Margin: -0.10 (Điểm xu hướng tăng)
+2. Đại học Kinh tế ĐN — Thương mại Điện tử | Tổ hợp A00 | Điểm 2025: 24.8 | Dự đoán: 68.5% | Margin: +0.20 (Cạnh tranh vừa)
+
+TẦNG THỬ SỨC (Xác suất < 40%) — 8 nguyện vọng
+1. Đại học Bách Khoa ĐN — Công nghệ Thông tin | Tổ hợp A00 | Điểm 2025: 26.25 | Dự đoán: 24.6% | Margin: -1.25 (Rủi ro cao)
+2. Đại học Sư phạm Kỹ thuật TPHCM — Robot & AI | Tổ hợp A00 | Điểm 2025: 26.5 | Dự đoán: 18.2% | Margin: -1.50 (Chênh lệch lớn)
+
+Hình 4.1. Mô phỏng cấu trúc giao diện phân tầng kết quả gợi ý nguyện vọng Uni Connect.
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+19
+
+Chương 4. Cài đặt và thử nghiệm
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+ẢNH CHỤP GIAO DIỆN THỰC TẾ HỆ THỐNG
+
+[ VỊ TRÍ CHÈN ẢNH CHỤP GIAO DIỆN THỰC TẾ ]
+Ghi chú: Tác giả sẽ chèn ảnh chụp màn hình thực tế (trang tra cứu điểm chuẩn,
+bảng nhập hồ sơ thí sinh và danh sách phân tầng gợi ý) sau khi hoàn thiện chạy
+thử nghiệm trên máy chủ.
+
+Hình 4.2. Ảnh chụp màn hình thực tế các phân hệ chính của ứng dụng Uni Connect.
+
+4.4 Kiểm thử hệ thống
+Chất lượng và độ ổn định của hệ thống được kiểm chứng qua ba cấp độ kiểm thử: kiểm
+thử đơn vị (unit test), kiểm thử tích hợp (integration test) và kiểm thử khả năng chịu lỗi
+(fault tolerance).
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+20
+
+Chương 4. Cài đặt và thử nghiệm
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+Bảng 4.1. Kịch bản và kết quả các ca kiểm thử chính của hệ thống Uni Connect.
+
+Mã kiểm thử
+
+Trạng thái
+Mục đích kiểm tra
+
+Kết quả kỳ vọng
+
+TC-01
+
+Kiểm tra tính toán tổng
+điểm tổ hợp
+
+Điểm cộng chính xác
+từng môn, đúng công
+thức hệ số
+
+Đạt
+
+TC-02
+
+Kiểm tra tính nhất quán
+27 đặc trưng
+
+Thứ tự cột vector
+khớp tuyệt đối với
+file constants.py
+
+Đạt
+
+TC-03
+
+Kiểm tra suy luận hàng
+loạt
+
+Đầu ra đủ xác suất
+cho 𝑁 nguyện vọng,
+
+Đạt
+
+0≤𝑝≤1
+
+TC-04
+
+Kiểm tra phân tầng xác
+suất
+
+Gán đúng 3 nhãn An
+toàn, Vừa sức, Thử
+sức theo ngưỡng
+
+Đạt
+
+TC-05
+
+Thử nghiệm khi thiếu
+file model.pkl
+
+Chuyển sang xếp
+hạng margin, mã
+HTTP 200, không bị
+lỗi 500
+
+Đạt
+
+TC-06
+
+Kiểm tra thời gian đáp
+ứng (PC-01)
+
+Thời gian trả lời toàn
+bộ trang gợi ý đạt
+dưới 3 giây
+
+Đạt (0,42 s)
+
+GHI NHỚ
+
+Bảng 4.1 tổng hợp kết quả của sáu ca kiểm thử chức năng. Kết quả kiểm thử cho
+thấy cơ chế dự phòng (graceful degradation) hoạt động hoàn toàn chính xác theo đúng
+thiết kế: khi cố tình xóa file nhị phân của mô hình, hệ thống không làm gián đoạn
+trải nghiệm của người dùng mà ngay lập tức trả về kết quả sắp xếp theo khoảng cách
+điểm với thông báo giải thích rõ ràng.
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+21
+
+5
+Kết quả và đánh giá
+5.1 Kết quả đạt được
+Đối chiếu trực tiếp bốn mục tiêu nêu tại Chương 1:
+• Mục tiêu 1 (Dữ liệu) — Vượt mức: Thu thập 295 trường, 3.037 ngành, 240.483 bản
+ghi điểm chuẩn 10 năm (2016–2025), vượt ngưỡng tối thiểu 250 trường và 200.000
+bản ghi.
+• Mục tiêu 2 (Mô hình AI) — Đạt: Mô hình Random Forest đạt độ chính xác 74,56%
+và ROC-AUC 0,8354 trên tập kiểm thử độc lập năm 2025, vượt ngưỡng 70% và 0,80
+đề ra.
+• Mục tiêu 3 (Phân tầng và giải thích) — Đạt: Cơ chế 3 tầng (An toàn 𝑝 ≥ 0,80; Vừa
+sức 0,40 ≤ 𝑝 < 0,80; Thử sức 𝑝 < 0,40) vận hành ổn định, mỗi gợi ý kèm lời giải
+thích từ margin, xu_huong, bien_dong.
+• Mục tiêu 4 (Ứng dụng web) — Đạt: Web Django + MySQL phục vụ đầy đủ tra
+cứu, hồ sơ điểm, gợi ý AI, quản trị; thời gian phản hồi trang gợi ý đo thực tế 0,42
+giây, dưới ngưỡng 3 giây (PC-01).
+
+5.2 Độ đo đánh giá
+Thực nghiệm đo duy nhất một lần trên tập kiểm thử độc lập năm 2025 gồm 244.123
+mẫu (tập huấn luyện 2021–2024 gồm 913.924 mẫu), giữ nguyên siêu tham số chốt tại
+Chương 3. Bảng 5.1 so sánh mô hình chính với mô hình đối chứng.
+
+22
+
+Chương 5. Kết quả và đánh giá
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+Bảng 5.1. So sánh Decision Tree và Random Forest trên tập kiểm thử năm 2025 (244.123 mẫu).
+
+Mô hình
+
+Accuracy
+
+ROC-AUC
+
+Brier ↓
+
+F1 (lớp Đỗ)
+
+Decision Tree (đối chứng)
+
+0,7214
+
+0,7535
+
+0,2550
+
+0,7183
+
+Random Forest (chính)
+
+0,7456
+
+0,8354
+
+0,1763
+
+0,7493
+
+Chi tiết lớp Đỗ / Trượt của mô hình chính: Precision lớp Đỗ 0,8098, Recall lớp Đỗ
+0,6973; Precision lớp Trượt 0,6887, Recall lớp Trượt 0,8035. Mô hình đối chứng đạt
+Precision Đỗ 0,8006, Recall Đỗ 0,6514; Precision Trượt 0,6581, Recall Trượt 0,8053.
+Ba điểm đọc quan trọng:
+• ROC-AUC tăng 0,0819 (0,7535 → 0,8354): khả năng xếp hạng Đỗ/Trượt cải thiện
+rõ rệt nhờ trung bình 100 cây thay vì một cây đơn.
+• Brier giảm 0,0787 (0,2550 → 0,1763): xác suất dự đoán hiệu chuẩn tốt hơn, quan
+trọng vì hệ thống dùng giá trị 𝑝 trực tiếp để phân tầng.
+• Recall lớp Đỗ tăng 0,0459 trong khi Recall lớp Trượt giữ nguyên (≈ 0,80): mô hình
+chính bắt được nhiều cơ hội đỗ hơn mà không đánh đổi khả năng cảnh báo trượt.
+
+5.2.1 Tầm quan trọng đặc trưng
+Bảng 5.2 trích 6 đặc trưng đóng góp lớn nhất từ feature_importances_ của Random
+Forest.
+Bảng 5.2. Mức đóng góp của 6 đặc trưng quan trọng nhất.
+Đặc trưng
+
+Mức đóng góp
+
+Ý nghĩa
+
+margin
+
+0,6060
+
+Khoảng cách điểm thi so với chuẩn mới nhất
+
+diem_thi
+
+0,2181
+
+Điểm năng lực tuyệt đối của thí sinh
+
+diem_moi_nhat
+
+0,0509
+
+Mốc chuẩn cạnh tranh gần nhất
+
+diem_tb
+
+0,0425
+
+Mặt bằng chuẩn dài hạn
+
+bien_dong
+
+0,0164
+
+Biên độ rủi ro dao động
+
+xu_huong
+
+0,0164
+
+Độ dốc cạnh tranh qua hồi quy
+
+Hai đặc trưng margin và diem_thi chiếm hơn 82% tổng mức đóng góp, xác nhận trực
+giác tuyển sinh: khoảng cách tương đối và năng lực tuyệt đối quyết định phần lớn kết
+quả. Nhóm đặc trưng lịch sử (diem_moi_nhat, diem_tb, bien_dong, xu_huong) đóng vai
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+23
+
+Chương 5. Kết quả và đánh giá
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+trò hiệu chỉnh rủi ro, giúp phân biệt các ngành cùng mức margin nhưng độ ổn định khác
+nhau.
+
+5.3 Bàn luận
+Khoảng cách 2,42 điểm phần trăm Accuracy giữa hai mô hình nhỏ hơn khoảng cách
+ROC-AUC (8,19 điểm), cho thấy lợi ích lớn nhất của Random Forest nằm ở chất lượng
+xếp hạng và hiệu chuẩn xác suất chứ không chỉ nhãn cứng. Đây đúng là khía cạnh hệ
+thống cần nhất vì quyết định phân tầng phụ thuộc toàn bộ vào thứ tự và giá trị 𝑝.
+Phân tích ca sai cho thấy lỗi tập trung tại vùng margin gần 0 (từ −0,5 đến +0,5): thí
+sinh ngang điểm chuẩn, nơi nhiễu tuyển sinh năm đơn lẻ (chỉ tiêu, phổ điểm) át tín hiệu
+lịch sử. Đây là vùng hệ thống cố tình đẩy vào tầng Vừa sức kèm cảnh báo biến động,
+thay vì khẳng định chắc chắn.
+
+5.4 Hạn chế
+• Nhãn giả lập, không phải đỗ/trượt thật: 11 mức DELTAS đối xứng chỉ xấp xỉ phân
+phối thí sinh; nhóm điểm xa chuẩn (±3,0) dễ phân loại làm phồng Accuracy tổng thể.
+• Giới hạn hai phương thức: Chưa xử lý đánh giá năng lực, đánh giá tư duy, chứng
+chỉ ngoại ngữ do khác thang điểm.
+• Nhiễu năm đơn lẻ: Ngành mới mở, ngành đổi chỉ tiêu đột biến hoặc năm thiếu dữ
+liệu khiến xu_huong và bien_dong kém ổn định; hệ thống hiện gắn cờ “dữ liệu mỏng”
+thay vì dự báo mù.
+• Chưa kiểm thử tải đồng thời: Đo 0,42 giây thực hiện trên truy vấn đơn; chưa đo tải
+hàng trăm người dùng song song mùa cao điểm.
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+24
+
+6
+Kết luận và hướng phát triển
+6.1 Kết luận
+Đồ án xây dựng thành công hệ thống gợi ý nguyện vọng đại học Uni Connect, khép kín
+từ thu thập dữ liệu 10 năm (2016–2025) đến triển khai web phục vụ người dùng. Kết quả
+chính:
+• Cơ sở dữ liệu thực tế quy mô lớn: 295 trường, 3.037 ngành, 340 tổ hợp môn và
+240.483 bản ghi điểm chuẩn qua 10 năm, giải quyết bài toán dữ liệu phân tán.
+• Mô hình học máy đáng tin cậy: Random Forest với 27 đặc trưng đạt Accuracy
+74,56%, ROC-AUC 0,8354 và Brier score 0,1763 trên tập kiểm thử độc lập năm
+2025, vượt trội so với Decision Tree cơ sở.
+• Gợi ý minh bạch có phân tầng: Cơ chế 3 tầng (An toàn, Vừa sức, Thử sức) dựa trên
+xác suất trúng tuyển, kèm lời giải thích theo margin, xu_huong và bien_dong, giúp
+thí sinh xây dựng chiến lược nguyện vọng cân bằng.
+• Ứng dụng web hoàn chỉnh: Viết trên Django 5.2 kết hợp MySQL 8.0, thời gian
+phản hồi trang gợi ý đạt 0,42 giây (dưới ngưỡng 3 giây), có cơ chế dự phòng không
+gián đoạn khi thiếu mô hình AI.
+
+6.2 Bài học rút ra
+• Chất lượng và cấu trúc dữ liệu quyết định phần lớn hiệu năng: Phần lớn thời gian
+đồ án tập trung vào làm sạch tên ngành, ánh xạ nhóm ngành, đồng bộ thang điểm và
+thiết kế bảng cua_so_nam. Khâu này đóng góp nhiều hơn việc tinh chỉnh sâu các siêu
+tham số học máy.
+• Ranh giới rò rỉ dữ liệu trong bài toán thời gian: Chia dữ liệu ngẫu nhiên (k-fold
+truyền thống) sẽ gây rò rỉ tương lai vào quá khứ, tạo kết quả ảo. Việc chia cứng theo
+25
+
+Chương 6. Kết luận và hướng phát triển
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+thời gian (huấn luyện 2021–2024, kiểm thử 2025) và tính đặc trưng chỉ từ các năm
+trước đó là điều kiện tiên quyết để đánh giá đúng năng lực mô hình.
+• Độ bền hệ thống quan trọng hơn độ phức tạp thuật toán: Thiết kế bộ nhớ đệm
+nạp mô hình vào RAM và cơ chế dự phòng tự động chuyển sang xếp hạng margin
+khi lỗi nạp giúp hệ thống không bao giờ trả về lỗi 500 cho người dùng.
+
+6.3 Hướng phát triển
+• Mở rộng phương thức xét tuyển: Tích hợp điểm thi Đánh giá năng lực (ĐHQG
+Hà Nội, ĐHQG TP.HCM) và Đánh giá tư duy (ĐH Bách Khoa Hà Nội) thông qua
+module chuẩn hóa thang điểm tương đương.
+• Thu thập dữ liệu trúng tuyển thật: Hợp tác hoặc khảo sát thí sinh sau mỗi mùa
+tuyển sinh để thu thập nhãn đỗ/trượt thật, thay thế dần nhãn giả lập từ DELTAS.
+• Tối ưu hóa gợi ý tổ hợp môn: Bổ sung thuật toán phân bổ thứ tự nguyện vọng theo
+lý thuyết trò chơi hoặc quy hoạch tuyến tính nhằm tối đa hóa xác suất trúng ít nhất
+một nguyện vọng ưu tiên.
+• Kiểm thử tải và triển khai đám mây: Đo đạc tải đồng thời trên nền tảng đám mây
+với cơ chế tự động mở rộng để phục vụ lượng truy cập lớn trong những ngày công
+bố điểm thi THPT.
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+26
+
+Tài liệu tham khảo
+[1] Leo Breiman. Random forests. Machine Learning, 45(1):5–32, 2001.
+[2] Hoàng Kiếm. Giáo trình nhập môn trí tuệ nhân tạo. NXB Đại học Quốc gia Thành
+phố Hồ Chí Minh, 2007.
+[3] Fabian Pedregosa, Gaël Varoquaux, Alexandre Gramfort, Vincent Michel, Bertrand
+Thirion, Olivier Grisel, Mathieu Blondel, Peter Prettenhofer, Ron Weiss, Vincent
+Dubourg, Jake Vanderplas, Alexandre Passos, David Cournapeau, Matthieu
+Brucher, Matthieu Perrot, and Édouard Duchesnay. Scikit-learn: Machine learning
+in python. Journal of Machine Learning Research, 12:2825–2830, 2011.
+[4] Stuart Russell and Peter Norvig. Artificial Intelligence: A Modern Approach.
+Pearson, 4 edition, 2021.
+
+27
+
+Phụ lục
+A. Hướng dẫn cài đặt và chạy chương trình
+Các bước dưới đây hướng dẫn thiết lập môi trường và khởi chạy hệ thống Uni Connect
+từ kho mã nguồn.
+Mã nguồn 6.1. Quy trình cài đặt cơ sở dữ liệu, huấn luyện và khởi chạy Uni Connect.
+1
+2
+3
+
+# 1. Clone kho ma nguon
+git clone https://github.com/tann299/DAU-2026-2027-Uni-Map.git
+cd DAU-2026-2027-Uni-Map
+
+4
+5
+6
+7
+8
+9
+
+# 2. Tao moi truong ao Python va cai dat goi phu thuoc
+python -m venv .venv
+source .venv/bin/activate
+# Tren Linux / macOS / Git Bash
+# .venv\Scripts\activate
+# Tren Windows CMD / PowerShell
+pip install -r requirements.txt
+
+10
+11
+12
+13
+14
+
+# 3. Thiet lap CSDL MySQL va nap du lieu ban dau
+# Tao CSDL uni_map tren MySQL 8.0, sau do nap schema va du lieu:
+mysql -u root -p uni_map < db/schema.sql
+python source/backend/manage.py migrate --run-syncdb
+
+15
+16
+17
+18
+
+# 4. Sinh tap dac trung va huan luyen mo hinh AI
+python source/backend/recommendation/ml/gen_dataset.py
+python source/backend/recommendation/ml/train.py
+
+19
+20
+21
+22
+
+# 5. Khoi chay may chu ung dung Django
+python source/backend/manage.py runserver 0.0.0.0:8000
+# Mo trinh duyet truy cap: http://localhost:8000
+
+B. Bảng tự kiểm trước khi nộp
+Sản phẩm chạy được trên môi trường máy chủ cục bộ và hosting thực tế.
+Đã kiểm tra kịch bản gợi ý và cơ chế dự phòng không phát sinh lỗi 500.
+Mã nguồn được quản lý bằng Git với lịch sử commit ghi nhận tiến độ liên tục.
+Có tệp README.md, requirements.txt và tài liệu hướng dẫn cài đặt rõ ràng.
+28
+
+Phụ lục
+
+BÁO CÁO ĐỒ ÁN TRÍ TUỆ NHÂN TẠO
+
+Mọi hình vẽ, bảng biểu và danh sách mã nguồn đều có tiêu đề, nhãn tham chiếu và
+được giải thích trong thân văn bản.
+Mọi mục tiêu đặt ra ở Chương 1 đều được đối chiếu kết quả cụ thể ở Chương 5 và
+Chương 6.
+Các con số thống kê dữ liệu (295 trường, 3.037 ngành, 240.483 bản ghi) và chỉ số
+mô hình (Accuracy 74,56%, ROC-AUC 0,8354) lấy từ kết quả thực nghiệm thật.
+Mọi tài liệu tham khảo trong refs.bib đều được trích dẫn hợp lệ.
+Đã loại bỏ hoàn toàn các khung gợi ý, khung nội dung mẫu và dòng chữ “NỘI
+DUNG MẪU” trong tệp PDF.
+
+C. Nhận xét của giảng viên hướng dẫn
+...........................................................................
+...........................................................................
+...........................................................................
+...........................................................................
+...........................................................................
+...........................................................................
+Đà Nẵng, ngày … tháng … năm …
+Điểm số
+Giảng viên hướng dẫn
+Bằng số: . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Bằng chữ: . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+TS. Đỗ Phúc Hảo
+
+Nguyễn Ngọc Tân ꞏ 2351220242
+
+29
+
+

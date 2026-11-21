@@ -1,0 +1,68 @@
+\chapter{Phụ lục}
+\markboth{Phụ lục}{}
+
+\section*{A. Hướng dẫn cài đặt và chạy chương trình}
+\phantomsection
+\addcontentsline{toc}{section}{A. Hướng dẫn cài đặt và chạy chương trình}
+
+Các bước dưới đây hướng dẫn thiết lập môi trường và khởi chạy hệ thống Uni Connect từ kho mã nguồn.
+
+\begin{lstlisting}[language=bash, caption={Quy trình cài đặt cơ sở dữ liệu, huấn luyện và khởi chạy Uni Connect.}]
+# 1. Clone kho ma nguon
+git clone https://github.com/tann299/DAU-2026-2027-Uni-Map.git
+cd DAU-2026-2027-Uni-Map
+
+# 2. Tao moi truong ao Python va cai dat goi phu thuoc
+python -m venv .venv
+source .venv/bin/activate      # Tren Linux / macOS / Git Bash
+# .venv\Scripts\activate       # Tren Windows CMD / PowerShell
+pip install -r requirements.txt
+
+# 3. Thiet lap CSDL MySQL va nap du lieu ban dau
+# Tao CSDL uni_map tren MySQL 8.0, sau do nap schema va du lieu:
+mysql -u root -p uni_map < db/schema.sql
+python source/backend/manage.py migrate --run-syncdb
+
+# 4. Sinh tap dac trung va huan luyen mo hinh AI
+python source/backend/recommendation/ml/gen_dataset.py
+python source/backend/recommendation/ml/train.py
+
+# 5. Khoi chay may chu ung dung Django
+python source/backend/manage.py runserver 0.0.0.0:8000
+# Mo trinh duyet truy cap: http://localhost:8000
+\end{lstlisting}
+
+\section*{B. Bảng tự kiểm trước khi nộp}
+\phantomsection
+\addcontentsline{toc}{section}{B. Bảng tự kiểm trước khi nộp}
+
+\begin{tukiem}
+  \item Sản phẩm chạy được trên môi trường máy chủ cục bộ và hosting thực tế.
+  \item Đã kiểm tra kịch bản gợi ý và cơ chế dự phòng không phát sinh lỗi 500.
+  \item Mã nguồn được quản lý bằng Git với lịch sử commit ghi nhận tiến độ liên tục.
+  \item Có tệp \code{README.md}, \code{requirements.txt} và tài liệu hướng dẫn cài đặt rõ ràng.
+  \item Mọi hình vẽ, bảng biểu và danh sách mã nguồn đều có tiêu đề, nhãn tham chiếu và được giải thích trong thân văn bản.
+  \item Mọi mục tiêu đặt ra ở Chương~\ref{ch:modau} đều được đối chiếu kết quả cụ thể ở Chương~\ref{ch:caidat} và Chương~\ref{ch:ketluan}.
+  \item Các con số thống kê dữ liệu (295 trường, 3.037 ngành, 240.483 bản ghi) và chỉ số mô hình (Accuracy 74,56\%, ROC-AUC 0,8354) lấy từ kết quả thực nghiệm thật.
+  \item Mọi tài liệu tham khảo trong \code{refs.bib} đều được trích dẫn hợp lệ.
+  \item Đã loại bỏ hoàn toàn các khung gợi ý, khung nội dung mẫu và dòng chữ ``NỘI DUNG MẪU'' trong tệp PDF.
+\end{tukiem}
+
+\section*{C. Nhận xét của giảng viên hướng dẫn}
+\phantomsection
+\addcontentsline{toc}{section}{C. Nhận xét của giảng viên hướng dẫn}
+
+\khungnhanxet[7.5cm]
+
+\vspace{0.8em}
+\noindent\begin{minipage}[t]{0.5\textwidth}
+\color{daunavy}
+{\color{daumaroon}\bfseries Điểm số}
+
+\vspace{0.7em}
+\dongchamnhan{Bằng số:}
+
+\vspace{0.9em}
+\dongchamnhan{Bằng chữ:}
+\end{minipage}\hfill
+\okyten{\dauGVHD}{Giảng viên hướng dẫn}

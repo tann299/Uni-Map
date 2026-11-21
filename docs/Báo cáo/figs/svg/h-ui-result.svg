@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="215pt" viewBox="0 0 460 215">
+
+<rect x="0" y="0" width="460" height="215" fill="#FFFFFF"/>
+<rect x="4" y="26" width="452" height="178" rx="6" fill="#FFFFFF" stroke="#0E2841" stroke-width="1.2"/>
+<rect x="4" y="26" width="452" height="22" rx="6" fill="#0E2841" stroke="none"/>
+<rect x="4" y="40" width="452" height="8" fill="#0E2841" stroke="none"/>
+<text x="230" y="37" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="8" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="0.8">UNI CONNECT — KẾT QUẢ GỢI Ý NGUYỆN VỌNG</text>
+<text x="16" y="60" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#0E2841" text-anchor="start" dominant-baseline="middle">Hồ sơ: Khối A00 — Toán 8,5 · Lý 8,0 · Hóa 8,5 → 25,0 | Miền Trung</text>
+<text x="16" y="72" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#6B7280" text-anchor="start" dominant-baseline="middle">30 nguyện vọng phù hợp — 0,038 giây (AI Random Forest)</text>
+<rect x="14" y="82" width="432" height="36" rx="4" fill="#E9F5EA" stroke="#196B24" stroke-width="1"/>
+<text x="20" y="91" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#196B24" text-anchor="start" dominant-baseline="middle" font-weight="bold">AN TOÀN (p ≥ 80%) — 8 nguyện vọng</text>
+<text x="20" y="102" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#384152" text-anchor="start" dominant-baseline="middle">ĐH Bách Khoa ĐN — CN Thông tin · A00 · 2025: 23,5 · 91,4% · +1,50</text>
+<text x="20" y="111" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#384152" text-anchor="start" dominant-baseline="middle">ĐH Sư phạm ĐN — Sư phạm Tin học · A00 · 2025: 22,0 · 95,8% · +3,00</text>
+<rect x="14" y="122" width="432" height="36" rx="4" fill="#E8F0FA" stroke="#1F4E78" stroke-width="1"/>
+<text x="20" y="131" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#1F4E78" text-anchor="start" dominant-baseline="middle" font-weight="bold">VỪA SỨC (40–80%) — 14 nguyện vọng</text>
+<text x="20" y="142" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#384152" text-anchor="start" dominant-baseline="middle">ĐH Bách Khoa ĐN — Kỹ thuật Phần mềm · A00 · 2025: 25,1 · 63,2% · −0,10</text>
+<text x="20" y="151" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#384152" text-anchor="start" dominant-baseline="middle">ĐH Kinh tế ĐN — Thương mại Điện tử · A00 · 2025: 24,8 · 68,5% · +0,20</text>
+<rect x="14" y="162" width="432" height="36" rx="4" fill="#FDF0E4" stroke="#C05621" stroke-width="1"/>
+<text x="20" y="171" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#C05621" text-anchor="start" dominant-baseline="middle" font-weight="bold">THỬ SỨC (p &lt; 40%) — 8 nguyện vọng</text>
+<text x="20" y="182" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#384152" text-anchor="start" dominant-baseline="middle">ĐH Bách Khoa ĐN — CN Thông tin · A00 · 2025: 26,25 · 24,6% · −1,25</text>
+<text x="20" y="191" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#384152" text-anchor="start" dominant-baseline="middle">ĐH SP Kỹ thuật TP.HCM — Robot &amp; AI · A00 · 2025: 26,5 · 18,2% · −1,50</text>
+<text x="230" y="14" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">MÔ PHỎNG GIAO DIỆN PHÂN TẦNG KẾT QUẢ</text>
+</svg>

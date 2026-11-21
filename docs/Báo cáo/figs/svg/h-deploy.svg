@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="200pt" viewBox="0 0 460 200">
+<defs><marker id="ar384152" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#384152"/></marker><marker id="ar990000" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#990000"/></marker></defs>
+<rect x="0" y="0" width="460" height="200" fill="#FFFFFF"/>
+<rect x="4" y="40" width="300" height="130" rx="6" fill="#FAFBFC" stroke="#0E2841" stroke-width="1.2" stroke-dasharray="5,3"/>
+<text x="10" y="52" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="start" dominant-baseline="middle" font-weight="bold">Máy chủ ứng dụng (VPS / hosting)</text>
+<rect x="20" y="66" width="110" height="44" rx="4" fill="#E7EBF0" stroke="#0E2841" stroke-width="1"/>
+<text x="75" y="78" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Nginx / Apache</text>
+<text x="75" y="92" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#384152" text-anchor="middle" dominant-baseline="middle">phục vụ /static/ và /media/</text>
+<text x="75" y="102" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#384152" text-anchor="middle" dominant-baseline="middle">proxy → Gunicorn</text>
+<rect x="146" y="66" width="140" height="44" rx="4" fill="#E8F0EA" stroke="#196B24" stroke-width="1"/>
+<text x="216" y="78" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#196B24" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Django 5.2 + Gunicorn</text>
+<text x="216" y="92" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#384152" text-anchor="middle" dominant-baseline="middle">6 ứng dụng · ORM</text>
+<text x="216" y="102" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#384152" text-anchor="middle" dominant-baseline="middle">model.pkl nạp sẵn trong RAM</text>
+<rect x="20" y="122" width="110" height="38" rx="4" fill="#FCEFD9" stroke="#990000" stroke-width="1"/>
+<text x="75" y="134" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">MySQL 8.0</text>
+<text x="75" y="148" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#384152" text-anchor="middle" dominant-baseline="middle">CSDL uni_map · utf8mb4</text>
+<rect x="146" y="122" width="140" height="38" rx="4" fill="#FFFFFF" stroke="#0E2841" stroke-width="1"/>
+<text x="216" y="134" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Tệp tĩnh &amp; media</text>
+<text x="216" y="148" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#384152" text-anchor="middle" dominant-baseline="middle">Tailwind CDN · logo trường · avatar</text>
+<path d="M130,88 L144,88" fill="none" stroke="#384152" stroke-width="1" marker-end="url(#ar384152)"/>
+<path d="M216,110 L216,120" fill="none" stroke="#384152" stroke-width="1" marker-end="url(#ar384152)"/>
+<rect x="330" y="66" width="126" height="90" rx="6" fill="#FFFFFF" stroke="#0E2841" stroke-width="1.1"/>
+<text x="393" y="80" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.6" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Người dùng</text>
+<text x="393" y="96" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#384152" text-anchor="middle" dominant-baseline="middle">Trình duyệt</text>
+<text x="393" y="108" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#384152" text-anchor="middle" dominant-baseline="middle">máy tính / di động</text>
+<text x="393" y="126" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">HTTPS · responsive</text>
+<text x="393" y="140" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">Tailwind CSS</text>
+<path d="M328,110 L306,110" fill="none" stroke="#990000" stroke-width="1.2" marker-end="url(#ar990000)"/>
+<rect x="306.25" y="99.35" width="21.5" height="9.3" fill="#FFFFFF" stroke="none"/>
+<text x="317" y="104" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#990000" text-anchor="middle" dominant-baseline="middle">HTTPS</text>
+<text x="230" y="16" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">SƠ ĐỒ TRIỂN KHAI</text>
+<text x="230" y="32" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">Cấu hình tham chiếu: 1 VPS 2 vCPU / 2 GB RAM chạy được toàn bộ hệ thống</text>
+</svg>

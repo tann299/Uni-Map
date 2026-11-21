@@ -1,0 +1,52 @@
+\chapter{Mở đầu}
+\label{ch:modau}
+
+\section{Lý do chọn đề tài}
+
+Kỳ thi tốt nghiệp Trung học phổ thông (THPT) và xét tuyển đại học là bước ngoặt quan trọng đối với mỗi học sinh lớp 12 tại Việt Nam. Hằng năm, có gần 1 triệu thí sinh tham dự kỳ thi với hàng chục nghìn ngành đào tạo thuộc hàng trăm trường đại học trên toàn quốc. Theo quy chế tuyển sinh của Bộ Giáo dục và Đào tạo, thí sinh được đăng ký không giới hạn số lượng nguyện vọng và hệ thống chỉ xét trúng tuyển vào một nguyện vọng duy nhất có thứ tự ưu tiên cao nhất.
+
+Tuy nhiên, trong quá trình lựa chọn và sắp xếp danh sách nguyện vọng, học sinh và phụ huynh thường đối mặt với nhiều rào cản lớn:
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item \textbf{Dữ liệu phân tán và thiếu tính hệ thống:} Điểm chuẩn qua các năm được công bố rải rác trên cổng thông tin của từng trường hoặc các trang tin tức tổng hợp với nhiều định dạng khác nhau, gây khó khăn cho việc tra cứu và so sánh chuỗi dữ liệu lịch sử.
+  \item \textbf{Thiếu công cụ phân tích rủi ro định lượng:} Thí sinh chủ yếu so sánh điểm thi cá nhân với điểm chuẩn của một năm gần nhất một cách cảm tính mà không tính đến các yếu tố biến động quan trọng như: xu hướng tăng giảm điểm chuẩn qua nhiều năm, mức độ dao động phổ điểm và độ cạnh tranh của từng nhóm ngành, vùng miền.
+  \item \textbf{Chiến lược đặt nguyện vọng thiếu an toàn:} Rất nhiều thí sinh đặt toàn bộ các ngành có điểm chuẩn xấp xỉ điểm thi hoặc quá cao, dẫn đến nguy cơ trượt toàn bộ các nguyện vọng yêu thích; ngược lại, một số em vì tâm lý lo sợ đã chọn các ngành quá thấp so với năng lực thực tế.
+\end{itemize}
+
+Trước thực trạng đó, việc ứng dụng trí tuệ nhân tạo và học máy để xây dựng một hệ thống gợi ý nguyện vọng thông minh là nhu cầu cấp thiết. Hệ thống \textbf{Uni Connect} được phát triển nhằm tự động hóa quy trình thu thập dữ liệu điểm chuẩn 10 năm của các trường đại học tại Việt Nam, huấn luyện mô hình học máy để ước lượng xác suất trúng tuyển và phân tầng danh sách gợi ý thành ba mức: An toàn, Vừa sức và Thử sức. Giải pháp không chỉ giúp học sinh tiết kiệm thời gian tra cứu mà còn cung cấp cơ sở khoa học rõ ràng để các em tự tin đưa ra quyết định tuyển sinh tối ưu.
+
+\section{Mục tiêu của đồ án}
+
+Đồ án hướng tới các mục tiêu cụ thể sau:
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item \textbf{Mục tiêu 1 (Dữ liệu):} Xây dựng công cụ thu thập tự động và chuẩn hóa cơ sở dữ liệu điểm chuẩn tuyển sinh đại học qua 10 năm (2016--2025) với quy mô tối thiểu 250 trường, 3.000 ngành và 200.000 bản ghi điểm chuẩn trên toàn quốc.
+  \item \textbf{Mục tiêu 2 (Mô hình AI):} Trích xuất bộ đặc trưng gồm 27 chiều phản ánh quan hệ giữa điểm năng lực cá nhân và đặc tính lịch sử của từng ngành học; huấn luyện mô hình \en{Random Forest} đạt độ chính xác dự báo trên 70\% và chỉ số ROC-AUC trên 0,80 trên tập kiểm thử độc lập.
+  \item \textbf{Mục tiêu 3 (Phân tầng và giải thích):} Thiết kế cơ chế phân tầng nguyện vọng 3 mức (An toàn, Vừa sức, Thử sức) dựa trên xác suất trúng tuyển dự đoán, đồng thời sinh lời giải thích trực quan dựa trên khoảng cách điểm (\code{margin}), xu hướng biến động (\code{xu_huong}) và độ biến động (\code{bien_dong}).
+  \item \textbf{Mục tiêu 4 (Ứng dụng web):} Phát triển ứng dụng web hoàn chỉnh bằng framework Django 5.2 kết hợp hệ quản trị cơ sở dữ liệu MySQL, cung cấp các tính năng tra cứu, quản lý hồ sơ điểm, nhận gợi ý AI và quản trị dữ liệu với thời gian phản hồi dưới 3 giây.
+\end{itemize}
+
+\section{Phạm vi và đối tượng}
+
+\textbf{Đối tượng nghiên cứu:}
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item Dữ liệu điểm trúng tuyển đại học các năm từ 2016 đến 2025 tại Việt Nam.
+  \item Các kỹ thuật tiền xử lý dữ liệu dạng bảng, trích xuất đặc trưng chuỗi thời gian và thuật toán Machine Learning phân loại có giám sát (Decision Tree, Random Forest).
+  \item Mô hình kiến trúc ứng dụng web hướng dịch vụ phục vụ người dùng cuối.
+\end{itemize}
+
+\textbf{Phạm vi thực hiện:}
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item \textbf{Phương thức xét tuyển:} Giới hạn ở hai phương thức chiếm tỷ trọng lớn nhất và cùng thang điểm 30/40 là xét điểm thi tốt nghiệp THPT và xét điểm học bạ THPT. Không xử lý các kỳ thi đánh giá năng lực, đánh giá tư duy hoặc chứng chỉ ngoại ngữ riêng biệt do khác biệt về thang điểm chuẩn.
+  \item \textbf{Bản chất bài toán:} Hệ thống đóng vai trò công cụ tư vấn và hỗ trợ ra quyết định cho thí sinh. Hệ thống không thay thế việc đăng ký nguyện vọng chính thức trên cổng thông tin của Bộ Giáo dục và Đào tạo và không dự đoán điểm chuẩn năm tới thành một con số tuyệt đối.
+  \item \textbf{Môi trường triển khai:} Hệ thống được thiết kế tối ưu để có thể huấn luyện và vận hành hiệu quả trên hạ tầng máy chủ cơ bản của trường học, không đòi hỏi phần cứng chuyên dụng hoặc GPU dung lượng lớn.
+\end{itemize}
+
+\section{Bố cục báo cáo}
+
+Báo cáo đồ án được tổ chức thành 5 chương chính như sau:
+\begin{itemize}[leftmargin=1.6em, itemsep=2pt]
+  \item \textbf{Chương~\ref{ch:modau} — Mở đầu:} Trình bày lý do chọn đề tài, mục tiêu, phạm vi và đối tượng nghiên cứu, cùng bố cục tổng thể của báo cáo.
+  \item \textbf{Chương~\ref{ch:coso} — Cơ sở lý thuyết và công nghệ:} Trình bày cơ sở lý thuyết về bài toán phân loại Machine Learning, thuật toán Decision Tree, Random Forest, các chỉ số đánh giá mô hình và danh mục công nghệ, thư viện được sử dụng.
+  \item \textbf{Chương~\ref{ch:thietke} — Phân tích và thiết kế:} Phân tích yêu cầu chức năng, phi chức năng, ca sử dụng (Use Case), thiết kế kiến trúc tổng thể, lược đồ cơ sở dữ liệu quan hệ và quy trình thiết kế bộ 27 đặc trưng cho mô hình gợi ý.
+  \item \textbf{Chương~\ref{ch:caidat} — Cài đặt, thử nghiệm và đánh giá kết quả:} Mô tả chi tiết môi trường phát triển, quá trình triển khai mã nguồn thu thập dữ liệu, mã nguồn huấn luyện mô hình, giao diện người dùng thực tế của ứng dụng Uni Connect; phân tích kết quả thực nghiệm của các mô hình trên tập kiểm thử năm 2025, đối chiếu mục tiêu, đánh giá độ quan trọng của các đặc trưng và thảo luận các trường hợp sai lệch.
+  \item \textbf{Chương~\ref{ch:ketluan} — Kết luận và hướng phát triển:} Tổng kết các đóng góp chính của đồ án, bài học kinh nghiệm và đề xuất các hướng nghiên cứu, mở rộng tính năng trong tương lai.
+\end{itemize}
