@@ -1,0 +1,312 @@
+{% extends "base.html" %}
+
+{% block title %}Tài khoản của tôi — Uni Connect{% endblock %}
+
+{% block content %}
+<div class="max-w-[1350px] mx-auto px-margin-mobile lg:px-margin py-space-lg">
+
+  <!-- Tiêu đề trang -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm mb-space-lg">
+    <div>
+      <h1 class="font-headline-lg text-headline-lg text-on-surface font-bold">Tài khoản của tôi</h1>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Hồ sơ năng lực, thông tin cá nhân và bảo mật.</p>
+    </div>
+    <a href="{% url 'admissions:tao_ho_so' %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors shadow-sm shrink-0">
+      <span class="material-symbols-outlined text-[18px]">add</span>
+      <span>Tạo hồ sơ mới</span>
+    </a>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+
+    <!-- ===== Sidebar hồ sơ ===== -->
+    <aside class="lg:col-span-4 flex flex-col gap-space-md lg:sticky lg:top-20">
+      <section class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-lg">
+        <div class="flex items-center gap-space-md">
+          {% if user.profile.avatar %}
+            <img src="{{ user.profile.avatar.url }}" alt="Avatar" class="w-16 h-16 rounded-full object-cover border border-outline-variant shrink-0 shadow-sm">
+          {% else %}
+            <div class="w-16 h-16 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold font-headline-md text-headline-md shrink-0 shadow-sm">
+              {{ user.get_full_name|default:user.username|slice:":1"|upper }}
+            </div>
+          {% endif %}
+          <div class="min-w-0">
+            <div class="font-title-md text-title-md font-bold text-on-surface truncate">{{ user.get_full_name|default:user.username }}</div>
+            <div class="font-label-sm text-label-sm text-on-surface-variant font-mono truncate">@{{ user.username }}</div>
+            <div class="flex items-center gap-space-xs mt-1">
+              {% if user.is_staff %}
+                <span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed text-[11px] font-bold">Quản trị viên</span>
+              {% else %}
+                <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant text-[11px] font-medium">Học sinh</span>
+              {% endif %}
+              <span class="font-label-sm text-label-sm text-outline">tham gia {{ user.date_joined|date:"m/Y" }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Số liệu nhanh -->
+        <div class="grid grid-cols-3 gap-space-sm mt-space-md pt-space-md border-t border-surface-container-high text-center">
+          <div>
+            <div class="font-data-metric text-data-metric font-mono font-bold text-primary-container">{{ thong_ke.so_ho_so }}</div>
+            <div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Hồ sơ</div>
+          </div>
+          <div>
+            <div class="font-data-metric text-data-metric font-mono font-bold text-on-surface">{{ thong_ke.so_to_hop }}</div>
+            <div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Tổ hợp</div>
+          </div>
+          <div>
+            <div class="font-data-metric text-data-metric font-mono font-bold text-on-surface">{{ thong_ke.so_lan_goi_y }}</div>
+            <div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Lượt gợi ý</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Điều hướng tab -->
+      <nav class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-sm flex lg:flex-col gap-1">
+        <a href="?tab=ho_so" class="flex items-center gap-2 px-space-md py-space-sm rounded-lg font-label-md text-label-md font-semibold transition-colors {% if tab == 'ho_so' %}bg-primary-container/15 text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}">
+          <span class="material-symbols-outlined text-[20px]">description</span>
+          <span class="flex-1">Hồ sơ năng lực</span>
+          <span class="px-1.5 py-0.5 rounded bg-surface-container font-mono text-[11px]">{{ thong_ke.so_ho_so }}</span>
+        </a>
+        <a href="?tab=thong_tin" class="flex items-center gap-2 px-space-md py-space-sm rounded-lg font-label-md text-label-md font-semibold transition-colors {% if tab == 'thong_tin' %}bg-primary-container/15 text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}">
+          <span class="material-symbols-outlined text-[20px]">person</span>
+          <span class="flex-1">Thông tin cá nhân</span>
+        </a>
+        <a href="?tab=mat_khau" class="flex items-center gap-2 px-space-md py-space-sm rounded-lg font-label-md text-label-md font-semibold transition-colors {% if tab == 'mat_khau' %}bg-primary-container/15 text-primary-container{% else %}text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface{% endif %}">
+          <span class="material-symbols-outlined text-[20px]">lock</span>
+          <span class="flex-1">Đổi mật khẩu</span>
+        </a>
+        <form method="post" action="{% url 'accounts:dang_xuat' %}" class="lg:mt-1 lg:pt-1 lg:border-t lg:border-surface-container-high">
+          {% csrf_token %}
+          <button type="submit" class="w-full flex items-center gap-2 px-space-md py-space-sm rounded-lg font-label-md text-label-md font-semibold text-on-surface-variant hover:bg-error-container hover:text-error transition-colors">
+            <span class="material-symbols-outlined text-[20px]">logout</span>
+            <span class="flex-1 text-left">Đăng xuất</span>
+          </button>
+        </form>
+      </nav>
+    </aside>
+
+    <!-- ===== Nội dung ===== -->
+    <div class="lg:col-span-8 min-w-0">
+
+      {% if tab == 'ho_so' %}
+      {% if danh_sach %}
+        <div class="flex flex-col gap-space-md">
+          {% for hs in danh_sach %}
+            <article class="uc-card bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-md">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0">
+                  <div class="font-title-md text-title-md font-bold text-on-surface truncate">{{ hs.ten_ho_so }}</div>
+                  <div class="flex flex-wrap items-center gap-space-xs mt-1 font-label-sm text-label-sm">
+                    <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">{{ hs.phuong_thuc }}</span>
+                    {% if hs.diem_uu_tien %}<span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-semibold">ưu tiên +{{ hs.diem_uu_tien }}</span>{% endif %}
+                    {% if hs.vung_mien_uu_tien %}<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">{{ hs.vung_mien_uu_tien }}</span>{% endif %}
+                  </div>
+                </div>
+                <span class="font-label-sm text-label-sm text-outline whitespace-nowrap">sửa {{ hs.ngay_sua|date:"d/m/Y" }}</span>
+              </div>
+
+              <!-- Điểm từng môn -->
+              <div class="flex flex-wrap gap-space-xs mt-space-sm">
+                {% for d in hs.ds_diem_mon %}
+                  <span class="px-2 py-1 rounded-lg bg-surface-container-low border border-surface-container-high font-mono text-[12px]"><strong>{{ d.ma_mon_id }}</strong> {{ d.diem }}</span>
+                {% empty %}
+                  <span class="font-body-sm text-body-sm text-outline">Chưa nhập điểm môn nào.</span>
+                {% endfor %}
+              </div>
+
+              <div class="flex flex-wrap items-center gap-space-sm mt-space-sm pt-space-sm border-t border-surface-container-high">
+                <a href="{% url 'admissions:chi_tiet_ho_so' hs.pk %}" class="inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-primary-container uc-link">
+                  <span class="material-symbols-outlined text-[18px]">calculate</span>
+                  {{ hs.so_to_hop }} tổ hợp đủ điều kiện
+                </a>
+                <span class="text-outline">·</span>
+                {% if hs.so_lan_goi_y %}
+                  <a href="{% url 'recommendation:xem_goi_y' hs.pk %}" class="inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-primary-container uc-link">
+                    <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+                    Xem gợi ý ({{ hs.so_lan_goi_y }} lượt)
+                  </a>
+                  <a href="{% url 'recommendation:lich_su_goi_y' hs.pk %}" class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container uc-link">Lịch sử</a>
+                {% else %}
+                  <a href="{% url 'recommendation:xem_goi_y' hs.pk %}" class="inline-flex items-center gap-1 font-label-md text-label-md font-semibold text-primary-container uc-link">
+                    <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+                    Nhận gợi ý AI
+                  </a>
+                {% endif %}
+                <span class="flex-1"></span>
+                <a href="{% url 'admissions:sua_ho_so' hs.pk %}" class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-primary-container hover:bg-surface-container-high transition-colors" title="Sửa hồ sơ">
+                  <span class="material-symbols-outlined text-[18px]">edit</span>
+                </a>
+                <a href="{% url 'admissions:xoa_ho_so' hs.pk %}" class="p-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-error hover:bg-error-container transition-colors" title="Xóa hồ sơ">
+                  <span class="material-symbols-outlined text-[18px]">delete</span>
+                </a>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-xl text-center">
+          <span class="material-symbols-outlined text-[48px] text-outline block mb-space-xs">school</span>
+          <p class="font-title-md text-title-md font-bold text-on-surface">Chưa có hồ sơ năng lực</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-space-md">Nhập điểm từng môn một lần — hệ thống tự suy ra mọi tổ hợp bạn đủ điều kiện (CN-01).</p>
+          <a href="{% url 'admissions:tao_ho_so' %}" class="px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg inline-flex items-center gap-1.5 transition-colors">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+            <span>Tạo hồ sơ đầu tiên</span>
+          </a>
+        </div>
+      {% endif %}
+
+      {% elif tab == 'thong_tin' %}
+      <section class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-lg">
+        <h2 class="font-title-md text-title-md font-bold text-on-surface">Thông tin cá nhân</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-space-md">Tên đăng nhập <span class="font-mono font-semibold text-on-surface">@{{ user.username }}</span> không đổi được.</p>
+
+        <form method="post" enctype="multipart/form-data" class="flex flex-col gap-space-lg">
+          {% csrf_token %}
+          <input type="hidden" name="luu_thong_tin" value="1">
+          {% if form_tt.non_field_errors %}
+            <div class="p-3 rounded-xl bg-error-container text-on-error-container border border-error/30 font-body-sm text-body-sm">{{ form_tt.non_field_errors }}</div>
+          {% endif %}
+
+          <!-- Khu vực đổi ảnh đại diện (Avatar) -->
+          <div class="p-space-md rounded-2xl bg-surface-container-low border border-outline-variant/60 flex flex-col sm:flex-row items-center gap-space-md">
+            <div class="relative shrink-0">
+              <div id="avatar-preview-container" class="w-20 h-20 rounded-full border-2 border-primary-container/40 overflow-hidden bg-surface-container-lowest flex items-center justify-center shadow-sm">
+                {% if user.profile.avatar %}
+                  <img id="avatar-preview-img" src="{{ user.profile.avatar.url }}" alt="Avatar" class="w-full h-full object-cover">
+                {% else %}
+                  <div id="avatar-placeholder" class="w-full h-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-headline-sm">
+                    {{ user.get_full_name|default:user.username|slice:":1"|upper }}
+                  </div>
+                  <img id="avatar-preview-img" src="" alt="Preview" class="w-full h-full object-cover hidden">
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="flex-1 text-center sm:text-left">
+              <span class="font-label-md text-label-md font-semibold text-on-surface block mb-1">Ảnh đại diện</span>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">Hỗ trợ PNG, JPG, WebP tối đa 5MB. Ảnh sẽ được tự động căn vuông và tối ưu dung lượng.</p>
+
+              <div class="flex flex-wrap items-center justify-center sm:justify-start gap-space-xs">
+                <!-- Nút chọn ảnh ẩn input file gốc -->
+                {{ form_tt.avatar }}
+                <label for="{{ form_tt.avatar.id_for_label }}" class="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-highest hover:bg-surface-variant text-on-surface font-label-sm text-label-sm font-semibold transition-colors border border-outline-variant">
+                  <span class="material-symbols-outlined text-[18px]">photo_camera</span>
+                  <span>Chọn ảnh mới</span>
+                </label>
+
+                <!-- Checkbox / Nút xóa avatar -->
+                {{ form_tt.xoa_avatar }}
+                {% if user.profile.avatar %}
+                  <button type="button" id="btn-xoa-avatar" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-error hover:bg-error-container/20 font-label-sm text-label-sm font-semibold transition-colors border border-error/30">
+                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                    <span>Xóa ảnh</span>
+                  </button>
+                {% endif %}
+              </div>
+              {% if form_tt.avatar.errors %}
+                <p class="text-error text-xs mt-1.5">{{ form_tt.avatar.errors.0 }}</p>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+            <div class="flex flex-col gap-1">
+              <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form_tt.first_name.id_for_label }}">{{ form_tt.first_name.label }}</label>
+              {{ form_tt.first_name }}
+              {% if form_tt.first_name.errors %}<p class="text-error text-xs">{{ form_tt.first_name.errors.0 }}</p>{% endif %}
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form_tt.last_name.id_for_label }}">{{ form_tt.last_name.label }}</label>
+              {{ form_tt.last_name }}
+              {% if form_tt.last_name.errors %}<p class="text-error text-xs">{{ form_tt.last_name.errors.0 }}</p>{% endif %}
+            </div>
+
+            <div class="flex flex-col gap-1 sm:col-span-2">
+              <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ form_tt.email.id_for_label }}">{{ form_tt.email.label }}</label>
+              {{ form_tt.email }}
+              {% if form_tt.email.errors %}<p class="text-error text-xs">{{ form_tt.email.errors.0 }}</p>{% endif %}
+            </div>
+          </div>
+
+          <div class="flex justify-end pt-space-xs">
+            <button type="submit" class="uc-btn px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-sm font-semibold">Lưu thay đổi</button>
+          </div>
+        </form>
+
+        <script>
+          // Preview avatar ngay khi người dùng chọn file
+          (function() {
+            const fileInput = document.getElementById('{{ form_tt.avatar.id_for_label }}');
+            const previewImg = document.getElementById('avatar-preview-img');
+            const placeholder = document.getElementById('avatar-placeholder');
+            const chkXoa = document.getElementById('{{ form_tt.xoa_avatar.id_for_label }}');
+            const btnXoa = document.getElementById('btn-xoa-avatar');
+
+            if (fileInput) {
+              fileInput.addEventListener('change', function(e) {
+                const file = e.target.files && e.target.files[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onload = function(evt) {
+                    if (previewImg) {
+                      previewImg.src = evt.target.result;
+                      previewImg.classList.remove('hidden');
+                    }
+                    if (placeholder) placeholder.classList.add('hidden');
+                    if (chkXoa) chkXoa.checked = false;
+                  };
+                  reader.readAsDataURL(file);
+                }
+              });
+            }
+
+            if (btnXoa && chkXoa) {
+              btnXoa.addEventListener('click', function() {
+                chkXoa.checked = true;
+                if (previewImg) previewImg.classList.add('hidden');
+                if (placeholder) {
+                  placeholder.classList.remove('hidden');
+                } else if (previewImg) {
+                  // Fallback: thay ảnh bằng viền mờ
+                  previewImg.src = '';
+                }
+                btnXoa.classList.add('opacity-40', 'pointer-events-none');
+                btnXoa.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span><span>Sẽ xóa khi Lưu</span>';
+              });
+            }
+          })();
+        </script>
+      </section>
+
+      {% else %}
+      <section class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-space-lg">
+        <h2 class="font-title-md text-title-md font-bold text-on-surface">Đổi mật khẩu</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 mb-space-md">Sau khi đổi bạn vẫn đang đăng nhập — không phải vào lại.</p>
+
+        <form method="post" class="flex flex-col gap-space-md max-w-xl">
+          {% csrf_token %}
+          <input type="hidden" name="doi_mat_khau" value="1">
+          {% if form_mk.non_field_errors %}
+            <div class="p-3 rounded-xl bg-error-container text-on-error-container border border-error/30 font-body-sm text-body-sm">{{ form_mk.non_field_errors }}</div>
+          {% endif %}
+          {% for f in form_mk %}
+            <div class="flex flex-col gap-1">
+              <label class="font-label-sm text-label-sm font-semibold text-on-surface" for="{{ f.id_for_label }}">{{ f.label }}</label>
+              {{ f }}
+              {% if f.help_text %}<p class="text-[11px] text-on-surface-variant leading-snug">{{ f.help_text|safe }}</p>{% endif %}
+              {% if f.errors %}<p class="text-error text-xs">{{ f.errors.0 }}</p>{% endif %}
+            </div>
+          {% endfor %}
+          <div class="flex justify-end pt-space-xs">
+            <button type="submit" class="uc-btn px-space-lg py-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-sm font-semibold">Đổi mật khẩu</button>
+          </div>
+        </form>
+      </section>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endblock %}

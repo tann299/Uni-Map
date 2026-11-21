@@ -1,0 +1,120 @@
+{% extends "quantri/base.html" %}
+{% load humanize %}
+{% block title %}Dữ liệu tuyển sinh — Admin Console{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full gap-space-lg pb-space-xl">
+
+  <!-- Header + Tabs -->
+  <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm border border-outline-variant/40">
+    <h1 class="font-headline-md text-headline-md text-on-surface tracking-tight">Dữ liệu tuyển sinh</h1>
+    <p class="text-body-sm text-on-surface-variant mt-1">Danh mục tham chiếu chỉ đọc — nguồn crawler + import_mysql.py (managed=False)</p>
+
+    <div class="flex items-center gap-space-sm pt-space-md overflow-x-auto">
+      <a href="?tab=truong" class="px-space-md py-space-sm rounded-lg text-label-md flex items-center gap-space-xs shrink-0 transition-colors {% if tab == 'truong' %}bg-primary text-on-primary shadow-sm{% else %}bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high{% endif %}">
+        <span class="material-symbols-outlined text-[18px]">account_balance</span><span>Trường Đại học</span>
+        <span class="ml-1 px-1.5 py-0.5 rounded text-[11px] {% if tab == 'truong' %}bg-on-primary/20{% else %}bg-surface-container-highest{% endif %}">{{ so_truong }}</span>
+      </a>
+      <a href="?tab=nganh" class="px-space-md py-space-sm rounded-lg text-label-md flex items-center gap-space-xs shrink-0 transition-colors {% if tab == 'nganh' %}bg-primary text-on-primary shadow-sm{% else %}bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high{% endif %}">
+        <span class="material-symbols-outlined text-[18px]">category</span><span>Ngành đào tạo</span>
+        <span class="ml-1 px-1.5 py-0.5 rounded text-[11px] {% if tab == 'nganh' %}bg-on-primary/20{% else %}bg-surface-container-highest{% endif %}">{{ so_nganh|intcomma }}</span>
+      </a>
+      <a href="?tab=tohop" class="px-space-md py-space-sm rounded-lg text-label-md flex items-center gap-space-xs shrink-0 transition-colors {% if tab == 'tohop' %}bg-primary text-on-primary shadow-sm{% else %}bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high{% endif %}">
+        <span class="material-symbols-outlined text-[18px]">calculate</span><span>Tổ hợp &amp; Môn thi</span>
+        <span class="ml-1 px-1.5 py-0.5 rounded text-[11px] {% if tab == 'tohop' %}bg-on-primary/20{% else %}bg-surface-container-highest{% endif %}">{{ so_to_hop }}</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <form method="get" class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm border border-outline-variant/40 flex flex-col lg:flex-row items-stretch lg:items-center gap-space-md">
+    <input type="hidden" name="tab" value="{{ tab }}">
+    <div class="relative flex-1 min-w-[220px]">
+      <span class="material-symbols-outlined text-outline absolute left-3 top-2.5 text-[20px]">search</span>
+      <input name="q" value="{{ q }}" class="w-full pl-9 pr-4 py-space-xs rounded-lg bg-surface-container-low text-on-surface text-body-sm focus:outline-none focus:bg-surface-container-lowest transition-colors placeholder:text-outline"
+        placeholder="{% if tab == 'truong' %}Tìm mã trường (BKA, KHA...) hoặc tên{% elif tab == 'nganh' %}Tìm tên ngành hoặc slug{% else %}Tìm mã tổ hợp (A00, D01...) hoặc tên{% endif %}" type="text">
+    </div>
+    {% if tab == 'truong' %}
+    <div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-lg shrink-0">
+      <a href="?tab=truong{% if q %}&q={{ q }}{% endif %}" class="px-2.5 py-1 rounded text-label-sm {% if not vung %}bg-surface-container-lowest text-on-surface shadow{% else %}text-on-surface-variant hover:bg-surface-container-highest{% endif %}">Tất cả</a>
+      <a href="?tab=truong&vung=bac{% if q %}&q={{ q }}{% endif %}" class="px-2.5 py-1 rounded text-label-sm {% if vung == 'bac' %}bg-surface-container-lowest text-on-surface shadow{% else %}text-on-surface-variant hover:bg-surface-container-highest{% endif %}">Bắc ({{ so_truong_bac }})</a>
+      <a href="?tab=truong&vung=trung{% if q %}&q={{ q }}{% endif %}" class="px-2.5 py-1 rounded text-label-sm {% if vung == 'trung' %}bg-surface-container-lowest text-on-surface shadow{% else %}text-on-surface-variant hover:bg-surface-container-highest{% endif %}">Trung ({{ so_truong_trung }})</a>
+      <a href="?tab=truong&vung=nam{% if q %}&q={{ q }}{% endif %}" class="px-2.5 py-1 rounded text-label-sm {% if vung == 'nam' %}bg-surface-container-lowest text-on-surface shadow{% else %}text-on-surface-variant hover:bg-surface-container-highest{% endif %}">Nam ({{ so_truong_nam }})</a>
+    </div>
+    <select name="tinh" onchange="this.form.submit()" class="px-space-sm py-space-xs rounded-lg bg-surface-container-low text-on-surface text-body-sm focus:outline-none shrink-0">
+      <option value="">Tất cả tỉnh/thành</option>
+      {% for t in tinh_list %}<option value="{{ t }}" {% if t == tinh %}selected{% endif %}>{{ t }}</option>{% endfor %}
+    </select>
+    {% endif %}
+    <button type="submit" class="px-space-md py-space-xs rounded-lg bg-primary text-on-primary text-label-md hover:bg-primary-container transition-colors flex items-center gap-space-xs shrink-0">
+      <span class="material-symbols-outlined text-[18px]">filter_alt</span><span>Lọc</span>
+    </button>
+  </form>
+
+  <!-- Data table -->
+  <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/40 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-body-sm">
+        <thead>
+          <tr class="bg-surface-container-low text-outline text-label-sm uppercase tracking-wider">
+            {% if tab == 'truong' %}
+              <th class="py-space-md px-space-md">Mã</th><th class="py-space-md px-space-md">Tên trường</th>
+              <th class="py-space-md px-space-md">Viết tắt</th><th class="py-space-md px-space-md">Tỉnh/Thành</th>
+              <th class="py-space-md px-space-md">Vùng miền</th>
+            {% elif tab == 'nganh' %}
+              <th class="py-space-md px-space-md">ID</th><th class="py-space-md px-space-md">Tên ngành</th>
+              <th class="py-space-md px-space-md">Nhóm ngành</th><th class="py-space-md px-space-md">Slug</th>
+            {% else %}
+              <th class="py-space-md px-space-md">Mã tổ hợp</th><th class="py-space-md px-space-md">Tên</th>
+              <th class="py-space-md px-space-md">Các môn</th><th class="py-space-md px-space-md">Số môn</th>
+              <th class="py-space-md px-space-md">Nguồn</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-surface-container">
+          {% for row in page_obj %}
+          <tr class="hover:bg-surface-container-low transition-colors">
+            {% if tab == 'truong' %}
+              <td class="py-space-md px-space-md font-mono font-bold text-primary">{{ row.ma_truong }}</td>
+              <td class="py-space-md px-space-md text-on-surface">{{ row.ten_truong }}</td>
+              <td class="py-space-md px-space-md text-on-surface-variant">{{ row.viet_tat }}</td>
+              <td class="py-space-md px-space-md text-on-surface-variant">{{ row.tinh_thanh }}</td>
+              <td class="py-space-md px-space-md"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant text-[11px] font-semibold">{{ row.vung_mien }}</span></td>
+            {% elif tab == 'nganh' %}
+              <td class="py-space-md px-space-md font-mono text-outline">{{ row.nganh_id }}</td>
+              <td class="py-space-md px-space-md text-on-surface">{{ row.ten_nganh }}</td>
+              <td class="py-space-md px-space-md"><span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed text-[11px] font-semibold">{{ row.nhom_nganh }}</span></td>
+              <td class="py-space-md px-space-md font-mono text-label-sm text-outline">{{ row.nganh_slug }}</td>
+            {% else %}
+              <td class="py-space-md px-space-md font-mono font-bold text-primary">{{ row.ma_to_hop }}</td>
+              <td class="py-space-md px-space-md text-on-surface">{{ row.ten_to_hop }}</td>
+              <td class="py-space-md px-space-md font-mono text-label-sm text-on-surface-variant">{{ row.cac_mon }}</td>
+              <td class="py-space-md px-space-md text-center text-on-surface">{{ row.so_mon }}</td>
+              <td class="py-space-md px-space-md text-on-surface-variant">{{ row.nguon }}</td>
+            {% endif %}
+          </tr>
+          {% empty %}
+          <tr><td colspan="5" class="py-8 text-center text-on-surface-variant">Không tìm thấy bản ghi nào.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if page_obj.paginator.num_pages > 1 %}
+    <div class="flex items-center justify-between px-space-md py-space-sm border-t border-surface-container text-label-sm text-on-surface-variant">
+      <span>Trang {{ page_obj.number }} / {{ page_obj.paginator.num_pages }} · {{ page_obj.paginator.count|intcomma }} bản ghi</span>
+      <div class="flex items-center gap-1">
+        {% if page_obj.has_previous %}
+        <a href="?tab={{ tab }}{% if q %}&q={{ q }}{% endif %}{% if vung %}&vung={{ vung }}{% endif %}{% if tinh %}&tinh={{ tinh }}{% endif %}&page={{ page_obj.previous_page_number }}" class="px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface">Trước</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+        <a href="?tab={{ tab }}{% if q %}&q={{ q }}{% endif %}{% if vung %}&vung={{ vung }}{% endif %}{% if tinh %}&tinh={{ tinh }}{% endif %}&page={{ page_obj.next_page_number }}" class="px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface">Sau</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends "quantri/base.html" %}
+{% load humanize %}
+{% block title %}Dashboard — Admin Console{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full space-y-space-lg pb-space-xl">
+
+  <!-- Banner: Trạng thái cửa sổ trượt -->
+  <div class="bg-surface-container-lowest border-l-4 border-primary rounded-r-xl p-space-md shadow-sm">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+      <div class="flex items-start gap-space-sm">
+        <div class="w-9 h-9 rounded-lg bg-primary-fixed text-on-primary-fixed flex items-center justify-center shrink-0 mt-0.5">
+          <span class="material-symbols-outlined text-[22px]">verified</span>
+        </div>
+        <div class="space-y-1">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-label-md text-primary font-bold uppercase tracking-wide">Cửa sổ phân tích: {{ cua_so_str }}</span>
+            <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[11px] font-bold">CN-05 · {{ so_nam_cua_so }} năm liên tục</span>
+          </div>
+          <p class="text-body-sm text-on-surface-variant leading-relaxed">
+            Hệ thống duy trì cửa sổ trượt {{ cua_so_str }}. Cổng CN-08 tự động chặn dữ liệu mùa mới khi chưa đủ ngưỡng, giữ dự báo an toàn. Không cần thao tác thủ công.
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="{% url 'quantri:cap_nhat' %}" class="flex items-center gap-1 px-3 py-1.5 bg-primary text-on-primary hover:bg-primary-container text-label-sm rounded-lg transition-colors shadow-sm">
+          <span class="material-symbols-outlined text-[16px]">sync</span><span>Xem Pipeline</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md">
+    <!-- Card 1: Dữ liệu -->
+    <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-outline-variant/40 flex flex-col justify-between">
+      <div class="space-y-space-xs">
+        <div class="flex items-center justify-between">
+          <span class="text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">DỮ LIỆU TUYỂN SINH</span>
+          <span class="material-symbols-outlined text-primary text-[20px]">database</span>
+        </div>
+        <div class="space-y-1 pt-1">
+          <div class="font-data-metric text-data-metric text-on-surface font-bold">{{ so_fact|intcomma }} <span class="text-body-sm font-normal text-on-surface-variant">dòng Fact</span></div>
+          <p class="text-label-md text-primary font-semibold">{{ so_truong }} trường · {{ so_nganh|intcomma }} ngành · {{ so_to_hop }} tổ hợp</p>
+        </div>
+      </div>
+      <div class="mt-space-md pt-space-xs border-t border-surface-container flex flex-col gap-1 text-[11px] text-on-surface-variant">
+        <div class="flex justify-between"><span>Phạm vi địa lý:</span><span class="font-semibold text-on-surface">{{ so_tinh }} tỉnh/thành</span></div>
+        <div class="flex justify-between"><span>Cửa sổ trượt:</span><span class="font-mono font-bold text-on-surface">{{ cua_so_str }}</span></div>
+        <div class="flex justify-between"><span>Cập nhật cuối:</span><span class="text-primary font-semibold">{% if lan_cap_nhat_cuoi %}{{ lan_cap_nhat_cuoi.thoi_diem|date:"d/m/Y" }}{% else %}—{% endif %}</span></div>
+      </div>
+    </div>
+
+    <!-- Card 2: Gate -->
+    <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-outline-variant/40 flex flex-col justify-between">
+      <div class="space-y-space-xs">
+        <div class="flex items-center justify-between">
+          <span class="text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">KIỂM TRA CHẤT LƯỢNG</span>
+          <span class="material-symbols-outlined text-secondary text-[20px]">verified</span>
+        </div>
+        <div class="space-y-1 pt-1">
+          <div class="font-data-metric text-data-metric text-on-surface font-bold flex items-center gap-2">
+            {% if lan_cap_nhat_cuoi.selfcheck_dat %}ĐẠT{% else %}—{% endif %}
+            <span class="px-2 py-0.5 bg-primary-fixed text-on-primary-fixed rounded text-label-sm font-semibold">Self-check</span>
+          </div>
+          <p class="text-label-md text-secondary font-semibold">Lệnh: <code class="font-mono text-[12px]">manage.py kiemtra</code></p>
+        </div>
+      </div>
+      <div class="mt-space-md pt-space-xs border-t border-surface-container flex flex-col gap-1 text-[11px] text-on-surface-variant">
+        <div class="flex justify-between"><span>Chuẩn UTF-8:</span><span class="font-mono font-bold text-primary">100% (0 lỗi font)</span></div>
+        <div class="flex justify-between"><span>Mục tiêu PC-01 / PC-02:</span><span class="font-mono font-semibold text-on-surface">&lt; 3s / &lt; 1s</span></div>
+      </div>
+    </div>
+
+    <!-- Card 3: AI -->
+    <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-outline-variant/40 flex flex-col justify-between">
+      <div class="space-y-space-xs">
+        <div class="flex items-center justify-between">
+          <span class="text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">MÔ HÌNH AI &amp; GỢI Ý</span>
+          <span class="material-symbols-outlined text-tertiary text-[20px]">psychology</span>
+        </div>
+        <div class="space-y-1 pt-1">
+          <div class="font-data-metric text-data-metric text-on-surface font-bold truncate">Fallback Margin</div>
+          <p class="text-label-md text-tertiary font-semibold">Trạng thái: <span class="text-primary font-bold">UC-05/5b</span></p>
+        </div>
+      </div>
+      <div class="mt-space-md pt-space-xs border-t border-surface-container flex flex-col gap-1 text-[11px] text-on-surface-variant">
+        <div class="flex justify-between"><span>Lần gợi ý đã ghi:</span><span class="font-mono font-bold text-on-surface">{{ so_lan_goi_y|intcomma }}</span></div>
+        <div class="pt-1"><a href="{% url 'quantri:ai' %}" class="block text-center py-1 bg-surface-container hover:bg-surface-container-high rounded text-primary font-semibold transition-colors">Xem chi tiết AI</a></div>
+      </div>
+    </div>
+
+    <!-- Card 4: Người dùng -->
+    <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm border border-outline-variant/40 flex flex-col justify-between">
+      <div class="space-y-space-xs">
+        <div class="flex items-center justify-between">
+          <span class="text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">NGƯỜI DÙNG &amp; VẬN HÀNH</span>
+          <span class="material-symbols-outlined text-secondary text-[20px]">badge</span>
+        </div>
+        <div class="space-y-1 pt-1">
+          <div class="font-data-metric text-data-metric text-on-surface font-bold">{{ so_user|intcomma }} <span class="text-body-sm font-normal text-on-surface-variant">tài khoản</span></div>
+          <p class="text-label-md text-secondary font-semibold">{{ so_hoso|intcomma }} hồ sơ năng lực</p>
+        </div>
+      </div>
+      <div class="mt-space-md pt-space-xs border-t border-surface-container flex flex-col gap-1 text-[11px] text-on-surface-variant">
+        <div class="flex justify-between"><span>CSDL:</span><span class="text-on-surface font-medium">MySQL 8.0.30</span></div>
+        <div class="pt-1"><a href="{% url 'quantri:nguoi_dung' %}" class="block text-center py-1 bg-surface-container hover:bg-surface-container-high rounded text-primary font-semibold transition-colors">Quản lý người dùng</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audit Log / Lịch sử gợi ý gần nhất -->
+  <div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm border border-outline-variant/40 space-y-space-md">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary text-[22px]">policy</span>
+      <div>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Nhật ký hoạt động gần nhất</h2>
+        <p class="text-body-sm text-on-surface-variant">10 lần gợi ý nguyện vọng mới nhất từ engine</p>
+      </div>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-body-sm">
+        <thead>
+          <tr class="bg-surface-container-low text-on-surface-variant text-label-sm uppercase tracking-wider">
+            <th class="py-2.5 px-space-md rounded-l-lg">Thời gian</th>
+            <th class="py-2.5 px-space-md">Hồ sơ</th>
+            <th class="py-2.5 px-space-md">Người dùng</th>
+            <th class="py-2.5 px-space-md">Engine</th>
+            <th class="py-2.5 px-space-md text-right rounded-r-lg">Số kết quả</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-surface-container">
+          {% for g in recent_goi_y %}
+          <tr class="hover:bg-surface-container-low/50 transition-colors">
+            <td class="py-3 px-space-md font-mono text-label-sm text-on-surface font-bold whitespace-nowrap">{{ g.thoi_diem|date:"d/m/Y H:i" }}</td>
+            <td class="py-3 px-space-md text-on-surface">{{ g.ho_so.ten_ho_so }}</td>
+            <td class="py-3 px-space-md text-on-surface-variant">{{ g.ho_so.user.username }}</td>
+            <td class="py-3 px-space-md">
+              {% if g.dung_ai %}
+                <span class="px-2 py-0.5 bg-primary-fixed text-on-primary-fixed text-[11px] font-bold rounded">AI {{ g.phien_ban_mo_hinh }}</span>
+              {% else %}
+                <span class="px-2 py-0.5 bg-surface-container text-on-surface-variant text-[11px] font-bold rounded">Fallback Margin</span>
+              {% endif %}
+            </td>
+            <td class="py-3 px-space-md text-right font-mono font-bold text-on-surface">{{ g.so_ket_qua }}</td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="5" class="py-6 text-center text-on-surface-variant">Chưa có lần gợi ý nào được ghi nhận.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

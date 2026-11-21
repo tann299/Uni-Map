@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="235pt" viewBox="0 0 460 235">
+
+<rect x="0" y="0" width="460" height="235" fill="#FFFFFF"/>
+<rect x="118" y="40" width="300" height="12" rx="2" fill="#990000" stroke="none"/>
+<text x="114" y="46" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.8" fill="#0E2841" text-anchor="end" dominant-baseline="middle" font-weight="bold">margin</text>
+<text x="422" y="46" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#384152" text-anchor="start" dominant-baseline="middle">0,6060</text>
+<rect x="118" y="57" width="107.97" height="12" rx="2" fill="#990000" stroke="none"/>
+<text x="114" y="63" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.8" fill="#0E2841" text-anchor="end" dominant-baseline="middle" font-weight="bold">diem_thi</text>
+<text x="229.97" y="63" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#384152" text-anchor="start" dominant-baseline="middle">0,2181</text>
+<rect x="118" y="74" width="25.198" height="12" rx="2" fill="#FBAE40" stroke="none"/>
+<text x="114" y="80" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.8" fill="#0E2841" text-anchor="end" dominant-baseline="middle">diem_moi_nhat</text>
+<text x="147.198" y="80" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#384152" text-anchor="start" dominant-baseline="middle">0,0509</text>
+<rect x="118" y="91" width="21.0396" height="12" rx="2" fill="#FBAE40" stroke="none"/>
+<text x="114" y="97" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.8" fill="#0E2841" text-anchor="end" dominant-baseline="middle">diem_tb</text>
+<text x="143.04" y="97" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#384152" text-anchor="start" dominant-baseline="middle">0,0425</text>
+<rect x="118" y="108" width="8.11881" height="12" rx="2" fill="#FBAE40" stroke="none"/>
+<text x="114" y="114" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.8" fill="#0E2841" text-anchor="end" dominant-baseline="middle">bien_dong</text>
+<text x="130.119" y="114" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#384152" text-anchor="start" dominant-baseline="middle">0,0164</text>
+<rect x="118" y="125" width="8.11881" height="12" rx="2" fill="#FBAE40" stroke="none"/>
+<text x="114" y="131" font-family="'Courier New', 'Liberation Mono', monospace" font-size="6.8" fill="#0E2841" text-anchor="end" dominant-baseline="middle">xu_huong</text>
+<text x="130.119" y="131" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#384152" text-anchor="start" dominant-baseline="middle">0,0164</text>
+<rect x="118" y="142" width="5.94059" height="12" rx="2" fill="#6B7280" stroke="none"/>
+<text x="114" y="148" font-family="'Times New Roman', serif" font-size="6.8" fill="#0E2841" text-anchor="end" dominant-baseline="middle">so_nam_co_dl</text>
+<text x="127.941" y="148" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#384152" text-anchor="start" dominant-baseline="middle">0,0120</text>
+<rect x="118" y="159" width="8.91089" height="12" rx="2" fill="#6B7280" stroke="none"/>
+<text x="114" y="165" font-family="'Times New Roman', serif" font-size="6.8" fill="#0E2841" text-anchor="end" dominant-baseline="middle">nhóm ngành (15 cột)</text>
+<text x="130.911" y="165" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#384152" text-anchor="start" dominant-baseline="middle">0,0180</text>
+<rect x="118" y="176" width="4.45545" height="12" rx="2" fill="#6B7280" stroke="none"/>
+<text x="114" y="182" font-family="'Times New Roman', serif" font-size="6.8" fill="#0E2841" text-anchor="end" dominant-baseline="middle">vùng miền (3 cột)</text>
+<text x="126.455" y="182" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#384152" text-anchor="start" dominant-baseline="middle">0,0090</text>
+<rect x="118" y="193" width="3.9604" height="12" rx="2" fill="#6B7280" stroke="none"/>
+<text x="114" y="199" font-family="'Times New Roman', serif" font-size="6.8" fill="#0E2841" text-anchor="end" dominant-baseline="middle">phương thức (2 cột)</text>
+<text x="125.96" y="199" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.4" fill="#384152" text-anchor="start" dominant-baseline="middle">0,0080</text>
+<path d="M118,210 L118,36" fill="none" stroke="#0E2841" stroke-width="0.9"/>
+<text x="230" y="14" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">TẦM QUAN TRỌNG CỦA CÁC ĐẶC TRƯNG (feature_importances_)</text>
+<text x="230" y="222" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">Hai đặc trưng đầu chiếm 82,4% tổng đóng góp; nhóm lịch sử đóng vai trò hiệu chỉnh rủi ro</text>
+</svg>

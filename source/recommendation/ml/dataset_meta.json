@@ -1,0 +1,61 @@
+{
+  "nam_train": [
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "nam_test": [
+    2025
+  ],
+  "nam_lookback": 6,
+  "deltas": [
+    -3.0,
+    -2.0,
+    -1.0,
+    -0.5,
+    -0.2,
+    0.0,
+    0.2,
+    0.5,
+    1.0,
+    2.0,
+    3.0
+  ],
+  "train_rows": 913924,
+  "test_rows": 244123,
+  "train_pos_rate": 0.5455,
+  "test_pos_rate": 0.5455,
+  "so_key": 100363,
+  "cot_dac_trung": [
+    "diem_thi",
+    "margin",
+    "diem_moi_nhat",
+    "diem_tb",
+    "xu_huong",
+    "bien_dong",
+    "so_nam_co_dl",
+    "nn_Báo chí - Truyền thông",
+    "nn_Công nghệ thông tin",
+    "nn_Du lịch - Khách sạn - Nhà hàng",
+    "nn_Khác",
+    "nn_Khoa học XH & Nhân văn",
+    "nn_Kiến trúc - Xây dựng",
+    "nn_Kinh tế - Kinh doanh - Tài chính",
+    "nn_Kỹ thuật - Công nghệ",
+    "nn_Luật",
+    "nn_Nghệ thuật - Thiết kế - TDTT",
+    "nn_Ngôn ngữ - Quốc tế học",
+    "nn_Nông - Lâm - Ngư - Thú y",
+    "nn_Quân đội - Công an",
+    "nn_Sư phạm - Giáo dục",
+    "nn_Y - Dược - Sức khỏe",
+    "vm_Miền Bắc",
+    "vm_Miền Trung",
+    "vm_Miền Nam",
+    "pt_Điểm thi THPT",
+    "pt_Điểm học bạ"
+  ],
+  "so_dac_trung": 27,
+  "nhan_thieu": {}
+}

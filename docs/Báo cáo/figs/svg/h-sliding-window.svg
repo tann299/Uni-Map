@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="175pt" viewBox="0 0 460 175">
+
+<rect x="0" y="0" width="460" height="175" fill="#FFFFFF"/>
+<text x="230" y="16" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">CƠ CHẾ CỬA SỔ TRƯỢT 10 NĂM</text>
+<text x="230" y="30" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">Cập nhật năm mới chỉ cần đổi ánh xạ cột — không ALTER TABLE, không sửa mã nguồn</text>
+<text x="22" y="66" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7" fill="#0E2841" text-anchor="end" dominant-baseline="middle" font-weight="bold">Trước
+(2025)</text>
+<rect x="26" y="52" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#0E2841" stroke-width="0.9"/>
+<text x="46" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 1</text>
+<text x="46" y="73" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2016</text>
+<rect x="69" y="52" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#0E2841" stroke-width="0.9"/>
+<text x="89" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 2</text>
+<text x="89" y="73" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2017</text>
+<rect x="112" y="52" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#0E2841" stroke-width="0.9"/>
+<text x="132" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 3</text>
+<text x="132" y="73" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2018</text>
+<rect x="155" y="52" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#0E2841" stroke-width="0.9"/>
+<text x="175" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 4</text>
+<text x="175" y="73" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2019</text>
+<rect x="198" y="52" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#0E2841" stroke-width="0.9"/>
+<text x="218" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 5</text>
+<text x="218" y="73" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2020</text>
+<rect x="241" y="52" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#0E2841" stroke-width="0.9"/>
+<text x="261" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 6</text>
+<text x="261" y="73" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2021</text>
+<rect x="284" y="52" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#0E2841" stroke-width="0.9"/>
+<text x="304" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 7</text>
+<text x="304" y="73" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2022</text>
+<rect x="327" y="52" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#0E2841" stroke-width="0.9"/>
+<text x="347" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 8</text>
+<text x="347" y="73" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2023</text>
+<rect x="370" y="52" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#0E2841" stroke-width="0.9"/>
+<text x="390" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 9</text>
+<text x="390" y="73" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2024</text>
+<rect x="413" y="52" width="40" height="28" rx="3" fill="#FCEFD9" stroke="#0E2841" stroke-width="0.9"/>
+<text x="433" y="62" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 10</text>
+<text x="433" y="73" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2025</text>
+<text x="22" y="118" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7" fill="#990000" text-anchor="end" dominant-baseline="middle" font-weight="bold">Sau
+(2026)</text>
+<rect x="26" y="104" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#990000" stroke-width="0.9"/>
+<text x="46" y="114" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 1</text>
+<text x="46" y="125" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2017</text>
+<rect x="69" y="104" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#990000" stroke-width="0.9"/>
+<text x="89" y="114" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 2</text>
+<text x="89" y="125" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2018</text>
+<rect x="112" y="104" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#990000" stroke-width="0.9"/>
+<text x="132" y="114" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 3</text>
+<text x="132" y="125" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2019</text>
+<rect x="155" y="104" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#990000" stroke-width="0.9"/>
+<text x="175" y="114" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 4</text>
+<text x="175" y="125" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2020</text>
+<rect x="198" y="104" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#990000" stroke-width="0.9"/>
+<text x="218" y="114" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 5</text>
+<text x="218" y="125" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2021</text>
+<rect x="241" y="104" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#990000" stroke-width="0.9"/>
+<text x="261" y="114" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 6</text>
+<text x="261" y="125" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2022</text>
+<rect x="284" y="104" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#990000" stroke-width="0.9"/>
+<text x="304" y="114" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 7</text>
+<text x="304" y="125" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2023</text>
+<rect x="327" y="104" width="40" height="28" rx="3" fill="#F3F4F6" stroke="#990000" stroke-width="0.9"/>
+<text x="347" y="114" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 8</text>
+<text x="347" y="125" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2024</text>
+<rect x="370" y="104" width="40" height="28" rx="3" fill="#FCEFD9" stroke="#990000" stroke-width="0.9"/>
+<text x="390" y="114" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 9</text>
+<text x="390" y="125" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2025</text>
+<rect x="413" y="104" width="40" height="28" rx="3" fill="#FCEFD9" stroke="#990000" stroke-width="0.9"/>
+<text x="433" y="114" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cột 10</text>
+<text x="433" y="125" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">2026</text>
+<text x="230" y="152" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#384152" text-anchor="middle" dominant-baseline="middle">Quản trị viên chỉ thay đổi bảng cua_so_nam qua giao diện: vị trí 1 → năm 2017, … vị trí 10 → năm 2026.</text>
+<text x="230" y="165" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#384152" text-anchor="middle" dominant-baseline="middle">Hệ thống hiển thị tự trượt; AI dùng 6 năm gần nhất trong cửa sổ.</text>
+</svg>

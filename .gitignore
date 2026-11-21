@@ -10,7 +10,9 @@ env/
 db.sqlite3
 *.log
 /staticfiles/
-/media/
+# Media runtime (upload avatar...) — MEDIA_ROOT = source/media/, khong chua
+# anchor `/` vi nguoi go thi se bo qua.
+media/
 
 # Bí mật: settings.py đọc DB_PASSWORD, DJANGO_SECRET_KEY từ biến môi trường
 .env
@@ -19,14 +21,60 @@ db.sqlite3
 # Dữ liệu tạm của crawler (tải lại được, không cần commit)
 ref/_tohop_bogd.pdf
 
+# ML: CSV sinh bởi recommendation/ml/gen_dataset.py, dựng lại được bất cứ lúc nào
+# (train.py cần chúng khi huấn luyện lại UC-10 -> vẫn giữ trên đĩa, chỉ không commit).
+source/recommendation/ml/train_dataset.csv
+source/recommendation/ml/test_dataset.csv
+# Báo cáo của lần train bị TỪ CHỐI ghi đè — sinh lại mỗi lần bấm huấn luyện.
+source/recommendation/ml/bao_cao_danh_gia_moi.json
+
 # IDE / OS
 .vscode/
 .idea/
 Thumbs.db
 desktop.ini
 
+# Rác của Playwright MCP (snapshot/console log khi test giao diện)
+.playwright-mcp/
+
 
 cache/
+# Font tai ve cua scripts/gen_hand_glyphs.py (1.5MB, tai lai duoc)
+.cache/
 data/
 db/
 ref/
+*.zip
+
+# SQL dump đầy đủ để import lên shared hosting (34MB, sinh lại được từ
+# schema.sql + import_mysql.py). Không commit để repo không phình.
+database/dump_directadmin/
+Báo cáo/
+
+# Tài liệu kế hoạch, không phải mã nguồn
+plan.AI.docx
+Report/
+
+# Template LaTeX đồ án tham khảo, không phải mã nguồn
+docs/mau-bao-cao-do-an-TTNT/
+docs/mau-bao-cao-do-an-TTNT-xem-truoc.pdf
+
+# Slide bao cao: node_modules thu vien, tai lai bang npm install
+docs/slide/node_modules/
+
+# Cau hinh tool local (launch.json cho preview browser, settings session)
+.claude/
+
+# Thu muc tam khi xuat SVG/PDF tu script tai lieu
+.tmp_svg/
+
+# Script nhap dung de sinh slide - khong phai ma nguon du an
+docs/slide/build_deck.js
+docs/slide/build_deck_v3.js
+docs/slide/add_fx.py
+docs/slide/add_two_slides.py
+docs/slide/rewrite_notes.py
+
+# Tai lieu dien giai slide + script sinh (tai lieu lam viec, khong phai ma nguon)
+docs/slide/*.docx
+docs/slide/make_speaker_doc.py

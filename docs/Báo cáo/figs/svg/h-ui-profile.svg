@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="200pt" viewBox="0 0 460 200">
+
+<rect x="0" y="0" width="460" height="200" fill="#FFFFFF"/>
+<rect x="4" y="26" width="452" height="160" rx="6" fill="#FFFFFF" stroke="#0E2841" stroke-width="1.2"/>
+<rect x="4" y="26" width="452" height="22" rx="6" fill="#0E2841" stroke="none"/>
+<rect x="4" y="40" width="452" height="8" fill="#0E2841" stroke="none"/>
+<text x="230" y="37" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="8" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="0.8">UNI CONNECT — NHẬP HỒ SƠ ĐIỂM NĂNG LỰC THÍ SINH</text>
+<rect x="16" y="58" width="428" height="44" rx="4" fill="#F3F4F6" stroke="#DADEE2" stroke-width="0.8"/>
+<text x="24" y="70" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#0E2841" text-anchor="start" dominant-baseline="middle" font-weight="bold">Tên hồ sơ:</text>
+<rect x="70" y="62" width="130" height="16" rx="2" fill="#FFFFFF" stroke="#DADEE2" stroke-width="0.7"/>
+<text x="75" y="70" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="start" dominant-baseline="middle">Hồ sơ xét tuyển 2026</text>
+<text x="212" y="70" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#0E2841" text-anchor="start" dominant-baseline="middle" font-weight="bold">Phương thức:</text>
+<rect x="266" y="62" width="110" height="16" rx="2" fill="#FFFFFF" stroke="#DADEE2" stroke-width="0.7"/>
+<text x="271" y="70" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="start" dominant-baseline="middle">Xét điểm thi THPT</text>
+<text x="24" y="90" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#0E2841" text-anchor="start" dominant-baseline="middle" font-weight="bold">Điểm ưu tiên:</text>
+<rect x="78" y="82" width="90" height="16" rx="2" fill="#FFFFFF" stroke="#DADEE2" stroke-width="0.7"/>
+<text x="83" y="90" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="start" dominant-baseline="middle">0,50 (KV2 nông thôn)</text>
+<rect x="16" y="110" width="428" height="36" rx="4" fill="#F7FAFD" stroke="#0E2841" stroke-width="0.8"/>
+<text x="24" y="120" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#0E2841" text-anchor="start" dominant-baseline="middle" font-weight="bold">BẢNG ĐIỂM TỪNG MÔN (thang 10):</text>
+<rect x="24" y="128" width="50" height="14" rx="2" fill="#FFFFFF" stroke="#DADEE2" stroke-width="0.6"/>
+<text x="30" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.6" fill="#384152" text-anchor="start" dominant-baseline="middle">Toán</text>
+<text x="68" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#990000" text-anchor="end" dominant-baseline="middle" font-weight="bold">8,5</text>
+<rect x="83" y="128" width="50" height="14" rx="2" fill="#FFFFFF" stroke="#DADEE2" stroke-width="0.6"/>
+<text x="89" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.6" fill="#384152" text-anchor="start" dominant-baseline="middle">Lý</text>
+<text x="127" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#990000" text-anchor="end" dominant-baseline="middle" font-weight="bold">8,0</text>
+<rect x="142" y="128" width="50" height="14" rx="2" fill="#FFFFFF" stroke="#DADEE2" stroke-width="0.6"/>
+<text x="148" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.6" fill="#384152" text-anchor="start" dominant-baseline="middle">Hóa</text>
+<text x="186" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#990000" text-anchor="end" dominant-baseline="middle" font-weight="bold">8,5</text>
+<rect x="201" y="128" width="50" height="14" rx="2" fill="#FFFFFF" stroke="#DADEE2" stroke-width="0.6"/>
+<text x="207" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.6" fill="#384152" text-anchor="start" dominant-baseline="middle">Sinh</text>
+<text x="245" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#990000" text-anchor="end" dominant-baseline="middle" font-weight="bold">6,5</text>
+<rect x="260" y="128" width="50" height="14" rx="2" fill="#FFFFFF" stroke="#DADEE2" stroke-width="0.6"/>
+<text x="266" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.6" fill="#384152" text-anchor="start" dominant-baseline="middle">Văn</text>
+<text x="304" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#990000" text-anchor="end" dominant-baseline="middle" font-weight="bold">7,0</text>
+<rect x="319" y="128" width="50" height="14" rx="2" fill="#FFFFFF" stroke="#DADEE2" stroke-width="0.6"/>
+<text x="325" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.6" fill="#384152" text-anchor="start" dominant-baseline="middle">Sử</text>
+<text x="363" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#990000" text-anchor="end" dominant-baseline="middle" font-weight="bold">6,0</text>
+<rect x="378" y="128" width="50" height="14" rx="2" fill="#FFFFFF" stroke="#DADEE2" stroke-width="0.6"/>
+<text x="384" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.6" fill="#384152" text-anchor="start" dominant-baseline="middle">Địa</text>
+<text x="422" y="135" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.2" fill="#990000" text-anchor="end" dominant-baseline="middle" font-weight="bold">6,5</text>
+<rect x="16" y="152" width="428" height="26" rx="4" fill="#FCEFD9" stroke="#FBAE40" stroke-width="0.9"/>
+<text x="24" y="160" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#990000" text-anchor="start" dominant-baseline="middle" font-weight="bold">TỔNG ĐIỂM TỔ HỢP TỰ ĐỘNG (đã gồm điểm ưu tiên):</text>
+<rect x="24" y="165" width="128" height="11" rx="2" fill="#FFFFFF" stroke="#990000" stroke-width="0.7"/>
+<text x="28" y="170.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#990000" text-anchor="start" dominant-baseline="middle" font-weight="bold">A00 (Toán, Lý, Hóa): 25,50</text>
+<rect x="164" y="165" width="128" height="11" rx="2" fill="#FFFFFF" stroke="#DADEE2" stroke-width="0.7"/>
+<text x="168" y="170.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#0E2841" text-anchor="start" dominant-baseline="middle">A01 (Toán, Lý, Anh): 25,00</text>
+<rect x="304" y="165" width="128" height="11" rx="2" fill="#FFFFFF" stroke="#DADEE2" stroke-width="0.7"/>
+<text x="308" y="170.5" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="5.8" fill="#0E2841" text-anchor="start" dominant-baseline="middle">D01 (Toán, Văn, Anh): 24,00</text>
+<text x="230" y="14" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">MÔ PHỎNG GIAO DIỆN NHẬP HỒ SƠ ĐIỂM</text>
+</svg>

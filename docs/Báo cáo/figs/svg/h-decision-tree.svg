@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="190pt" viewBox="0 0 460 190">
+<defs><marker id="ar384152" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#384152"/></marker></defs>
+<rect x="0" y="0" width="460" height="190" fill="#FFFFFF"/>
+<text x="230" y="14" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">MINH HOẠ MỘT CÂY QUYẾT ĐỊNH</text>
+<rect x="160" y="32" width="140" height="24" rx="3" fill="#FCEFD9" stroke="#990000" stroke-width="0.9"/>
+<text x="230" y="44" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">margin ≥ 0 ?</text>
+<rect x="65" y="80" width="120" height="24" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.9"/>
+<text x="125" y="92" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">diem_thi ≥ 24 ?</text>
+<rect x="275" y="80" width="120" height="24" rx="3" fill="#FFFFFF" stroke="#0E2841" stroke-width="0.9"/>
+<text x="335" y="92" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">xu_huong ≥ 0 ?</text>
+<rect x="38" y="130" width="84" height="24" rx="3" fill="#FBEEEE" stroke="#990000" stroke-width="0.9"/>
+<text x="80" y="142" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">TRƯỢT</text>
+<rect x="128" y="130" width="84" height="24" rx="3" fill="#E8F0EA" stroke="#196B24" stroke-width="0.9"/>
+<text x="170" y="142" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#196B24" text-anchor="middle" dominant-baseline="middle" font-weight="bold">ĐỖ (cao)</text>
+<rect x="248" y="130" width="84" height="24" rx="3" fill="#E8F0EA" stroke="#196B24" stroke-width="0.9"/>
+<text x="290" y="142" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.4" fill="#196B24" text-anchor="middle" dominant-baseline="middle" font-weight="bold">ĐỖ</text>
+<rect x="338" y="130" width="84" height="24" rx="3" fill="#FBEEEE" stroke="#990000" stroke-width="0.9"/>
+<text x="380" y="142" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.6" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">TRƯỢT (nguy cơ)</text>
+<path d="M170,56 L125,80" fill="none" stroke="#384152" stroke-width="0.9" marker-end="url(#ar384152)"/>
+<path d="M290,56 L335,80" fill="none" stroke="#384152" stroke-width="0.9" marker-end="url(#ar384152)"/>
+<rect x="127.5" y="61.5" width="21" height="9" fill="#FFFFFF" stroke="none"/>
+<text x="138" y="66" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">không</text>
+<rect x="316" y="61.5" width="12" height="9" fill="#FFFFFF" stroke="none"/>
+<text x="322" y="66" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">có</text>
+<path d="M85,104 L80,130" fill="none" stroke="#384152" stroke-width="0.9" marker-end="url(#ar384152)"/>
+<path d="M165,104 L170,130" fill="none" stroke="#384152" stroke-width="0.9" marker-end="url(#ar384152)"/>
+<rect x="59.5" y="111.5" width="21" height="9" fill="#FFFFFF" stroke="none"/>
+<text x="70" y="116" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">không</text>
+<rect x="179" y="111.5" width="12" height="9" fill="#FFFFFF" stroke="none"/>
+<text x="185" y="116" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">có</text>
+<path d="M295,104 L290,130" fill="none" stroke="#384152" stroke-width="0.9" marker-end="url(#ar384152)"/>
+<path d="M375,104 L380,130" fill="none" stroke="#384152" stroke-width="0.9" marker-end="url(#ar384152)"/>
+<rect x="269" y="111.5" width="12" height="9" fill="#FFFFFF" stroke="none"/>
+<text x="275" y="116" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">có</text>
+<rect x="379.5" y="111.5" width="21" height="9" fill="#FFFFFF" stroke="none"/>
+<text x="390" y="116" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">không</text>
+<text x="230" y="176" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#384152" text-anchor="middle" dominant-baseline="middle" font-style="italic">Mỗi nút chọn ngưỡng làm giảm bất thuần Gini nhiều nhất: Gini(S) = 1 − Σ pₖ²</text>
+</svg>

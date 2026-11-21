@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="460pt" height="175pt" viewBox="0 0 460 175">
+<defs><marker id="ar990000" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#990000"/></marker><marker id="ar196B24" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#196B24"/></marker></defs>
+<rect x="0" y="0" width="460" height="175" fill="#FFFFFF"/>
+<rect x="4" y="44" width="66" height="74" rx="5" fill="#E7EBF0" stroke="#0E2841" stroke-width="1.1"/>
+<text x="37" y="58" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.6" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Dữ liệu thô</text>
+<text x="37" y="76" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">crawl_diemchuan.py</text>
+<text x="37" y="85" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">CSV theo năm</text>
+<path d="M71,81 L79,81" fill="none" stroke="#990000" stroke-width="1.2" marker-end="url(#ar990000)"/>
+<rect x="80" y="44" width="66" height="74" rx="5" fill="#F3F4F6" stroke="#0E2841" stroke-width="1.1"/>
+<text x="113" y="58" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.6" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Làm sạch</text>
+<text x="113" y="76" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">chuẩn hoá tên ngành</text>
+<text x="113" y="85" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">ánh xạ nhóm ngành</text>
+<path d="M147,81 L155,81" fill="none" stroke="#990000" stroke-width="1.2" marker-end="url(#ar990000)"/>
+<rect x="156" y="44" width="66" height="74" rx="5" fill="#F3F4F6" stroke="#0E2841" stroke-width="1.1"/>
+<text x="189" y="58" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.6" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Nạp CSDL</text>
+<text x="189" y="76" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">import_mysql.py</text>
+<text x="189" y="85" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">diem_chuan</text>
+<path d="M223,81 L231,81" fill="none" stroke="#990000" stroke-width="1.2" marker-end="url(#ar990000)"/>
+<rect x="232" y="44" width="66" height="74" rx="5" fill="#FCEFD9" stroke="#990000" stroke-width="1.1"/>
+<text x="265" y="58" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.6" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Trích đặc trưng</text>
+<text x="265" y="76" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">gen_dataset.py</text>
+<text x="265" y="85" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">cửa sổ 6 năm</text>
+<path d="M299,81 L307,81" fill="none" stroke="#990000" stroke-width="1.2" marker-end="url(#ar990000)"/>
+<rect x="308" y="44" width="66" height="74" rx="5" fill="#FCEFD9" stroke="#990000" stroke-width="1.1"/>
+<text x="341" y="58" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.6" fill="#990000" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Sinh nhãn</text>
+<text x="341" y="76" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">11 mức DELTAS</text>
+<text x="341" y="85" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">±0,2 … ±3,0</text>
+<path d="M375,81 L383,81" fill="none" stroke="#990000" stroke-width="1.2" marker-end="url(#ar990000)"/>
+<rect x="384" y="44" width="66" height="74" rx="5" fill="#E8F0EA" stroke="#196B24" stroke-width="1.1"/>
+<text x="417" y="58" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7.6" fill="#196B24" text-anchor="middle" dominant-baseline="middle" font-weight="bold">Huấn luyện</text>
+<text x="417" y="76" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">train.py</text>
+<text x="417" y="85" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6" fill="#384152" text-anchor="middle" dominant-baseline="middle">Random Forest</text>
+<path d="M341.0,118.0 L341.0,140 L417.0,140 L417.0,120.0" fill="none" stroke="#196B24" stroke-width="1" stroke-dasharray="4,2" marker-end="url(#ar196B24)"/>
+<text x="230" y="150" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="6.8" fill="#196B24" text-anchor="middle" dominant-baseline="middle" font-weight="bold">chia cứng theo thời gian:  train 2021–2024  |  test 2025 (đo một lần)</text>
+<text x="230" y="16" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="9.5" fill="#0E2841" text-anchor="middle" dominant-baseline="middle" font-weight="bold" letter-spacing="1">PIPELINE DỮ LIỆU NGOẠI TUYẾN</text>
+<text x="230" y="30" font-family="'Times New Roman', 'Liberation Serif', serif" font-size="7" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">6 bước, chạy trước khi web khởi động — tách hoàn toàn khỏi luồng phục vụ</text>
+</svg>
