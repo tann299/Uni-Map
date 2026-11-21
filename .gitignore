@@ -49,7 +49,8 @@ ref/
 # SQL dump đầy đủ để import lên shared hosting (34MB, sinh lại được từ
 # schema.sql + import_mysql.py). Không commit để repo không phình.
 database/dump_directadmin/
-Báo cáo/
+# Báo cáo: nguồn LaTeX + PDF thành phẩm được commit (xem rule chi tiết ở dưới)
+# Báo cáo/
 
 # Tài liệu kế hoạch, không phải mã nguồn
 plan.AI.docx
@@ -78,3 +79,18 @@ docs/slide/rewrite_notes.py
 # Tai lieu dien giai slide + script sinh (tai lieu lam viec, khong phai ma nguon)
 docs/slide/*.docx
 docs/slide/make_speaker_doc.py
+
+# Báo cáo LaTeX: chỉ commit nguồn (.tex, .sty, figs nguồn, chuong, do-an.pdf);
+# qa2/ qa_tmp/ là ảnh render QA từng trang (sinh lại được, 16MB); file build
+# LaTeX (.aux/.log/.out/.toc) sinh lại mỗi lần compile.
+docs/Báo cáo/qa2/
+docs/Báo cáo/qa_tmp/
+docs/Báo cáo/*.aux
+docs/Báo cáo/*.log
+docs/Báo cáo/*.out
+docs/Báo cáo/*.toc
+docs/Báo cáo/*.fdb_latexmk
+docs/Báo cáo/*.fls
+docs/Báo cáo/*.lof
+docs/Báo cáo/*.lot
+docs/Báo cáo/*.synctex.gz
